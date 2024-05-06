@@ -12,7 +12,7 @@
 
 ############## VARIABLES ##############
 
-NAME = PmergeMe
+NAME = ircserv
 
 CC = c++ -std=c++98
 
@@ -25,6 +25,8 @@ CFLAGS = ${DEPS_FLAGS} -Wall -Wextra -Werror -g3 -fsanitize=address
 ############## SOURCES ##############
 
 SRC 	=	srcs/main.cpp \
+			srcs/Clients.cpp \
+			srcs/Server.cpp
 
 
 ############## DIRECTORIES ##############
