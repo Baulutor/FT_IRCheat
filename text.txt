@@ -33,6 +33,18 @@ getsockname : fonction systeme pour obtenir les informations sur l'adresse local
 soketfd : fd du socket
 (struct sockaddr*)&local_addr : pointeur vers une struct sockaddr dans laquelle les informations sur l'adresse locale
 &addr_len : ref vers un int qui specifie la taille de la struct &local_addr en octets
+    // struct sockaddr_in sock_info;
+    // socklen_t sock_info_len = sizeof(sock_info);
+    // if (getsockname(getFd(), (struct sockaddr*) &sock_info, &sock_info_len) < 0 ) {
+    //     std::cerr << "Error obtention des info du socket" << std::endl;
+    // }
+    // std::cout << "fd = " << getFd() << std::endl;
+    // std::cout << "addr local : " << inet_ntoa(sock_info.sin_addr) << std::endl;
+    // std::cout << "port local : " << ntohs(sock_info.sin_port) << std::endl;
+
+
+
+
 
 
 getprotobyname :fonction qui permet d'obtenir des informations sur un protocole reseau a partir de son nom. la fonction retourne une struct "protoent" avec son numereau de protocole etc...
