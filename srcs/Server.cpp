@@ -49,8 +49,8 @@ Server::Server( std::string av ) {
         std::cerr << "Error listen" << std::endl;
 
     socklen_t sock_info_len = sizeof(addr);
-    setFd(accept(getFd(), (struct sockaddr*)&addr, &sock_info_len));
-    std::cout << "fd2 = " << getFd() << std::endl;
+    client.setFd(accept(getFd(), (struct sockaddr*)&addr, &sock_info_len));
+    // std::cout << "fd2 = " << getFd() << std::endl;
     
     if(getFd() < 0)
         std::cout << "Error : accept" << std::endl;
@@ -60,7 +60,7 @@ Server::Server( std::string av ) {
     bool init = false;
     while (true)
     {
-        ssize_t bytes = recv(getFd(), buffer, 2048, 0);
+        ssize_t bytes = recv(client.getFd(), buffer, 2048, 0);
         if (bytes < 0)
             std::cerr << "ERROR rcve !" << std::endl;
         else if ( bytes == 0)
@@ -70,9 +70,9 @@ Server::Server( std::string av ) {
         std::cout << "buffer : |" << buffer << "|" << std::endl;
         std::string command = "CAP LS 302";
         if (startWith(buffer, command) || !init)
-        {
             init = client.initClients(buffer);
-        }
+        if (init)
+            client.printInfo();
         // selectCmd(buffer);
         sleep(1);
     }

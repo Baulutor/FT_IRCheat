@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   Clients.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bfaure <bfaure@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:36:58 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/08 16:46:22 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/08 18:35:01 by bfaure           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Clients.hpp"
+#include <sstream>
 
 Clients::Clients()
 {
@@ -51,7 +52,7 @@ void Clients::setPass(std::string pass) {_pass = pass;}
 void Clients::printInfo()
 {
     std::cout << "Nickname : " << _nickname << std::endl;
-    std::cout << "Username" << _username << std::endl;
+    std::cout << "Username : " << _username << std::endl;
     std::cout << "Pass : " << _pass << std::endl;
     std::cout << "fd : " << _fd << std::endl;
     std::cout << "Ip Address : " << _addrIp << std::endl;
@@ -63,37 +64,60 @@ bool Clients::initClients(std::string line)
     static int NICK = -1;
     static int USER = -1;
 
-    if (PASS < 0)
-        PASS = line.find("PASS");
-    if (NICK < 0)
-        NICK = line.find("NICK");
-    if (USER < 0)
-        USER = line.find("USER");
+    // Split line on \r and \n, then split by the first space in each part
+    std::vector<std::string> tokens;
+    std::istringstream iss(line);
+    std::string part;
+
+    while (std::getline(iss, part, '\n')) {
+        size_t pos = part.find('\r');
+        if (pos != std::string::npos) {
+            part = part.substr(0, pos);
+        }
+
+        // Check if the line contains "USER" and split all spaces if it does
+        if (part.find("USER") != std::string::npos) {
+            std::istringstream userStream(part);
+            std::string userToken;
+            while (userStream >> userToken) {
+                tokens.push_back(userToken);
+            }
+        } else {
+            // Otherwise, split only at the first space
+            pos = part.find(' ');
+            if (pos != std::string::npos) {
+                tokens.push_back(part.substr(0, pos)); // Before the space
+                tokens.push_back(part.substr(pos + 1)); // After the space
+            } else {
+                tokens.push_back(part); // No space found, push the whole part
+            }
+        }
+    }
+
+    for (size_t i = 0; i < tokens.size(); ++i)
+    {
+        if (tokens[i].find("PASS") != std::string::npos && PASS < 0)
+        {
+            PASS = i;
+            setPass(tokens[i + 1]);
+        }
+        if (tokens[i].find("NICK") != std::string::npos && NICK < 0)
+        {
+            NICK = i;
+            setNickname(tokens[i + 1]);
+        }
+        if (tokens[i].find("USER") != std::string::npos && USER < 0)
+        {
+            USER = i;
+            setUsername(tokens[i + 1]);
+        }
+    }
+    
     std::cout << "line in initClients : |" << line << "|" << std::endl;
     std::cout << "ID PASS : " << PASS << std::endl;
     std::cout << "ID NICK : " << NICK << std::endl;
     std::cout << "ID USER : " << USER << std::endl;
-    if (PASS > -1)
-    {
-        std::cout << "char PASS : " << line[PASS] << std::endl;
-        std::cout << "char PASS + 5 : " << line[PASS + 5] << std::endl;
-        line = (PASS + 5);
-        std::cout << "char PASS end : " << line[line.find('\r') - 1] << std::endl;
-    }
-    if (NICK > -1)
-    {
-        std::cout << "char NICK : " << line[NICK] << std::endl;
-        std::cout << "char NICK + 5 : " << line[NICK + 5] << std::endl;
-        line = (NICK + 5);
-        std::cout << "char NICK end : " << line[line.find('\r') - 1] << std::endl;
-    }
-    if (USER > -1)
-    {
-        std::cout << "char USER : " << line[USER] << std::endl;
-        std::cout << "char USER + 5 : " << line[USER + 5] << std::endl;
-        line = (USER + 5);
-        std::cout << "char USER end : " << line[line.find('\r') - 1] << std::endl;
-    }
+    
     if (PASS > -1 && NICK > -1 && USER > -1)
         return (true);
     return (false);
