@@ -18,7 +18,9 @@ class Clients;
 class Server
 {
 public:
-    void join_chan(const std::string & chanel );
+    void join_chan();
+    void slt();
+    void caca();
     void selectCmd( std::string cmd );
     void setFd(int fd);
     void setAddrIp(std::string addrIp);
