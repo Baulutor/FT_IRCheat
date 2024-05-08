@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+         #
+#    By: bfaure <bfaure@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 13:54:50 by bfaure            #+#    #+#              #
-#    Updated: 2024/05/06 14:11:35 by bfaure           ###   ########.fr        #
+#    Updated: 2024/05/06 18:43:00 by bfaure           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ CFLAGS = ${DEPS_FLAGS} -Wall -Wextra -Werror -g3 -fsanitize=address
 ############## SOURCES ##############
 
 SRC 	=	srcs/main.cpp \
+			srcs/Clients.cpp
 
 
 ############## DIRECTORIES ##############

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Clients.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bfaure <bfaure@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:36:58 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/06 15:58:23 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/06 19:09:38 by bfaure           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,45 +22,31 @@ Clients::~Clients()
     std::cout << "Clients destructor created" << std::endl;
 }
 
-int Clients::getFd() const
-{
-    return this->_fd;
-}
+// Getters
 
-std::string Clients::getAddrIp() const
-{
-    return this->_addrIp;
-}
+int Clients::getFd() const {return (_fd);}
 
-std::string Clients::getNick() const
-{
-    return (_nick);
-}
+std::string Clients::getAddrIp() const {return (_addrIp);}
 
-std::string Clients::getPass() const
-{
-    return (_pass);
-}
+std::string Clients::getNickname() const {return (_nickname);}
 
-void Clients::setFd(int fd)
-{
-    this->_fd = fd;
-}
+std::string Clients::getUsername() const {return (_username);}
 
-void Clients::setAddrIp(std::string addrIp)
-{
-    this->_addrIp = addrIp;
-}
+std::string Clients::getPass() const {return (_pass);}
 
-void Clients::setNick(std::string nick)
-{
-    _nick = nick;
-}
+// Setters
 
-void Clients::setPass(std::string pass)
-{
-    _pass = pass;
-}
+void Clients::setFd(int fd) {_fd = fd;}
+
+void Clients::setAddrIp(std::string addrIp) {_addrIp = addrIp;}
+
+void Clients::setNickname(std::string nickname) {_nickname = nickname;}
+
+void Clients::setUsername(std::string username) {_username = username;}
+
+void Clients::setPass(std::string pass) {_pass = pass;}
+
+// Print info
 
 void Clients::printInfo()
 {
