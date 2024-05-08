@@ -16,12 +16,15 @@
 # include "FT_IRCheat.hpp"
 # include <map>
 # include <vector>
- 
+# include "Clients.hpp"
+
+class Clients;
+
 class Channel
 {
     public :
         Channel();
-        Channel(std::string name, Client operator);
+        Channel(std::string name, Clients *_operator);
         ~Channel();
 
     private :

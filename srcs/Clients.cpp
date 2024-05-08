@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Clients.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaure <bfaure@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:36:58 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/06 19:09:38 by bfaure           ###   ########lyon.fr   */
+/*   Updated: 2024/05/08 14:17:52 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void Clients::setPass(std::string pass) {_pass = pass;}
 
 void Clients::printInfo()
 {
-    std::cout << "Name : " << _nick << std::endl;
+    std::cout << "Nickname : " << _nickname << std::endl;
+    std::cout << "Username" << _username << std::endl;
     std::cout << "Pass : " << _pass << std::endl;
     std::cout << "fd : " << _fd << std::endl;
     std::cout << "Ip Address : " << _addrIp << std::endl;
