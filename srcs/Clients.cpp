@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:36:58 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/08 14:17:52 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/08 16:46:22 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,46 @@ void Clients::printInfo()
     std::cout << "Pass : " << _pass << std::endl;
     std::cout << "fd : " << _fd << std::endl;
     std::cout << "Ip Address : " << _addrIp << std::endl;
+}
+
+bool Clients::initClients(std::string line)
+{
+    static int PASS = -1;
+    static int NICK = -1;
+    static int USER = -1;
+
+    if (PASS < 0)
+        PASS = line.find("PASS");
+    if (NICK < 0)
+        NICK = line.find("NICK");
+    if (USER < 0)
+        USER = line.find("USER");
+    std::cout << "line in initClients : |" << line << "|" << std::endl;
+    std::cout << "ID PASS : " << PASS << std::endl;
+    std::cout << "ID NICK : " << NICK << std::endl;
+    std::cout << "ID USER : " << USER << std::endl;
+    if (PASS > -1)
+    {
+        std::cout << "char PASS : " << line[PASS] << std::endl;
+        std::cout << "char PASS + 5 : " << line[PASS + 5] << std::endl;
+        line = (PASS + 5);
+        std::cout << "char PASS end : " << line[line.find('\r') - 1] << std::endl;
+    }
+    if (NICK > -1)
+    {
+        std::cout << "char NICK : " << line[NICK] << std::endl;
+        std::cout << "char NICK + 5 : " << line[NICK + 5] << std::endl;
+        line = (NICK + 5);
+        std::cout << "char NICK end : " << line[line.find('\r') - 1] << std::endl;
+    }
+    if (USER > -1)
+    {
+        std::cout << "char USER : " << line[USER] << std::endl;
+        std::cout << "char USER + 5 : " << line[USER + 5] << std::endl;
+        line = (USER + 5);
+        std::cout << "char USER end : " << line[line.find('\r') - 1] << std::endl;
+    }
+    if (PASS > -1 && NICK > -1 && USER > -1)
+        return (true);
+    return (false);
 }

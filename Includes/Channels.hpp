@@ -34,8 +34,8 @@ class Channel
         bool _isPrivate;
         int _nbClients;
         int _nbMaxClients;
-        std::map<int, Client> _clients;
-        Client *_operator;
+        std::map<int, Clients> _clients;
+        Clients *_operator;
 };
 
 #endif

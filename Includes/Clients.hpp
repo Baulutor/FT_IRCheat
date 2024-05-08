@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Clients.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaure <bfaure@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:27:47 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/07 11:48:57 by bfaure           ###   ########lyon.fr   */
+/*   Updated: 2024/05/08 16:18:57 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ class Clients
         void setUsername(std::string username);
         void setPass(std::string pass);
         int getFd() const;
+
+        bool initClients(std::string line);
 
         std::string getAddrIp() const;
         std::string getNickname() const;
