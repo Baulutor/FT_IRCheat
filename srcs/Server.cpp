@@ -16,11 +16,40 @@ void Server::setAddrIp(std::string addrIp) {
     this->_addrIp = addrIp;
 }
 
-bool startWith(const std::string &line, std::string &cmd)
+bool startWith(const std::string &line, const char *cmd)
 {
     return (line.find(cmd) == 0);
 }
 
+void cmdHandler(std::string cmd, Clients client)
+{
+    if (startWith(cmd, "JOIN"))
+    {
+        std::cout << "JOIN" << std::endl;
+        std::string reponse = ":" + client.getNickname() + "!" + client.getUsername() + "@" + client.getAddrIp() + " JOIN :" + cmd.substr(6, cmd.find(' ', 6) - 6);
+        send(client.getFd(), reponse.c_str(), reponse.size(), 0);
+    }
+    else if (startWith(cmd, "NAMES"))
+        std::cout << "NAMES" << std::endl;
+    else if (startWith(cmd, "NICK"))
+        std::cout << "NICK" << std::endl;
+    else if (startWith(cmd, "INVITE"))
+        std::cout << "INVITE" << std::endl;
+    else if (startWith(cmd, "TOPIC"))
+        std::cout << "TOPIC" << std::endl;
+    else if (startWith(cmd, "PRIVMSG"))
+        std::cout << "PRIVMSG" << std::endl;
+    else if (startWith(cmd, "QUIT"))
+        std::cout << "QUIT" << std::endl;
+    else if (startWith(cmd, "PART"))
+        std::cout << "PART" << std::endl;
+    else if (startWith(cmd, "KICK"))
+        std::cout << "KICK" << std::endl;
+    else if (startWith(cmd, "MODE"))
+        std::cout << "MODE" << std::endl;
+    else
+        std::cout << "UNKNOWN" << std::endl;
+}
 
 Server::Server( std::string av ) {
 
@@ -32,6 +61,7 @@ Server::Server( std::string av ) {
     }
     std::cout << "fd = " << getFd() << std::endl;
     setAddrIp("127.0.0.1");
+    client.setAddrIp(getAddrIp());
 
     //configuration d'une struct socketaddr_in pour avoir des appels systeme reseau comme bind et connect
     struct sockaddr_in addr;
@@ -68,12 +98,12 @@ Server::Server( std::string av ) {
         else
             buffer[bytes] = '\0';
         std::cout << "buffer : |" << buffer << "|" << std::endl;
-        std::string command = "CAP LS 302";
-        if (startWith(buffer, command) || !init)
+        // std::string command = "CAP LS 302";
+        if (startWith(buffer, "CAP LS 302") || !init)
             init = client.initClients(buffer);
         if (init)
             client.printInfo();
-        // selectCmd(buffer);
+        cmdHandler(buffer, client);
         sleep(1);
     }
     close(getFd());
