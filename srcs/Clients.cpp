@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Clients.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaure <bfaure@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:36:58 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/08 18:35:01 by bfaure           ###   ########lyon.fr   */
+/*   Updated: 2024/05/13 17:25:02 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ std::string Clients::getNickname() const {return (_nickname);}
 std::string Clients::getUsername() const {return (_username);}
 
 std::string Clients::getPass() const {return (_pass);}
+
+std::map<std::string, Channels>& Clients::getChannels() {return (_channels);}
+
+std::map<std::string, Channels> Clients::getChannelsInvite() {return (_channelsInvite);}
 
 // Setters
 

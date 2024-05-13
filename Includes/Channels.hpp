@@ -20,20 +20,22 @@
 
 class Clients;
 
-class Channel
+class Channels
 {
     public :
-        Channel();
-        Channel(std::string name, Clients *_operator);
-        ~Channel();
+        Channels();
+        Channels(std::string name, Clients& op);
+        ~Channels();
+        std::string getName() const;
 
     private :
         std::string _name;
         std::string _topic;
         std::string _password;
-        bool _isPrivate;
-        int _nbClients;
-        int _nbMaxClients;
+        std::string _mode;
+        // bool _isPrivate;
+        // int _nbClients;
+        // int _nbMaxClients;
         std::map<int, Clients> _clients;
         Clients *_operator;
 };

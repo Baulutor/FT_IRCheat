@@ -22,26 +22,27 @@ bool startWith(const std::string &line, const char *cmd)
     return (line.find(cmd) == 0);
 }
 
-void cmdHandler(std::string cmd, Clients client)
+void cmdHandler(std::string cmd, Clients& client, std::map<std::string, Channels>& channels)
 {
-    // const char *lstCmd[] = {"JOIN", "NAMES", "NICK", "INVITE", "TOPIC", "PRIVMSG", "QUIT", "PART", "KICK", "MODE"};
-    // void (*lstFunc[])(std::string, Clients) = {Join};
-    // // NAMES, NICK, INVITE, TOPIC, PRIVMSG, QUIT, PART, KICK, MODE
-    // for (int i = 0; i < 10; i++)
-    // {
-    //     if (startWith(cmd, lstCmd[i]))
-    //     {
-    //         lstFunc[i](cmd, client);
-    //         return;
-    //     }
-    // }
-    if (startWith(cmd, "JOIN"))
+    const char *lstCmd[] = {"JOIN"};
+    // , "NAMES", "NICK", "INVITE", "TOPIC", "PRIVMSG", "QUIT", "PART", "KICK", "MODE"
+    void (*lstFunc[])(std::string, Clients&, std::map<std::string, Channels>&) = {Join};
+    // NAMES, NICK, INVITE, TOPIC, PRIVMSG, QUIT, PART, KICK, MODE
+    for (int i = 0; i < 1; i++)
     {
-        std::cout << "JOIN" << std::endl;
-        std::string reponse = ":" + client.getNickname() + "!" + client.getUsername() + "@" + client.getAddrIp() + " JOIN :" + cmd.substr(6, cmd.find(' ', 6) - 6);
-        if (send(client.getFd(), reponse.c_str(), reponse.size(), 0) == -1)
-            throw (SendErrorExeption());
+        if (startWith(cmd, lstCmd[i]))
+        {
+            lstFunc[i](cmd, client, channels);
+            return;
+        }
     }
+    // if (startWith(cmd, "JOIN"))
+    // {
+    //     std::cout << "JOIN" << std::endl;
+    //     std::string reponse = ":" + client.getNickname() + "!" + client.getUsername() + "@" + client.getAddrIp() + " JOIN :" + cmd.substr(6, cmd.find(' ', 6) - 6);
+    //     if (send(client.getFd(), reponse.c_str(), reponse.size(), 0) == -1)
+    //         throw (SendErrorExeption());
+    // }
     // else if (startWith(cmd, "NAMES"))
     //     std::cout << "NAMES" << std::endl;
     // else if (startWith(cmd, "NICK"))
@@ -120,9 +121,9 @@ Server::Server( std::string av ) {
         if (init)
         {
             client.printInfo();
+            cmdHandler(buffer, client, _channels);
             // init = false;
         }
-        cmdHandler(buffer, client);
         sleep(1);
     }
     close(getFd());

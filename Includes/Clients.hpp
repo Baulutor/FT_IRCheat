@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Clients.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaure <bfaure@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:27:47 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/08 18:07:32 by bfaure           ###   ########lyon.fr   */
+/*   Updated: 2024/05/13 17:25:06 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define CLIENTS_HPP
 
 # include "FT_IRCheat.hpp"
+# include "Channels.hpp"
+
+class Channels;
 
 class Clients
 {
@@ -34,8 +37,8 @@ class Clients
         std::string getNickname() const;
         std::string getUsername() const;
         std::string getPass() const;
-        std::vector<std::string> getChannels() const;
-        std::vector<std::string> getChannelsInvite() const;
+        std::map<std::string, Channels>& getChannels();
+        std::map<std::string, Channels> getChannelsInvite();
 
         void addChannel(std::string channel);
         void addChannelInvite(std::string channel);
@@ -48,8 +51,8 @@ class Clients
         std::string _pass;
         int _fd;
         std::string _addrIp;
-        std::vector<std::string> _channels;
-        std::vector<std::string> _channelsInvite;
+        std::map<std::string, Channels> _channels;
+        std::map<std::string, Channels> _channelsInvite;
 };
 
 #endif

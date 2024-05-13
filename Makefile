@@ -6,7 +6,7 @@
 #    By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 13:54:50 by bfaure            #+#    #+#              #
-#    Updated: 2024/05/13 11:22:23 by bfaure           ###   ########.fr        #
+#    Updated: 2024/05/13 17:08:45 by bfaure           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,9 @@ CFLAGS = ${DEPS_FLAGS} -Wall -Wextra -Werror -g3 -fsanitize=address
 SRC 	=	srcs/main.cpp \
 			srcs/Clients.cpp \
 			srcs/Server.cpp \
-			srcs/cmd/Join.cpp
+			srcs/cmd/Join.cpp \
+			srcs/Utils.cpp \
+			srcs/Channels.cpp
 
 
 ############## DIRECTORIES ##############

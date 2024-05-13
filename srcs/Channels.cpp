@@ -10,3 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "Channels.hpp"
+
+Channels::Channels() {}
+
+Channels::Channels(std::string name, Clients& op)
+{
+    this->_name = name;
+    this->_operator = &op;
+}
+
+Channels::~Channels() {}
+
+std::string Channels::getName() const
+{
+    return (this->_name);
+}
+
