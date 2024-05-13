@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:36:58 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/13 17:25:02 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/13 17:43:29 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,12 +116,6 @@ bool Clients::initClients(std::string line)
             setUsername(tokens[i + 1]);
         }
     }
-    
-    std::cout << "line in initClients : |" << line << "|" << std::endl;
-    std::cout << "ID PASS : " << PASS << std::endl;
-    std::cout << "ID NICK : " << NICK << std::endl;
-    std::cout << "ID USER : " << USER << std::endl;
-    
     if (PASS > -1 && NICK > -1 && USER > -1)
         return (true);
     return (false);

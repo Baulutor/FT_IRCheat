@@ -112,18 +112,17 @@ Server::Server( std::string av ) {
         else
             buffer[bytes] = '\0';
         std::cout << "buffer : |" << buffer << "|" << std::endl;
-        // std::string command = "CAP LS 302";
         if (startWith(buffer, "CAP LS 302") || !init)
         {
             init = client.initClients(buffer);
-            // continue ;
+            if (init)
+            {
+                std::cout << "init client" << std::endl;
+                client.printInfo();
+            }
         }
-        if (init)
-        {
-            client.printInfo();
+        else
             cmdHandler(buffer, client, _channels);
-            // init = false;
-        }
         sleep(1);
     }
     close(getFd());
