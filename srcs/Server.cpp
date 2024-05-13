@@ -1,4 +1,5 @@
 #include "Server.hpp"
+#include "Cmd.hpp"
 
 int Server::getFd() const {
     return this->_fd;
@@ -23,32 +24,44 @@ bool startWith(const std::string &line, const char *cmd)
 
 void cmdHandler(std::string cmd, Clients client)
 {
+    // const char *lstCmd[] = {"JOIN", "NAMES", "NICK", "INVITE", "TOPIC", "PRIVMSG", "QUIT", "PART", "KICK", "MODE"};
+    // void (*lstFunc[])(std::string, Clients) = {Join};
+    // // NAMES, NICK, INVITE, TOPIC, PRIVMSG, QUIT, PART, KICK, MODE
+    // for (int i = 0; i < 10; i++)
+    // {
+    //     if (startWith(cmd, lstCmd[i]))
+    //     {
+    //         lstFunc[i](cmd, client);
+    //         return;
+    //     }
+    // }
     if (startWith(cmd, "JOIN"))
     {
         std::cout << "JOIN" << std::endl;
         std::string reponse = ":" + client.getNickname() + "!" + client.getUsername() + "@" + client.getAddrIp() + " JOIN :" + cmd.substr(6, cmd.find(' ', 6) - 6);
-        send(client.getFd(), reponse.c_str(), reponse.size(), 0);
+        if (send(client.getFd(), reponse.c_str(), reponse.size(), 0) == -1)
+            throw (SendErrorExeption());
     }
-    else if (startWith(cmd, "NAMES"))
-        std::cout << "NAMES" << std::endl;
-    else if (startWith(cmd, "NICK"))
-        std::cout << "NICK" << std::endl;
-    else if (startWith(cmd, "INVITE"))
-        std::cout << "INVITE" << std::endl;
-    else if (startWith(cmd, "TOPIC"))
-        std::cout << "TOPIC" << std::endl;
-    else if (startWith(cmd, "PRIVMSG"))
-        std::cout << "PRIVMSG" << std::endl;
-    else if (startWith(cmd, "QUIT"))
-        std::cout << "QUIT" << std::endl;
-    else if (startWith(cmd, "PART"))
-        std::cout << "PART" << std::endl;
-    else if (startWith(cmd, "KICK"))
-        std::cout << "KICK" << std::endl;
-    else if (startWith(cmd, "MODE"))
-        std::cout << "MODE" << std::endl;
-    else
-        std::cout << "UNKNOWN" << std::endl;
+    // else if (startWith(cmd, "NAMES"))
+    //     std::cout << "NAMES" << std::endl;
+    // else if (startWith(cmd, "NICK"))
+    //     std::cout << "NICK" << std::endl;
+    // else if (startWith(cmd, "INVITE"))
+    //     std::cout << "INVITE" << std::endl;
+    // else if (startWith(cmd, "TOPIC"))
+    //     std::cout << "TOPIC" << std::endl;
+    // else if (startWith(cmd, "PRIVMSG"))
+    //     std::cout << "PRIVMSG" << std::endl;
+    // else if (startWith(cmd, "QUIT"))
+    //     std::cout << "QUIT" << std::endl;
+    // else if (startWith(cmd, "PART"))
+    //     std::cout << "PART" << std::endl;
+    // else if (startWith(cmd, "KICK"))
+    //     std::cout << "KICK" << std::endl;
+    // else if (startWith(cmd, "MODE"))
+    //     std::cout << "MODE" << std::endl;
+    // else
+    //     std::cout << "UNKNOWN" << std::endl;
 }
 
 Server::Server( std::string av ) {
@@ -100,9 +113,15 @@ Server::Server( std::string av ) {
         std::cout << "buffer : |" << buffer << "|" << std::endl;
         // std::string command = "CAP LS 302";
         if (startWith(buffer, "CAP LS 302") || !init)
+        {
             init = client.initClients(buffer);
+            // continue ;
+        }
         if (init)
+        {
             client.printInfo();
+            // init = false;
+        }
         cmdHandler(buffer, client);
         sleep(1);
     }
