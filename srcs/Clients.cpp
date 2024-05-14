@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:36:58 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/13 17:43:29 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/14 11:18:09 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,15 @@ void Clients::printInfo()
     std::cout << "Pass : " << _pass << std::endl;
     std::cout << "fd : " << _fd << std::endl;
     std::cout << "Ip Address : " << _addrIp << std::endl;
+}
+
+void Clients::printChannels()
+{
+    std::cout << "Channels size : " << _channels.size() << std::endl;
+    for (std::map<std::string, Channels>::iterator it = _channels.begin(); it != _channels.end(); ++it)
+    {
+        std::cout << "Channel : " << it->first << std::endl;
+    }
 }
 
 bool Clients::initClients(std::string line)

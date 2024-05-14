@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:27:47 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/13 17:25:06 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/14 11:17:37 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ class Clients
         void addChannel(std::string channel);
         void addChannelInvite(std::string channel);
 
+        // Some shit to delete before production
         void printInfo();
+        void printChannels();
 
     private:
         std::string _nickname;

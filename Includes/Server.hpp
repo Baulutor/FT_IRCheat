@@ -23,14 +23,14 @@ class Server
         int getFd() const;
         std::string getAddrIp() const;
         Server( std::string av );
+        void cmdHandler(std::string cmd, Clients& client);
+        std::map<std::string, Channels>& getChannels();
         // ~Server();
-        // std::vector<std::string> getChannels() const;
 
     private:
         int _fd;
         std::string _addrIp;
-        std::map<int, Clients> _clients;
-        std::string _cmd[2];
+        std::map<std::string, Clients> _clients;
         std::map<std::string, Channels> _channels;
 };
 

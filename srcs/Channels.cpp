@@ -16,14 +16,24 @@ Channels::Channels() {}
 
 Channels::Channels(std::string name, Clients& op)
 {
-    this->_name = name;
-    this->_operator = &op;
+    _name = name;
+    _operator = &op;
 }
 
 Channels::~Channels() {}
 
-std::string Channels::getName() const
-{
-    return (this->_name);
-}
+// Getter
 
+std::string Channels::getName() const {return (_name);}
+
+std::string Channels::getTopic() const {return (_topic);}
+
+std::map<std::string, Clients> Channels::getClientMap() {return (_clients);}
+
+Clients Channels::getOperator() const {return (*_operator);}
+
+// Setter
+
+void Channels::setName(std::string name) {_name = name;}
+
+void Channels::setTopic(std::string topic) {_topic = topic;}
