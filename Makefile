@@ -28,6 +28,7 @@ SRC 	=	srcs/main.cpp \
 			srcs/Clients.cpp \
 			srcs/Server.cpp \
 			srcs/cmd/Join.cpp \
+			srcs/cmd/Kick.cpp \
 			srcs/Utils.cpp \
 			srcs/Channels.cpp
 

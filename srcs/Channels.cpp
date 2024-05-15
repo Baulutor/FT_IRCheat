@@ -27,3 +27,4 @@ std::string Channels::getName() const
     return (this->_name);
 }
 
+std::map<int, Clients> Channels::getClientMap() {return (_clients);}

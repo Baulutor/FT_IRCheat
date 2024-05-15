@@ -27,7 +27,7 @@ class Channels
         Channels(std::string name, Clients& op);
         ~Channels();
         std::string getName() const;
-
+        std::map<int, Clients> getClientMap();
     private :
         std::string _name;
         std::string _topic;

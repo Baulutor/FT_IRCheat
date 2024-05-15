@@ -24,11 +24,11 @@ bool startWith(const std::string &line, const char *cmd)
 
 void cmdHandler(std::string cmd, Clients& client, std::map<std::string, Channels>& channels)
 {
-    const char *lstCmd[] = {"JOIN"};
+    const char *lstCmd[] = {"JOIN", "KICK"};
     // , "NAMES", "NICK", "INVITE", "TOPIC", "PRIVMSG", "QUIT", "PART", "KICK", "MODE"
-    void (*lstFunc[])(std::string, Clients&, std::map<std::string, Channels>&) = {Join};
+    void (*lstFunc[])(std::string, Clients&, std::map<std::string, Channels>&) = {Join, Kick};
     // NAMES, NICK, INVITE, TOPIC, PRIVMSG, QUIT, PART, KICK, MODE
-    for (int i = 0; i < 1; i++)
+    for (int i = 0; i < 2; i++)
     {
         if (startWith(cmd, lstCmd[i]))
         {

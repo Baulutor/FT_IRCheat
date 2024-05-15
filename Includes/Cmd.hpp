@@ -20,6 +20,7 @@
 class Channel;
 
 void Join(std::string cmd, Clients& client, std::map<std::string, Channels>& channelsServer);
+void Kick(std::string cmd, Clients& client, std::map<std::string, Channels>& channelsServer);
 
 class SendErrorExeption : public std::exception
 {
