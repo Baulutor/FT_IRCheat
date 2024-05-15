@@ -40,4 +40,3 @@ void Channels::setName(std::string name) {_name = name;}
 void Channels::setTopic(std::string topic) {_topic = topic;}
 
 void Channels::setOperator(Clients& op) {_operator = &op;}
->>>>>>> origin/ben
