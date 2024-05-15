@@ -6,11 +6,12 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:36:58 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/08 14:17:52 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/13 17:43:29 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Clients.hpp"
+#include <sstream>
 
 Clients::Clients()
 {
@@ -34,6 +35,10 @@ std::string Clients::getUsername() const {return (_username);}
 
 std::string Clients::getPass() const {return (_pass);}
 
+std::map<std::string, Channels>& Clients::getChannels() {return (_channels);}
+
+std::map<std::string, Channels> Clients::getChannelsInvite() {return (_channelsInvite);}
+
 // Setters
 
 void Clients::setFd(int fd) {_fd = fd;}
@@ -51,8 +56,67 @@ void Clients::setPass(std::string pass) {_pass = pass;}
 void Clients::printInfo()
 {
     std::cout << "Nickname : " << _nickname << std::endl;
-    std::cout << "Username" << _username << std::endl;
+    std::cout << "Username : " << _username << std::endl;
     std::cout << "Pass : " << _pass << std::endl;
     std::cout << "fd : " << _fd << std::endl;
     std::cout << "Ip Address : " << _addrIp << std::endl;
+}
+
+bool Clients::initClients(std::string line)
+{
+    static int PASS = -1;
+    static int NICK = -1;
+    static int USER = -1;
+
+    // Split line on \r and \n, then split by the first space in each part
+    std::vector<std::string> tokens;
+    std::istringstream iss(line);
+    std::string part;
+
+    while (std::getline(iss, part, '\n')) {
+        size_t pos = part.find('\r');
+        if (pos != std::string::npos) {
+            part = part.substr(0, pos);
+        }
+
+        // Check if the line contains "USER" and split all spaces if it does
+        if (part.find("USER") != std::string::npos) {
+            std::istringstream userStream(part);
+            std::string userToken;
+            while (userStream >> userToken) {
+                tokens.push_back(userToken);
+            }
+        } else {
+            // Otherwise, split only at the first space
+            pos = part.find(' ');
+            if (pos != std::string::npos) {
+                tokens.push_back(part.substr(0, pos)); // Before the space
+                tokens.push_back(part.substr(pos + 1)); // After the space
+            } else {
+                tokens.push_back(part); // No space found, push the whole part
+            }
+        }
+    }
+
+    for (size_t i = 0; i < tokens.size(); ++i)
+    {
+        if (tokens[i].find("PASS") != std::string::npos && PASS < 0)
+        {
+            PASS = i;
+            setPass(tokens[i + 1]);
+        }
+        if (tokens[i].find("NICK") != std::string::npos && NICK < 0)
+        {
+            NICK = i;
+            setNickname(tokens[i + 1]);
+        }
+        if (tokens[i].find("USER") != std::string::npos && USER < 0)
+        {
+            USER = i;
+            setUsername(tokens[i + 1]);
+        }
+    }
+    if (PASS > -1 && NICK > -1 && USER > -1)
+        return (true);
+    return (false);
 }

@@ -22,5 +22,8 @@
 # include <arpa/inet.h>
 # include <unistd.h>
 # include <vector>
+# include <sstream>
+
+std::vector<std::string> split(const std::string &s, char delim);
 
 #endif

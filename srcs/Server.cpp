@@ -1,4 +1,5 @@
 #include "Server.hpp"
+#include "Cmd.hpp"
 
 int Server::getFd() const {
     return this->_fd;
@@ -16,55 +17,65 @@ void Server::setAddrIp(std::string addrIp) {
     this->_addrIp = addrIp;
 }
 
-void Server::join_chan() {
-    std::cout << "salut tu veux quel chan ?" << std::endl;
+bool startWith(const std::string &line, const char *cmd)
+{
+    return (line.find(cmd) == 0);
 }
 
-void Server::slt() {
-    std::cout << "salut c coool" << std::endl;
+void cmdHandler(std::string cmd, Clients& client, std::map<std::string, Channels>& channels)
+{
+    const char *lstCmd[] = {"JOIN", "KICK"};
+    // , "NAMES", "NICK", "INVITE", "TOPIC", "PRIVMSG", "QUIT", "PART", "KICK", "MODE"
+    void (*lstFunc[])(std::string, Clients&, std::map<std::string, Channels>&) = {Join, Kick};
+    // NAMES, NICK, INVITE, TOPIC, PRIVMSG, QUIT, PART, KICK, MODE
+    for (int i = 0; i < 2; i++)
+    {
+        if (startWith(cmd, lstCmd[i]))
+        {
+            lstFunc[i](cmd, client, channels);
+            return;
+        }
+    }
+    // if (startWith(cmd, "JOIN"))
+    // {
+    //     std::cout << "JOIN" << std::endl;
+    //     std::string reponse = ":" + client.getNickname() + "!" + client.getUsername() + "@" + client.getAddrIp() + " JOIN :" + cmd.substr(6, cmd.find(' ', 6) - 6);
+    //     if (send(client.getFd(), reponse.c_str(), reponse.size(), 0) == -1)
+    //         throw (SendErrorExeption());
+    // }
+    // else if (startWith(cmd, "NAMES"))
+    //     std::cout << "NAMES" << std::endl;
+    // else if (startWith(cmd, "NICK"))
+    //     std::cout << "NICK" << std::endl;
+    // else if (startWith(cmd, "INVITE"))
+    //     std::cout << "INVITE" << std::endl;
+    // else if (startWith(cmd, "TOPIC"))
+    //     std::cout << "TOPIC" << std::endl;
+    // else if (startWith(cmd, "PRIVMSG"))
+    //     std::cout << "PRIVMSG" << std::endl;
+    // else if (startWith(cmd, "QUIT"))
+    //     std::cout << "QUIT" << std::endl;
+    // else if (startWith(cmd, "PART"))
+    //     std::cout << "PART" << std::endl;
+    // else if (startWith(cmd, "KICK"))
+    //     std::cout << "KICK" << std::endl;
+    // else if (startWith(cmd, "MODE"))
+    //     std::cout << "MODE" << std::endl;
+    // else
+    //     std::cout << "UNKNOWN" << std::endl;
 }
-
-void Server::caca() {
-    std::cout << "salut j'aime le caca" << std::endl;
-}
-
-// void	Server::selectCmd( std::string cmd ) {
-// 	int lvl_value = 0;
-//     std::string cmd_tmp = cmd.substr(0, cmd.find_first_of(' '));
-//     //std::cout << "cmd == " << cmd << std::endl;
-//     std::cout << "cmd == " << cmd_tmp << "|" << std::endl;
-//     this->_cmd[0] = "JOIN";
-// 	this->_cmd[1] = "SLT";
-// 	this->_cmd[2] = "CACA";
-//     this->_function[0] = &Server::join_chan;
-//     this->_function[1] = &Server::slt;
-//     this->_function[2] = &Server::caca;
-
-// 	while (lvl_value < 3 && cmd != this->_cmd[lvl_value])
-// 		lvl_value++;
-// 	switch(lvl_value) {
-// 		case 0: case 1: case 2:
-// 			while (lvl_value < 3)
-// 			{
-// 				(this->*(_function[lvl_value]))();
-// 				lvl_value++;
-// 			}
-// 			break ; 
-// 		default :
-// 			std::cout << "Error: cannot found cmd" << std::endl;
-// 	}
-// }
-
 
 Server::Server( std::string av ) {
 
     //creation du socket serv
+    Clients client;
     setFd(socket(AF_INET, SOCK_STREAM, 0));
     if (getFd() < 0) {
         std::cerr << "error socket" << std::endl;
     }
     std::cout << "fd = " << getFd() << std::endl;
     setAddrIp("127.0.0.1");
+    client.setAddrIp(getAddrIp());
 
     //configuration d'une struct socketaddr_in pour avoir des appels systeme reseau comme bind et connect
     struct sockaddr_in addr;
@@ -82,26 +93,36 @@ Server::Server( std::string av ) {
         std::cerr << "Error listen" << std::endl;
 
     socklen_t sock_info_len = sizeof(addr);
-    setFd(accept(getFd(), (struct sockaddr*)&addr, &sock_info_len));
-    std::cout << "fd2 = " << getFd() << std::endl;
+    client.setFd(accept(getFd(), (struct sockaddr*)&addr, &sock_info_len));
+    // std::cout << "fd2 = " << getFd() << std::endl;
     
     if(getFd() < 0)
         std::cout << "Error : accept" << std::endl;
     else
         std::cout << "Accept " << std::endl;
-    char buffer[1024];
-
+    char buffer[2048];
+    bool init = false;
     while (true)
     {
-        ssize_t bytes = recv(getFd(), buffer, 1024, 0);
+        ssize_t bytes = recv(client.getFd(), buffer, 2048, 0);
         if (bytes < 0)
             std::cerr << "ERROR rcve !" << std::endl;
         else if ( bytes == 0)
             std::cout << "connexion closed " << std::endl;
         else
             buffer[bytes] = '\0';
-        std::cout << buffer << std::endl;
-        //selectCmd(buffer);
+        std::cout << "buffer : |" << buffer << "|" << std::endl;
+        if (startWith(buffer, "CAP LS 302") || !init)
+        {
+            init = client.initClients(buffer);
+            if (init)
+            {
+                std::cout << "init client" << std::endl;
+                client.printInfo();
+            }
+        }
+        else
+            cmdHandler(buffer, client, _channels);
         sleep(1);
     }
     close(getFd());
