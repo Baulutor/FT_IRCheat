@@ -17,53 +17,43 @@ void Server::setAddrIp(std::string addrIp) {
     this->_addrIp = addrIp;
 }
 
+std::map<std::string, Channels>& Server::getChannels() {return (_channels);}
+
 bool startWith(const std::string &line, const char *cmd)
 {
     return (line.find(cmd) == 0);
 }
 
-void cmdHandler(std::string cmd, Clients& client, std::map<std::string, Channels>& channels)
+void Server::cmdHandler(std::string cmd, Clients& client)
 {
     const char *lstCmd[] = {"JOIN", "KICK"};
     // , "NAMES", "NICK", "INVITE", "TOPIC", "PRIVMSG", "QUIT", "PART", "KICK", "MODE"
-    void (*lstFunc[])(std::string, Clients&, std::map<std::string, Channels>&) = {Join, Kick};
+
+    void (*lstFunc[])(std::string, Clients&, Server&) = {Join};
     // NAMES, NICK, INVITE, TOPIC, PRIVMSG, QUIT, PART, KICK, MODE
     for (int i = 0; i < 2; i++)
     {
         if (startWith(cmd, lstCmd[i]))
         {
-            lstFunc[i](cmd, client, channels);
+            lstFunc[i](cmd, client, *this);
             return;
         }
     }
-    // if (startWith(cmd, "JOIN"))
-    // {
-    //     std::cout << "JOIN" << std::endl;
-    //     std::string reponse = ":" + client.getNickname() + "!" + client.getUsername() + "@" + client.getAddrIp() + " JOIN :" + cmd.substr(6, cmd.find(' ', 6) - 6);
-    //     if (send(client.getFd(), reponse.c_str(), reponse.size(), 0) == -1)
-    //         throw (SendErrorExeption());
-    // }
-    // else if (startWith(cmd, "NAMES"))
-    //     std::cout << "NAMES" << std::endl;
-    // else if (startWith(cmd, "NICK"))
-    //     std::cout << "NICK" << std::endl;
-    // else if (startWith(cmd, "INVITE"))
-    //     std::cout << "INVITE" << std::endl;
-    // else if (startWith(cmd, "TOPIC"))
-    //     std::cout << "TOPIC" << std::endl;
-    // else if (startWith(cmd, "PRIVMSG"))
-    //     std::cout << "PRIVMSG" << std::endl;
-    // else if (startWith(cmd, "QUIT"))
-    //     std::cout << "QUIT" << std::endl;
-    // else if (startWith(cmd, "PART"))
-    //     std::cout << "PART" << std::endl;
-    // else if (startWith(cmd, "KICK"))
-    //     std::cout << "KICK" << std::endl;
-    // else if (startWith(cmd, "MODE"))
-    //     std::cout << "MODE" << std::endl;
-    // else
-    //     std::cout << "UNKNOWN" << std::endl;
 }
+
+void Server::Pong(std::string cmd, Clients& client)
+{
+    std::cout << "PONG" << std::endl;
+    std::string pong = "PONG " + cmd.substr(6) + "\r\n";
+    std::cout << "pong : " << pong << std::endl;
+    if (send(client.getFd(), pong.c_str(), pong.size(), 0) < 0)
+        throw std::exception();
+}
+
+// void Server::setDataServer()
+// {
+    
+// }
 
 Server::Server( std::string av ) {
 
@@ -122,7 +112,12 @@ Server::Server( std::string av ) {
             }
         }
         else
-            cmdHandler(buffer, client, _channels);
+        {
+            cmdHandler(buffer, client);
+            if (startWith(buffer, "PING"))
+                Pong(buffer, client);
+            client.printChannels();
+        }
         sleep(1);
     }
     close(getFd());

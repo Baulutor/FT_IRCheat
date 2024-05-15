@@ -23,11 +23,23 @@ class Clients;
 class Channels
 {
     public :
+        // Constructors / Destructor
         Channels();
         Channels(std::string name, Clients& op);
         ~Channels();
+
+        // Getter
         std::string getName() const;
-        std::map<int, Clients> getClientMap();
+
+        std::string getTopic() const;
+        std::map<std::string, Clients> getClientMap();
+        Clients getOperator() const;
+
+        // Setter
+        void setName(std::string name);
+        void setTopic(std::string topic);
+        void setOperator(Clients& op);
+
     private :
         std::string _name;
         std::string _topic;
@@ -36,7 +48,7 @@ class Channels
         // bool _isPrivate;
         // int _nbClients;
         // int _nbMaxClients;
-        std::map<int, Clients> _clients;
+        std::map<std::string, Clients> _clients;
         Clients *_operator;
 };
 
