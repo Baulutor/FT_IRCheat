@@ -19,6 +19,10 @@ void Server::setAddrIp(std::string addrIp) {
 
 std::map<std::string, Channels>& Server::getChannels() {return (_channels);}
 
+void Server::setChannels(std::map<std::string, Channels> channels) {this->_channels = channels;}
+
+void Server::setClient(std::map<std::string, Clients> clients) {this->_clients = clients;}
+
 bool startWith(const std::string &line, const char *cmd)
 {
     return (line.find(cmd) == 0);
@@ -43,7 +47,8 @@ void Server::cmdHandler(std::string cmd, Clients& client)
 void Server::Pong(std::string cmd, Clients& client)
 {
     std::cout << "PONG" << std::endl;
-    std::string pong = "PONG " + cmd.substr(6) + "\r\n";
+    std::vector<std::string> splited = split(cmd, ' ');
+    std::string pong = "PONG :" + splited[1];
     std::cout << "pong : " << pong << std::endl;
     if (send(client.getFd(), pong.c_str(), pong.size(), 0) < 0)
         throw std::exception();

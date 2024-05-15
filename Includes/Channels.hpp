@@ -38,6 +38,7 @@ class Channels
         void setName(std::string name);
         void setTopic(std::string topic);
         void setOperator(Clients& op);
+        void setClients(std::map<std::string, Clients> clients);
 
     private :
         std::string _name;

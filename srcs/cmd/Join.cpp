@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 10:13:36 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/15 13:26:20 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/15 18:26:08 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void Join(std::string cmd, Clients& client, Server& server)
             serverIt->second.setOperator(client);
             std::cout << "channel serveur ADD : " << insert.first->second.getName() << std::endl;
         }
+        // server.setChannels(channelsServer);
         std::cout << "PASS3" << std::endl;
         std::map<std::string, Channels>::iterator clientIt = clientChannels.find(channels[i]);
         std::map<std::string, Clients> clientMap;
@@ -55,11 +56,16 @@ void Join(std::string cmd, Clients& client, Server& server)
         {
             std::pair<std::map<std::string, Channels>::iterator, bool> insert = clientChannels.insert(std::make_pair(channels[i], Channels(channels[i], client)));
             clientIt = insert.first;
-            clientMap = insert.first->second.getClientMap();
+            clientMap = clientIt->second.getClientMap();
             // insert.first->second.setTopic("Welcome");
+            clientIt->second.setOperator(client);
+            server.getChannels().find(channels[i])->second.setOperator(client);
+            client.getChannels().find(channels[i])->second.setOperator(client);
             clientMap.insert(std::make_pair(client.getNickname(), client));
             std::cout << "Channel client ADD : " << clientIt->second.getName() << std::endl;
         }
+        channelsServer.find(channels[i])->second.setClients(clientMap);
+        server.setChannels(channelsServer);
         reponse = ":" + client.getNickname() + "!" + client.getUsername() + "@" + client.getAddrIp() + " JOIN :" + channels[i] + " " + key + "\r\n";
         std::cout << "reponse : " << reponse << std::endl;
         if (send(client.getFd(), reponse.c_str(), reponse.size(), 0) == -1)
@@ -76,13 +82,14 @@ void Join(std::string cmd, Clients& client, Server& server)
             else
                 user += it->second.getNickname() + " ";
         }
-        std::string reponseNameLstStart = ":server 353 " + client.getNickname() + " = " + channels[i] + " :" + user + "\r\n";
+        std::string reponseNameLstStart = ":server 375 " + client.getNickname() + " = " + channels[i] + " :" + user + "\r\n";
         std::cout << "reponseNameLstStart : " << reponseNameLstStart << std::endl;
         if (send(client.getFd(), reponseNameLstStart.c_str(), reponseNameLstStart.size(), 0) == -1)
             throw (SendErrorExeption());
-        std::string reponseNameLstEnd = ":server 366 " + client.getNickname() + " " + channels[i] + " :End of /NAMES list" + "\r\n";
+        std::string reponseNameLstEnd = ":server 376 " + client.getNickname() + " " + channels[i] + " :End of /NAMES list" + "\r\n";
         std::cout << "reponseNameLstEnd : " << reponseNameLstEnd << std::endl;
         if (send(client.getFd(), reponseNameLstEnd.c_str(), reponseNameLstEnd.size(), 0) == -1)
             throw (SendErrorExeption());
     }
+    std::cout << "client in chan test name : " << client.getChannels().find("test8")->second.getOperator().getNickname() << std::endl;
 }
