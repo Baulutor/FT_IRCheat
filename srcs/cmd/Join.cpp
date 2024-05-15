@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 10:13:36 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/14 17:08:41 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/15 13:26:20 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,28 @@ void Join(std::string cmd, Clients& client, Server& server)
             channels[i].erase(pos, remove.length());
             std::cout << "channels[i] = |" << channels[i] << "|" << std::endl;
         }
+        std::cout << "PASS1" << std::endl;
         std::string key = (i < keys.size()) ? keys[i] : "";
         // if (channels[i][0] == '#')
         //     channels[i] = channels[i].substr(1);
+        std::cout << "PASS2" << std::endl;
         std::map<std::string, Channels>::iterator serverIt = channelsServer.find(channels[i]);
         if (serverIt == channelsServer.end())
         {
-            channelsServer.insert(std::make_pair(channels[i], Channels(channels[i], client)));
-            std::cout << "channel serveur ADD : " << serverIt->second.getName() << std::endl;
+            std::pair<std::map<std::string, Channels>::iterator, bool> insert = channelsServer.insert(std::make_pair(channels[i], Channels(channels[i], client)));
+            serverIt = insert.first;
+            serverIt->second.setOperator(client);
+            std::cout << "channel serveur ADD : " << insert.first->second.getName() << std::endl;
         }
+        std::cout << "PASS3" << std::endl;
         std::map<std::string, Channels>::iterator clientIt = clientChannels.find(channels[i]);
         std::map<std::string, Clients> clientMap;
         if (clientIt == clientChannels.end())
         {
-            clientChannels.insert(std::make_pair(channels[i], Channels(channels[i], client)));
-            clientMap = clientChannels[channels[i]].getClientMap();
-            clientIt->second.setTopic("Welcome");
+            std::pair<std::map<std::string, Channels>::iterator, bool> insert = clientChannels.insert(std::make_pair(channels[i], Channels(channels[i], client)));
+            clientIt = insert.first;
+            clientMap = insert.first->second.getClientMap();
+            // insert.first->second.setTopic("Welcome");
             clientMap.insert(std::make_pair(client.getNickname(), client));
             std::cout << "Channel client ADD : " << clientIt->second.getName() << std::endl;
         }
@@ -65,12 +71,17 @@ void Join(std::string cmd, Clients& client, Server& server)
         std::string user;
         for (std::map<std::string, Clients>::iterator it = clientMap.begin(); it != clientMap.end(); it++)
         {
-            user += it->second.getNickname() + " ";
+            if (serverIt->second.getOperator().getNickname() == it->second.getNickname())
+                user += "@" + it->second.getNickname() + " ";
+            else
+                user += it->second.getNickname() + " ";
         }
-        std::string reponseNameLstStart = ":server 353 " + client.getNickname() + " = " + channels[i] + " : " + user + "\r\n";
+        std::string reponseNameLstStart = ":server 353 " + client.getNickname() + " = " + channels[i] + " :" + user + "\r\n";
+        std::cout << "reponseNameLstStart : " << reponseNameLstStart << std::endl;
         if (send(client.getFd(), reponseNameLstStart.c_str(), reponseNameLstStart.size(), 0) == -1)
             throw (SendErrorExeption());
-        std::string reponseNameLstEnd = ":server 366 " + client.getNickname() + " " + channels[i] + " :End of /NAMES list\r\n";
+        std::string reponseNameLstEnd = ":server 366 " + client.getNickname() + " " + channels[i] + " :End of /NAMES list" + "\r\n";
+        std::cout << "reponseNameLstEnd : " << reponseNameLstEnd << std::endl;
         if (send(client.getFd(), reponseNameLstEnd.c_str(), reponseNameLstEnd.size(), 0) == -1)
             throw (SendErrorExeption());
     }

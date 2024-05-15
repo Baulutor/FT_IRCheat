@@ -18,6 +18,7 @@ Channels::Channels(std::string name, Clients& op)
 {
     _name = name;
     _operator = &op;
+    _topic = "No topic set";
 }
 
 Channels::~Channels() {}
@@ -37,3 +38,5 @@ Clients Channels::getOperator() const {return (*_operator);}
 void Channels::setName(std::string name) {_name = name;}
 
 void Channels::setTopic(std::string topic) {_topic = topic;}
+
+void Channels::setOperator(Clients& op) {_operator = &op;}

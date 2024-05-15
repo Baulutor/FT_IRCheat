@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:36:58 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/14 11:18:09 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/15 14:17:09 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,18 @@ bool Clients::initClients(std::string line)
         }
     }
     if (PASS > -1 && NICK > -1 && USER > -1)
+    {
+        std::string MOTDSTART = ":server 375 " + getNickname() + " :- FT_IRCheat" + "Message of the day -" + "\r\n";
+        if (send(getFd(), MOTDSTART.c_str(), MOTDSTART.size(), 0) < 0)
+            throw std::exception();
+        std::string MOTD = ":server 372 " + getNickname() + " :- FT_IRCheat" + "Welcome-" + "\r\n";
+        if (send(getFd(), MOTD.c_str(), MOTD.size(), 0) < 0)
+            throw std::exception();
+        std::string MOTDEND = ":server 376 " + getNickname() + " :End of /MOTD command." + "\r\n";
+        if (send(getFd(), MOTDEND.c_str(), MOTDEND.size(), 0) < 0)
+            throw std::exception();
+        std::cout << "Sending welcome message : " << MOTDSTART << std::endl;
         return (true);
+    }
     return (false);
 }

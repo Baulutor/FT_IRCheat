@@ -40,6 +40,20 @@ void Server::cmdHandler(std::string cmd, Clients& client)
     }
 }
 
+void Server::Pong(std::string cmd, Clients& client)
+{
+    std::cout << "PONG" << std::endl;
+    std::string pong = "PONG " + cmd.substr(6) + "\r\n";
+    std::cout << "pong : " << pong << std::endl;
+    if (send(client.getFd(), pong.c_str(), pong.size(), 0) < 0)
+        throw std::exception();
+}
+
+// void Server::setDataServer()
+// {
+    
+// }
+
 Server::Server( std::string av ) {
 
     //creation du socket serv
@@ -99,6 +113,8 @@ Server::Server( std::string av ) {
         else
         {
             cmdHandler(buffer, client);
+            if (startWith(buffer, "PING"))
+                Pong(buffer, client);
             client.printChannels();
         }
         sleep(1);

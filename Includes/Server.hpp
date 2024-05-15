@@ -18,14 +18,18 @@ class Clients;
 class Server
 {
     public:
+        Server( std::string av );
+        // ~Server();
+
         void setFd(int fd);
         void setAddrIp(std::string addrIp);
-        int getFd() const;
+        void setDataServer();
+
         std::string getAddrIp() const;
-        Server( std::string av );
-        void cmdHandler(std::string cmd, Clients& client);
+        int getFd() const;
         std::map<std::string, Channels>& getChannels();
-        // ~Server();
+        void cmdHandler(std::string cmd, Clients& client);
+        void Pong(std::string cmd, Clients& client);
 
     private:
         int _fd;

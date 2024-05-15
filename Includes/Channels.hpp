@@ -37,6 +37,7 @@ class Channels
         // Setter
         void setName(std::string name);
         void setTopic(std::string topic);
+        void setOperator(Clients& op);
 
     private :
         std::string _name;
