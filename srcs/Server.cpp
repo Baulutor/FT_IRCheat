@@ -127,4 +127,4 @@ Server::Server( std::string av ) {
     close(getFd());
 }
 
-Server::~server() {}
+Server::~Server() {}
