@@ -6,21 +6,22 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 10:14:18 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/14 16:55:52 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/16 11:37:11 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CMD_HPP
 # define CMD_HPP
 
-# include "FT_IRCheat.hpp"
+// # include "FT_IRCheat.hpp"
 # include "Clients.hpp"
-# include "Channels.hpp"
+// # include "Channels.hpp"
 # include "Server.hpp"
 
 class Channel;
 
 void Join(std::string cmd, Clients& client, Server& server);
+void Kick(std::string cmd, Clients& client, Server& server);
 
 class SendErrorExeption : public std::exception
 {

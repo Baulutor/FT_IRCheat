@@ -23,7 +23,13 @@
 # include <unistd.h>
 # include <vector>
 # include <sstream>
+# include "RPL.hpp"
+# include "Clients.hpp"
+// # include <map>
+
+class Clients;
 
 std::vector<std::string> split(const std::string &s, char delim);
+void sendCmd(const std::string& cmd, Clients &client);
 
 #endif

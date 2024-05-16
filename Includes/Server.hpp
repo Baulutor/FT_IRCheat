@@ -27,16 +27,18 @@ class Server
 {
     public:
         Server( std::string av );
-	int my_poll(std::vector<PollFd>& pollFds);
-        // ~Server();
+        ~Server();
 
         void setFd(int fd);
         void setAddrIp(std::string addrIp);
         void setDataServer();
+        void setChannels(std::map<std::string, Channels> channels);
+        void setClient(std::map<std::string, Clients> clients);
 
         std::string getAddrIp() const;
         int getFd() const;
         std::map<std::string, Channels>& getChannels();
+        std::map<std::string, Clients>& getClients();
         void cmdHandler(std::string cmd, Clients& client);
         void Pong(std::string cmd, Clients& client);
 
