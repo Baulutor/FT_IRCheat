@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 10:13:36 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/16 11:30:08 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/16 14:06:43 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,11 @@ void Join(std::string cmd, Clients& client, Server& server)
         sendCmd(RPL_CMD_TOPIC(client.getNickname(), channel, Topic), client);
         std::string user;
         std::map<std::string, Clients>& clientMap = insertClient.first->second.getClientMap();
+        clientMap.insert(std::make_pair(client.getNickname(), client));
+        std::cout << "clientMap.size() = " << clientMap.size() << std::endl;
         for (std::map<std::string, Clients>::iterator it = clientMap.begin(); it != clientMap.end(); it++)
         {
+            std::cout << "it->second.getNickname() = " << it->second.getNickname() << std::endl;
             if (insertServer.first->second.getOperator().getNickname() == it->second.getNickname())
                 user += "@" + it->second.getNickname() + " ";
             else
@@ -69,12 +72,14 @@ void Join(std::string cmd, Clients& client, Server& server)
         // std::cout << "reponseNameLstStart : " << reponseNameLstStart << std::endl;
         // if (send(client.getFd(), reponseNameLstStart.c_str(), reponseNameLstStart.size(), 0) == -1)
         //     throw (SendErrorExeption());
-        sendCmd(RPL_CMD_NAME_LST_START(client.getNickname(), channel), client);
+        std::cout << "RPL_CMD_NAME_LST_START = " << RPL_CMD_NAME_LST_START(client.getNickname(), channel, user) << std::endl;
+        sendCmd(RPL_CMD_NAME_LST_START(client.getNickname(), channel, user), client);
         // std::string reponseNameLstEnd = ":server 376 " + client.getNickname() + " " + channel + " :End of /NAMES list" + "\r\n";
         // std::cout << "reponseNameLstEnd : " << reponseNameLstEnd << std::endl;
         // if (send(client.getFd(), reponseNameLstEnd.c_str(), reponseNameLstEnd.size(), 0) == -1)
         //     throw (SendErrorExeption());
-        sendCmd(RPL_CMD_NAME_LST_END(client.getNickname()), client);
+        std::cout << "RPL_CMD_NAME_LST_END = " << RPL_CMD_NAME_LST_END(client.getNickname(), channel) << std::endl;
+        sendCmd(RPL_CMD_NAME_LST_END(client.getNickname(), channel), client);
     }
-    std::cout << "client in chan test name : " << client.getChannels().find("test8")->second.getOperator().getNickname() << std::endl;
+    // std::cout << "client in chan test name : " << client.getChannels().find("test3")->second.getOperator().getNickname() << std::endl;
 }

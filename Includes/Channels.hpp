@@ -15,6 +15,7 @@
 
 # include "FT_IRCheat.hpp"
 # include "Clients.hpp"
+# include <map>
 
 class Clients;
 
