@@ -19,11 +19,13 @@ class Server
 {
     public:
         Server( std::string av );
-        // ~Server();
+        ~Server();
 
         void setFd(int fd);
         void setAddrIp(std::string addrIp);
         void setDataServer();
+        void setChannels(std::map<std::string, Channels> channels);
+        void setClient(std::map<std::string, Clients> clients);
 
         std::string getAddrIp() const;
         int getFd() const;

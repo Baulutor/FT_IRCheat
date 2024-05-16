@@ -21,6 +21,10 @@ std::map<std::string, Channels>& Server::getChannels() {return (_channels);}
 
 std::map<std::string, Clients>& Server::getClients() {return (_clients);}
 
+void Server::setChannels(std::map<std::string, Channels> channels) {this->_channels = channels;}
+
+void Server::setClient(std::map<std::string, Clients> clients) {this->_clients = clients;}
+
 bool startWith(const std::string &line, const char *cmd)
 {
     return (line.find(cmd) == 0);
@@ -45,7 +49,8 @@ void Server::cmdHandler(std::string cmd, Clients& client)
 void Server::Pong(std::string cmd, Clients& client)
 {
     std::cout << "PONG" << std::endl;
-    std::string pong = "PONG " + cmd.substr(6) + "\r\n";
+    std::vector<std::string> splited = split(cmd, ' ');
+    std::string pong = "PONG :" + splited[1];
     std::cout << "pong : " << pong << std::endl;
     if (send(client.getFd(), pong.c_str(), pong.size(), 0) < 0)
         throw std::exception();
@@ -64,7 +69,6 @@ Server::Server( std::string av ) {
     if (getFd() < 0) {
         std::cerr << "error socket" << std::endl;
     }
-    std::cout << "fd = " << getFd() << std::endl;
     setAddrIp("127.0.0.1");
     client.setAddrIp(getAddrIp());
 
@@ -102,7 +106,6 @@ Server::Server( std::string av ) {
             std::cout << "connexion closed " << std::endl;
         else
             buffer[bytes] = '\0';
-        std::cout << "buffer : |" << buffer << "|" << std::endl;
         if (startWith(buffer, "CAP LS 302") || !init)
         {
             init = client.initClients(buffer);
@@ -123,3 +126,5 @@ Server::Server( std::string av ) {
     }
     close(getFd());
 }
+
+Server::~server() {}

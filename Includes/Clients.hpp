@@ -15,6 +15,7 @@
 
 # include "FT_IRCheat.hpp"
 # include "Channels.hpp"
+# include <map>
 
 class Channels;
 
@@ -22,7 +23,7 @@ class Clients
 {
     public:
         Clients();
-        //~Clients();
+        ~Clients();
         
         void setFd(int fd);
         void setAddrIp(std::string addrIp);

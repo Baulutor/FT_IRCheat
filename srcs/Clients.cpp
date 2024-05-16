@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:36:58 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/15 14:17:09 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/15 18:18:26 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 Clients::Clients()
 {
-    std::cout << "Clients constructor created" << std::endl;
+    //std::cout << "Clients constructor created" << std::endl;
 }
 
-// Clients::~Clients()
-// {
-//     std::cout << "Clients destructor created" << std::endl;
-// }
+Clients::~Clients()
+{
+    //std::cout << "Clients destructor created" << std::endl;
+}
 
 // Getters
 
