@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 10:14:18 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/13 16:37:36 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/14 16:55:52 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@
 # include "FT_IRCheat.hpp"
 # include "Clients.hpp"
 # include "Channels.hpp"
+# include "Server.hpp"
 
 class Channel;
 
-void Join(std::string cmd, Clients& client, std::map<std::string, Channels>& channelsServer);
-void Kick(std::string cmd, Clients& client, std::map<std::string, Channels>& channelsServer);
+void Join(std::string cmd, Clients& client, Server& server);
+void Kick(std::string cmd, Clients& client, Server& server);
 
 class SendErrorExeption : public std::exception
 {
