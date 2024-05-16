@@ -14,8 +14,6 @@
 # define CHANNELS_HPP
 
 # include "FT_IRCheat.hpp"
-# include <map>
-# include <vector>
 # include "Clients.hpp"
 
 class Clients;
@@ -31,7 +29,7 @@ class Channels
         // Getter
         std::string getName() const;
         std::string getTopic() const;
-        std::map<std::string, Clients> getClientMap();
+        std::map<std::string, Clients>& getClientMap();
         Clients getOperator() const;
 
         // Setter

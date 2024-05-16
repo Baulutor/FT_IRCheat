@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "Channels.hpp"
+#include <map>
 
 Channels::Channels() {}
 
@@ -29,7 +30,7 @@ std::string Channels::getName() const {return (_name);}
 
 std::string Channels::getTopic() const {return (_topic);}
 
-std::map<std::string, Clients> Channels::getClientMap() {return (_clients);}
+std::map<std::string, Clients>& Channels::getClientMap() {return (_clients);}
 
 Clients Channels::getOperator() const {return (*_operator);}
 
