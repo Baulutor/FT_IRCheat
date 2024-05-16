@@ -11,14 +11,23 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <map>
+#include <poll.h>
+#include <cstdio>
 #include "Clients.hpp"
 
 class Clients;
+
+struct PollFd {
+	int fd;
+	short events; // Événements à surveiller
+	short revents; // Événements retournés par poll
+};
 
 class Server
 {
     public:
         Server( std::string av );
+	int my_poll(std::vector<PollFd>& pollFds);
         // ~Server();
 
         void setFd(int fd);
