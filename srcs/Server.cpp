@@ -106,6 +106,7 @@ Server::Server( std::string av ) {
             std::cout << "connexion closed " << std::endl;
         else
             buffer[bytes] = '\0';
+        //std::cout << buffer << std::endl;
         if (startWith(buffer, "CAP LS 302") || !init)
         {
             init = client.initClients(buffer);
