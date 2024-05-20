@@ -1,21 +1,13 @@
 #include "Server.hpp"
 #include "Cmd.hpp"
 
-int Server::getFd() const {
-    return this->_fd;
-}
+int Server::getFd() const {return this->_fd;}
 
-std::string Server::getAddrIp() const {
-    return this->_addrIp;
-}
+std::string Server::getAddrIp() const {return this->_addrIp;}
 
-void Server::setFd(int fd) {
-    this->_fd = fd;
-}
+void Server::setFd(int fd) {this->_fd = fd;}
 
-void Server::setAddrIp(std::string addrIp) {
-    this->_addrIp = addrIp;
-}
+void Server::setAddrIp(std::string addrIp) {this->_addrIp = addrIp;}
 
 std::map<std::string, Channels>& Server::getChannels() {return (_channels);}
 
@@ -25,10 +17,11 @@ void Server::setChannels(std::map<std::string, Channels> channels) {this->_chann
 
 void Server::setClient(std::map<std::string, Clients> clients) {this->_clients = clients;}
 
-bool startWith(const std::string &line, const char *cmd)
-{
-    return (line.find(cmd) == 0);
-}
+void Server::setPassword(std::string password) {this->_password = password;}
+
+std::string Server::getPassword() const {return (this->_password);}
+
+bool startWith(const std::string &line, const char *cmd) {return (line.find(cmd) == 0);}
 
 void Server::cmdHandler(std::string cmd, Clients& client)
 {
@@ -50,7 +43,7 @@ void Server::Pong(std::string cmd, Clients& client)
 {
     std::cout << "PONG" << std::endl;
     std::vector<std::string> splited = split(cmd, ' ');
-    std::string pong = "PONG :" + splited[1];
+    std::string pong = "PONG IRC_test " + splited[1];
     std::cout << "pong : " << pong << std::endl;
     if (send(client.getFd(), pong.c_str(), pong.size(), 0) < 0)
         throw std::exception();
@@ -61,7 +54,8 @@ void Server::Pong(std::string cmd, Clients& client)
     
 // }
 
-Server::Server( std::string av ) {
+Server::Server( std::string av, std::string av2 )
+{
 
     //creation du socket serv
     Clients client;
@@ -69,6 +63,8 @@ Server::Server( std::string av ) {
     if (getFd() < 0) {
         std::cerr << "error socket" << std::endl;
     }
+
+    setPassword(av2);
     setAddrIp("127.0.0.1");
     client.setAddrIp(getAddrIp());
 
@@ -108,7 +104,14 @@ Server::Server( std::string av ) {
             buffer[bytes] = '\0';
         if (startWith(buffer, "CAP LS 302") || !init)
         {
-            init = client.initClients(buffer);
+            try
+            {
+                init = client.initClients(buffer, getPassword());
+            }
+            catch (std::exception& e)
+            {
+                std::cout << "Error : " << e.what() << std::endl;
+            }
             if (init)
             {
                 std::cout << "init client" << std::endl;

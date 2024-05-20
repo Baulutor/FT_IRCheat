@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Clients.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bfaure <bfaure@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:36:58 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/15 18:18:26 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/17 12:06:57 by bfaure           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void Clients::printChannels()
     }
 }
 
-bool Clients::initClients(std::string line)
+bool Clients::initClients(std::string line, std::string password)
 {
     static int PASS = -1;
     static int NICK = -1;
@@ -113,6 +113,8 @@ bool Clients::initClients(std::string line)
         {
             PASS = i;
             setPass(tokens[i + 1]);
+            if (getPass() != password)
+                throw std::exception();
         }
         if (tokens[i].find("NICK") != std::string::npos && NICK < 0)
         {
@@ -127,16 +129,9 @@ bool Clients::initClients(std::string line)
     }
     if (PASS > -1 && NICK > -1 && USER > -1)
     {
-        std::string MOTDSTART = ":server 375 " + getNickname() + " :- FT_IRCheat" + "Message of the day -" + "\r\n";
-        if (send(getFd(), MOTDSTART.c_str(), MOTDSTART.size(), 0) < 0)
-            throw std::exception();
-        std::string MOTD = ":server 372 " + getNickname() + " :- FT_IRCheat" + "Welcome-" + "\r\n";
-        if (send(getFd(), MOTD.c_str(), MOTD.size(), 0) < 0)
-            throw std::exception();
-        std::string MOTDEND = ":server 376 " + getNickname() + " :End of /MOTD command." + "\r\n";
-        if (send(getFd(), MOTDEND.c_str(), MOTDEND.size(), 0) < 0)
-            throw std::exception();
-        std::cout << "Sending welcome message : " << MOTDSTART << std::endl;
+        sendCmd(RPL_MOTD_START(getNickname()), *this);
+        sendCmd(RPL_MOTD_MSG(getNickname(), "Welcome to the FT_IRCheat"), *this);
+        sendCmd(RPL_MOTD_END(getNickname()), *this);
         return (true);
     }
     return (false);
