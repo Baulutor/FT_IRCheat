@@ -109,6 +109,7 @@ Server::Server(std::string av, std::string av2)
 	// Création de la socket serveur
 
 	setAddrIp("127.0.0.1");
+	setPassword(av2);
 	
 	// client.setAddrIp(servAddress);
 	setFd(socket(AF_INET, SOCK_STREAM, 0));
