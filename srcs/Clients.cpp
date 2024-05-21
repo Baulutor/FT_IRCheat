@@ -53,6 +53,18 @@ void Clients::setPass(std::string pass) {_pass = pass;}
 
 // Print info
 
+
+void Clients::setPollFd(pollfd newPoll)
+{
+	this->pollClient = newPoll;
+}
+
+
+pollfd	Clients::getPollFd()
+{
+    return (this->pollClient);
+}
+
 void Clients::printInfo()
 {
     std::cout << "Nickname : " << _nickname << std::endl;
@@ -71,7 +83,7 @@ void Clients::printChannels()
     }
 }
 
-bool Clients::initClients(std::string line)
+bool Clients::initClients(std::string line, Server &server)
 {
     static int PASS = -1;
     static int NICK = -1;
@@ -120,6 +132,15 @@ bool Clients::initClients(std::string line)
         }
         if (tokens[i].find("NICK") != std::string::npos && NICK < 0)
         {
+            for (std::map<int, Clients>::iterator it = server.getClients().begin(); it != server.getClients().end(); it++)
+            {
+                if (it->second.getNickname() == tokens[i + 1])
+                {
+                    setNickname(tokens[i + 1] + "_");
+                    NICK = i;
+                    break ;
+                }
+            }
             NICK = i;
             setNickname(tokens[i + 1]);
         }
@@ -141,6 +162,9 @@ bool Clients::initClients(std::string line)
         if (send(getFd(), MOTDEND.c_str(), MOTDEND.size(), 0) < 0)
             throw std::exception();
         std::cout << "Sending welcome message : " << MOTDSTART << std::endl;
+        PASS = -1;
+        NICK = -1;
+        USER = -1;
         return (true);
     }
     return (false);

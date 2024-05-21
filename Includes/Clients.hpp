@@ -15,7 +15,11 @@
 
 # include "FT_IRCheat.hpp"
 # include "Channels.hpp"
+# include <poll.h>
 # include <map>
+#include "Server.hpp"
+
+class Server;
 
 class Channels;
 
@@ -31,13 +35,17 @@ class Clients
         void setUsername(std::string username);
         void setPass(std::string pass);
 
-        bool initClients(std::string line);
+        bool initClients(std::string line, Server &server);
 
         int getFd() const;
         std::string getAddrIp() const;
         std::string getNickname() const;
         std::string getUsername() const;
         std::string getPass() const;
+
+        pollfd  getPollFd();
+        void    setPollFd(pollfd poll);
+
         std::map<std::string, Channels>& getChannels();
         std::map<std::string, Channels> getChannelsInvite();
 
@@ -56,6 +64,9 @@ class Clients
         std::string _addrIp;
         std::map<std::string, Channels> _channels;
         std::map<std::string, Channels> _channelsInvite;
+
+
+        pollfd pollClient;
 };
 
 #endif

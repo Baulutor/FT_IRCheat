@@ -1,5 +1,6 @@
 #include "Clients.hpp"
 #include "Server.hpp"
+#include "IRC.h"
 
 int main(int argc, char **argv) {
     if (argc != 3) {
@@ -8,6 +9,7 @@ int main(int argc, char **argv) {
     }
 	try
 	{
+		parsArg(argv);
     	Server server(argv[1]);
 	}
 	catch (std::exception &e)
