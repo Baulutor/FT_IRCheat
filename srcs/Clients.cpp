@@ -82,26 +82,30 @@ bool Clients::initClients(std::string line, std::string password)
     std::istringstream iss(line);
     std::string part;
 
-    while (std::getline(iss, part, '\n')) {
+    while (std::getline(iss, part, '\n'))
+	{
         size_t pos = part.find('\r');
         if (pos != std::string::npos) {
             part = part.substr(0, pos);
         }
-
         // Check if the line contains "USER" and split all spaces if it does
-        if (part.find("USER") != std::string::npos) {
+        if (part.find("USER") != std::string::npos)
+		{
             std::istringstream userStream(part);
             std::string userToken;
-            while (userStream >> userToken) {
+            while (userStream >> userToken)
+			{
                 tokens.push_back(userToken);
             }
         } else {
             // Otherwise, split only at the first space
             pos = part.find(' ');
-            if (pos != std::string::npos) {
+            if (pos != std::string::npos)
+			{
                 tokens.push_back(part.substr(0, pos)); // Before the space
                 tokens.push_back(part.substr(pos + 1)); // After the space
-            } else {
+            } else
+			{
                 tokens.push_back(part); // No space found, push the whole part
             }
         }

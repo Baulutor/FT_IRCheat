@@ -11,9 +11,18 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <map>
+#include <poll.h>
+#include <cstdio>
 #include "Clients.hpp"
+#include <exception>
 
 class Clients;
+
+struct PollFd {
+	int fd;
+	short events; // Événements à surveiller
+	short revents; // Événements retournés par poll
+};
 
 class Server
 {
@@ -35,6 +44,8 @@ class Server
         void cmdHandler(std::string cmd, Clients& client);
         void Pong(std::string cmd, Clients& client);
         std::string getPassword() const;
+
+//		void	broadcast_message(const std::string &message, int sender_fd, std::vector<pollfd> &clients);
 
     private:
         int _fd;
