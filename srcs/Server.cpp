@@ -181,13 +181,14 @@ void broadcast_message(const std::string &message, int sender_fd, std::vector<po
 }
 
 
-Server::Server(std::string av)
+Server::Server(std::string av, std::string av2)
 {
 	Clients client;
 	struct sockaddr_in address;
 	int opt = 1;
 	int addrlen = sizeof(address);
 	char buffer[2048];
+	// (void)av2;
 
 	// Création de la socket serveur
 	setAddrIp("127.0.0.1");
@@ -278,7 +279,7 @@ Server::Server(std::string av)
 					{
 						buffer[valread] = '\0';
 						std::string message(buffer);
-						if (client.initClients(buffer))
+						if (client.initClients(buffer, av2))
 							client.printInfo();
 						std::cout << "Received message: " << message << std::endl;
 						broadcast_message(message, vecClient[i].fd, vecClient);
