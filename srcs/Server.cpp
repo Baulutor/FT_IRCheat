@@ -176,7 +176,6 @@ Server::Server(std::string av, std::string av2)
 						std::cerr << "ERROR rcve !" << std::endl;
 					else if ( bytes == 0)
 					{
-
 						std::cout << "connexion closed " << std::endl;
 						throw std::invalid_argument("tg");
 					}
