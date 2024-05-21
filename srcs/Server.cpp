@@ -11,11 +11,11 @@ void Server::setAddrIp(std::string addrIp) {this->_addrIp = addrIp;}
 
 std::map<std::string, Channels>& Server::getChannels() {return (_channels);}
 
-std::map<std::string, Clients>& Server::getClients() {return (_clients);}
+std::map<int, Clients>& Server::getClients() {return (_clients);}
 
 void Server::setChannels(std::map<std::string, Channels> channels) {this->_channels = channels;}
 
-void Server::setClient(std::map<std::string, Clients> clients) {this->_clients = clients;}
+void Server::setClient(std::map<int, Clients> clients) {this->_clients = clients;}
 
 void Server::setPassword(std::string password) {this->_password = password;}
 
@@ -84,127 +84,45 @@ void Server::Pong(std::string cmd, Clients& client)
 //	}
 //	return ret; // Nombre de descripteurs prêts
 //}
-//
-//
-//Server::Server(std::string av)
-//{
-//	int serverFd;
-//	int	clientFd;
-//	struct sockaddr_in serverAddr, clientAddr;
-//	socklen_t clientAddrLen = sizeof(clientAddr);
-//	std::vector<PollFd> pollFds(5); // Créer un vecteur de descripteurs de fichiers à surveiller pour poll
-//
-//	// Création du socket
-//	serverFd = socket(AF_INET, SOCK_STREAM, 0);
-//	if (serverFd < 0) {
-//		std::cerr << "Error creating socket" << std::endl;
-//		throw (std::invalid_argument("Pas ouf la relou"));
-//	}
-//
-//	// Configuration de l'adresse du serveur
-//	serverAddr.sin_family = AF_INET;
-//	serverAddr.sin_addr.s_addr = INADDR_ANY;
-//	serverAddr.sin_port = htons(atoi(av.c_str())); // Utilisation du port passé en argument
-//
-////	std::cout << "Valeur de server Addr: " <<  serverAddr.sin_zero << " valeur de size of addr: " << sizeof(serverAddr) << " valeur de serverFd: " << serverFd << std::endl;
-//	// Liaison du socket
-//	if (bind(serverFd, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) < 0)
-//	{
-//		std::cerr << "Error binding socket" << std::endl;
-//		close(serverFd);
-//		for (size_t i = 1; i < pollFds.size(); ++i)
-//			close(pollFds[i].fd);
-//		throw (std::invalid_argument("Pas ouf la relou bind"));
-//	}
-//
-//	// Mise en écoute
-//	if (listen(serverFd, 5) == -1) {
-//		std::cerr << "Error listening" << std::endl;
-//		throw (std::invalid_argument("Pas ouf la relou listen"));
-//	}
-//
-//	// Initialisation de la structure PollFd pour surveiller le socket d'écoute
-//	pollFds[0].fd = serverFd;
-//	pollFds[0].events = POLLIN; // Surveiller les événements d'entrée
-//
-//	// Boucle principale pour accepter les nouvelles connexions et gérer les clients
-//	while (true) {
-//		int ret = my_poll(pollFds); // Attendre les événements
-//
-//		if (ret == -1) {
-//			std::cerr << "Error in poll" << std::endl;
-//			break;
-//		}
-//
-//		if (pollFds[0].revents & POLLIN) { // Nouvelle connexion sur le socket d'écoute
-//			// Accepter la nouvelle connexion
-//			clientFd = accept(serverFd, (struct sockaddr*)&clientAddr, &clientAddrLen);
-//			if (clientFd < 0) {
-//				std::cerr << "Error accepting connection" << std::endl;
-//				continue;
-//			}
-//			std::cout << "Accepted connection" << std::endl;
-//
-//			// Ajouter le nouveau descripteur de fichier à surveiller
-//			PollFd newClientFd;
-//			newClientFd.fd = clientFd;
-//			newClientFd.events = POLLIN;
-//			pollFds.push_back(newClientFd);
-//		}
-//
-//		// Traitement des événements pour les clients existants
-//		for (size_t i = 1; i < pollFds.size(); ++i) {
-//			if (pollFds[i].revents & POLLIN) {
-//				// Gérer la lecture depuis le client
-//				// Exemple : ssize_t bytes = recv(pollFds[i].fd, buffer, sizeof(buffer), 0);
-//				// Traitement des données lues...
-//			}
-//		}
-//	}
-//
-//	// Fermeture des sockets
-//	close(serverFd);
-//	for (size_t i = 1; i < pollFds.size(); ++i) {
-//		close(pollFds[i].fd);
-//	}
-//}
+
 
 // ANCIEN en BAS
 
-void broadcast_message(const std::string &message, int sender_fd, std::vector<pollfd> &clients)
-{
-	for (size_t i = 1; i < clients.size(); i++)
-	{
-		if (clients[i].fd != sender_fd)
-			send(clients[i].fd, message.c_str(), message.size(), 0);
-	}
-}
+// void broadcast_message(const std::string &message, int sender_fd, std::vector<pollfd> &clients)
+// {
+// 	for (size_t i = 1; i < clients.size(); i++)
+// 	{
+// 		if (clients[i].fd != sender_fd)
+// 			send(clients[i].fd, message.c_str(), message.size(), 0);
+// 	}
+// }
+
 
 
 Server::Server(std::string av, std::string av2)
 {
-	Clients client;
 	struct sockaddr_in address;
 	int opt = 1;
-	int addrlen = sizeof(address);
 	char buffer[2048];
-	// (void)av2;
+	// std::string servAddress = "127.0.0.1";
 
 	// Création de la socket serveur
+
 	setAddrIp("127.0.0.1");
-	client.setAddrIp(getAddrIp());
+	
+	// client.setAddrIp(servAddress);
 	setFd(socket(AF_INET, SOCK_STREAM, 0));
 	if (getFd() < 0)
 	{
-		perror("socket failed");
-		exit(EXIT_FAILURE);
+		perror("Error Socket: ");
+		throw std::invalid_argument("");
 	}
 
 	// Attacher la socket au port
 	if (setsockopt(getFd(), SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)))
 	{
-		perror("setsockopt");
-		exit(EXIT_FAILURE);
+		perror("Error setsockopt: ");
+		throw std::invalid_argument("");
 	}
 
 	address.sin_family = AF_INET;
@@ -213,84 +131,81 @@ Server::Server(std::string av, std::string av2)
 
 	if (bind(getFd(), (struct sockaddr *)&address, sizeof(address)) < 0)
 	{
-		perror("bind failed");
-		exit(EXIT_FAILURE);
+		perror("Error bind: ");
+		throw std::invalid_argument("");
 	}
 
 	if (listen(getFd(), 3) < 0)
 	{
-		perror("listen");
-		exit(EXIT_FAILURE);
+		perror("Error listen: ");
+		throw std::invalid_argument("");
 	}
 
 	// Tableau pour les descripteurs de fichiers surveillés par poll
-	std::vector<pollfd> vecClient;
-	pollfd server_pollfd = { getFd(), POLLIN, 0 };
-	vecClient.push_back(server_pollfd);
-
-
+	
+	struct pollfd pollServ;
+	pollServ.fd = getFd();
+	pollServ.events = POLLIN;
+	_lstPollFd.push_back(pollServ);
+	bool init = false;
 	while (true)
 	{
-		int poll_count = poll(&vecClient[0], vecClient.size(), -1);
-
-		if (poll_count == -1)
+		if (poll(&_lstPollFd[0], _lstPollFd.size(), -1) >= 0)
 		{
-			perror("poll");
-			exit(EXIT_FAILURE);
-		}
-
-		// Vérifier les événements sur chaque descripteur
-		for (size_t i = 0; i < vecClient.size(); i++)
-		{
-			if (vecClient[i].revents & POLLIN)
+			if (_lstPollFd[0].revents & POLLIN)
 			{
-				std::cout << vecClient[i].revents << ": vecClient[i].revents" << std::endl;
-				if (vecClient[i].fd == getFd())
+				Clients newClient;
+				socklen_t sock_info_len = sizeof(address);
+   				newClient.setFd(accept(getFd(), (struct sockaddr*)&address, &sock_info_len));
+				struct pollfd pollClienTmp;
+				pollClienTmp.fd = newClient.getFd();
+				pollClienTmp.events = POLLIN;
+				_lstPollFd.push_back(pollClienTmp);
+				_clients.insert(std::make_pair(newClient.getFd(), newClient));
+			}
+			for (size_t i = 1; i < _lstPollFd.size(); i++)
+			{
+				if (_lstPollFd[i].revents & POLLIN)
 				{
-					// Nouvelle connexion entrante
-					client.setFd(accept(vecClient[i].fd, (struct sockaddr *)&address, (socklen_t*)&addrlen));
-					if (getFd() < 0)
+					bzero(buffer, 256);
+					std::map<int, Clients>::iterator itClients = getClients().find(_lstPollFd[i].fd);
+					ssize_t bytes = recv(itClients->first, buffer, 255, MSG_DONTWAIT);// MSG_DONTWAIT
+					std::cout << "buffer : |" << buffer << "| BYTES: " << bytes<< std::endl;
+					if (bytes < 0)
+						std::cerr << "ERROR rcve !" << std::endl;
+					else if ( bytes == 0)
 					{
-						perror("accept");
-						exit(EXIT_FAILURE);
+
+						std::cout << "connexion closed " << std::endl;
+						throw std::invalid_argument("tg");
 					}
-					pollfd new_client = { client.getFd(), POLLIN, 0 };
-					vecClient.push_back(new_client);
-					std::cout << "New connection, socket fd is " << client.getFd() << std::endl;
-				}
-				else
-				{
-					// Message entrant d'un client existant
-					std::cout << "dans LE ELSE" << std::endl;
-					ssize_t valread = recv(vecClient[i].fd, buffer, 2048, 0);
-					if (valread < 0)
+					// else
+					// 	buffer[bytes] = '\0';
+					if (startWith(buffer, "CAP LS 302") || !init)
 					{
-						std::cout << "CHELOU!!!!" << std::endl;
-					}
-					else if (valread == 0)
-					{
-						// Déconnexion du client
-						std::cout << "Client disconnected, socket fd is " << vecClient[i].fd << std::endl;
-						close(vecClient[i].fd);
-						vecClient.erase(vecClient.begin() + i);
-						--i;
+						init = itClients->second.initClients(buffer, *this);
+						if (init)
+						{
+							std::cout << "init client" << std::endl;
+							itClients->second.printInfo();
+						}
 					}
 					else
 					{
-						buffer[valread] = '\0';
-						std::string message(buffer);
-						if (client.initClients(buffer, av2))
-							client.printInfo();
-						std::cout << "Received message: " << message << std::endl;
-						broadcast_message(message, vecClient[i].fd, vecClient);
-						cmdHandler(buffer, client);
-						if (startWith(buffer, "PING"))
-							Pong(buffer, client);
-						client.printChannels();
+						cmdHandler(buffer, itClients->second);
+						// if (startWith(buffer, "PING"))
+						// 	Pong(buffer, itClients->second);
+						itClients->second.printChannels();
 					}
+					itClients++;
 				}
 			}
 		}
+		else // ERROR DE POLL
+		{
+			throw std::invalid_argument("lol");
+		}
+
 	}
 }
 

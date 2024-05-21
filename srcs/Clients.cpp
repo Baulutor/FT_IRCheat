@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Clients.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaure <bfaure@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:36:58 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/17 12:06:57 by bfaure           ###   ########lyon.fr   */
+/*   Updated: 2024/05/21 19:49:26 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,18 @@ void Clients::setPass(std::string pass) {_pass = pass;}
 
 // Print info
 
+
+void Clients::setPollFd(pollfd newPoll)
+{
+	this->pollClient = newPoll;
+}
+
+
+pollfd	Clients::getPollFd()
+{
+    return (this->pollClient);
+}
+
 void Clients::printInfo()
 {
     std::cout << "Nickname : " << _nickname << std::endl;
@@ -71,7 +83,7 @@ void Clients::printChannels()
     }
 }
 
-bool Clients::initClients(std::string line, std::string password)
+bool Clients::initClients(std::string line, Server &server)
 {
     static int PASS = -1;
     static int NICK = -1;
@@ -117,11 +129,20 @@ bool Clients::initClients(std::string line, std::string password)
         {
             PASS = i;
             setPass(tokens[i + 1]);
-            if (getPass() != password)
+            if (getPass() != server.getPassword())
                 throw std::exception();
         }
         if (tokens[i].find("NICK") != std::string::npos && NICK < 0)
         {
+            for (std::map<int, Clients>::iterator it = server.getClients().begin(); it != server.getClients().end(); it++)
+            {
+                if (it->second.getNickname() == tokens[i + 1])
+                {
+                    setNickname(tokens[i + 1] + "_");
+                    NICK = i;
+                    break ;
+                }
+            }
             NICK = i;
             setNickname(tokens[i + 1]);
         }
@@ -136,7 +157,8 @@ bool Clients::initClients(std::string line, std::string password)
         sendCmd(RPL_MOTD_START(getNickname()), *this);
         sendCmd(RPL_MOTD_MSG(getNickname(), "Welcome to the FT_IRCheat"), *this);
         sendCmd(RPL_MOTD_END(getNickname()), *this);
-        return (true);
+        PASS = -1;
+        NICK = -1;server
     }
     return (false);
 }
