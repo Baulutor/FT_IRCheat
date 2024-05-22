@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:59:26 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/22 13:23:21 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/22 15:27:16 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,43 @@ void sendBrodcastServer(const std::string& cmd, Server& server)
 		if (send(it->first, cmd.c_str(), cmd.size(), 0) < 0)
 			throw std::exception();
 	}
+}
+
+void NameLstUpadte(Clients& client, Channels& channel)
+{
+	std::string user;
+	for (std::map<std::string, Clients>::iterator it = channel.getClientMap().begin(); it != channel.getClientMap().end(); it++)
+	{
+		if (channel.getOperator().getNickname() == it->second.getNickname())
+			user += "@" + it->second.getNickname() + " ";
+		else
+			user += it->second.getNickname() + " ";
+	}
+	std::cout << "RPL_CMD_NAME_LST_START = " << RPL_CMD_NAME_LST_START(client.getNickname(), channel.getName(), user) << std::endl;
+    sendBrodcastChannel(RPL_CMD_NAME_LST_START(client.getNickname(), channel.getName(), user), channel);
+	
+    std::cout << "RPL_CMD_NAME_LST_END = " << RPL_CMD_NAME_LST_END(client.getNickname(), channel.getName()) << std::endl;
+    sendBrodcastChannel(RPL_CMD_NAME_LST_END(client.getNickname(), channel.getName()), channel);
+}
+
+int findFdClientByName(std::string nickname, std::map<int, Clients>& clientsServer)
+{
+    for (std::map<int, Clients>::iterator it = clientsServer.begin(); it != clientsServer.end(); ++it)
+    {
+        if (it->second.getNickname() == nickname)
+            return (it->first);
+    }
+    return (-1);
+}
+
+Clients& findClientByName(std::string nickname, std::map<int, Clients>& clientsServer)
+{
+    for (std::map<int, Clients>::iterator it = clientsServer.begin(); it != clientsServer.end(); ++it)
+    {
+        if (it->second.getNickname() == nickname)
+            return (it->second);
+    }
+    throw std::exception();
 }
 
 void	parsArg(char **argv) // LOL: j'ai cru qu'il fallait toutes ces regles pour le mot de passe alors que c'est pour le nickname hahahahaha ;)
