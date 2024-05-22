@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Join.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bfaure <bfaure@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 10:13:36 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/16 14:06:43 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/17 16:04:03 by bfaure           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,9 @@ void Join(std::string cmd, Clients& client, Server& server)
     std::cout << "JOIN" << std::endl;
     std::vector<std::string> splited = split(cmd, ' ');
     std::vector<std::string> channels = split(splited[1], ',');
-    std::string reponse;
     std::vector<std::string> keys;
     std::string remove = "\r\n";
     std::map<std::string, Channels>& channelsServer = server.getChannels();
-    //std::map<std::string, Channels>& clientChannels = client.getChannels();
     if (splited.size() > 2)
         keys = split(splited[2], ',');
     size_t pos;
@@ -46,11 +44,7 @@ void Join(std::string cmd, Clients& client, Server& server)
             insertClient.first->second.setOperator(client);
             std::cout << "Channel client ADD : " << insertClient.first->second.getName() << std::endl;
         }
-
-        sendCmd(RPL_CMD_JOIN(client.getNickname(), client.getUsername(), client.getAddrIp(), channel, key), client);
         std::string Topic = insertClient.first->second.getTopic();
-
-        sendCmd(RPL_CMD_TOPIC(client.getNickname(), channel, Topic), client);
         std::string user;
         std::map<std::string, Clients>& clientMap = insertClient.first->second.getClientMap();
         clientMap.insert(std::make_pair(client.getNickname(), client));
@@ -63,11 +57,23 @@ void Join(std::string cmd, Clients& client, Server& server)
             else
                 user += it->second.getNickname() + " ";
         }
+        try
+        {
+            std::cout << "RPL_CMD_JOIN = " << RPL_CMD_JOIN(client.getNickname(), client.getUsername(), client.getAddrIp(), channel, key) << std::endl;
+            sendCmd(RPL_CMD_JOIN(client.getNickname(), client.getUsername(), client.getAddrIp(), channel, key), client);
+            
+            std::cout << "RPL_CMD_TOPIC = " << RPL_CMD_TOPIC(client.getNickname(), channel, Topic) << std::endl;
+            sendCmd(RPL_CMD_TOPIC(client.getNickname(), channel, Topic), client);
+            
+            std::cout << "RPL_CMD_NAME_LST_START = " << RPL_CMD_NAME_LST_START(client.getNickname(), channel, user) << std::endl;
+            sendCmd(RPL_CMD_NAME_LST_START(client.getNickname(), channel, user), client);
 
-        std::cout << "RPL_CMD_NAME_LST_START = " << RPL_CMD_NAME_LST_START(client.getNickname(), channel, user) << std::endl;
-        sendCmd(RPL_CMD_NAME_LST_START(client.getNickname(), channel, user), client);
-
-        std::cout << "RPL_CMD_NAME_LST_END = " << RPL_CMD_NAME_LST_END(client.getNickname(), channel) << std::endl;
-        sendCmd(RPL_CMD_NAME_LST_END(client.getNickname(), channel), client);
+            std::cout << "RPL_CMD_NAME_LST_END = " << RPL_CMD_NAME_LST_END(client.getNickname(), channel) << std::endl;
+            sendCmd(RPL_CMD_NAME_LST_END(client.getNickname(), channel), client);
+        }
+        catch (std::exception& e)
+        {
+            std::cout << "Error : " << e.what() << std::endl;
+        }
     }
 }

@@ -66,3 +66,9 @@ void Kick(std::string cmd, Clients& client, Server& server) {
         std::cout << "chanel pas trouve" << std::endl;
     }
 }
+
+
+// RPL_CMD(user.getName(), user.getUserName(), cmd[0]
+// 				, itChan->getName() + " " + itChanop->getName() + " " + comment)
+// # define RPL_CMD(nick, username, cmd, args) (":" + nick + "!" + username + "@" + LOCALHOST + " " + cmd + " " + args + "\r\n")
+//RPL_CMD_JOIN(client.getNickname(), client.getUsername(), client.getAddrIp(), channel, key), client)

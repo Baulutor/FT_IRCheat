@@ -53,6 +53,18 @@ void Clients::setPass(std::string pass) {_pass = pass;}
 
 // Print info
 
+
+void Clients::setPollFd(pollfd newPoll)
+{
+	this->pollClient = newPoll;
+}
+
+
+pollfd	Clients::getPollFd()
+{
+    return (this->pollClient);
+}
+
 void Clients::printInfo()
 {
     std::cout << "Nickname : " << _nickname << std::endl;
@@ -71,7 +83,7 @@ void Clients::printChannels()
     }
 }
 
-bool Clients::initClients(std::string line)
+bool Clients::initClients(std::string line, Server &server)
 {
     static int PASS = -1;
     static int NICK = -1;
@@ -82,26 +94,30 @@ bool Clients::initClients(std::string line)
     std::istringstream iss(line);
     std::string part;
 
-    while (std::getline(iss, part, '\n')) {
+    while (std::getline(iss, part, '\n'))
+	{
         size_t pos = part.find('\r');
         if (pos != std::string::npos) {
             part = part.substr(0, pos);
         }
-
         // Check if the line contains "USER" and split all spaces if it does
-        if (part.find("USER") != std::string::npos) {
+        if (part.find("USER") != std::string::npos)
+		{
             std::istringstream userStream(part);
             std::string userToken;
-            while (userStream >> userToken) {
+            while (userStream >> userToken)
+			{
                 tokens.push_back(userToken);
             }
         } else {
             // Otherwise, split only at the first space
             pos = part.find(' ');
-            if (pos != std::string::npos) {
+            if (pos != std::string::npos)
+			{
                 tokens.push_back(part.substr(0, pos)); // Before the space
                 tokens.push_back(part.substr(pos + 1)); // After the space
-            } else {
+            } else
+			{
                 tokens.push_back(part); // No space found, push the whole part
             }
         }
@@ -116,6 +132,15 @@ bool Clients::initClients(std::string line)
         }
         if (tokens[i].find("NICK") != std::string::npos && NICK < 0)
         {
+            for (std::map<int, Clients>::iterator it = server.getClients().begin(); it != server.getClients().end(); it++)
+            {
+                if (it->second.getNickname() == tokens[i + 1])
+                {
+                    setNickname(tokens[i + 1] + "_");
+                    NICK = i;
+                    break ;
+                }
+            }
             NICK = i;
             setNickname(tokens[i + 1]);
         }
@@ -127,16 +152,12 @@ bool Clients::initClients(std::string line)
     }
     if (PASS > -1 && NICK > -1 && USER > -1)
     {
-        std::string MOTDSTART = ":server 375 " + getNickname() + " :- FT_IRCheat" + "Message of the day -" + "\r\n";
-        if (send(getFd(), MOTDSTART.c_str(), MOTDSTART.size(), 0) < 0)
-            throw std::exception();
-        std::string MOTD = ":server 372 " + getNickname() + " :- FT_IRCheat" + "Welcome-" + "\r\n";
-        if (send(getFd(), MOTD.c_str(), MOTD.size(), 0) < 0)
-            throw std::exception();
-        std::string MOTDEND = ":server 376 " + getNickname() + " :End of /MOTD command." + "\r\n";
-        if (send(getFd(), MOTDEND.c_str(), MOTDEND.size(), 0) < 0)
-            throw std::exception();
-        std::cout << "Sending welcome message : " << MOTDSTART << std::endl;
+        sendCmd(RPL_MOTD_START(getNickname()), *this);
+        sendCmd(RPL_MOTD_MSG(getNickname(), "Welcome to the FT_IRCheat"), *this);
+        sendCmd(RPL_MOTD_END(getNickname()), *this);
+        PASS = -1;
+        NICK = -1;
+        USER = -1;
         return (true);
     }
     return (false);

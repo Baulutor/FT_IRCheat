@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:27:47 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/16 13:38:00 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/21 19:47:50 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,11 @@
 
 # include "FT_IRCheat.hpp"
 # include "Channels.hpp"
+# include <poll.h>
 # include <map>
+#include "Server.hpp"
+
+class Server;
 
 class Channels;
 
@@ -31,13 +35,17 @@ class Clients
         void setUsername(std::string username);
         void setPass(std::string pass);
 
-        bool initClients(std::string line);
+        bool initClients(std::string line, Server &server);
 
         int getFd() const;
         std::string getAddrIp() const;
         std::string getNickname() const;
         std::string getUsername() const;
         std::string getPass() const;
+
+        pollfd  getPollFd();
+        void    setPollFd(pollfd poll);
+
         std::map<std::string, Channels>& getChannels();
         std::map<std::string, Channels> getChannelsInvite();
 
@@ -56,6 +64,9 @@ class Clients
         std::string _addrIp;
         std::map<std::string, Channels> _channels;
         std::map<std::string, Channels> _channelsInvite;
+
+
+        pollfd pollClient;
 };
 
 #endif
