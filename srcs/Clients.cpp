@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:36:58 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/22 13:30:43 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/22 13:48:48 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,6 @@ bool Clients::initClients(std::string line, Server &server)
         {
             PASS = i;
             setPass(tokens[i + 1]);
-            if (getPass() != server.getPassword())
-                throw std::exception();
         }
         if (tokens[i].find("NICK") != std::string::npos && NICK < 0)
         {

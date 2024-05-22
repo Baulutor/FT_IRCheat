@@ -7,6 +7,7 @@
 #include <iostream>
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <sys/poll.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
@@ -39,7 +40,6 @@ class Server
         std::map<std::string, Channels>& getChannels();
         std::map<int, Clients>& getClients();
         void cmdHandler(std::string cmd, Clients& client);
-        void Pong(std::string cmd, Clients& client);
         std::string getPassword() const;
 
 		// void	broadcast_message(const std::string &message, int sender_fd, std::vector<pollfd> &clients);

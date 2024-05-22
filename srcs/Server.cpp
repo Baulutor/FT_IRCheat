@@ -26,11 +26,10 @@ bool startWith(const std::string &line, const char *cmd) {return (line.find(cmd)
 void Server::cmdHandler(std::string cmd, Clients& client)
 {
 	std::cout << "cmd: " << cmd << std::endl;
-    const char *lstCmd[] = {"JOIN", "KICK", "PRIVMSG"};
+    const char *lstCmd[] = {"JOIN", "KICK", "PRIVMSG", "PING"};
     // , "NAMES", "NICK", "INVITE", "TOPIC", "PRIVMSG", "QUIT", "PART", "KICK", "MODE"
-    void (*lstFunc[])(std::string, Clients&, Server&) = {Join, Kick, Privmsg};
-    // NAMES, NICK, INVITE, TOPIC, PRIVMSG, QUIT, PART, KICK, MODE
-    for (int i = 0; i < 3; i++)
+    void (*lstFunc[])(std::string, Clients&, Server&) = {Join, Kick, Privmsg, Pong};
+    for (int i = 0; i < 4; i++)
     {
         if (startWith(cmd, lstCmd[i]))
         {
@@ -38,16 +37,6 @@ void Server::cmdHandler(std::string cmd, Clients& client)
             return;
         }
     }
-}
-
-void Server::Pong(std::string cmd, Clients& client)
-{
-    std::cout << "PONG" << std::endl;
-    std::vector<std::string> splited = split(cmd, ' ');
-    std::string pong = "PONG IRC_test " + splited[1];
-    std::cout << "pong : " << pong << std::endl;
-    if (send(client.getFd(), pong.c_str(), pong.size(), 0) < 0)
-        throw std::exception();
 }
 
 Server::Server(std::string av, std::string av2)
@@ -61,7 +50,6 @@ Server::Server(std::string av, std::string av2)
 	setAddrIp("127.0.0.1");
 	setPassword(av2);
 	
-	// client.setAddrIp(servAddress);
 	setFd(socket(AF_INET, SOCK_STREAM, 0));
 	if (getFd() < 0)
 	{
@@ -69,7 +57,6 @@ Server::Server(std::string av, std::string av2)
 		throw std::invalid_argument("");
 	}
 
-	// Attacher la socket au port
 	if (setsockopt(getFd(), SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)))
 	{
 		perror("Error setsockopt: ");
@@ -91,8 +78,6 @@ Server::Server(std::string av, std::string av2)
 		perror("Error listen: ");
 		throw std::invalid_argument("");
 	}
-
-	// Tableau pour les descripteurs de fichiers surveillés par poll
 	
 	struct pollfd pollServ;
 	pollServ.fd = getFd();
@@ -120,13 +105,12 @@ Server::Server(std::string av, std::string av2)
 				{
 					bzero(buffer, 256);
 					std::map<int, Clients>::iterator itClients = getClients().find(_lstPollFd[i].fd);
-					ssize_t bytes = recv(itClients->first, buffer, 255, MSG_DONTWAIT);// MSG_DONTWAIT
+					ssize_t bytes = recv(itClients->first, buffer, 255, MSG_DONTWAIT);
 					std::cout << "buffer : |" << buffer << "| BYTES: " << bytes<< std::endl;
 					if (bytes < 0)
 						std::cerr << "ERROR rcve !" << std::endl;
 					else if ( bytes == 0)
 					{
-
 						std::cout << "connexion closed " << std::endl;
 						throw std::invalid_argument("tg");
 					}
@@ -142,8 +126,6 @@ Server::Server(std::string av, std::string av2)
 					else
 					{
 						cmdHandler(buffer, itClients->second);
-						// if (startWith(buffer, "PING"))
-						// 	Pong(buffer, itClients->second);
 						itClients->second.printChannels();
 					}
 					itClients++;

@@ -29,6 +29,7 @@ SRC 	=	srcs/main.cpp \
 			srcs/Server.cpp \
 			srcs/cmd/Join.cpp \
 			srcs/cmd/Kick.cpp \
+			srcs/cmd/Pong.cpp \
 			srcs/Utils.cpp \
 			srcs/Channels.cpp \
 			srcs/cmd/Privmsg.cpp
