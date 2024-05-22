@@ -18,7 +18,7 @@
 void Kick(std::string cmd, Clients& client, Server& server) {
     std::cout << "KICK" << std::endl;
 
-    std::map<std::string, Channels> channel = server.getChannels();
+    std::map<std::string, Channels>& channel = server.getChannels();
     std::vector<std::string> splited = split(cmd, ' ');
     std::string cible;
     std::string com;
@@ -43,7 +43,7 @@ void Kick(std::string cmd, Clients& client, Server& server) {
     std::map<std::string, Channels>::iterator it = channel.begin();
     for (; it != channel.end(); it++) {
         if (it->first == splited[2]) {
-            std::map<std::string, Clients> clientsMap = it->second.getClientMap();
+            std::map<std::string, Clients>& clientsMap = it->second.getClientMap();
             std::map<std::string, Clients>::iterator it2 = clientsMap.begin();
             for(; it2 != clientsMap.end(); it2++) {
                 if ((':' + it2->first) == cible) {
@@ -51,7 +51,10 @@ void Kick(std::string cmd, Clients& client, Server& server) {
                         std::cout << "tu peu pas t'autockick trou d'uc" << std::endl;
                         return;
                     }
-                    return (sendCmd(RPL_CMD_KICK(client.getNickname(), client.getUsername(), client.getAddrIp(), it->first, cible, com), client));
+                    clientsMap.erase(it2);
+                    NameLstUpadte(client, it->second);
+                    sendBrodcastChannel(RPL_CMD_KICK(client.getNickname(), client.getUsername(), client.getAddrIp(), it->first, cible, com), it->second);
+                    return ;
                 }
             }
             if (it2 == clientsMap.end()) {
@@ -66,9 +69,3 @@ void Kick(std::string cmd, Clients& client, Server& server) {
         std::cout << "chanel pas trouve" << std::endl;
     }
 }
-
-
-// RPL_CMD(user.getName(), user.getUserName(), cmd[0]
-// 				, itChan->getName() + " " + itChanop->getName() + " " + comment)
-// # define RPL_CMD(nick, username, cmd, args) (":" + nick + "!" + username + "@" + LOCALHOST + " " + cmd + " " + args + "\r\n")
-//RPL_CMD_JOIN(client.getNickname(), client.getUsername(), client.getAddrIp(), channel, key), client)
