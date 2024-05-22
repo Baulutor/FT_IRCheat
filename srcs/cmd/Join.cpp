@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 10:13:36 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/22 11:28:50 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/22 13:43:42 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ void Join(std::string cmd, Clients& client, Server& server)
     size_t pos;
     for (size_t i = 0; i < channels.size(); i++)
     {
+        if (channels[i][0] != '#')
+        {
+            sendCmd(RPL_JOIN_ERROR_NAME(client.getNickname(), channels[i]), client);
+            continue;
+        }
         if ((pos = channels[i].find(remove)) != std::string::npos)
             channels[i].erase(pos, remove.length());
         std::string key = (i < keys.size()) ? keys[i] : "";
@@ -64,10 +69,10 @@ void Join(std::string cmd, Clients& client, Server& server)
             sendCmd(RPL_CMD_TOPIC(client.getNickname(), channel, Topic), client);
             
             std::cout << "RPL_CMD_NAME_LST_START = " << RPL_CMD_NAME_LST_START(client.getNickname(), channel, user) << std::endl;
-            sendBrodcast(RPL_CMD_NAME_LST_START(client.getNickname(), channel, user), insertClient.first->second);
+            sendBrodcastChannel(RPL_CMD_NAME_LST_START(client.getNickname(), channel, user), insertClient.first->second);
 
             std::cout << "RPL_CMD_NAME_LST_END = " << RPL_CMD_NAME_LST_END(client.getNickname(), channel) << std::endl;
-            sendBrodcast(RPL_CMD_NAME_LST_END(client.getNickname(), channel), insertClient.first->second);
+            sendBrodcastChannel(RPL_CMD_NAME_LST_END(client.getNickname(), channel), insertClient.first->second);
         }
         catch (std::exception& e)
         {

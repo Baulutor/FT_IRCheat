@@ -31,8 +31,12 @@ class Clients;
 
 class Channels;
 
+class Server;
+
 std::vector<std::string> split(const std::string &s, char delim);
 void sendCmd(const std::string& cmd, Clients &client);
-void sendBrodcast(const std::string& cmd, Channels& channel);
+void sendBrodcastChannel(const std::string& cmd, Channels& channel);
+void sendBrodcastMSG(const std::string& cmd, Channels& channel, Clients& client);
+void sendBrodcastServer(const std::string& cmd, Server& server);
 
 #endif
