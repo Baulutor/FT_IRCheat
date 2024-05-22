@@ -32,6 +32,8 @@ std::string Channels::getTopic() const {return (_topic);}
 
 std::map<std::string, Clients>& Channels::getClientMap() {return (_clients);}
 
+std::vector<Clients>& Channels::getClientInvited() {return (_inviteClient);}
+
 Clients Channels::getOperator() const {return (*_operator);}
 
 // Setter
@@ -43,3 +45,5 @@ void Channels::setTopic(std::string topic) {_topic = topic;}
 void Channels::setOperator(Clients& op) {_operator = &op;}
 
 void Channels::setClients(std::map<std::string, Clients> clients) {_clients = clients;}
+
+void Channels::ClientInvite(Clients &client){_inviteClient.push_back(client);}

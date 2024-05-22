@@ -26,5 +26,8 @@
 #define RPL_MOTD_END(Nickname) (":server 376 " + Nickname + " :End of /MOTD command" + "\n\r")
 #define RPL_CMD_PRIVMSG(Nickname, Username, Hostname, Channel, Message) (":" + Nickname + "!" + Username + "@" + Hostname + " PRIVMSG " + Channel + " :" + Message + "\n\r")
 #define RPL_JOIN_ERROR_NAME(Nickname, Channel) (":server ERROR :" + Nickname + " :The channel (" + Channel + ") name must start with a #. Example : #" + Channel  + "\n\r")
+
+//Invite
+#define ERR_USERONCHANNEL(ClientNickname, nickname, Channel) (ClientNickname + " " + nickname + " " + Channel + " :is already on channel\n\r")
 #endif
 

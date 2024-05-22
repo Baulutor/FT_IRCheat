@@ -31,6 +31,8 @@ class Channels
         std::string getName() const;
         std::string getTopic() const;
         std::map<std::string, Clients>& getClientMap();
+		std::vector<Clients>& getClientInvited();
+
         Clients getOperator() const;
 
         // Setter
@@ -38,6 +40,10 @@ class Channels
         void setTopic(std::string topic);
         void setOperator(Clients& op);
         void setClients(std::map<std::string, Clients> clients);
+		void ClientInvite(Clients &clients);
+
+        //Invite
+        void    checkClientMapChannel();
 
     private :
         std::string _name;
@@ -47,7 +53,9 @@ class Channels
         // bool _isPrivate;
         // int _nbClients;
         // int _nbMaxClients;
-        std::map<std::string, Clients> _clients;
+        std::map<std::string, Clients>	_clients;
+
+        std::vector<Clients>			_inviteClient;
         Clients *_operator;
 };
 

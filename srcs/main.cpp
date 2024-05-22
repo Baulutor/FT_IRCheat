@@ -1,6 +1,5 @@
 #include "Clients.hpp"
 #include "Server.hpp"
-#include "IRC.h"
 
 int main(int argc, char **argv) {
     if (argc != 3) {
