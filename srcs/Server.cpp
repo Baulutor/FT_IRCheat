@@ -26,11 +26,10 @@ bool startWith(const std::string &line, const char *cmd) {return (line.find(cmd)
 void Server::cmdHandler(std::string cmd, Clients& client)
 {
 	std::cout << "cmd: " << cmd << std::endl;
-    const char *lstCmd[] = {"JOIN", "KICK", "PING"};
+    const char *lstCmd[] = {"JOIN", "KICK", "PRIVMSG", "PING"};
     // , "NAMES", "NICK", "INVITE", "TOPIC", "PRIVMSG", "QUIT", "PART", "KICK", "MODE"
-    void (*lstFunc[])(std::string, Clients&, Server&) = {Join, Kick, Pong};
-    // NAMES, NICK, INVITE, TOPIC, PRIVMSG, QUIT, PART, KICK, MODE
-    for (int i = 0; i < 3; i++)
+    void (*lstFunc[])(std::string, Clients&, Server&) = {Join, Kick, Privmsg, Pong};
+    for (int i = 0; i < 4; i++)
     {
         if (startWith(cmd, lstCmd[i]))
         {

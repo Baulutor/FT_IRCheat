@@ -6,7 +6,7 @@
 /*   By: nibernar <nibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:59:26 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/22 16:14:17 by nibernar         ###   ########.fr       */
+/*   Updated: 2024/05/22 16:55:17 by nibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,25 @@ void sendCmd(const std::string& cmd, Clients &client)
         throw std::exception();
 }
 
-void sendBrodcast(const std::string& cmd, Channels& channel)
+int findFdClientByName(std::string nickname, std::map<int, Clients>& clientsServer)
 {
-	for (std::map<std::string, Clients>::iterator it = channel.getClientMap().begin(); it != channel.getClientMap().end(); ++it)
-	{
-		if (send(it->second.getFd(), cmd.c_str(), cmd.size(), 0) < 0)
-			throw std::exception();
-	}
+    for (std::map<int, Clients>::iterator it = clientsServer.begin(); it != clientsServer.end(); ++it)
+    {
+        if (it->second.getNickname() == nickname)
+            return (it->first);
+    }
+    return (-1);
 }
 
+Clients& findClientByName(std::string nickname, std::map<int, Clients>& clientsServer)
+{
+    for (std::map<int, Clients>::iterator it = clientsServer.begin(); it != clientsServer.end(); ++it)
+    {
+        if (it->second.getNickname() == nickname)
+            return (it->second);
+    }
+    throw std::exception();
+}
 
 void	parsArg(char **argv) // LOL: j'ai cru qu'il fallait toutes ces regles pour le mot de passe alors que c'est pour le nickname hahahahaha ;)
 {

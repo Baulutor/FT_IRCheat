@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cmd.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nibernar <nibernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 10:14:18 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/22 12:54:46 by nibernar         ###   ########.fr       */
+/*   Updated: 2024/05/22 13:48:14 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ class Channel;
 
 void Join(std::string cmd, Clients& client, Server& server);
 void Kick(std::string cmd, Clients& client, Server& server);
+void Privmsg(std::string cmd, Clients& client, Server& server);
 void Pong(std::string cmd, Clients& client, Server& server);
 
 class SendErrorExeption : public std::exception

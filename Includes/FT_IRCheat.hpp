@@ -25,7 +25,7 @@
 # include <sstream>
 # include "RPL.hpp"
 # include "Clients.hpp"
-// # include <map>
+# include <map>
 
 class Clients;
 
@@ -35,10 +35,11 @@ class Server;
 
 std::vector<std::string> split(const std::string &s, char delim);
 void sendCmd(const std::string& cmd, Clients &client);
-void sendBrodcast(const std::string& cmd, Channels& channel);
 void sendBrodcastChannel(const std::string& cmd, Channels& channel);
 void sendBrodcastMSG(const std::string& cmd, Channels& channel, Clients& client);
 void sendBrodcastServer(const std::string& cmd, Server& server);
 void NameLstUpadte(Clients& client, Channels& channel);
+int findFdClientByName(std::string nickname, std::map<int, Clients>& clientsServer);
+Clients& findClientByName(std::string nickname, std::map<int, Clients>& clientsServer);
 
 #endif

@@ -51,9 +51,8 @@ void Kick(std::string cmd, Clients& client, Server& server) {
                         std::cout << "tu peu pas t'autockick trou d'uc" << std::endl;
                         return;
                     }
+                    sendBrodcastChannel(RPL_CMD_KICK(client.getNickname(), client.getUsername(), client.getAddrIp(), it->first, it2->first, com), it->second);
                     clientsMap.erase(it2);
-                    NameLstUpadte(client, it->second);
-                    sendBrodcastChannel(RPL_CMD_KICK(client.getNickname(), client.getUsername(), client.getAddrIp(), it->first, cible, com), it->second);
                     return ;
                 }
             }
@@ -65,7 +64,7 @@ void Kick(std::string cmd, Clients& client, Server& server) {
         }
     }
     if (it == channel.end()) {
-        //ERR_NOSUCHCHANNE
+        sendBrodcastMSG(ERR_NOSUCHCHANNEL(client.getNickname(), it->second.getName()), it->second, client);
         std::cout << "chanel pas trouve" << std::endl;
     }
 }
