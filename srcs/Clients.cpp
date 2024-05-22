@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:36:58 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/21 19:49:26 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/22 10:40:03 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,9 @@ bool Clients::initClients(std::string line, Server &server)
         sendCmd(RPL_MOTD_MSG(getNickname(), "Welcome to the FT_IRCheat"), *this);
         sendCmd(RPL_MOTD_END(getNickname()), *this);
         PASS = -1;
-        NICK = -1;server
+        NICK = -1;
+        USER = -1;
+        return (true);
     }
     return (false);
 }
