@@ -9,7 +9,7 @@ int main(int argc, char **argv) {
     }
 	try
 	{
-		parsArg(argv);
+		// parsArg(argv);
     	Server server(argv[1], argv[2]);
 	}
 	catch (std::exception &e)

@@ -29,7 +29,10 @@
 
 class Clients;
 
+class Channels;
+
 std::vector<std::string> split(const std::string &s, char delim);
 void sendCmd(const std::string& cmd, Clients &client);
+void sendBrodcast(const std::string& cmd, Channels& channel);
 
 #endif

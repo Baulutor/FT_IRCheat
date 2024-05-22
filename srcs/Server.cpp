@@ -26,11 +26,11 @@ bool startWith(const std::string &line, const char *cmd) {return (line.find(cmd)
 void Server::cmdHandler(std::string cmd, Clients& client)
 {
 	std::cout << "cmd: " << cmd << std::endl;
-    const char *lstCmd[] = {"JOIN", "KICK"};
+    const char *lstCmd[] = {"JOIN", "KICK", "PING"};
     // , "NAMES", "NICK", "INVITE", "TOPIC", "PRIVMSG", "QUIT", "PART", "KICK", "MODE"
-    void (*lstFunc[])(std::string, Clients&, Server&) = {Join, Kick};
+    void (*lstFunc[])(std::string, Clients&, Server&) = {Join, Kick, Pong};
     // NAMES, NICK, INVITE, TOPIC, PRIVMSG, QUIT, PART, KICK, MODE
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 3; i++)
     {
         if (startWith(cmd, lstCmd[i]))
         {
@@ -40,21 +40,13 @@ void Server::cmdHandler(std::string cmd, Clients& client)
     }
 }
 
-void Server::Pong(std::string cmd, Clients& client)
-{
-    std::cout << "PONG" << std::endl;
-    std::vector<std::string> splited = split(cmd, ' ');
-    std::string pong = "PONG IRC_test " + splited[1];
-    std::cout << "pong : " << pong << std::endl;
-    if (send(client.getFd(), pong.c_str(), pong.size(), 0) < 0)
-        throw std::exception();
-}
-
 Server::Server(std::string av, std::string av2)
 {
 	struct sockaddr_in address;
 	int opt = 1;
 	char buffer[2048];
+
+	// Création de la socket serveur
 
 	setAddrIp("127.0.0.1");
 	setPassword(av2);
@@ -123,8 +115,6 @@ Server::Server(std::string av, std::string av2)
 						std::cout << "connexion closed " << std::endl;
 						throw std::invalid_argument("tg");
 					}
-					// else
-					// 	buffer[bytes] = '\0';
 					if (startWith(buffer, "CAP LS 302") || !init)
 					{
 						init = itClients->second.initClients(buffer, *this);

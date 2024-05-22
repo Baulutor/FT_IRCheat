@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:59:26 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/16 11:32:56 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/22 11:24:08 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,15 @@ void sendCmd(const std::string& cmd, Clients &client)
 {
     if (send(client.getFd(), cmd.c_str(), cmd.size(), 0) < 0)
         throw std::exception();
+}
+
+void sendBrodcast(const std::string& cmd, Channels& channel)
+{
+	for (std::map<std::string, Clients>::iterator it = channel.getClientMap().begin(); it != channel.getClientMap().end(); ++it)
+	{
+		if (send(it->second.getFd(), cmd.c_str(), cmd.size(), 0) < 0)
+			throw std::exception();
+	}
 }
 
 
