@@ -31,7 +31,7 @@ class Channels
         std::string getName() const;
         std::string getTopic() const;
         std::map<std::string, Clients>& getClientMap();
-		std::vector<Clients>& getClientInvited();
+		std::map<std::string, Clients>& getClientInvited();
 
         Clients getOperator() const;
 
@@ -40,7 +40,7 @@ class Channels
         void setTopic(std::string topic);
         void setOperator(Clients& op);
         void setClients(std::map<std::string, Clients> clients);
-		void ClientInvite(Clients &clients);
+		void ClientInvite(std::map<std::string, Clients> &clients);
 
         //Invite
         void    checkClientMapChannel();
@@ -55,7 +55,7 @@ class Channels
         // int _nbMaxClients;
         std::map<std::string, Clients>	_clients;
 
-        std::vector<Clients>			_inviteClient;
+		std::map<std::string, Clients>	_inviteClient;
         Clients *_operator;
 };
 

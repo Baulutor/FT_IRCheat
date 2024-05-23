@@ -29,5 +29,11 @@
 
 //Invite
 #define ERR_USERONCHANNEL(ClientNickname, nickname, Channel) (ClientNickname + " " + nickname + " " + Channel + " :is already on channel\n\r")
+#define ERR_NOSUCHCHANNEL(ClientNickname, channelName) (ClientNickname + " " + channelName + " :No such channel\n\r")
+#define ERR_NOSUCHNICK(nickname) ("server 401 " + nickname + " :No such nick/channel\n\r")
+#define ERR_NOTONCHANNEL(channel) ("server 442 " + channel + " :You're not on that channel\n\r")
+#define RPL_INVITING(nickname, channelName) ("server 341 " + nickname + " " + channelName + "\n\r")
+
+
 #endif
 
