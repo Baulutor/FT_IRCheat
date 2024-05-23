@@ -31,12 +31,16 @@ class Channels
         std::string getName() const;
         std::string getTopic() const;
         std::map<std::string, Clients>& getClientMap();
+        std::string getPassword() const;
+        std::string getMode() const;
         Clients getOperator() const;
 
         // Setter
         void setName(std::string name);
         void setTopic(std::string topic);
         void setOperator(Clients& op);
+        void setPassword(std::string password);
+        void setMode(std::string mode);
         void setClients(std::map<std::string, Clients> clients);
 
     private :

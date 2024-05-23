@@ -103,9 +103,9 @@ Server::Server(std::string av, std::string av2)
 			{
 				if (_lstPollFd[i].revents & POLLIN)
 				{
-					bzero(buffer, 256);
+					bzero(buffer, 512);
 					std::map<int, Clients>::iterator itClients = getClients().find(_lstPollFd[i].fd);
-					ssize_t bytes = recv(itClients->first, buffer, 255, MSG_DONTWAIT);
+					ssize_t bytes = recv(itClients->first, buffer, 511, MSG_DONTWAIT);
 					std::cout << "buffer : |" << buffer << "| BYTES: " << bytes<< std::endl;
 					if (bytes < 0)
 						std::cerr << "ERROR rcve !" << std::endl;
