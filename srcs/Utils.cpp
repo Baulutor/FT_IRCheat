@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:59:26 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/22 15:27:16 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/24 18:32:48 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,19 @@
 #include "IRC.h"
 // #include "Clients.hpp"
 
+// std::vector<std::string> split(const std::string &s, char delim)
+// {
+//     std::vector<std::string> elems;
+//     std::istringstream iss(s);
+//     std::string item;
+//     while (std::getline(iss, item, delim))
+//     {
+//         if (!item.empty())
+//             elems.push_back(item);
+//     }
+//     return (elems);
+// }
+
 std::vector<std::string> split(const std::string &s, char delim)
 {
     std::vector<std::string> elems;
@@ -22,10 +35,17 @@ std::vector<std::string> split(const std::string &s, char delim)
     std::string item;
     while (std::getline(iss, item, delim))
     {
+        // Enlever les caractères de fin de ligne \r\n
+        size_t endpos = item.find_last_not_of("\r\n");
+        if (std::string::npos != endpos)
+        {
+            item = item.substr(0, endpos + 1);
+        }
+
         if (!item.empty())
             elems.push_back(item);
     }
-    return (elems);
+    return elems;
 }
 
 void sendCmd(const std::string& cmd, Clients &client)
@@ -70,9 +90,13 @@ void NameLstUpadte(Clients& client, Channels& channel)
 	for (std::map<std::string, Clients>::iterator it = channel.getClientMap().begin(); it != channel.getClientMap().end(); it++)
 	{
 		if (channel.getOperator().getNickname() == it->second.getNickname())
-			user += "@" + it->second.getNickname() + " ";
+			user += "@" + it->second.getNickname();
 		else
-			user += it->second.getNickname() + " ";
+			user += it->second.getNickname();
+		std::map<std::string, Clients>::iterator ite = channel.getClientMap().end();
+		ite--;
+		if (it != ite)
+			user += " ";
 	}
 	std::cout << "RPL_CMD_NAME_LST_START = " << RPL_CMD_NAME_LST_START(client.getNickname(), channel.getName(), user) << std::endl;
     sendBrodcastChannel(RPL_CMD_NAME_LST_START(client.getNickname(), channel.getName(), user), channel);
@@ -91,14 +115,37 @@ int findFdClientByName(std::string nickname, std::map<int, Clients>& clientsServ
     return (-1);
 }
 
-Clients& findClientByName(std::string nickname, std::map<int, Clients>& clientsServer)
+std::map<int, Clients>::iterator findClientByName(std::string nickname, std::map<int, Clients>& clientsServer)
 {
     for (std::map<int, Clients>::iterator it = clientsServer.begin(); it != clientsServer.end(); ++it)
     {
         if (it->second.getNickname() == nickname)
-            return (it->second);
+            return (it);
     }
-    throw std::exception();
+    return (clientsServer.end());
+}
+
+bool isClientInChannel(std::string nickname, Channels& channel)
+{
+	if (channel.getClientMap().find(nickname) != channel.getClientMap().end())
+		return (true);
+	return (false);
+    // for (std::map<std::string, Clients>::iterator it = channel.getClientMap().begin(); it != channel.getClientMap().end(); ++it)
+    // {
+    //     if (it->second.getNickname() == nickname)
+    //         return (true);
+    // }
+    // return (false);
+}
+
+std::map<std::string, Channels>::iterator findChannelByName(std::string channelName, std::map<std::string, Channels>& channelsServer)
+{
+    for (std::map<std::string, Channels>::iterator it = channelsServer.begin(); it != channelsServer.end(); ++it)
+    {
+        if (it->second.getName() == channelName)
+            return (it);
+    }
+    return (channelsServer.end());
 }
 
 void	parsArg(char **argv) // LOL: j'ai cru qu'il fallait toutes ces regles pour le mot de passe alors que c'est pour le nickname hahahahaha ;)

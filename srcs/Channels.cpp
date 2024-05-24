@@ -34,7 +34,7 @@ std::map<std::string, Clients>& Channels::getClientMap() {return (_clients);}
 
 std::string Channels::getPassword() const {return (_password);}
 
-std::string Channels::getMode() const {return (_mode);}
+std::string Channels::getMode(std::string target) const {return (_mode.find(target)->second);}
 
 Clients Channels::getOperator() const {return (*_operator);}
 
@@ -48,6 +48,6 @@ void Channels::setOperator(Clients& op) {_operator = &op;}
 
 void Channels::setPassword(std::string password) {_password = password;}
 
-void Channels::setMode(std::string mode) {_mode = mode;}
+void Channels::setMode(std::string target, std::string mode) {_mode.insert(std::make_pair(target, mode));}
 
 void Channels::setClients(std::map<std::string, Clients> clients) {_clients = clients;}
