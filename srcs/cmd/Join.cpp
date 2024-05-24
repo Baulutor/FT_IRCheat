@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Join.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bfaure < bfaure@student.42lyon.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 10:13:36 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/23 18:52:01 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/23 21:36:34 by bfaure           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void Join(std::string cmd, Clients& client, Server& server)
         std::string key = (i < keys.size()) ? keys[i] : "";
         std::string channel = channels[i];
         Channels channelToJoin(channel, client);
-        if (check_key(keys[i], channelToJoin, client) == false)
+        if (check_key(key, channelToJoin, client) == false)
             continue;
         std::pair<std::map<std::string, Channels>::iterator, bool> insertServer = channelsServer.insert(std::make_pair(channel, channelToJoin));
         if (insertServer.second)
