@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:36:58 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/22 13:48:48 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/24 11:33:58 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,24 +130,38 @@ bool Clients::initClients(std::string line, Server &server)
             PASS = i;
             setPass(tokens[i + 1]);
         }
+    }
+    for (size_t i = 0; i < tokens.size(); ++i)
+    {
+        if (tokens[i].find("USER") != std::string::npos && USER < 0)
+        {
+            USER = i;
+            setUsername(tokens[i + 1]);
+        }
+    }
+    static bool nickname_used = false;
+    static std::string falseNickname = "";
+    for (size_t i = 0; i < tokens.size(); ++i)
+    {
         if (tokens[i].find("NICK") != std::string::npos && NICK < 0)
         {
             for (std::map<int, Clients>::iterator it = server.getClients().begin(); it != server.getClients().end(); it++)
             {
                 if (it->second.getNickname() == tokens[i + 1])
                 {
-                    setNickname(tokens[i + 1] + "_");
-                    NICK = i;
-                    break ;
+                    nickname_used = true;
+                    falseNickname = tokens[i + 1];
+                    sendCmd(RPL_ERROR_NICKNAME_IN_USE(getNickname(), falseNickname), *this);
+                    return (false);
                 }
+            }
+            if (nickname_used == true)
+            {
+                std::cout << "RPL_CMD_NICK = " << RPL_CMD_NICK(falseNickname, getUsername(), getAddrIp(), tokens[i + 1]) << std::endl;
+                sendCmd(RPL_CMD_NICK(falseNickname, getUsername(), getAddrIp(), tokens[i + 1]), *this);
             }
             NICK = i;
             setNickname(tokens[i + 1]);
-        }
-        if (tokens[i].find("USER") != std::string::npos && USER < 0)
-        {
-            USER = i;
-            setUsername(tokens[i + 1]);
         }
     }
     if (PASS > -1 && NICK > -1 && USER > -1)

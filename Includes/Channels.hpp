@@ -31,12 +31,16 @@ class Channels
         std::string getName() const;
         std::string getTopic() const;
         std::map<std::string, Clients>& getClientMap();
-        Clients getOperator() const;
+        std::string getPassword() const;
+        std::string getMode() const;
+        std::vector<Clients> getOperator() const;
 
         // Setter
         void setName(std::string name);
         void setTopic(std::string topic);
         void setOperator(Clients& op);
+        void setPassword(std::string password);
+        void setMode(std::string mode);
         void setClients(std::map<std::string, Clients> clients);
 
     private :
@@ -48,7 +52,7 @@ class Channels
         // int _nbClients;
         // int _nbMaxClients;
         std::map<std::string, Clients> _clients;
-        Clients *_operator;
+        std::vector<Clients> _operator;
 };
 
 #endif

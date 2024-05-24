@@ -15,10 +15,17 @@
 
 Channels::Channels() {}
 
+// Channels::Channels(std::string name, Clients& op)
+// {
+//     _name = name;
+//     _operator = &op;
+//     _topic = "No topic set";
+// }
+
 Channels::Channels(std::string name, Clients& op)
 {
     _name = name;
-    _operator = &op;
+    _operator.push_back(op);
     _topic = "No topic set";
 }
 
@@ -32,7 +39,13 @@ std::string Channels::getTopic() const {return (_topic);}
 
 std::map<std::string, Clients>& Channels::getClientMap() {return (_clients);}
 
-Clients Channels::getOperator() const {return (*_operator);}
+std::string Channels::getPassword() const {return (_password);}
+
+std::string Channels::getMode() const {return (_mode);}
+
+//Clients Channels::getOperator() const {return (*_operator);}
+
+std::vector<Clients> Channels::getOperator() const {return (_operator);}
 
 // Setter
 
@@ -40,6 +53,14 @@ void Channels::setName(std::string name) {_name = name;}
 
 void Channels::setTopic(std::string topic) {_topic = topic;}
 
-void Channels::setOperator(Clients& op) {_operator = &op;}
+//void Channels::setOperator(Clients& op) {_operator = &op;}
+
+void Channels::setOperator(Clients& op) {
+    _operator.push_back(op);
+}
+
+void Channels::setPassword(std::string password) {_password = password;}
+
+void Channels::setMode(std::string mode) {_mode = mode;}
 
 void Channels::setClients(std::map<std::string, Clients> clients) {_clients = clients;}

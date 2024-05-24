@@ -6,7 +6,7 @@
 /*   By: nibernar <nibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:59:26 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/22 16:55:17 by nibernar         ###   ########.fr       */
+/*   Updated: 2024/05/24 17:15:31 by nibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,13 @@ void NameLstUpadte(Clients& client, Channels& channel)
     std::string user;
     for (std::map<std::string, Clients>::iterator it = channel.getClientMap().begin(); it != channel.getClientMap().end(); it++)
     {
-        if (channel.getOperator().getNickname() == it->second.getNickname())
-            user += "@" + it->second.getNickname() + " ";
-        else
-            user += it->second.getNickname() + " ";
+        std::vector<Clients> clientsOperator = channel.getOperator();
+        for (std::vector<Clients>::iterator itOp = clientsOperator.begin(); itOp != clientsOperator.end(); itOp++) {
+            if (itOp->getNickname() == it->second.getNickname())
+                user += "@" + it->second.getNickname() + " ";
+            else
+                user += it->second.getNickname() + " ";            
+        }
     }
     std::cout << "RPL_CMD_NAME_LST_START = " << RPL_CMD_NAME_LST_START(client.getNickname(), channel.getName(), user) << std::endl;
     sendBrodcastChannel(RPL_CMD_NAME_LST_START(client.getNickname(), channel.getName(), user), channel);

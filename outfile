@@ -1,24 +1,7 @@
-Clients constructor created
-fd = 3
-Accept 
-buffer : |CAP LS 302
-|
-buffer : |PASS toto
-NICK bfaure
-USER bfaure 0 * :realname
-|
-init client
-Nickname : bfaure
-Username : bfaure
-Pass : toto
-fd : 4
-Ip Address : 127.0.0.1
-buffer : |JOIN #ppppp
-|
-JOIN
-pos = 6
-channels[i] = |#ppppp|
-channel serveur ADD : 
-Clients destructor created
-Clients destructor created
-Clients destructor created
+ajkhdghasjklghaldhak;jgfpq;dhas;jdqwhdqp;ohrpqda,bsd.zxxbc;qjwf;'qwf;'ish'd[qiowr[pqdhashf['hqweitfghw;eugbfqazswxdecfrvtgbyhnujmik,ol.p;[;''iptughjkbn79puihjkbczx89wepgiosdgh;lnwaopysdhcwyADPOSH;P[]DFHUIOPDHXB3AWZ4ESX5DCYFV GUHBIJNOKMPL,I,KUJMYNHGF DRJKVCRlkhjzxoihasfdqwerupuphwer23567841237867892670-123578afhgjasdfhj90qwytyyupdf^&*(%^^&*&*()wefghjk;sdvjk;bnsdv hjk wef ioph eg i[jwefhjvyfgcd8'po9u[0-9[]]
+<bfaure_> ==-=-091234567890-=`qwertyuiop[]';;lkjhgfdszxcvbnm,./ajkhdghasjklghaldhak;jgfpq;dhas;jdqwhdqp;ohrpqda,bsd.zxxbc;qjwf;'qwf;'ish'd[qiowr[pqdhashf['hqweitfghw;eugbfqazswxdecfrvtgbyhnujmik,ol.p;[;''iptughjkbn79puihjkbczx89wepgiosdgh;lnwaopysdhcwyADPOSH;P[]DFHUIOPDHXB3AWZ4ESX5DCYFV GUHBIJNOKMPL,I,KUJMYNHGF DRJKVCRlkhjzxoihasfdqwerupuphwer23567841237867892670-123578afhgjasdfhj90qwytyyupdf^&*(%^^&*&*()wefghjk;sd
+<bfaure_> vjk;bnsdv hjk wef ioph eg i[jwefhjvyfgcd8'po9u[0-9[]]==-=-091234567890-=`qwertyuiop[]';;lkjhgfdszxcvbnm,./ajkhdghasjklghaldhak;jgfpq;dhas;jdqwhdqp;ohrpqda,bsd.zxxbc;qjwf;'qwf;'ish'd[qiowr[pqdhashf['hqweitfghw;eugbfqazswxdecfrvtgbyhnujmik,ol.p;[;''iptughjkbn79puihjkbczx89wepgiosdgh;lnwaopysdhcwyADPOSH;P[]DFHUIOPDHXB3AWZ4ESX5DCYFV GUHBIJNOKMPL,I,KUJMYNHGF DRJKVCRlkhjzxoihasfdqwerupuphwer23567841237867892670
+<bfaure_> -123578afhgjasdfhj90qwytyyupdf^&*(%^^&*&*()wefghjk;sdvjk;bnsdv hjk wef ioph eg i[jwefhjvyfgcd8'po9u[0-9[]]==-=-091234567890-=`qwertyuiop[]';;lkjhgfdszxcvbnm,./ajkhdghasjklghaldhak;jgfpq;dhas;jdqwhdqp;ohrpqda,bsd.zxxbc;qjwf;'qwf;'ish'd[qiowr[pqdhashf['hqweitfghw;eugbfqazswxdecfrvtgbyhnujmik,ol.p;[;''iptughjkbn79puihjkbczx89wepgiosdgh;lnwaopysdhcwyADPOSH;P[]DFHUIOPDHXB3AWZ4ESX5DCYFV GUHBIJNOKMPL,I,KUJMYNHGF
+<bfaure_>  DRJKVCRlkhjzxoihasfdqwerupuphwer23567841237867892670-123578afhgjasdfhj90qwytyyupdf^&*(%^^&*&*()wefghjk;sdvjk;bnsdv hjk wef ioph eg i[jwefhjvyfgcd8'po9u[0-9[]]==-=-091234567890-=`qwertyuiop[]';;lkjhgfdszxcvbnm,./ajkhdghasjklghaldhak;jgfpq;dhas;jdqwhdqp;ohrpqda,bsd.zxxbc;qjwf;'qwf;'ish'd[qiowr[pqdhashf['hqweitfghw;eugbfqazswxdecfrvtgbyhnujmik,ol.p;[;''iptughjkbn79puihjkbczx89wepgiosdgh;lnwaopysdhcwyADPOSH;
+<bfaure_> P[]DFHUIOPDHXB3AWZ4ESX5DCYFV GUHBIJNOKMPL,I,KUJMYNHGF DRJKVCRlkhjzxoihasfdqwerupuphwer23567841237867892670-123578afhgjasdfhj90qwytyyupdf^&*(%^^&*&*()wefghjk;sdvjk;bnsdv hjk wef ioph eg i[jwefhjvyfgcd8'po9u[0-9[]]==-=-091234567890-=`qwertyuiop[]';;lkjhgfdszxcvbnm,./ajkhdghasjklghaldhak;jgfpq;dhas;jdqwhdqp;ohrpqda,bsd.zxxbc;qjwf;'qwf;'ish'd[qiowr[pqdhashf['hqweitfghw;eugbfqazswxdecfrvtgbyhnujmik,ol.p;[;''ip
+<bfaure_> tughjkbn79puihjkbczx89wepgiosdgh;lnwaopysdhcwyADPOSH;P[]DFHUIOPDHXB3AWZ4ESX5DCYFV GUHBIJNOKMPL,I,KUJMYNHGF DRJKVCRlkhjzxoihasfdqwerupuphwer23567841237867892670-123578afhgjasdfhj90qwytyyupdf^&*(%^^&*&*()wefghjk;sdvjk;bnsdv hjk wef ioph eg i[jwefhjvyfgcd8'po9u[0-9[]]==-=-091234567890-=`qwertyuiop[]';;lkjhgfdszxcvbnm,./
