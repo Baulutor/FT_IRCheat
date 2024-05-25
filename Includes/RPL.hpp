@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:57:44 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/24 17:12:05 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/25 17:58:06 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@
 
 # define RPL_CMD_MODE(Nickname, Username, Hostname, Channel, Mode, Target, Args) (":" + Nickname + "!" + Username + "@" + Hostname + " MODE " + Channel + " " + Mode + " " + Target + " " + Args + "\n\r")
 # define ERR_NOSUCHNICK(Nickname, User) (":server 401 " + Nickname + " " + User + " :No such user" + "\n\r")
-# define ERR_USERSDONTMATCH(Nickname, User) (":server 502 " + Nickname + " " + User + " :Cant change mode for other users" + "\n\r")
 # define RPL_UMODEIS(Nickname, User, Mode) (":server 221 " + Nickname + " " + User + " :" + Mode + "\n\r")
 # define ERR_UMODEUNKNOWNFLAG(Nickname, Mode) (":server 501 " + Nickname + " " + Mode + " :Unknown mode" + "\n\r")
 # define ERR_NOSUCHCHANNEL(Nickname, Channel) (":server 403 " + Nickname + " " + Channel + " :No such channel" + "\n\r")

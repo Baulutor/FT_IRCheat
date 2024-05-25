@@ -51,6 +51,13 @@ void Channels::setOperator(Clients& op) {_operator = &op;}
 
 void Channels::setPassword(std::string password) {_password = password;}
 
-void Channels::setMode(std::string target, std::string mode) {_mode.insert(std::make_pair(target, mode));}
+void Channels::setMode(std::string target, std::string mode)
+{
+    std::map<std::string, std::string>::iterator it = _mode.find(target);
+    if (it != _mode.end())
+        it->second += mode;
+    else
+        _mode.insert(std::make_pair(target, mode));
+}
 
 void Channels::setClients(std::map<std::string, Clients> clients) {_clients = clients;}
