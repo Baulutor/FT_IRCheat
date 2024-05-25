@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 10:13:36 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/24 19:23:45 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/25 12:17:12 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ void Join(std::string cmd, Clients& client, Server& server)
         if (insertServer.second)
         {
             insertServer.first->second.setOperator(client);
-            insertServer.first->second.setMode(channel, "");
-            insertServer.first->second.setMode(client.getNickname(), "");
+            // insertServer.first->second.setMode(channel, "");
+            // insertServer.first->second.setMode(client.getNickname(), "");
             std::cout << "channel serveur ADD : " << insertServer.first->second.getName() << std::endl;
         }
 
@@ -85,7 +85,8 @@ void Join(std::string cmd, Clients& client, Server& server)
         if (insertClient.second)
         {
             insertClient.first->second.setOperator(client);
-            insertClient.first->second.setMode(client.getNickname(), "");
+            // insertClient.first->second.setMode(client.getNickname(), " ");
+            insertServer.first->second.setMode(client.getNickname(), " ");
             std::cout << "Channel client ADD : " << insertClient.first->second.getName() << std::endl;
         }
         std::string Topic = insertClient.first->second.getTopic();

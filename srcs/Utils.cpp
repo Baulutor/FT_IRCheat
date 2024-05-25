@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:59:26 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/24 18:32:48 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/25 12:19:01 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,38 @@
 //     return (elems);
 // }
 
+// std::vector<std::string> split(const std::string &s, const std::string &delim)
+// {
+//     std::vector<std::string> elems;
+//     std::string::size_type pos = 0;
+//     std::string::size_type prev = 0;
+
+//     while ((pos = s.find_first_of(delim, prev)) != std::string::npos)
+//     {
+//         if (pos > prev)
+//             elems.push_back(s.substr(prev, pos - prev));
+//         prev = pos + 1;
+//     }
+
+//     if (prev < s.length())
+//         elems.push_back(s.substr(prev));
+
+//     return elems;
+// }
+
 std::vector<std::string> split(const std::string &s, char delim)
 {
     std::vector<std::string> elems;
     std::istringstream iss(s);
     std::string item;
+    std::string remove = "\r\n";
     while (std::getline(iss, item, delim))
     {
         // Enlever les caractères de fin de ligne \r\n
-        size_t endpos = item.find_last_not_of("\r\n");
+        size_t endpos = item.find(remove);
         if (std::string::npos != endpos)
         {
-            item = item.substr(0, endpos + 1);
+            item.erase(endpos, remove.size());
         }
 
         if (!item.empty())
