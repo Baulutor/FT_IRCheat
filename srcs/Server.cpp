@@ -1,6 +1,18 @@
 #include "Server.hpp"
 #include "Cmd.hpp"
 
+#include "globalTest.h"
+
+forFree clearGlob;
+
+void	initForFree(forFree globClear);
+
+Server::Server()
+{
+
+}
+
+
 int Server::getFd() const {return this->_fd;}
 
 std::string Server::getAddrIp() const {return this->_addrIp;}
@@ -45,6 +57,36 @@ void Server::cmdHandler(std::string cmd, Clients& client)
     }
 }
 
+void	allClear();
+
+void signalHandler(int signum)
+{
+	allClear();
+	exit(signum);
+}
+
+void	initForFree()
+{
+	clearGlob._addrIpPtr = NULL;
+	clearGlob._channelsPtr = NULL;
+	clearGlob._clientsPtr = NULL;
+	clearGlob._lstPollFdPTR = NULL;
+	clearGlob._passwordPtr = NULL;
+}
+
+void	allClear()
+{
+
+	if (clearGlob._clientsPtr)
+		clearGlob._clientsPtr->clear();
+	for (size_t i = 0; i < clearGlob._lstPollFdPTR->size() ;i++)
+		clearGlob._lstPollFdPTR[i].clear();
+	clearGlob.toFree->getChannels().clear();
+	clearGlob.toFree->getClients().clear();
+	int ok = clearGlob.toFree->getFd();
+	close(ok);
+}
+
 Server::Server(std::string av, std::string av2)
 {
 	struct sockaddr_in address;
@@ -56,7 +98,10 @@ Server::Server(std::string av, std::string av2)
 	setAddrIp("127.0.0.1");
 	setPassword(av2);
 	_fd = -1;
-	
+	initForFree();
+	clearGlob.toFree = this;
+
+	signal(SIGINT, signalHandler);
 	setFd(socket(AF_INET, SOCK_STREAM, 0));
 	if (getFd() < 0)
 	{
@@ -90,6 +135,7 @@ Server::Server(std::string av, std::string av2)
 	pollServ.fd = getFd();
 	pollServ.events = POLLIN;
 	_lstPollFd.push_back(pollServ);
+	clearGlob._lstPollFdPTR = &_lstPollFd;
 	bool init = false;
 	while (true)
 	{
@@ -103,8 +149,9 @@ Server::Server(std::string av, std::string av2)
 				struct pollfd pollClienTmp;
 				pollClienTmp.fd = newClient.getFd();
 				pollClienTmp.events = POLLIN;
-				_lstPollFd.push_back(pollClienTmp);
+				_lstPollFd.push_back(pollClienTmp); // ici leak dur a avoir chelou
 				_clients.insert(std::make_pair(newClient.getFd(), newClient));
+				clearGlob._clientsPtr = &_clients;
 			}
 			for (size_t i = 1; i < _lstPollFd.size(); i++)
 			{

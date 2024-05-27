@@ -17,14 +17,17 @@
 #include "Clients.hpp"
 #include "Channels.hpp"
 #include <exception>
+#include <csignal>
 
 class Channels;
 
 class Clients;
 
+
 class Server
 {
     public:
+		Server();
         Server( std::string av, std::string av2 );
         ~Server();
 

@@ -1,12 +1,13 @@
 
 #include <iostream>
 #include "Cmd.hpp"
-
+#include <csignal>
+#include <cstdlib>
 
 // il manque dans le cas de invite dans un channel uniquement sur invitation et donc avec, l'erreur dans le cas le client n'as pas les droit d'ajouter !
 
 bool	parsForInvite(Clients client, std::string &nickname, std::string &channelName, std::string cmd);
-bool	checkIfUserAlreadyInviteOrInChannel(std::map<std::string, Channels>::iterator it, std::string nickname, std::string channelName, Clients client);
+bool 	checkIfUserAlreadyInviteOrInChannel(std::map<std::string, Channels>::iterator it, std::string nickname, std::string channelName, Clients client, std::map<int, Clients>::iterator ite);
 bool	checkChannelExistAndUserLegitimateToInvite(std::map<std::string, Channels> serv, std::map<std::string, Channels>::iterator it, Clients client, std::string channelName);
 
 
@@ -28,7 +29,7 @@ void    Invite(std::string cmd, Clients& client, Server& server)
 	{
 		if (nickname == ite->second.getNickname())
 		{
-			if (checkIfUserAlreadyInviteOrInChannel(serv, it, client, channelName))
+			if (checkIfUserAlreadyInviteOrInChannel(it, nickname, channelName, client, ite))
 					return ;
 			server.getChannels().find(it->first)->second.getClientInvited().insert(std::make_pair(ite->second.getNickname(), ite->second));
 			sendCmd(RPL_INVITING( nickname, channelName), client);
@@ -91,7 +92,7 @@ bool	checkChannelExistAndUserLegitimateToInvite(std::map<std::string, Channels> 
 	return false;
 }
 
-bool checkIfUserAlreadyInviteOrInChannel(std::map<std::string, Channels>::iterator it, std::string nickname, std::string channelName, Clients client)
+bool checkIfUserAlreadyInviteOrInChannel(std::map<std::string, Channels>::iterator it, std::string nickname, std::string channelName, Clients client, std::map<int, Clients>::iterator ite)
 {
 	std::map<std::string, Clients> clientChannel = it->second.getClientMap();
 	if (clientChannel.find(nickname) != clientChannel.end())
