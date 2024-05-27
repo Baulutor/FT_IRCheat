@@ -25,6 +25,12 @@ bool startWith(const std::string &line, const char *cmd) {return (line.find(cmd)
 
 void Server::cmdHandler(std::string cmd, Clients& client)
 {
+	// std::string::size_type pos = cmd.find("\r\n");
+	// if (pos != std::string::npos)
+	// {
+	// 	cmd = cmd.erase(pos);
+	// }
+	// std::cout << "cmd char: " << cmd[cmd.length()] + 48 << std::endl;
 	std::cout << "cmd: " << cmd << std::endl;
     const char *lstCmd[] = {"JOIN", "KICK", "PRIVMSG", "PING"};
     // , "NAMES", "NICK", "INVITE", "TOPIC", "PRIVMSG", "QUIT", "PART", "KICK", "MODE"
@@ -43,12 +49,13 @@ Server::Server(std::string av, std::string av2)
 {
 	struct sockaddr_in address;
 	int opt = 1;
-	char buffer[2048];
+	char buffer[512];
 
 	// Création de la socket serveur
 
 	setAddrIp("127.0.0.1");
 	setPassword(av2);
+	_fd = -1;
 	
 	setFd(socket(AF_INET, SOCK_STREAM, 0));
 	if (getFd() < 0)
@@ -106,7 +113,6 @@ Server::Server(std::string av, std::string av2)
 					bzero(buffer, 512);
 					std::map<int, Clients>::iterator itClients = getClients().find(_lstPollFd[i].fd);
 					ssize_t bytes = recv(itClients->first, buffer, 511, MSG_DONTWAIT);
-					std::cout << "buffer : |" << buffer << "| BYTES: " << bytes<< std::endl;
 					if (bytes < 0)
 						std::cerr << "ERROR rcve !" << std::endl;
 					else if ( bytes == 0)
@@ -122,11 +128,15 @@ Server::Server(std::string av, std::string av2)
 							std::cout << "init client" << std::endl;
 							itClients->second.printInfo();
 						}
+						// else {
+						// 	std::cout << "cacaboudin = " << itClients->first << std::endl;
+						// 	// _clients.erase(itClients->first);
+						// }
 					}
 					else
 					{
 						cmdHandler(buffer, itClients->second);
-						itClients->second.printChannels();
+						// itClients->second.printChannels();
 					}
 					itClients++;
 				}

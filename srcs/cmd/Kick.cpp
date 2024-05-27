@@ -18,7 +18,7 @@
 void Kick(std::string cmd, Clients& client, Server& server) {
     std::map<std::string, Channels>& channel = server.getChannels();
     std::map<std::string, Channels>::iterator it = channel.begin();
-    std::vector<std::string> splited = split(cmd, ' ');
+    std::vector<std::string> splited = splitEOF(cmd, ' ');
     std::string cible;
     std::string com;
 
@@ -53,6 +53,7 @@ void Kick(std::string cmd, Clients& client, Server& server) {
             std::map<std::string, Clients>& clientsMap = it->second.getClientMap();
             std::map<std::string, Clients>::iterator it2 = clientsMap.begin();
             for(; it2 != clientsMap.end(); it2++) {
+                std::cout << "couille ici = " << it2->first << "fd = " << it2->second.getFd() << std::endl;
                 if ((':' + it2->first) == cible) {
                     if (':' + client.getNickname() == cible)
                         return (sendBrodcastChannel("connot kick yourself\n\r", it->second));

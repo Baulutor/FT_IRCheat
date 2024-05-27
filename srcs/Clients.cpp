@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Clients.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nibernar <nibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:36:58 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/24 11:33:58 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/27 17:25:49 by nibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 Clients::Clients()
 {
+    _nickname = "";
+    _username = "";
+    _pass = "";
     //std::cout << "Clients constructor created" << std::endl;
 }
 
@@ -175,5 +178,14 @@ bool Clients::initClients(std::string line, Server &server)
         USER = -1;
         return (true);
     }
+    // else {
+    //     if (_pass == "") {
+    //         sendCmd(ERR_PASSWDMISMATCH(getNickname()), *this);
+    //         std::map<int, Clients> clientTpm = server.getClients();
+    //         std::cout << "fdddd = " << _fd << std::endl;
+    //         clientTpm.erase(_fd);
+    //         //erase le client de server ici
+    //     }
+    //}
     return (false);
 }

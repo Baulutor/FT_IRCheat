@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:12:48 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/23 14:07:01 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/24 13:36:02 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ void Privmsg(std::string cmd, Clients& client, Server& server)
     else if (findFdClientByName(cmd_split[1], clientsServer) != -1)
     {
         std::cout << "RPL_CMD_PRIVMSG" << RPL_CMD_PRIVMSG(client.getNickname(), client.getUsername(), client.getAddrIp(), cmd_split[1], cmd_split[2]) << std::endl;
-        sendCmd(RPL_CMD_PRIVMSG(client.getNickname(), client.getUsername(), client.getAddrIp(), cmd_split[1], cmd_split[2]), findClientByName(cmd_split[1], clientsServer));
+        sendCmd(RPL_CMD_PRIVMSG(client.getNickname(), client.getUsername(), client.getAddrIp(), cmd_split[1], cmd_split[2]), findClientByName(cmd_split[1], clientsServer)->second);
     }
 }
