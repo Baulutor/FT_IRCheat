@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:57:44 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/25 17:58:06 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/27 20:18:56 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@
 # define ERR_UMODEUNKNOWNFLAG(Nickname, Mode) (":server 501 " + Nickname + " " + Mode + " :Unknown mode" + "\n\r")
 # define ERR_NOSUCHCHANNEL(Nickname, Channel) (":server 403 " + Nickname + " " + Channel + " :No such channel" + "\n\r")
 # define RPL_CHANNELMODEIS(Nickname, Channel, Mode) (":server 324 " + Nickname + " " + Channel + " " + Mode + "\n\r")
+# define ERR_INVALIDMODEPARAM(Nickname, Mode, Param) (":server 696 " + Nickname + " " + Mode + " " + Param + " :Invalid mode parameter" + "\n\r")
 
 # define ERR_NOTONCHANNEL(Nickname, Channel) (":server 442 " + Nickname + " " + Channel + " :You are not on that channel" + "\n\r")
 

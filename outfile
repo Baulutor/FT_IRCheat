@@ -1,131 +1,236 @@
-➜  FT_IRCheat git:(ben) ✗ valgrind --leak-check=full --show-leak-kinds=all ./ircserv 6697 toto
-==190685== Memcheck, a memory error detector
-==190685== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==190685== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==190685== Command: ./ircserv 6697 toto
-==190685== 
-==190685== Conditional jump or move depends on uninitialised value(s)
-==190685==    at 0x40AF4B: Server::Server(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (Server.cpp:110)
-==190685==    by 0x403AA5: main (main.cpp:13)
-==190685== 
+init client
+Nickname : bfaure_
+Username : ben
+Pass : toto
+fd : 4
+Ip Address : 127.0.0.1
+cmd: JOIN #test
+
+JOIN
+channel = #test
+channelsServer.size() = 0
+Channel client ADD : #test
+RPL_CMD_JOIN = :bfaure_!ben@127.0.0.1 JOIN :#test
+
+RPL_CMD_TOPIC = :server 332 bfaure_ #test :No topic set
+
+NameLstUpadte channel = bfaure_
+RPL_CMD_NAME_LST_START = :server 353 bfaure_ = #test :@bfaure_
+
+RPL_CMD_NAME_LST_END = :server 366 bfaure_ #test :End of /NAMES list
+
 init client
 Nickname : bfaure
 Username : bf
 Pass : toto
-fd : 4
+fd : 5
 Ip Address : 127.0.0.1
-cmd: PING LAG1716518680434
+cmd: MODE #test
 
-cmd: JOIN #coucou
+Mode
+tokens: |#test|
+cmd: JOIN #test
 
 JOIN
-channel serveur ADD : #coucou
-Channel client ADD : #coucou
-RPL_CMD_JOIN = :bfaure!bf@127.0.0.1 JOIN :#coucou
+channel = #test
+channelsServer.size() = 1
+it->first = #test
+Channel client ADD : #test
+RPL_CMD_JOIN = :bfaure!bf@127.0.0.1 JOIN :#test
 
-RPL_CMD_TOPIC = :server 332 bfaure #coucou :No topic set
+RPL_CMD_TOPIC = :server 332 bfaure #test :No topic set
 
 NameLstUpadte channel = bfaure
-RPL_CMD_NAME_LST_START = :server 353 bfaure = #coucou :@bfaure
+RPL_CMD_NAME_LST_START = :server 353 bfaure = #test :bfaure @bfaure_
 
-RPL_CMD_NAME_LST_END = :server 366 bfaure #coucou :End of /NAMES list
+RPL_CMD_NAME_LST_END = :server 366 bfaure #test :End of /NAMES list
 
-cmd: MODE #coucou
-WHO #coucou
-
-Mode
-cmd: MODE #coucou bfaure_
+cmd: MODE #test
 
 Mode
-==190685== Invalid read of size 8
-==190685==    at 0x4852AE4: memmove (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==190685==    by 0x49C1123: void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char*>(char*, char*, std::forward_iterator_tag) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
-==190685==    by 0x4177CF: Channels::getMode(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) const (Channels.cpp:37)
-==190685==    by 0x41BFA4: Mode(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, Clients&, Server&) (Mode.cpp:49)
-==190685==    by 0x40A424: Server::cmdHandler(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, Clients&) (Server.cpp:42)
-==190685==    by 0x40B475: Server::Server(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (Server.cpp:134)
-==190685==    by 0x403AA5: main (main.cpp:13)
-==190685==  Address 0x51d3038 is 8 bytes before a block of size 81,686,785 alloc'd
-==190685==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==190685==    by 0x49C1109: void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char*>(char*, char*, std::forward_iterator_tag) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
-==190685==    by 0x4177CF: Channels::getMode(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) const (Channels.cpp:37)
-==190685==    by 0x41BFA4: Mode(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, Clients&, Server&) (Mode.cpp:49)
-==190685==    by 0x40A424: Server::cmdHandler(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, Clients&) (Server.cpp:42)
-==190685==    by 0x40B475: Server::Server(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (Server.cpp:134)
-==190685==    by 0x403AA5: main (main.cpp:13)
-==190685== 
-==190685== Invalid read of size 8
-==190685==    at 0x4852AF0: memmove (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==190685==    by 0x49C1123: void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char*>(char*, char*, std::forward_iterator_tag) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
-==190685==    by 0x4177CF: Channels::getMode(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) const (Channels.cpp:37)
-==190685==    by 0x41BFA4: Mode(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, Clients&, Server&) (Mode.cpp:49)
-==190685==    by 0x40A424: Server::cmdHandler(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, Clients&) (Server.cpp:42)
-==190685==    by 0x40B475: Server::Server(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (Server.cpp:134)
-==190685==    by 0x403AA5: main (main.cpp:13)
-==190685==  Address 0x51d3030 is 16 bytes before a block of size 81,686,785 alloc'd
-==190685==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==190685==    by 0x49C1109: void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char*>(char*, char*, std::forward_iterator_tag) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
-==190685==    by 0x4177CF: Channels::getMode(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) const (Channels.cpp:37)
-==190685==    by 0x41BFA4: Mode(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, Clients&, Server&) (Mode.cpp:49)
-==190685==    by 0x40A424: Server::cmdHandler(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, Clients&) (Server.cpp:42)
-==190685==    by 0x40B475: Server::Server(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (Server.cpp:134)
-==190685==    by 0x403AA5: main (main.cpp:13)
-==190685== 
-==190685== Invalid read of size 8
-==190685==    at 0x4852AF8: memmove (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==190685==    by 0x49C1123: void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char*>(char*, char*, std::forward_iterator_tag) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
-==190685==    by 0x4177CF: Channels::getMode(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) const (Channels.cpp:37)
-==190685==    by 0x41BFA4: Mode(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, Clients&, Server&) (Mode.cpp:49)
-==190685==    by 0x40A424: Server::cmdHandler(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, Clients&) (Server.cpp:42)
-==190685==    by 0x40B475: Server::Server(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (Server.cpp:134)
-==190685==    by 0x403AA5: main (main.cpp:13)
-==190685==  Address 0x51d3028 is 24 bytes before a block of size 81,686,785 alloc'd
-==190685==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==190685==    by 0x49C1109: void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char*>(char*, char*, std::forward_iterator_tag) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
-==190685==    by 0x4177CF: Channels::getMode(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) const (Channels.cpp:37)
-==190685==    by 0x41BFA4: Mode(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, Clients&, Server&) (Mode.cpp:49)
-==190685==    by 0x40A424: Server::cmdHandler(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, Clients&) (Server.cpp:42)
-==190685==    by 0x40B475: Server::Server(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (Server.cpp:134)
-==190685==    by 0x403AA5: main (main.cpp:13)
-==190685== 
-==190685== Invalid read of size 8
-==190685==    at 0x4852B00: memmove (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==190685==    by 0x49C1123: void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char*>(char*, char*, std::forward_iterator_tag) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
-==190685==    by 0x4177CF: Channels::getMode(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) const (Channels.cpp:37)
-==190685==    by 0x41BFA4: Mode(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, Clients&, Server&) (Mode.cpp:49)
-==190685==    by 0x40A424: Server::cmdHandler(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, Clients&) (Server.cpp:42)
-==190685==    by 0x40B475: Server::Server(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (Server.cpp:134)
-==190685==    by 0x403AA5: main (main.cpp:13)
-==190685==  Address 0x51d3020 is 32 bytes before a block of size 81,690,528 in arena "client"
-==190685== 
-==190685== Syscall param socketcall.sendto(msg) points to uninitialised byte(s)
-==190685==    at 0x4CCC8B0: send (send.c:28)
-==190685==    by 0x4154D2: sendCmd(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, Clients&) (Utils.cpp:53)
-==190685==    by 0x41BFF5: Mode(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, Clients&, Server&) (Mode.cpp:49)
-==190685==    by 0x40A424: Server::cmdHandler(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, Clients&) (Server.cpp:42)
-==190685==    by 0x40B475: Server::Server(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (Server.cpp:134)
-==190685==    by 0x403AA5: main (main.cpp:13)
-==190685==  Address 0x13b8b060 is 32 bytes inside a block of size 163,373,625 alloc'd
-==190685==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==190685==    by 0x49BE0BD: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_mutate(unsigned long, unsigned long, char const*, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
-==190685==    by 0x49BFB4F: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_append(char const*, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
-==190685==    by 0x40631B: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, char const*) (basic_string.h:3484)
-==190685==    by 0x41BFE0: Mode(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, Clients&, Server&) (Mode.cpp:49)
-==190685==    by 0x40A424: Server::cmdHandler(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, Clients&) (Server.cpp:42)
-==190685==    by 0x40B475: Server::Server(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (Server.cpp:134)
-==190685==    by 0x403AA5: main (main.cpp:13)
-==190685== 
-ERROR rcve !
-cmd: 
-connexion closed 
-tg
-==190685== 
-==190685== HEAP SUMMARY:
-==190685==     in use at exit: 0 bytes in 0 blocks
-==190685==   total heap usage: 190 allocs, 190 frees, 408,519,804 bytes allocated
-==190685== 
-==190685== All heap blocks were freed -- no leaks are possible
-==190685== 
-==190685== Use --track-origins=yes to see where uninitialised values come from
-==190685== For lists of detected and suppressed errors, rerun with: -s
-==190685== ERROR SUMMARY: 513841 errors from 6 contexts (suppressed: 0 from 0)
+tokens: |#test|
+cmd: WHO #test
+
+cmd: WHO #test
+
+cmd: PING LAG1716784449281
+
+cmd: MODE #test +i akjhd
+
+Mode
+tokens: |#test|
+tokens: |+i|
+tokens: |akjhd|
+target isMode = |+i|
+cmd: PING LAG1716784462281
+
+cmd: PING LAG1716784479282
+
+cmd: PING LAG1716784492281
+
+cmd: PING LAG1716784509281
+
+cmd: PING LAG1716784522282
+
+cmd: PING LAG1716784539281
+
+cmd: PING LAG1716784552282
+
+cmd: PING LAG1716784569282
+
+cmd: PING LAG1716784582281
+
+cmd: PING LAG1716784599282
+
+cmd: PING LAG1716784612282
+
+cmd: PING LAG1716784629281
+
+cmd: PING LAG1716784642281
+
+cmd: PING LAG1716784659281
+
+cmd: PING LAG1716784672282
+
+cmd: PING LAG1716784689281
+
+cmd: PING LAG1716784702281
+
+cmd: PING LAG1716784719281
+
+cmd: PING LAG1716784732281
+
+cmd: PING LAG1716784749281
+
+cmd: PING LAG1716784762281
+
+cmd: PING LAG1716784779282
+
+cmd: PING LAG1716784792282
+
+cmd: PING LAG1716784809281
+
+cmd: PING LAG1716784822281
+
+cmd: PING LAG1716784839282
+
+cmd: PING LAG1716784852281
+
+cmd: PING LAG1716784869282
+
+cmd: PING LAG1716784882281
+
+cmd: PING LAG1716784899281
+
+cmd: PING LAG1716784912281
+
+cmd: PING LAG1716784929282
+
+cmd: PING LAG1716784942281
+
+cmd: PING LAG1716784959281
+
+cmd: PING LAG1716784972282
+
+cmd: PING LAG1716784989281
+
+cmd: PING LAG1716785002281
+
+cmd: PING LAG1716785019282
+
+cmd: PING LAG1716785032282
+
+cmd: PING LAG1716785049281
+
+cmd: PING LAG1716785062282
+
+cmd: PING LAG1716785079281
+
+cmd: PING LAG1716785092282
+
+cmd: PING LAG1716785109281
+
+cmd: PING LAG1716785122281
+
+cmd: PING LAG1716785139281
+
+cmd: PING LAG1716785152281
+
+cmd: PING LAG1716785169281
+
+cmd: PING LAG1716785182281
+
+cmd: PING LAG1716785199281
+
+cmd: PING LAG1716785212281
+
+cmd: PING LAG1716785229282
+
+cmd: PING LAG1716785242282
+
+cmd: PING LAG1716785259282
+
+cmd: PING LAG1716785272282
+
+cmd: PING LAG1716785289282
+
+cmd: PING LAG1716785302281
+
+cmd: PING LAG1716785319281
+
+cmd: PING LAG1716785332282
+
+cmd: PING LAG1716785349281
+
+cmd: PING LAG1716785362281
+
+cmd: PING LAG1716785379281
+
+cmd: PING LAG1716785392282
+
+cmd: PING LAG1716785409282
+
+cmd: PING LAG1716785422282
+
+cmd: PING LAG1716785439281
+
+cmd: PING LAG1716785452281
+
+cmd: PING LAG1716785469281
+
+cmd: PING LAG1716785482281
+
+cmd: PING LAG1716785499281
+
+cmd: PING LAG1716785512281
+
+cmd: PING LAG1716785529282
+
+cmd: PING LAG1716785542282
+
+cmd: PING LAG1716785559281
+
+cmd: PING LAG1716785572281
+
+cmd: PING LAG1716785589282
+
+cmd: PING LAG1716785602282
+
+cmd: PING LAG1716785619282
+
+cmd: PING LAG1716785632281
+
+cmd: PING LAG1716785649281
+
+cmd: PING LAG1716785662281
+
+cmd: PING LAG1716785679281
+
+cmd: PING LAG1716785692282
+
+cmd: PING LAG1716785709282
+
+cmd: PING LAG1716785722282
+
+cmd: PING LAG1716785739281
+

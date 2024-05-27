@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "Channels.hpp"
+#include <algorithm>
 #include <map>
 
 Channels::Channels() {}
@@ -18,10 +19,10 @@ Channels::Channels() {}
 Channels::Channels(std::string name, Clients& op)
 {
     _name = name;
-    _operator = &op;
+    _operator.push_back(op);
     _topic = "No topic set";
-    _password = "";
-    _mode.insert(std::make_pair(name, " "));
+    _password = " ";
+    _mode.insert(std::make_pair(name, ""));
     _mode.insert(std::make_pair(op.getNickname(), "o"));
 }
 
@@ -39,7 +40,17 @@ std::string Channels::getPassword() const {return (_password);}
 
 std::string Channels::getMode(std::string target) const {return (_mode.find(target)->second);}
 
-Clients Channels::getOperator() const {return (*_operator);}
+int Channels::getLimit() const {return (_nbMaxClients);}
+
+Clients Channels::getOperator(std::string target) const
+{
+    for (size_t i = 0; i < _operator.size(); i++)
+    {
+        if (_operator[i].getNickname() == target)
+            return (_operator[i]);
+    }
+    return (Clients());
+}
 
 // Setter
 
@@ -47,7 +58,7 @@ void Channels::setName(std::string name) {_name = name;}
 
 void Channels::setTopic(std::string topic) {_topic = topic;}
 
-void Channels::setOperator(Clients& op) {_operator = &op;}
+void Channels::setOperator(Clients& op) {_operator.push_back(op);}
 
 void Channels::setPassword(std::string password) {_password = password;}
 
@@ -60,4 +71,30 @@ void Channels::setMode(std::string target, std::string mode)
         _mode.insert(std::make_pair(target, mode));
 }
 
+void Channels::setLimit(int limit) {_nbMaxClients = limit;}
+
 void Channels::setClients(std::map<std::string, Clients> clients) {_clients = clients;}
+
+// Remover
+
+void Channels::removeMode(std::string target, std::string mode)
+{
+    std::cout << "removeMode Mode = " << mode << std::endl;
+    std::map<std::string, std::string>::iterator it = _mode.find(target);
+    if (it != _mode.end())
+    {
+        if (it->second.length() <= 1)  // Si la chaîne est vide ou contient une seule valeur
+            it->second = "";           // Remplacer par une chaîne vide
+        else
+            it->second.erase(std::remove(it->second.begin(), it->second.end(), mode[0]), it->second.end());  // Effacer le caractère spécifié
+    }
+}
+
+void Channels::removeOperator(Clients& op)
+{
+    for (size_t i = 0; i < _operator.size(); i++)
+    {
+        if (_operator[i].getNickname() == op.getNickname())
+            _operator.erase(_operator.begin() + i);
+    }
+}

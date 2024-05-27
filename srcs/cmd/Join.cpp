@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 10:13:36 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/25 12:17:12 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/27 16:05:35 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,30 @@ bool check_key(std::string key, Channels& channel, Clients& client)
     return (true);
 }
 
+Channels& findChannel(std::string channel, std::map<std::string, Channels>& channelsServer, Clients& client)
+{
+    std::cout << "channelsServer.size() = " << channelsServer.size() << std::endl;
+    for (std::map<std::string, Channels>::iterator it = channelsServer.begin(); it != channelsServer.end(); it++)
+    {
+        std::cout << "it->first = " << it->first << std::endl;
+        if (it->first != channel)
+        {
+            Channels channelToJoin(channel, client);
+            channelsServer.insert(std::make_pair(channel, channelToJoin));
+            std::cout << "channelToJoin = " << channelsServer.find(channel)->second.getName() << std::endl;
+            std::cout << "ChannelToJoin.getPassword = " << channelsServer.find(channel)->second.getPassword() << std::endl;
+            return (channelsServer.find(channel)->second);
+        }
+        else
+        {
+            return (it->second);
+        }
+    }
+    Channels channelToJoin(channel, client);
+    channelsServer.insert(std::make_pair(channel, channelToJoin));
+    return (channelsServer.find(channel)->second);
+}
+
 void Join(std::string cmd, Clients& client, Server& server)
 {
     std::cout << "JOIN" << std::endl;
@@ -68,8 +92,10 @@ void Join(std::string cmd, Clients& client, Server& server)
             continue;
         }
         std::string key = (i < keys.size()) ? keys[i] : "";
+        // std::string key = keys[i];
         std::string channel = channels[i];
-        Channels channelToJoin(channel, client);
+        std::cout << "channel = " << channel << std::endl;
+        Channels& channelToJoin = findChannel(channel, channelsServer, client);
         if (check_key(key, channelToJoin, client) == false)
             continue;
         std::pair<std::map<std::string, Channels>::iterator, bool> insertServer = channelsServer.insert(std::make_pair(channel, channelToJoin));
@@ -86,7 +112,7 @@ void Join(std::string cmd, Clients& client, Server& server)
         {
             insertClient.first->second.setOperator(client);
             // insertClient.first->second.setMode(client.getNickname(), " ");
-            insertServer.first->second.setMode(client.getNickname(), " ");
+            insertServer.first->second.setMode(client.getNickname(), "");
             std::cout << "Channel client ADD : " << insertClient.first->second.getName() << std::endl;
         }
         std::string Topic = insertClient.first->second.getTopic();

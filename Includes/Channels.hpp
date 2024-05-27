@@ -33,7 +33,8 @@ class Channels
         std::map<std::string, Clients>& getClientMap();
         std::string getPassword() const;
         std::string getMode(std::string target) const;
-        Clients getOperator() const;
+        int getLimit() const;
+        Clients getOperator(std::string target) const;
 
         // Setter
         void setName(std::string name);
@@ -42,6 +43,10 @@ class Channels
         void setPassword(std::string password);
         void setMode(std::string target, std::string mode);
         void setClients(std::map<std::string, Clients> clients);
+        void setLimit(int limit);
+
+        void removeMode(std::string target, std::string mode);
+        void removeOperator(Clients& op);
 
     private :
         std::string _name;
@@ -51,9 +56,9 @@ class Channels
         std::map<std::string, std::string> _mode;
         // bool _isPrivate;
         // int _nbClients;
-        // int _nbMaxClients;
+        int _nbMaxClients;
         std::map<std::string, Clients> _clients;
-        Clients *_operator;
+        std::vector<Clients> _operator;
 };
 
 #endif

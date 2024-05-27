@@ -119,7 +119,7 @@ Server::Server(std::string av, std::string av2)
 					else if ( bytes == 0)
 					{
 						std::cout << "connexion closed " << std::endl;
-						throw std::invalid_argument("tg");
+						// throw std::invalid_argument("tg");
 					}
 					if (startWith(buffer, "CAP LS 302") || !init)
 					{

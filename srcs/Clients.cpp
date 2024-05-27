@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:36:58 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/24 11:33:58 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/27 14:06:23 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 
 Clients::Clients()
 {
+    _fd = -1;
+    _addrIp = "";
+    _nickname = "";
+    _username = "";
+    _pass = "";
     //std::cout << "Clients constructor created" << std::endl;
 }
 

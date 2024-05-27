@@ -6,7 +6,7 @@
 #    By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 13:54:50 by bfaure            #+#    #+#              #
-#    Updated: 2024/05/25 12:25:03 by bfaure           ###   ########.fr        #
+#    Updated: 2024/05/27 13:53:17 by bfaure           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ CC = c++ -std=c++98
 
 DEPS_FLAGS = -MMD -MP
 
-CFLAGS = ${DEPS_FLAGS} -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = ${DEPS_FLAGS} -Wall -Wextra -Werror -g3 #-fsanitize=address
 
 ############## SOURCES ##############
 

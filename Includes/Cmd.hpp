@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 10:14:18 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/24 11:45:23 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/27 20:54:34 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 // # include "Channels.hpp"
 # include "Server.hpp"
 
-class Channel;
+class Channels;
 
 void Join(std::string cmd, Clients& client, Server& server);
 void Kick(std::string cmd, Clients& client, Server& server);
