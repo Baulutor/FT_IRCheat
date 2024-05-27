@@ -15,7 +15,10 @@
 
 //Invite
 #define ERR_USERONCHANNEL(ClientNickname, nickname, Channel) (ClientNickname + " " + nickname + " " + Channel + " :is already on channel\n\r")
-#define RPL_INVITING(nickname, channelName) ("server 341 " + nickname + " " + channelName + "\n\r")
+#define RPL_INVITING( nickname, channelName) (":server 341 " + nickname + " " + channelName + "\n\r")
+#define RPL_INVITING_NOTICE(nickname, channelName) (":server NOTICE " + nickname + " " + channelName + "\n\r")
+#define ERR_CHANOPRIVSNEEDED(nickname, channel) (":server 482 " + nickname + " " + channel + " :You\'re not channel operator\n\r")
+
 
 
 # define RPL_CMD_JOIN(Nickname, Username, Hostname, Channel) (":" + Nickname + "!" + Username + "@" + Hostname + " JOIN :" + Channel + "\n\r")

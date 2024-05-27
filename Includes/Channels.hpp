@@ -49,6 +49,7 @@ class Channels
 
         //Invite
         void    checkClientMapChannel();
+		bool	checkIfOpeUserForInvite(Clients client);
 
     private :
         std::string _name;
