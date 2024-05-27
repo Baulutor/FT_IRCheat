@@ -31,7 +31,7 @@ void    Invite(std::string cmd, Clients& client, Server& server)
 	}
 	if (it->second.getClientMap().end() == it->second.getClientMap().find(client.getNickname()))
 	{
-		sendCmd(ERR_NOTONCHANNEL(channelName), client);
+		sendCmd(ERR_NOTONCHANNEL(channelName, it->second.getName()), client);
 		return ;
 	}
 	std::map<int, Clients>::iterator ite;
@@ -56,5 +56,5 @@ void    Invite(std::string cmd, Clients& client, Server& server)
 			return ;
 		}
 	}
-	sendCmd(ERR_NOSUCHNICK(nickname), client);
+	sendCmd(ERR_NOSUCHNICK(nickname, client.getUsername()), client); // vraiment pas sur des infos que je lui transmet
 }

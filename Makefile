@@ -33,7 +33,8 @@ SRC 	=	srcs/main.cpp \
 			srcs/Utils.cpp \
 			srcs/Channels.cpp \
 			srcs/cmd/Privmsg.cpp \
-			srcs/cmd/Invite.cpp
+			srcs/cmd/Invite.cpp \
+			srcs/cmd/Mode.cpp
 
 
 ############## DIRECTORIES ##############

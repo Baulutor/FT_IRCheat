@@ -172,7 +172,7 @@ nc -C <addr ip> <port>
     - 9 char max
     - pas de string vide
     - pas de ',' ' ' '*' '?' '!' '@'
-    - ne peu pas commencer par '#' '&' 
+    - ne peu pas commencer par '#' '&'
 
 
 ** USER <name> 0 * <nom complet>

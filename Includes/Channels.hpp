@@ -33,12 +33,17 @@ class Channels
         std::map<std::string, Clients>& getClientMap();
 		std::map<std::string, Clients>& getClientInvited();
 
-        Clients getOperator() const;
+//        Clients getOperator() const;
+        std::string getPassword() const;
+        std::vector<Clients> getOperator() const;
+        std::string getMode(std::string target) const;
 
         // Setter
         void setName(std::string name);
         void setTopic(std::string topic);
         void setOperator(Clients& op);
+        void setPassword(std::string password);
+        void setMode(std::string target, std::string mode);
         void setClients(std::map<std::string, Clients> clients);
 		void ClientInvite(std::map<std::string, Clients> &clients);
 
@@ -49,14 +54,15 @@ class Channels
         std::string _name;
         std::string _topic;
         std::string _password;
-        std::string _mode;
+        // std::string _mode;
+        std::map<std::string, std::string> _mode;
         // bool _isPrivate;
         // int _nbClients;
         // int _nbMaxClients;
-        std::map<std::string, Clients>	_clients;
+        std::map<std::string, Clients> _clients;
+        std::vector<Clients> _operator;
 
 		std::map<std::string, Clients>	_inviteClient;
-        Clients *_operator;
 };
 
 #endif

@@ -1,20 +1,52 @@
-Clients constructor created$
-fd = 3$
-fd2 = 4$
-Accept $
-buffer : |CAP LS 302$
-PASS toto$
-NICK bfaure$
-USER bfaure 0 * :realname$
-|$
-line in initClients : |CAP LS 302$
-PASS toto$
-NICK bfaure$
-USER bfaure 0 * :realname$
-|$
-ID PASS : 12$
-ID NICK : 23$
-ID USER : 36$
-char PASS : P$
-char NICK : N$
-char USER : U$
+init client$
+Nickname : bfaure$
+Username : bf$
+Pass : toto$
+fd : 4$
+Ip Address : 127.0.0.1$
+cmd: JOIN #coucou^M$
+$
+JOIN$
+channel serveur ADD : #coucou$
+Channel client ADD : #coucou$
+RPL_CMD_JOIN = :bfaure!bf@127.0.0.1 JOIN :#coucou$
+^M$
+RPL_CMD_TOPIC = :server 332 bfaure #coucou :No topic set$
+^M$
+NameLstUpadte channel = bfaure$
+RPL_CMD_NAME_LST_START = :server 353 bfaure = #coucou :@bfaure$
+^M$
+RPL_CMD_NAME_LST_END = :server 366 bfaure #coucou :End of /NAMES list$
+^M$
+cmd: MODE #coucou^M$
+$
+Mode$
+init client$
+Nickname : bfaure_$
+Username : ben$
+Pass : toto$
+fd : 5$
+Ip Address : 127.0.0.1$
+cmd: JOIN #coucou^M$
+$
+JOIN$
+Channel client ADD : #coucou$
+RPL_CMD_JOIN = :bfaure_!ben@127.0.0.1 JOIN :#coucou$
+^M$
+RPL_CMD_TOPIC = :server 332 bfaure_ #coucou :No topic set$
+^M$
+NameLstUpadte channel = bfaure_$
+RPL_CMD_NAME_LST_START = :server 353 bfaure_ = #coucou :@bfaure bfaure_$
+^M$
+RPL_CMD_NAME_LST_END = :server 366 bfaure_ #coucou :End of /NAMES list$
+^M$
+cmd: MODE #coucou^M$
+$
+Mode$
+cmd: WHO #coucou^M$
+$
+cmd: WHO #coucou^M$
+$
+cmd: MODE #coucou bfaure_^M$
+$
+Mode$
