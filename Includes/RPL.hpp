@@ -6,7 +6,7 @@
 /*   By: nibernar <nibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:57:44 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/27 16:28:26 by nibernar         ###   ########.fr       */
+/*   Updated: 2024/05/28 16:50:35 by nibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,7 @@
 
 #define ERR_NOTCHANOP(Nickname, channel) (":server 482 " + Nickname + " " + channel + " :You're not channel operator\r\n")
 #define ERR_USERNOTFOUND(client, Nickname, channel) (":server 441 " + client + " " + Nickname + " " + channel + " :They aren't on that channel\r\n")
-#define ERR_PASSWDMISMATCH(client) (":server 441 " + client + " :Password incorrect \n\r")
+#define ERR_PASSWDMISMATCH(client) (":server 464 " + client + " :Password incorrect \n\r")
+#define RPL_DISCONNECT(Nickname, Username, Hostname) (":" + Nickname + "!" + Username + "@" + Hostname + " QUIT :" + "\n\r")
+#define ERR_NOTREGISTERED(Nickfd)(":server 451 " + Nickfd + ":You have not registered" + "\n\r") 
 #endif

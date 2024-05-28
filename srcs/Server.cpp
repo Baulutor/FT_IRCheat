@@ -45,6 +45,13 @@ void Server::cmdHandler(std::string cmd, Clients& client)
     }
 }
 
+
+std::string intToString(int value) {
+    std::ostringstream oss;
+    oss << value;
+    return oss.str();
+}
+
 Server::Server(std::string av, std::string av2)
 {
 	struct sockaddr_in address;
@@ -91,28 +98,28 @@ Server::Server(std::string av, std::string av2)
 	pollServ.events = POLLIN;
 	_lstPollFd.push_back(pollServ);
 	bool init = false;
+	int newClientFd = 0;
 	while (true)
 	{
 		if (poll(&_lstPollFd[0], _lstPollFd.size(), -1) >= 0)
 		{
 			if (_lstPollFd[0].revents & POLLIN)
 			{
-				Clients newClient;
 				socklen_t sock_info_len = sizeof(address);
-   				newClient.setFd(accept(getFd(), (struct sockaddr*)&address, &sock_info_len));
 				struct pollfd pollClienTmp;
-				pollClienTmp.fd = newClient.getFd();
+				newClientFd = accept(getFd(), (struct sockaddr*)&address, &sock_info_len);
+   				pollClienTmp.fd = newClientFd;
 				pollClienTmp.events = POLLIN;
 				_lstPollFd.push_back(pollClienTmp);
-				_clients.insert(std::make_pair(newClient.getFd(), newClient));
 			}
-			for (size_t i = 1; i < _lstPollFd.size(); i++)
+			size_t i = 1;
+			for (std::vector<pollfd>::iterator it = _lstPollFd.begin() + 1; it < _lstPollFd.end(); it++)
 			{
 				if (_lstPollFd[i].revents & POLLIN)
 				{
 					bzero(buffer, 512);
 					std::map<int, Clients>::iterator itClients = getClients().find(_lstPollFd[i].fd);
-					ssize_t bytes = recv(itClients->first, buffer, 511, MSG_DONTWAIT);
+					ssize_t bytes = recv(_lstPollFd[i].fd, buffer, 511, MSG_DONTWAIT);
 					if (bytes < 0)
 						std::cerr << "ERROR rcve !" << std::endl;
 					else if ( bytes == 0)
@@ -122,16 +129,19 @@ Server::Server(std::string av, std::string av2)
 					}
 					if (startWith(buffer, "CAP LS 302") || !init)
 					{
-						init = itClients->second.initClients(buffer, *this);
+						Clients newClient;
+						newClient.setFd(_lstPollFd[i].fd);
+						init = newClient.initClients(buffer, *this);
 						if (init)
 						{
 							std::cout << "init client" << std::endl;
-							itClients->second.printInfo();
+							newClient.printInfo();
+							_clients.insert(std::make_pair(newClient.getFd(), newClient));
 						}
-						// else {
-						// 	std::cout << "cacaboudin = " << itClients->first << std::endl;
-						// 	// _clients.erase(itClients->first);
-						// }
+						else {
+							sendCmd(ERR_NOTREGISTERED(intToString(newClient.getFd())), newClient);
+							_lstPollFd.erase(it);
+						}
 					}
 					else
 					{
@@ -140,6 +150,7 @@ Server::Server(std::string av, std::string av2)
 					}
 					itClients++;
 				}
+				i++;
 			}
 		}
 		else // ERROR DE POLL
