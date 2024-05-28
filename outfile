@@ -4,36 +4,21 @@ Username : ben
 Pass : toto
 fd : 4
 Ip Address : 127.0.0.1
-cmd: JOIN #test
-
-JOIN
-channel = #test
-channelsServer.size() = 0
-setMode Mode = 
-Channel client ADD : #test
-RPL_CMD_NAME_LST_START = :server 353 bfaure_ = #test :@bfaure_
-
-RPL_CMD_NAME_LST_END = :server 366 bfaure_ #test :End of /NAMES list
-
 init client
 Nickname : bfaure
 Username : bf
 Pass : toto
 fd : 5
 Ip Address : 127.0.0.1
-cmd: MODE #test
-
-Mode
-tokens: |#test|
 cmd: JOIN #test
 
 JOIN
 channel = #test
-channelsServer.size() = 1
-it->first = #test
+channelsServer.size() = 0
+channel.getMode(channel.getName()) = t
 setMode Mode = 
 Channel client ADD : #test
-RPL_CMD_NAME_LST_START = :server 353 bfaure = #test :bfaure @bfaure_
+RPL_CMD_NAME_LST_START = :server 353 bfaure = #test :@bfaure
 
 RPL_CMD_NAME_LST_END = :server 366 bfaure #test :End of /NAMES list
 
@@ -43,80 +28,35 @@ Mode
 tokens: |#test|
 cmd: WHO #test
 
-cmd: WHO #test
+cmd: PING LAG1716872177619
 
-cmd: PING LAG1716866447618
+cmd: PING LAG1716872184619
 
-cmd: MODE #test 
+cmd: PING LAG1716872207619
 
-Mode
-tokens: |#test|
-cmd: PING LAG1716866454620
+cmd: PING LAG1716872214619
 
-cmd: MODE #test +k tutu
+cmd: INVITE bfaure_ #test
 
-Mode
-tokens: |#test|
-tokens: |+k|
-tokens: |tutu|
-target isMode = |+k|
-target isArgsMode = |+k|
-checkArgs modes = |+k|
-modes[i] = |+|
-plusSign = false
-target = |#test|
-args[i] = |tutu|
-channelIt->second.getMode(target) = ||
-setMode Mode = k
-cmd: MODE #test 
+cmd: PING LAG1716872237619
 
-Mode
-tokens: |#test|
-cmd: KICK #test #test :bfaure
+cmd: PING LAG1716872244619
 
-couille ici = bfaurefd = 5
-je suis la lol
-cmd: PING LAG1716866477619
+cmd: PING LAG1716872267619
 
-cmd: PING LAG1716866484620
+cmd: PING LAG1716872274619
 
-cmd: MODE #test 
+cmd: PING LAG1716872297619
 
-Mode
-tokens: |#test|
-cmd: JOIN #test
+cmd: PING LAG1716872304619
 
-JOIN
-channel = #test
-channelsServer.size() = 1
-it->first = #test
-cmd: PING LAG1716866507619
+cmd: PING LAG1716872327619
 
-cmd: PING LAG1716866514619
+cmd: PING LAG1716872334619
 
-cmd: JOIN #test tutu
+cmd: PING LAG1716872357619
 
-JOIN
-channel = #test
-channelsServer.size() = 1
-it->first = #test
-RPL_CMD_NAME_LST_START = :server 353 bfaure = #test :bfaure @bfaure_
+cmd: PING LAG1716872364619
 
-RPL_CMD_NAME_LST_END = :server 366 bfaure #test :End of /NAMES list
-
-cmd: MODE #test
-WHO #test
-
-Mode
-tokens: |#testWHO|
-tokens: |#test|
-cmd: PING LAG1716866537619
-
-cmd: PING LAG1716866544619
-
-cmd: PING LAG1716866567619
-
-cmd: PING LAG1716866574619
-
-cmd: PING LAG1716866597619
+cmd: PING LAG1716872387620
 

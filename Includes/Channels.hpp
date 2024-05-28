@@ -38,6 +38,7 @@ class Channels
         std::vector<Clients> getOperator() const;
         std::string getMode(std::string target) const;
         int getLimit() const;
+        int getNbClients() const;
         Clients getOperator(std::string target) const;
 
         // Setter
@@ -48,6 +49,8 @@ class Channels
         void setMode(std::string target, std::string mode);
         void setClients(std::map<std::string, Clients> clients);
         void setLimit(int limit);
+        
+        void incrementNbClients();
 
         void removeMode(std::string target, std::string mode);
         void removeOperator(Clients& op);
@@ -55,7 +58,7 @@ class Channels
 
         //Invite
         void    checkClientMapChannel();
-		bool	checkIfOpeUserForInvite(Clients client);
+	bool	checkIfOpeUserForInvite(Clients client);
 
     private :
         std::string _name;
@@ -64,7 +67,7 @@ class Channels
         // std::string _mode;
         std::map<std::string, std::string> _mode;
         // bool _isPrivate;
-        // int _nbClients;
+        int _nbClients;
         int _nbMaxClients;
         std::map<std::string, Clients> _clients;
         std::vector<Clients> _operator;

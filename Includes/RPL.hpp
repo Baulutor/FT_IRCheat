@@ -6,21 +6,20 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:57:44 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/28 18:24:56 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/28 20:46:01 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RPL_HPP
 # define RPL_HPP
 
-#define SERVERNAME std::string("ft_IRCheat")
+// #define SERVERNAME std::string("ft_IRCheat")
 
 //Invite
-//#define RPL_INVITING( nickname, channelName) (":server 341 " + nickname + " " + channelName + "\n\r")
 # define ERR_USERONCHANNEL(ClientNickname, nickname, Channel) (ClientNickname + " " + nickname + " " + Channel + " :is already on channel\n\r")
-# define RPL_INVITING(client, channel, nick) (":" + SERVERNAME + " 341 " + client + " " + nick + " " + channel + "\r\n")
 # define RPL_INVITING_NOTICE(nickname, channelName) (":server NOTICE " + nickname + " " + channelName + "\n\r")
 # define ERR_CHANOPRIVSNEEDED(nickname, channel) (":server 482 " + nickname + " " + channel + " :You\'re not channel operator\n\r")
+# define RPL_INVITING(nickname, channelName) (":server 341 " + nickname + " " + channelName + "\n\r")
 
 
 
@@ -29,6 +28,8 @@
 # define RPL_JOIN_ERROR_NAME(Nickname, Channel) (":server 403 " + Nickname + " :💩 The channel (" + Channel + ") name must start with a #. Example : #" + Channel  + "\n\r")
 # define RPL_JOIN_NOTICE(Nickname, Channel) (":server NOTICE " + Channel + " :" + Nickname + " Just join the channel" + "\n\r")
 # define RPL_JOIN_ERROR_KEY(Nickname, Channel) (":server 475 " + Nickname + " " + Channel + " :Cannot join channel (+k)" + "\n\r")
+# define ERR_INVITEONLYCHAN(Nickname, Channel) (":server 473 " + Nickname + " " + Channel + " :Cannot join channel (+i)" + "\n\r")
+# define ERR_CHANNELFULL(Nickname, Channel) (":server 471 " + Nickname + " " + Channel + " :Cannot join channel (+l)" + "\n\r")
 
 # define RPL_CMD_PONG(Nickname, Username, Hostname, Key) (":" + Nickname + "!" + Username + "@" + Hostname + " PONG " + Key + "\n\r")
 
