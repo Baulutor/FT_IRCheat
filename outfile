@@ -23,6 +23,8 @@ fd : 5
 Ip Address : 127.0.0.1
 cmd: MODE #test
 
+Mode
+tokens: |#test|
 cmd: JOIN #test
 
 JOIN
@@ -37,13 +39,84 @@ RPL_CMD_NAME_LST_END = :server 366 bfaure #test :End of /NAMES list
 
 cmd: MODE #test
 
+Mode
+tokens: |#test|
 cmd: WHO #test
 
 cmd: WHO #test
 
+cmd: PING LAG1716866447618
+
+cmd: MODE #test 
+
+Mode
+tokens: |#test|
+cmd: PING LAG1716866454620
+
+cmd: MODE #test +k tutu
+
+Mode
+tokens: |#test|
+tokens: |+k|
+tokens: |tutu|
+target isMode = |+k|
+target isArgsMode = |+k|
+checkArgs modes = |+k|
+modes[i] = |+|
+plusSign = false
+target = |#test|
+args[i] = |tutu|
+channelIt->second.getMode(target) = ||
+setMode Mode = k
+cmd: MODE #test 
+
+Mode
+tokens: |#test|
 cmd: KICK #test #test :bfaure
 
 couille ici = bfaurefd = 5
 je suis la lol
-cmd: PING LAG1716864857619
+cmd: PING LAG1716866477619
+
+cmd: PING LAG1716866484620
+
+cmd: MODE #test 
+
+Mode
+tokens: |#test|
+cmd: JOIN #test
+
+JOIN
+channel = #test
+channelsServer.size() = 1
+it->first = #test
+cmd: PING LAG1716866507619
+
+cmd: PING LAG1716866514619
+
+cmd: JOIN #test tutu
+
+JOIN
+channel = #test
+channelsServer.size() = 1
+it->first = #test
+RPL_CMD_NAME_LST_START = :server 353 bfaure = #test :bfaure @bfaure_
+
+RPL_CMD_NAME_LST_END = :server 366 bfaure #test :End of /NAMES list
+
+cmd: MODE #test
+WHO #test
+
+Mode
+tokens: |#testWHO|
+tokens: |#test|
+cmd: PING LAG1716866537619
+
+cmd: PING LAG1716866544619
+
+cmd: PING LAG1716866567619
+
+cmd: PING LAG1716866574619
+
+cmd: PING LAG1716866597619
 

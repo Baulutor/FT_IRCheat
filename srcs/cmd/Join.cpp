@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 10:13:36 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/28 18:01:34 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/28 19:12:05 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void Join(std::string cmd, Clients& client, Server& server)
             continue;
         }
         std::string key = (i < keys.size()) ? keys[i] : "";
-        // std::string key = keys[i];
         std::string channel = channels[i];
         std::cout << "channel = " << channel << std::endl;
         Channels& channelToJoin = findChannel(channel, channelsServer, client);

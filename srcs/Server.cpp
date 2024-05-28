@@ -36,10 +36,10 @@ void Server::cmdHandler(std::string cmd, Clients& client)
 	// }
 	// std::cout << "cmd char: " << cmd[cmd.length()] + 48 << std::endl;
 	std::cout << "cmd: " << cmd << std::endl;
-    const char *lstCmd[] = {"JOIN", "KICK", "PRIVMSG", "PING", "INVITE"};
+    const char *lstCmd[] = {"JOIN", "KICK", "PRIVMSG", "PING", "INVITE", "MODE"};
     // , "NAMES", "NICK", "INVITE", "TOPIC", "PRIVMSG", "QUIT", "PART", "KICK", "MODE"
-    void (*lstFunc[])(std::string, Clients&, Server&) = {Join, Kick, Privmsg, Pong, Invite};
-    for (int i = 0; i < 5; i++)
+    void (*lstFunc[])(std::string, Clients&, Server&) = {Join, Kick, Privmsg, Pong, Invite, Mode};
+    for (int i = 0; i < 6; i++)
     {
         if (startWith(cmd, lstCmd[i]))
         {
