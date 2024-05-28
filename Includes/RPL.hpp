@@ -23,6 +23,10 @@
 # define ERR_CHANOPRIVSNEEDED(nickname, channel) (":server 482 " + nickname + " " + channel + " :You\'re not channel operator\n\r")
 
 
+// TOPIC
+#define RPL_NOTOPIC(channelName) (":server 331 " + channelName + " :No topic is set\n\r")
+#define RPL_TOPIC(channelName, topicMessage) (":server 332 " + channelName + " : " + topicMessage + "\n\r")
+
 
 # define RPL_CMD_JOIN(Nickname, Username, Hostname, Channel) (":" + Nickname + "!" + Username + "@" + Hostname + " JOIN :" + Channel + "\n\r")
 # define RPL_CMD_JOIN_KEY(Nickname, Username, Hostname, Channel, Key) (":" + Nickname + "!" + Username + "@" + Hostname + " JOIN :" + Channel + " " + Key + "\n\r")

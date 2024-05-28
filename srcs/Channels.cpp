@@ -20,9 +20,9 @@ Channels::Channels(std::string name, Clients& op)
 {
     _name = name;
     _operator.push_back(op);
-    _topic = "No topic set";
+    _topic = "";
     _password = " ";
-    _mode.insert(std::make_pair(name, ""));
+    _mode.insert(std::make_pair(name, "t"));
     _mode.insert(std::make_pair(op.getNickname(), "o"));
 }
 
