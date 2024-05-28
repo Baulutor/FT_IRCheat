@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:42:28 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/27 20:55:21 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/28 15:51:18 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ bool checkChannel(std::string target, Server& server, Clients& client, std::map<
     return (true);
 }
 
-char getMode(std::string target)
+char getMode(std::string target, size_t i)
 {
-    static int i = 0;
+    // static int i = 0;
     if (target[i] == '+' || target[i] == '-')
         i++;
     return (target[i]);
@@ -60,7 +60,7 @@ char getMode(std::string target)
 
 bool addOpMode(std::vector<std::string> args, size_t i, std::map<std::string, Channels>::iterator channelIt)
 {
-    std::cout << "getMode(args[i]) = |" << getMode(args[i]) << "|" << std::endl;
+    std::cout << "getMode(args[i]) = |" << getMode(args[i], i) << "|" << std::endl;
     std::map<std::string, Clients>::iterator clientIt = channelIt->second.getClientMap().find(args[i]);
     if (clientIt != channelIt->second.getClientMap().end())
     {
@@ -95,7 +95,9 @@ bool removeOpMode(std::vector<std::string> args, size_t i, std::map<std::string,
 
 bool addInviteMode(std::string target, std::map<std::string, Channels>::iterator channelIt)
 {
+    std::cout << "target addInviteMode = |" << target << "|" << std::endl;
     std::cout << "channelIt->second.getMode(target) = |" << channelIt->second.getMode(target) << "|" << std::endl;
+    std::cout << "channelIt->second.getMode(target).find('i') = |" << channelIt->second.getMode(target).find('i') << "|" << std::endl;
     if (channelIt->second.getMode(target).find('i') == std::string::npos)
     {
         channelIt->second.setMode(target, "i");
@@ -106,6 +108,7 @@ bool addInviteMode(std::string target, std::map<std::string, Channels>::iterator
 
 bool removeInviteMode(std::string target, std::map<std::string, Channels>::iterator channelIt)
 {
+    std::cout << "target = |" << target << "|" << std::endl;
     std::cout << "channelIt->second.getMode(target) = |" << channelIt->second.getMode(target) << "|" << std::endl;
     if (channelIt->second.getMode(target).find('i') != std::string::npos)
     {
@@ -117,8 +120,10 @@ bool removeInviteMode(std::string target, std::map<std::string, Channels>::itera
 
 bool addTopicMode(std::string target, std::map<std::string, Channels>::iterator channelIt)
 {
+    std::cout << "target addTopicMode = |" << target << "|" << std::endl;
     std::cout << "channelIt->second.getMode(target) = |" << channelIt->second.getMode(target) << "|" << std::endl;
-    if (channelIt->second.getMode(target).find('t') != std::string::npos)
+    std::cout << "channelIt->second.getMode(target).find('t') = |" << channelIt->second.getMode(target).find('t') << "|" << std::endl;
+    if (channelIt->second.getMode(target).find('t') == std::string::npos)
     {
         channelIt->second.setMode(target, "t");
         return (true);
@@ -126,12 +131,12 @@ bool addTopicMode(std::string target, std::map<std::string, Channels>::iterator 
     return (false);
 }
 
-bool removeTopicMode(std::vector<std::string> args, size_t i, std::map<std::string, Channels>::iterator channelIt)
+bool removeTopicMode(std::string target, std::map<std::string, Channels>::iterator channelIt)
 {
     std::cout << "channelIt->second.getTopic() = |" << channelIt->second.getTopic() << "|" << std::endl;
-    if (channelIt->second.getMode(args[i]).find('t') != std::string::npos)
+    if (channelIt->second.getMode(target).find('t') != std::string::npos)
     {
-        channelIt->second.removeMode(args[i], "t");
+        channelIt->second.removeMode(target, "t");
         return (true);
     }
     return (false);
@@ -139,6 +144,8 @@ bool removeTopicMode(std::vector<std::string> args, size_t i, std::map<std::stri
 
 bool addKeyMode(std::string target, std::vector<std::string> args, size_t i, std::map<std::string, Channels>::iterator channelIt)
 {
+    std::cout << "target = |" << target << "|" << std::endl;
+    std::cout << "args[i] = |" << args[i] << "|" << std::endl;
     std::cout << "channelIt->second.getMode(target) = |" << channelIt->second.getMode(target) << "|" << std::endl;
     if (channelIt->second.getMode(target).find('k') == std::string::npos)
     {
@@ -151,6 +158,7 @@ bool addKeyMode(std::string target, std::vector<std::string> args, size_t i, std
 
 bool removeKeyMode(std::string target, std::map<std::string, Channels>::iterator channelIt)
 {
+    std::cout << "target = |" << target << "|" << std::endl;
     std::cout << "channelIt->second.getMode(target) = |" << channelIt->second.getMode(target) << "|" << std::endl;
     if (channelIt->second.getMode(target).find('k') != std::string::npos)
     {
@@ -162,6 +170,7 @@ bool removeKeyMode(std::string target, std::map<std::string, Channels>::iterator
 
 bool addLimitMode(std::string target, std::vector<std::string> args, size_t i, std::map<std::string, Channels>::iterator channelIt)
 {
+    std::cout << "target = |" << target << "|" << std::endl;
     std::cout << "channelIt->second.getMode(target) = |" << channelIt->second.getMode(target) << "|" << std::endl;
     if (channelIt->second.getMode(target).find('l') == std::string::npos)
     {
@@ -174,6 +183,7 @@ bool addLimitMode(std::string target, std::vector<std::string> args, size_t i, s
 
 bool removeLimitMode(std::string target, std::map<std::string, Channels>::iterator channelIt)
 {
+    std::cout << "target = |" << target << "|" << std::endl;
     std::cout << "channelIt->second.getMode(target) = |" << channelIt->second.getMode(target) << "|" << std::endl;
     if (channelIt->second.getMode(target).find('l') != std::string::npos)
     {
@@ -186,28 +196,74 @@ bool removeLimitMode(std::string target, std::map<std::string, Channels>::iterat
 void checkArgs(std::vector<std::string> args, std::string modes, Clients& client, std::map<std::string, Channels>::iterator channelIt)
 {
     size_t i = 0;
+    bool plusSign = false;
+    bool minusSign = false;
     (void)client;
     std::cout << "checkArgs modes = |" << modes << "|" << std::endl;
-    while (modes[i])
+    while (i < modes.size())
     {
         std::cout << "modes[i] = |" << modes[i] << "|" << std::endl;
-        if (modes[i] == '+')
+        if (modes[i] == '+' || plusSign == true)
         {
-            if (getMode(modes) == 'o')
+            std::cout << "plusSign = " << (plusSign ? "true" : "false") << std::endl;
+            minusSign = false;
+            plusSign = true;
+            if (getMode(modes, i) == 'o')
+            {
                 addOpMode(args, i, channelIt);
-            else if (getMode(modes) == 'i')
+                i++;
+            }
+            if (getMode(modes, i) == 'i')
+            {
                 addInviteMode(channelIt->first, channelIt);
-            else if (getMode(modes) == 't')
+                i++;
+            }
+            if (getMode(modes, i) == 't')
+            {
                 addTopicMode(channelIt->first, channelIt);
+                i++;
+            }
+            if (getMode(modes, i) == 'k')
+            {
+                addKeyMode(channelIt->first, args, i, channelIt);
+                i++;
+            }
+            if (getMode(modes, i) == 'l')
+            {
+                addLimitMode(channelIt->first, args, i, channelIt);
+                i++;
+            }
         }
-        if (modes[i] == '-')
+        if (modes[i] == '-' || minusSign == true)
         {
-            if (getMode(modes) == 'o')
+            std::cout << "minusSign = " << (minusSign ? "true" : "false") << std::endl;
+            plusSign = false;
+            minusSign = true;
+            if (getMode(modes, i) == 'o')
+            {
                 removeOpMode(args, i, channelIt);
-            else if (getMode(modes) == 'i')
+                i++;
+            }
+            if (getMode(modes, i) == 'i')
+            {
                 removeInviteMode(channelIt->first, channelIt);
-            else if (getMode(modes) == 't')
-                removeTopicMode(args, i, channelIt);
+                i++;
+            }
+            if (getMode(modes, i) == 't')
+            {
+                removeTopicMode(channelIt->first, channelIt);
+                i++;
+            }
+            if (getMode(modes, i) == 'k')
+            {
+                removeKeyMode(channelIt->first, channelIt);
+                i++;
+            }
+            if (getMode(modes, i) == 'l')
+            {
+                removeLimitMode(channelIt->first, channelIt);
+                i++;
+            }
         }
         i++;
     }
@@ -244,6 +300,11 @@ void Mode(std::string cmd, Clients& client, Server& server)
                     return (sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), tokens[0]), client));
                 else
                     return (sendCmd(ERR_UMODEUNKNOWNFLAG(client.getNickname(), tokens[1]), client));
+            }
+            else
+            {
+                std::vector<std::string> args(tokens.begin() + 2, tokens.end());
+                checkArgs(args, tokens[1], client, channelIt);
             }
         }
         else

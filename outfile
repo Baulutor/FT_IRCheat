@@ -9,6 +9,7 @@ cmd: JOIN #test
 JOIN
 channel = #test
 channelsServer.size() = 0
+setMode Mode = 
 Channel client ADD : #test
 RPL_CMD_JOIN = :bfaure_!ben@127.0.0.1 JOIN :#test
 
@@ -35,6 +36,7 @@ JOIN
 channel = #test
 channelsServer.size() = 1
 it->first = #test
+setMode Mode = 
 Channel client ADD : #test
 RPL_CMD_JOIN = :bfaure!bf@127.0.0.1 JOIN :#test
 
@@ -53,184 +55,110 @@ cmd: WHO #test
 
 cmd: WHO #test
 
-cmd: PING LAG1716784449281
-
-cmd: MODE #test +i akjhd
+cmd: MODE #test 
 
 Mode
 tokens: |#test|
-tokens: |+i|
-tokens: |akjhd|
-target isMode = |+i|
-cmd: PING LAG1716784462281
-
-cmd: PING LAG1716784479282
-
-cmd: PING LAG1716784492281
-
-cmd: PING LAG1716784509281
-
-cmd: PING LAG1716784522282
-
-cmd: PING LAG1716784539281
-
-cmd: PING LAG1716784552282
-
-cmd: PING LAG1716784569282
-
-cmd: PING LAG1716784582281
-
-cmd: PING LAG1716784599282
-
-cmd: PING LAG1716784612282
-
-cmd: PING LAG1716784629281
-
-cmd: PING LAG1716784642281
-
-cmd: PING LAG1716784659281
-
-cmd: PING LAG1716784672282
-
-cmd: PING LAG1716784689281
-
-cmd: PING LAG1716784702281
-
-cmd: PING LAG1716784719281
-
-cmd: PING LAG1716784732281
-
-cmd: PING LAG1716784749281
-
-cmd: PING LAG1716784762281
-
-cmd: PING LAG1716784779282
-
-cmd: PING LAG1716784792282
-
-cmd: PING LAG1716784809281
-
-cmd: PING LAG1716784822281
-
-cmd: PING LAG1716784839282
-
-cmd: PING LAG1716784852281
-
-cmd: PING LAG1716784869282
-
-cmd: PING LAG1716784882281
-
-cmd: PING LAG1716784899281
-
-cmd: PING LAG1716784912281
-
-cmd: PING LAG1716784929282
-
-cmd: PING LAG1716784942281
-
-cmd: PING LAG1716784959281
-
-cmd: PING LAG1716784972282
-
-cmd: PING LAG1716784989281
-
-cmd: PING LAG1716785002281
-
-cmd: PING LAG1716785019282
-
-cmd: PING LAG1716785032282
-
-cmd: PING LAG1716785049281
-
-cmd: PING LAG1716785062282
-
-cmd: PING LAG1716785079281
-
-cmd: PING LAG1716785092282
-
-cmd: PING LAG1716785109281
-
-cmd: PING LAG1716785122281
-
-cmd: PING LAG1716785139281
-
-cmd: PING LAG1716785152281
-
-cmd: PING LAG1716785169281
-
-cmd: PING LAG1716785182281
-
-cmd: PING LAG1716785199281
-
-cmd: PING LAG1716785212281
-
-cmd: PING LAG1716785229282
-
-cmd: PING LAG1716785242282
-
-cmd: PING LAG1716785259282
-
-cmd: PING LAG1716785272282
-
-cmd: PING LAG1716785289282
-
-cmd: PING LAG1716785302281
-
-cmd: PING LAG1716785319281
-
-cmd: PING LAG1716785332282
-
-cmd: PING LAG1716785349281
-
-cmd: PING LAG1716785362281
-
-cmd: PING LAG1716785379281
-
-cmd: PING LAG1716785392282
-
-cmd: PING LAG1716785409282
-
-cmd: PING LAG1716785422282
-
-cmd: PING LAG1716785439281
-
-cmd: PING LAG1716785452281
-
-cmd: PING LAG1716785469281
-
-cmd: PING LAG1716785482281
-
-cmd: PING LAG1716785499281
-
-cmd: PING LAG1716785512281
-
-cmd: PING LAG1716785529282
-
-cmd: PING LAG1716785542282
-
-cmd: PING LAG1716785559281
-
-cmd: PING LAG1716785572281
-
-cmd: PING LAG1716785589282
-
-cmd: PING LAG1716785602282
-
-cmd: PING LAG1716785619282
-
-cmd: PING LAG1716785632281
-
-cmd: PING LAG1716785649281
-
-cmd: PING LAG1716785662281
-
-cmd: PING LAG1716785679281
-
-cmd: PING LAG1716785692282
-
-cmd: PING LAG1716785709282
-
-cmd: PING LAG1716785722282
-
-cmd: PING LAG1716785739281
-
+cmd: MODE #test +it
+
+Mode
+tokens: |#test|
+tokens: |+it|
+target isMode = |+it|
+checkArgs modes = |+it|
+modes[i] = |+|
+plusSign = false
+target addInviteMode = |#test|
+channelIt->second.getMode(target) = ||
+channelIt->second.getMode(target).find('i') = |18446744073709551615|
+setMode Mode = i
+modes[i] = |t|
+plusSign = true
+target addTopicMode = |#test|
+channelIt->second.getMode(target) = |i|
+channelIt->second.getMode(target).find('t') = |18446744073709551615|
+setMode Mode = t
+cmd: PING LAG1716854297618
+
+cmd: MODE #test 
+
+Mode
+tokens: |#test|
+cmd: MODE #test +it
+
+Mode
+tokens: |#test|
+tokens: |+it|
+target isMode = |+it|
+checkArgs modes = |+it|
+modes[i] = |+|
+plusSign = false
+target addInviteMode = |#test|
+channelIt->second.getMode(target) = |it|
+channelIt->second.getMode(target).find('i') = |0|
+modes[i] = |t|
+plusSign = true
+target addTopicMode = |#test|
+channelIt->second.getMode(target) = |it|
+channelIt->second.getMode(target).find('t') = |1|
+cmd: MODE #test 
+
+Mode
+tokens: |#test|
+cmd: PING LAG1716854304619
+
+cmd: MODE #test -it
+
+Mode
+tokens: |#test|
+tokens: |-it|
+target isMode = |-it|
+checkArgs modes = |-it|
+modes[i] = |-|
+minusSign = false
+target = |#test|
+channelIt->second.getMode(target) = |it|
+removeMode Mode = i
+modes[i] = |t|
+minusSign = true
+channelIt->second.getTopic() = |No topic set|
+removeMode Mode = t
+cmd: MODE #test 
+
+Mode
+tokens: |#test|
+cmd: PING LAG1716854327619
+
+cmd: PING LAG1716854334619
+
+cmd: PING LAG1716854357619
+
+cmd: PING LAG1716854364619
+
+cmd: MODE #test +it-i
+
+Mode
+tokens: |#test|
+tokens: |+it-i|
+target isMode = |+it-i|
+checkArgs modes = |+it-i|
+modes[i] = |+|
+plusSign = false
+target addInviteMode = |#test|
+channelIt->second.getMode(target) = ||
+channelIt->second.getMode(target).find('i') = |18446744073709551615|
+setMode Mode = i
+modes[i] = |t|
+plusSign = true
+target addTopicMode = |#test|
+channelIt->second.getMode(target) = |i|
+channelIt->second.getMode(target).find('t') = |18446744073709551615|
+setMode Mode = t
+minusSign = false
+target = |#test|
+channelIt->second.getMode(target) = |it|
+removeMode Mode = i
+cmd: MODE #test 
+
+Mode
+tokens: |#test|

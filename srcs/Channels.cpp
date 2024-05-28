@@ -64,6 +64,7 @@ void Channels::setPassword(std::string password) {_password = password;}
 
 void Channels::setMode(std::string target, std::string mode)
 {
+    std::cout << "setMode Mode = " << mode << std::endl;
     std::map<std::string, std::string>::iterator it = _mode.find(target);
     if (it != _mode.end())
         it->second += mode;
