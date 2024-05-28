@@ -31,6 +31,9 @@ class Channels
         std::string getName() const;
         std::string getTopic() const;
         std::map<std::string, Clients>& getClientMap();
+		std::map<std::string, Clients>& getClientInvited();
+
+//        Clients getOperator() const;
         std::string getPassword() const;
         std::vector<Clients> getOperator() const;
         std::string getMode(std::string target) const;
@@ -42,6 +45,11 @@ class Channels
         void setPassword(std::string password);
         void setMode(std::string target, std::string mode);
         void setClients(std::map<std::string, Clients> clients);
+		void ClientInvite(std::map<std::string, Clients> &clients);
+
+        //Invite
+        void    checkClientMapChannel();
+		bool	checkIfOpeUserForInvite(Clients client);
 
     private :
         std::string _name;
@@ -54,6 +62,8 @@ class Channels
         // int _nbMaxClients;
         std::map<std::string, Clients> _clients;
         std::vector<Clients> _operator;
+
+		std::map<std::string, Clients>	_inviteClient;
 };
 
 #endif

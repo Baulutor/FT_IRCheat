@@ -6,12 +6,23 @@
 /*   By: nibernar <nibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:57:44 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/28 16:50:35 by nibernar         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:56:25 by nibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RPL_HPP
 # define RPL_HPP
+
+#define SERVERNAME std::string("ft_IRCheat")
+
+//Invite
+//#define RPL_INVITING( nickname, channelName) (":server 341 " + nickname + " " + channelName + "\n\r")
+#define ERR_USERONCHANNEL(ClientNickname, nickname, Channel) (ClientNickname + " " + nickname + " " + Channel + " :is already on channel\n\r")
+# define RPL_INVITING(client, channel, nick) (":" + SERVERNAME + " 341 " + client + " " + nick + " " + channel + "\r\n")
+#define RPL_INVITING_NOTICE(nickname, channelName) (":server NOTICE " + nickname + " " + channelName + "\n\r")
+#define ERR_CHANOPRIVSNEEDED(nickname, channel) (":server 482 " + nickname + " " + channel + " :You\'re not channel operator\n\r")
+
+
 
 # define RPL_CMD_JOIN(Nickname, Username, Hostname, Channel) (":" + Nickname + "!" + Username + "@" + Hostname + " JOIN :" + Channel + "\n\r")
 # define RPL_CMD_JOIN_KEY(Nickname, Username, Hostname, Channel, Key) (":" + Nickname + "!" + Username + "@" + Hostname + " JOIN :" + Channel + " " + Key + "\n\r")
@@ -55,3 +66,4 @@
 #define RPL_DISCONNECT(Nickname, Username, Hostname) (":" + Nickname + "!" + Username + "@" + Hostname + " QUIT :" + "\n\r")
 #define ERR_NOTREGISTERED(Nickfd)(":server 451 " + Nickfd + ":You have not registered" + "\n\r") 
 #endif
+

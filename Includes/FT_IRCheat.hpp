@@ -45,5 +45,4 @@ std::map<int, Clients>::iterator findClientByName(std::string nickname, std::map
 std::map<std::string, Channels>::iterator findChannelByName(std::string channelName, std::map<std::string, Channels>& channelsServer);
 bool isClientInChannel(std::string nickname, Channels& channel);
 // std::vector<std::string> split(const std::string &s, const std::string &delim);
-
 #endif

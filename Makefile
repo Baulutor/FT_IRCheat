@@ -6,7 +6,7 @@
 #    By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 13:54:50 by bfaure            #+#    #+#              #
-#    Updated: 2024/05/25 12:25:03 by bfaure           ###   ########.fr        #
+#    Updated: 2024/05/22 11:38:45 by bfaure           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRC 	=	srcs/main.cpp \
 			srcs/Utils.cpp \
 			srcs/Channels.cpp \
 			srcs/cmd/Privmsg.cpp \
+			srcs/cmd/Invite.cpp \
 			srcs/cmd/Mode.cpp
 
 
