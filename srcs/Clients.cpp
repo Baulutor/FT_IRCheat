@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:36:58 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/27 14:06:23 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/28 18:03:40 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ bool Clients::initClients(std::string line, Server &server)
     std::vector<std::string> tokens;
     std::istringstream iss(line);
     std::string part;
-
     while (std::getline(iss, part, '\n'))
 	{
         size_t pos = part.find('\r');
@@ -130,6 +129,7 @@ bool Clients::initClients(std::string line, Server &server)
 
     for (size_t i = 0; i < tokens.size(); ++i)
     {
+        // std::cout << "caca ici" << std::endl;
         if (tokens[i].find("PASS") != std::string::npos && PASS < 0)
         {
             PASS = i;
@@ -140,6 +140,10 @@ bool Clients::initClients(std::string line, Server &server)
     {
         if (tokens[i].find("USER") != std::string::npos && USER < 0)
         {
+            if (_pass == "") {
+                // sendCmd("ERROR: must confirm password first\r\n", *this);
+                return (false);
+            }
             USER = i;
             setUsername(tokens[i + 1]);
         }
@@ -148,6 +152,7 @@ bool Clients::initClients(std::string line, Server &server)
     static std::string falseNickname = "";
     for (size_t i = 0; i < tokens.size(); ++i)
     {
+        // std::cout << "caca ici" << std::endl;
         if (tokens[i].find("NICK") != std::string::npos && NICK < 0)
         {
             for (std::map<int, Clients>::iterator it = server.getClients().begin(); it != server.getClients().end(); it++)

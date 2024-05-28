@@ -36,6 +36,11 @@ std::string Channels::getTopic() const {return (_topic);}
 
 std::map<std::string, Clients>& Channels::getClientMap() {return (_clients);}
 
+std::map<std::string, Clients>& Channels::getClientInvited() {return (_inviteClient);}
+
+//Clients Channels::getOperator() const {return (*_operator);}
+
+
 std::string Channels::getPassword() const {return (_password);}
 
 std::string Channels::getMode(std::string target) const {return (_mode.find(target)->second);}
@@ -99,3 +104,4 @@ void Channels::removeOperator(Clients& op)
             _operator.erase(_operator.begin() + i);
     }
 }
+void Channels::ClientInvite(std::map<std::string, Clients> &client){_inviteClient = client;}

@@ -1,52 +1,120 @@
 init client$
-Nickname : bfaure$
-Username : bf$
-Pass : toto$
-fd : 4$
-Ip Address : 127.0.0.1$
-cmd: JOIN #coucou^M$
-$
-JOIN$
-channel serveur ADD : #coucou$
-Channel client ADD : #coucou$
-RPL_CMD_JOIN = :bfaure!bf@127.0.0.1 JOIN :#coucou$
-^M$
-RPL_CMD_TOPIC = :server 332 bfaure #coucou :No topic set$
-^M$
-NameLstUpadte channel = bfaure$
-RPL_CMD_NAME_LST_START = :server 353 bfaure = #coucou :@bfaure$
-^M$
-RPL_CMD_NAME_LST_END = :server 366 bfaure #coucou :End of /NAMES list$
-^M$
-cmd: MODE #coucou^M$
-$
-Mode$
-init client$
 Nickname : bfaure_$
 Username : ben$
 Pass : toto$
-fd : 5$
+fd : 4$
 Ip Address : 127.0.0.1$
-cmd: JOIN #coucou^M$
+cmd: JOIN #test^M$
 $
 JOIN$
-Channel client ADD : #coucou$
-RPL_CMD_JOIN = :bfaure_!ben@127.0.0.1 JOIN :#coucou$
+channel = #test$
+channelsServer.size() = 0$
+setMode Mode = $
+Channel client ADD : #test$
+RPL_CMD_NAME_LST_START = :server 353 bfaure_ = #test :@bfaure_$
 ^M$
-RPL_CMD_TOPIC = :server 332 bfaure_ #coucou :No topic set$
+RPL_CMD_NAME_LST_END = :server 366 bfaure_ #test :End of /NAMES list$
 ^M$
-NameLstUpadte channel = bfaure_$
-RPL_CMD_NAME_LST_START = :server 353 bfaure_ = #coucou :@bfaure bfaure_$
+init client$
+Nickname : bfaure$
+Username : bf$
+Pass : toto$
+fd : 5$
+Ip Address : 127.0.0.1$
+cmd: MODE #test^M$
+$
+cmd: JOIN #test^M$
+$
+JOIN$
+channel = #test$
+channelsServer.size() = 1$
+it->first = #test$
+setMode Mode = $
+Channel client ADD : #test$
+RPL_CMD_NAME_LST_START = :server 353 bfaure = #test :bfaure @bfaure_$
 ^M$
-RPL_CMD_NAME_LST_END = :server 366 bfaure_ #coucou :End of /NAMES list$
+RPL_CMD_NAME_LST_END = :server 366 bfaure #test :End of /NAMES list$
 ^M$
-cmd: MODE #coucou^M$
+cmd: MODE #test^M$
 $
-Mode$
-cmd: WHO #coucou^M$
+cmd: WHO #test^M$
 $
-cmd: WHO #coucou^M$
+cmd: WHO #test^M$
 $
-cmd: MODE #coucou bfaure_^M$
+cmd: PING LAG1716863657619^M$
 $
-Mode$
+cmd: KICK #test #test :bfaure_^M$
+$
+item = KICK$
+item = #test$
+item = #test$
+item = :bfaure_^M$
+$
+couille ici = bfaurefd = 5$
+couille ici = bfaure_fd = 4$
+cmd: PING LAG1716863664619^M$
+$
+cmd: PING LAG1716863687618^M$
+$
+cmd: KICK #test bfaure_ ::ta mere^M$
+$
+item = KICK$
+item = #test$
+item = bfaure_$
+item = ::ta$
+item = mere^M$
+$
+cmd: PING LAG1716863694619^M$
+$
+cmd: KICK #test bfaure_ :ta mere^M$
+$
+item = KICK$
+item = #test$
+item = bfaure_$
+item = :ta$
+item = mere^M$
+$
+cmd: PING LAG1716863717619^M$
+$
+cmd: PING LAG1716863724619^M$
+$
+cmd: KICK #test bfaure :ta mere^M$
+$
+item = KICK$
+item = #test$
+item = bfaure$
+item = :ta$
+item = mere^M$
+$
+cmd: KICK #test #test :bfaure ta mere^M$
+$
+item = KICK$
+item = #test$
+item = #test$
+item = :bfaure$
+item = ta$
+item = mere^M$
+$
+couille ici = bfaurefd = 5$
+cmd: PING LAG1716863747618^M$
+$
+cmd: PING LAG1716863754619^M$
+$
+cmd: PING LAG1716863777619^M$
+$
+cmd: PING LAG1716863784618^M$
+$
+cmd: PING LAG1716863807619^M$
+$
+cmd: PING LAG1716863814618^M$
+$
+cmd: PING LAG1716863837619^M$
+$
+cmd: PING LAG1716863844619^M$
+$
+cmd: PING LAG1716863867618^M$
+$
+cmd: PING LAG1716863874619^M$
+$
+cmd: PING LAG1716863897618^M$
+$

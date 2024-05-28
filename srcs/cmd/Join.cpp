@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 10:13:36 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/27 16:05:35 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/28 18:01:34 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,7 @@ void Join(std::string cmd, Clients& client, Server& server)
             continue;
         std::pair<std::map<std::string, Channels>::iterator, bool> insertServer = channelsServer.insert(std::make_pair(channel, channelToJoin));
         if (insertServer.second)
-        {
-            insertServer.first->second.setOperator(client);
-            // insertServer.first->second.setMode(channel, "");
-            // insertServer.first->second.setMode(client.getNickname(), "");
             std::cout << "channel serveur ADD : " << insertServer.first->second.getName() << std::endl;
-        }
 
         std::pair<std::map<std::string, Channels>::iterator, bool> insertClient = server.getClients().find(client.getFd())->second.getChannels().insert(std::make_pair(channel, channelToJoin));
         if (insertClient.second)
@@ -125,19 +120,19 @@ void Join(std::string cmd, Clients& client, Server& server)
         {
             if (key != "")
             {
-                std::cout << "RPL_CMD_JOIN = " << RPL_CMD_JOIN_KEY(client.getNickname(), client.getUsername(), client.getAddrIp(), channel, key) << std::endl;
+                //std::cout << "RPL_CMD_JOIN = " << RPL_CMD_JOIN_KEY(client.getNickname(), client.getUsername(), client.getAddrIp(), channel, key) << std::endl;
                 sendCmd(RPL_CMD_JOIN_KEY(client.getNickname(), client.getUsername(), client.getAddrIp(), channel, key), client);
             }
             else
             {
-                std::cout << "RPL_CMD_JOIN = " << RPL_CMD_JOIN(client.getNickname(), client.getUsername(), client.getAddrIp(), channel) << std::endl;
+                //std::cout << "RPL_CMD_JOIN = " << RPL_CMD_JOIN(client.getNickname(), client.getUsername(), client.getAddrIp(), channel) << std::endl;
                 sendCmd(RPL_CMD_JOIN(client.getNickname(), client.getUsername(), client.getAddrIp(), channel), client);
             }
             
-            std::cout << "RPL_CMD_TOPIC = " << RPL_CMD_TOPIC(client.getNickname(), channel, Topic) << std::endl;
+            //std::cout << "RPL_CMD_TOPIC = " << RPL_CMD_TOPIC(client.getNickname(), channel, Topic) << std::endl;
             sendCmd(RPL_CMD_TOPIC(client.getNickname(), channel, Topic), client);
             
-            std::cout << "NameLstUpadte channel = " << insertServer.first->second.getClientMap().find(client.getNickname())->second.getNickname() << std::endl;
+            //std::cout << "NameLstUpadte channel = " << insertServer.first->second.getClientMap().find(client.getNickname())->second.getNickname() << std::endl;
             NameLstUpadte(client, insertServer.first->second);
 
             sendBrodcastChannel(RPL_JOIN_NOTICE(client.getNickname(), channel), insertServer.first->second);

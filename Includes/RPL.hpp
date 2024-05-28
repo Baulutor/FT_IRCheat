@@ -6,12 +6,23 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:57:44 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/27 20:18:56 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/28 18:24:56 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RPL_HPP
 # define RPL_HPP
+
+#define SERVERNAME std::string("ft_IRCheat")
+
+//Invite
+//#define RPL_INVITING( nickname, channelName) (":server 341 " + nickname + " " + channelName + "\n\r")
+# define ERR_USERONCHANNEL(ClientNickname, nickname, Channel) (ClientNickname + " " + nickname + " " + Channel + " :is already on channel\n\r")
+# define RPL_INVITING(client, channel, nick) (":" + SERVERNAME + " 341 " + client + " " + nick + " " + channel + "\r\n")
+# define RPL_INVITING_NOTICE(nickname, channelName) (":server NOTICE " + nickname + " " + channelName + "\n\r")
+# define ERR_CHANOPRIVSNEEDED(nickname, channel) (":server 482 " + nickname + " " + channel + " :You\'re not channel operator\n\r")
+
+
 
 # define RPL_CMD_JOIN(Nickname, Username, Hostname, Channel) (":" + Nickname + "!" + Username + "@" + Hostname + " JOIN :" + Channel + "\n\r")
 # define RPL_CMD_JOIN_KEY(Nickname, Username, Hostname, Channel, Key) (":" + Nickname + "!" + Username + "@" + Hostname + " JOIN :" + Channel + " " + Key + "\n\r")
@@ -49,6 +60,14 @@
 # define ERR_INVALIDMODEPARAM(Nickname, Mode, Param) (":server 696 " + Nickname + " " + Mode + " " + Param + " :Invalid mode parameter" + "\n\r")
 
 # define ERR_NOTONCHANNEL(Nickname, Channel) (":server 442 " + Nickname + " " + Channel + " :You are not on that channel" + "\n\r")
+
+# define ERR_NOTCHANOP(Nickname, channel) (":server 482 " + Nickname + " " + channel + " :You're not channel operator\r\n")
+# define ERR_USERNOTFOUND(client, Nickname, channel) (":server 441 " + client + " " + Nickname + " " + channel + " :They aren't on that channel\r\n")
+# define ERR_PASSWDMISMATCH(client) (":server 464 " + client + " :Password incorrect \n\r")
+# define RPL_DISCONNECT(Nickname, Username, Hostname) (":" + Nickname + "!" + Username + "@" + Hostname + " QUIT :" + "\n\r")
+# define ERR_NOTREGISTERED(Nickfd)(":server 451 " + Nickfd + ":You have not registered" + "\n\r")
+
+# define RPL_KICK_NOTICE(Nickname, Channel) (":server NOTICE " + Channel + " :" + Nickname + " cannot kick yourself" + "\n\r")
 
 #endif
 

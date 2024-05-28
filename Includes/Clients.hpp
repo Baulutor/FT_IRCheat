@@ -52,6 +52,7 @@ class Clients
         void addChannel(std::string channel);
         void addChannelInvite(std::string channel);
 
+
         // Some shit to delete before production
         void printInfo();
         void printChannels();
@@ -62,9 +63,9 @@ class Clients
         std::string _pass;
         int _fd;
         std::string _addrIp;
-        std::map<std::string, Channels> _channels;
         std::map<std::string, Channels> _channelsInvite;
 
+        std::map<std::string, Channels> _channels;
 
         pollfd pollClient;
 };

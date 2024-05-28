@@ -11,11 +11,6 @@ channel = #test
 channelsServer.size() = 0
 setMode Mode = 
 Channel client ADD : #test
-RPL_CMD_JOIN = :bfaure_!ben@127.0.0.1 JOIN :#test
-
-RPL_CMD_TOPIC = :server 332 bfaure_ #test :No topic set
-
-NameLstUpadte channel = bfaure_
 RPL_CMD_NAME_LST_START = :server 353 bfaure_ = #test :@bfaure_
 
 RPL_CMD_NAME_LST_END = :server 366 bfaure_ #test :End of /NAMES list
@@ -28,8 +23,6 @@ fd : 5
 Ip Address : 127.0.0.1
 cmd: MODE #test
 
-Mode
-tokens: |#test|
 cmd: JOIN #test
 
 JOIN
@@ -38,127 +31,19 @@ channelsServer.size() = 1
 it->first = #test
 setMode Mode = 
 Channel client ADD : #test
-RPL_CMD_JOIN = :bfaure!bf@127.0.0.1 JOIN :#test
-
-RPL_CMD_TOPIC = :server 332 bfaure #test :No topic set
-
-NameLstUpadte channel = bfaure
 RPL_CMD_NAME_LST_START = :server 353 bfaure = #test :bfaure @bfaure_
 
 RPL_CMD_NAME_LST_END = :server 366 bfaure #test :End of /NAMES list
 
 cmd: MODE #test
 
-Mode
-tokens: |#test|
 cmd: WHO #test
 
 cmd: WHO #test
 
-cmd: MODE #test 
+cmd: KICK #test #test :bfaure
 
-Mode
-tokens: |#test|
-cmd: MODE #test +it
+couille ici = bfaurefd = 5
+je suis la lol
+cmd: PING LAG1716864857619
 
-Mode
-tokens: |#test|
-tokens: |+it|
-target isMode = |+it|
-checkArgs modes = |+it|
-modes[i] = |+|
-plusSign = false
-target addInviteMode = |#test|
-channelIt->second.getMode(target) = ||
-channelIt->second.getMode(target).find('i') = |18446744073709551615|
-setMode Mode = i
-modes[i] = |t|
-plusSign = true
-target addTopicMode = |#test|
-channelIt->second.getMode(target) = |i|
-channelIt->second.getMode(target).find('t') = |18446744073709551615|
-setMode Mode = t
-cmd: PING LAG1716854297618
-
-cmd: MODE #test 
-
-Mode
-tokens: |#test|
-cmd: MODE #test +it
-
-Mode
-tokens: |#test|
-tokens: |+it|
-target isMode = |+it|
-checkArgs modes = |+it|
-modes[i] = |+|
-plusSign = false
-target addInviteMode = |#test|
-channelIt->second.getMode(target) = |it|
-channelIt->second.getMode(target).find('i') = |0|
-modes[i] = |t|
-plusSign = true
-target addTopicMode = |#test|
-channelIt->second.getMode(target) = |it|
-channelIt->second.getMode(target).find('t') = |1|
-cmd: MODE #test 
-
-Mode
-tokens: |#test|
-cmd: PING LAG1716854304619
-
-cmd: MODE #test -it
-
-Mode
-tokens: |#test|
-tokens: |-it|
-target isMode = |-it|
-checkArgs modes = |-it|
-modes[i] = |-|
-minusSign = false
-target = |#test|
-channelIt->second.getMode(target) = |it|
-removeMode Mode = i
-modes[i] = |t|
-minusSign = true
-channelIt->second.getTopic() = |No topic set|
-removeMode Mode = t
-cmd: MODE #test 
-
-Mode
-tokens: |#test|
-cmd: PING LAG1716854327619
-
-cmd: PING LAG1716854334619
-
-cmd: PING LAG1716854357619
-
-cmd: PING LAG1716854364619
-
-cmd: MODE #test +it-i
-
-Mode
-tokens: |#test|
-tokens: |+it-i|
-target isMode = |+it-i|
-checkArgs modes = |+it-i|
-modes[i] = |+|
-plusSign = false
-target addInviteMode = |#test|
-channelIt->second.getMode(target) = ||
-channelIt->second.getMode(target).find('i') = |18446744073709551615|
-setMode Mode = i
-modes[i] = |t|
-plusSign = true
-target addTopicMode = |#test|
-channelIt->second.getMode(target) = |i|
-channelIt->second.getMode(target).find('t') = |18446744073709551615|
-setMode Mode = t
-minusSign = false
-target = |#test|
-channelIt->second.getMode(target) = |it|
-removeMode Mode = i
-cmd: MODE #test 
-
-Mode
-tokens: |#test|
