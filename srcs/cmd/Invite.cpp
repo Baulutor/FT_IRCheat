@@ -1,8 +1,6 @@
 
 #include <iostream>
 #include "Cmd.hpp"
-#include <csignal>
-#include <cstdlib>
 
 // il manque dans le cas de invite dans un channel uniquement sur invitation et donc avec, l'erreur dans le cas le client n'as pas les droit d'ajouter !
 
@@ -32,7 +30,7 @@ void    Invite(std::string cmd, Clients& client, Server& server)
 			if (checkIfUserAlreadyInviteOrInChannel(it, nickname, channelName, client, ite))
 					return ;
 			server.getChannels().find(it->first)->second.getClientInvited().insert(std::make_pair(ite->second.getNickname(), ite->second));
-			sendCmd(RPL_INVITING( nickname, channelName), client);
+			sendCmd(RPL_INVITING(client.getNickname(), nickname, channelName), client);
 			sendCmd(RPL_INVITING_NOTICE( client.getNickname(), channelName), ite->second);
 			return ;
 		}
@@ -104,7 +102,7 @@ bool checkIfUserAlreadyInviteOrInChannel(std::map<std::string, Channels>::iterat
 	std::map<std::string, Clients> &verif = it->second.getClientInvited();
 	if (verif.find(nickname) != verif.end())
 	{
-		sendCmd(RPL_INVITING(nickname, channelName), client);
+		sendCmd(RPL_INVITING(client.getNickname(), nickname, channelName), client);
 		sendCmd(RPL_INVITING_NOTICE( client.getNickname(), channelName), ite->second);
 		return true;
 	}

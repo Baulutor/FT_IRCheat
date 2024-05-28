@@ -1,17 +1,7 @@
 #include "Server.hpp"
 #include "Cmd.hpp"
 
-#include "globalTest.h"
-
-forFree clearGlob;
-
-void	initForFree(forFree globClear);
-
-Server::Server()
-{
-
-}
-
+Server::Server(){}
 
 int Server::getFd() const {return this->_fd;}
 
@@ -32,6 +22,8 @@ void Server::setClient(std::map<int, Clients> clients) {this->_clients = clients
 void Server::setPassword(std::string password) {this->_password = password;}
 
 std::string Server::getPassword() const {return (this->_password);}
+
+std::vector<pollfd> Server::getLstPollFd() {return (this->_lstPollFd);}
 
 bool startWith(const std::string &line, const char *cmd) {return (line.find(cmd) == 0);}
 
@@ -57,37 +49,13 @@ void Server::cmdHandler(std::string cmd, Clients& client)
     }
 }
 
-void	allClear();
-
 void signalHandler(int signum)
 {
-	allClear();
-	exit(signum);
+	(void)signum; // a differencier ctrl C et ctrl D
+	throw std::invalid_argument("CHELOU j'ai bien envoyer lol");
 }
 
-void	initForFree()
-{
-	clearGlob._addrIpPtr = NULL;
-	clearGlob._channelsPtr = NULL;
-	clearGlob._clientsPtr = NULL;
-	clearGlob._lstPollFdPTR = NULL;
-	clearGlob._passwordPtr = NULL;
-}
-
-void	allClear()
-{
-
-	if (clearGlob._clientsPtr)
-		clearGlob._clientsPtr->clear();
-	for (size_t i = 0; i < clearGlob._lstPollFdPTR->size() ;i++)
-		clearGlob._lstPollFdPTR[i].clear();
-	clearGlob.toFree->getChannels().clear();
-	clearGlob.toFree->getClients().clear();
-	int ok = clearGlob.toFree->getFd();
-	close(ok);
-}
-
-Server::Server(std::string av, std::string av2)
+void	Server::serverHandler(std::string av, std::string av2)
 {
 	struct sockaddr_in address;
 	int opt = 1;
@@ -98,20 +66,19 @@ Server::Server(std::string av, std::string av2)
 	setAddrIp("127.0.0.1");
 	setPassword(av2);
 	_fd = -1;
-	initForFree();
-	clearGlob.toFree = this;
 
-	signal(SIGINT, signalHandler);
 	setFd(socket(AF_INET, SOCK_STREAM, 0));
 	if (getFd() < 0)
 	{
-		perror("Error Socket: ");
+		perror("Error Socket");
 		throw std::invalid_argument("");
 	}
+	signal(SIGINT, signalHandler);
 
 	if (setsockopt(getFd(), SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)))
 	{
-		perror("Error setsockopt: ");
+		perror("Error setsockopt");
+		close(_fd);
 		throw std::invalid_argument("");
 	}
 
@@ -121,21 +88,23 @@ Server::Server(std::string av, std::string av2)
 
 	if (bind(getFd(), (struct sockaddr *)&address, sizeof(address)) < 0)
 	{
-		perror("Error bind: ");
+		perror("Error bind");
+		close(_fd);
 		throw std::invalid_argument("");
 	}
 
 	if (listen(getFd(), 3) < 0)
 	{
 		perror("Error listen: ");
+		close(_fd);
 		throw std::invalid_argument("");
 	}
-	
+
 	struct pollfd pollServ;
 	pollServ.fd = getFd();
 	pollServ.events = POLLIN;
+	pollServ.revents = 0;
 	_lstPollFd.push_back(pollServ);
-	clearGlob._lstPollFdPTR = &_lstPollFd;
 	bool init = false;
 	while (true)
 	{
@@ -145,13 +114,13 @@ Server::Server(std::string av, std::string av2)
 			{
 				Clients newClient;
 				socklen_t sock_info_len = sizeof(address);
-   				newClient.setFd(accept(getFd(), (struct sockaddr*)&address, &sock_info_len));
+				newClient.setFd(accept(getFd(), (struct sockaddr*)&address, &sock_info_len));
 				struct pollfd pollClienTmp;
 				pollClienTmp.fd = newClient.getFd();
 				pollClienTmp.events = POLLIN;
-				_lstPollFd.push_back(pollClienTmp); // ici leak dur a avoir chelou
+				pollClienTmp.revents = 0;
+				_lstPollFd.push_back(pollClienTmp);
 				_clients.insert(std::make_pair(newClient.getFd(), newClient));
-				clearGlob._clientsPtr = &_clients;
 			}
 			for (size_t i = 1; i < _lstPollFd.size(); i++)
 			{
@@ -162,10 +131,16 @@ Server::Server(std::string av, std::string av2)
 					ssize_t bytes = recv(itClients->first, buffer, 511, MSG_DONTWAIT);
 					if (bytes < 0)
 						std::cerr << "ERROR rcve !" << std::endl;
-					else if ( bytes == 0)
+					else if (bytes == 0)
 					{
 						std::cout << "connexion closed " << std::endl;
-						throw std::invalid_argument("tg");
+						std::map<int, Clients> buf = getClients();
+//						if (buf.size() == 1)
+//							throw std::invalid_argument("IL SE PASSE DES BAILS LA"); // dans le cas ou il y a plus de client dans le server meme si je pense qu'il faut que ca continu
+						buf.erase(itClients);
+						--itClients;
+						--i;
+//						throw std::invalid_argument("tg");
 					}
 					if (startWith(buffer, "CAP LS 302") || !init)
 					{
@@ -175,10 +150,13 @@ Server::Server(std::string av, std::string av2)
 							std::cout << "init client" << std::endl;
 							itClients->second.printInfo();
 						}
-						// else {
-						// 	std::cout << "cacaboudin = " << itClients->first << std::endl;
-						// 	// _clients.erase(itClients->first);
-						// }
+						else
+						{
+							std::cout << "cacaboudin = " << itClients->first << std::endl;
+							_clients.erase(itClients->first);
+							if (i != 0)
+								i--;
+						}
 					}
 					else
 					{
@@ -189,11 +167,8 @@ Server::Server(std::string av, std::string av2)
 				}
 			}
 		}
-		else // ERROR DE POLL
-		{
+		else
 			throw std::invalid_argument("lol");
-		}
-
 	}
 }
 

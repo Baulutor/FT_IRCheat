@@ -28,8 +28,10 @@ class Server
 {
     public:
 		Server();
-        Server( std::string av, std::string av2 );
+//        Server( std::string av, std::string av2 );
         ~Server();
+
+		void	serverHandler(std::string av, std::string av2);
 
         void setFd(int fd);
         void setAddrIp(std::string addrIp);
@@ -42,6 +44,8 @@ class Server
         int getFd() const;
         std::map<std::string, Channels>& getChannels();
         std::map<int, Clients>& getClients();
+		std::vector<pollfd> getLstPollFd();
+
         void cmdHandler(std::string cmd, Clients& client);
         std::string getPassword() const;
 

@@ -20,7 +20,7 @@ CC = c++ -std=c++98
 
 DEPS_FLAGS = -MMD -MP
 
-CFLAGS = ${DEPS_FLAGS} -Wall -Wextra -Werror -g3
+CFLAGS = ${DEPS_FLAGS} -Wall -Wextra -Werror -g3 -fsanitize=address
 
 ############## SOURCES ##############
 
