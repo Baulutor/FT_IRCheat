@@ -26,6 +26,7 @@ void 	Kick(std::string cmd, Clients& client, Server& server);
 void 	Privmsg(std::string cmd, Clients& client, Server& server);
 void 	Pong(std::string cmd, Clients& client, Server& server);
 void 	Mode(std::string cmd, Clients& client, Server& server);
+void 	Topic(std::string cmd, Clients& client, Server& server);
 
 class SendErrorExeption : public std::exception
 {

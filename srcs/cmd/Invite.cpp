@@ -1,8 +1,5 @@
 
-#include <iostream>
 #include "Cmd.hpp"
-
-// il manque dans le cas de invite dans un channel uniquement sur invitation et donc avec, l'erreur dans le cas le client n'as pas les droit d'ajouter !
 
 bool	parsForInvite(Clients client, std::string &nickname, std::string &channelName, std::string cmd);
 bool 	checkIfUserAlreadyInviteOrInChannel(std::map<std::string, Channels>::iterator it, std::string nickname, std::string channelName, Clients client, std::map<int, Clients>::iterator ite);

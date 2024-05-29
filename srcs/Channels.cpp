@@ -20,7 +20,7 @@ Channels::Channels(std::string name, Clients& op)
 {
     _name = name;
     _operator.push_back(op);
-    _topic = "No topic set";
+    _topic = "";
     _password = " ";
     _nbClients = 0;
     _nbMaxClients = 0;
