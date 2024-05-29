@@ -13,6 +13,12 @@ void 	Topic(std::string cmd, Clients& client, Server& server)
 	channelName = channelName.substr(0, forSeparate);
 	if (channelName[channelName.size() - 1] == '\n')
 		channelName = channelName.substr(0, channelName.size() - 2);
+	std::cout <<"["<< channelName<<"]channelName et client.getNickname()[" << client.getNickname()<<"]" << std::endl;
+	if (channelName == client.getNickname())
+	{
+		sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), "topic"), client);
+		return ;
+	}
 	std::map<std::string, Channels>::iterator channel = server.getChannels().find(channelName);
 	if (channel == server.getChannels().end())
 	{
@@ -38,7 +44,6 @@ void 	Topic(std::string cmd, Clients& client, Server& server)
 		return ;
 	}
 
-	// si le mode T est pas la il est pas cense etre dans ce if !
 	if (channel->second.getOperator(client.getNickname()).getNickname() == "" && channel->second.getMode(channelName).find("t") != channelName.npos)
 	{
 		sendCmd(ERR_CHANOPRIVSNEEDED(client.getNickname(), channelName), client); // ptre mieux d'envoyer au mec uniauement mais sur le channel !
