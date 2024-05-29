@@ -138,9 +138,6 @@ void	Server::serverHandler(std::string av, std::string av2)
 					std::map<int, Clients>::iterator itClients = getClients().find(_lstPollFd[i].fd);
 					bzero(itClients->second.getBuffer(), 512);
 					ssize_t bytes = recv(_lstPollFd[i].fd, itClients->second.getBuffer(), 511, MSG_DONTWAIT);
-					std::cout << "itClients->second.getBuffer()[strlen(itClients->second.getBuffer()) - 1] = |" << itClients->second.getBuffer()[strlen(itClients->second.getBuffer()) - 1] << "|" << std::endl;
-					std::cout << "bytes = " << bytes << std::endl;
-					std::cout << "Juste after the recv, itClients->second.getBuffer() = |" << itClients->second.getBuffer() << "|" << std::endl;
 					if (bytes < 0)
 						std::cerr << "ERROR rcve !" << std::endl;
 					else if (bytes == 0)
@@ -164,45 +161,23 @@ void	Server::serverHandler(std::string av, std::string av2)
 					}
 					if (startWith(itClients->second.getBuffer(), "CAP LS 302") || !init)
 					{
-						// Clients newClient;
-						// newClient.setFd(_lstPollFd[i].fd);
 						init = itClients->second.initClients(itClients->second.getBuffer(), *this);
 						if (init && itClients->second.getIsRegistered() == true)
 						{
 							std::cout << "init client" << std::endl;
-							itClients->second.printInfo();
-							// _clients.insert(std::make_pair(newClient.getFd(), newClient));
 						}
 						else if (init && itClients->second.getIsRegistered() == false)
 						{
-							std::cout << "client not registered" << std::endl;
-							std::cout << "itClients->first = " << itClients->first << std::endl;
-							for (std::map<int, Clients>::iterator it = _clients.begin(); it != _clients.end(); it++)
-							{
-								std::cout << "it->first = " << it->first << std::endl;
-							}
 							std::map<int, Clients>::iterator itNext = itClients;
 							++itNext;
 							_clients.erase(itClients);
 							itClients = itNext;
-							if (itClients != _clients.end())
-							{
-								std::cout << "itClients->first after erase = " << itClients->first << std::endl;
-							}
-							else
-							{
-								std::cout << "No more clients after erase." << std::endl;
-							}
+
 						}
-						// else {
-						// 	std::cout << "cacaboudin = " << itClients->first << std::endl;
-						// 	// _clients.erase(it);
-						// }
 					}
 					else
 					{
 						cmdHandler(itClients->second.getBuffer(), itClients->second);
-						// itClients->second.printChannels();
 					}
 					itClients++;
 				}
