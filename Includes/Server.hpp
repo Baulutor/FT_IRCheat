@@ -45,9 +45,9 @@ class Server
         std::map<std::string, Channels>& getChannels();
         std::map<int, Clients>& getClients();
 		std::vector<pollfd> getLstPollFd();
+        std::string getPassword() const;
 
         void cmdHandler(std::string cmd, Clients& client);
-        std::string getPassword() const;
 
 		// void	broadcast_message(const std::string &message, int sender_fd, std::vector<pollfd> &clients);
 

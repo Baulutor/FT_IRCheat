@@ -22,9 +22,9 @@ void 	Topic(std::string cmd, Clients& client, Server& server)
 	if (cmd[6 + channelName.size() + 2] == '\0')
 	{
 		if (channel->second.getTopic() == "")
-			sendBrodcastMSG(RPL_NOTOPIC(channelName), channel->second, client); // je veux envoyer le message dans le channel maius uniquement au client concerne !
+			sendCmd(RPL_NOTOPIC(channelName), client); // je veux envoyer le message dans le channel maius uniquement au client concerne !
 		else
-			sendBrodcastMSG(RPL_TOPIC(channelName, channel->second.getTopic()), channel->second, client); // pareil
+			sendCmd(RPL_TOPIC(channelName, channel->second.getTopic()), client); // pareil
 		return ;
 	}
 	std::string topicMessage = &cmd[6 + channelName.size() + 2];

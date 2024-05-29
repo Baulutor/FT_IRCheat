@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:27:47 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/21 19:47:50 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/29 10:56:13 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ class Clients
         void setNickname(std::string nickname);
         void setUsername(std::string username);
         void setPass(std::string pass);
+        void setIsRegistered(bool isRegistered);
+        void setBuffer(char* buffer);
+        void setBufferTmp(char* bufferTmp);
 
         bool initClients(std::string line, Server &server);
 
@@ -42,6 +45,9 @@ class Clients
         std::string getNickname() const;
         std::string getUsername() const;
         std::string getPass() const;
+        bool getIsRegistered() const;
+        char* getBuffer();
+        char* getBufferTmp();
 
         pollfd  getPollFd();
         void    setPollFd(pollfd poll);
@@ -61,8 +67,11 @@ class Clients
         std::string _nickname;
         std::string _username;
         std::string _pass;
+        bool _isRegistered;
         int _fd;
         std::string _addrIp;
+        char _buffer[512];
+        char _bufferTmp[512];
         std::map<std::string, Channels> _channelsInvite;
 
         std::map<std::string, Channels> _channels;
