@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:57:44 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/29 13:03:06 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/29 18:37:29 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@
 # define ERR_NOTREGISTERED(Nickfd)(":server 451 " + Nickfd + ":You have not registered" + "\r\n")
 
 # define RPL_KICK_NOTICE(Nickname, Channel) (":server NOTICE " + Channel + " :" + Nickname + " cannot kick yourself" + "\r\n")
+
+# define RPL_TOPICWHOTIME(Nickname, Channel, Time) (":server 333 " + Nickname + " " + Channel + " " + Time + "\r\n")
 
 // # define ERR_PASSWDMISMATCH(Nickname) (":server 464 " + Nickname + " :Password incorrect" + "\r\n")
 

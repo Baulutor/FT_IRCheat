@@ -55,11 +55,9 @@ void signalHandler(int signum)
 	throw std::invalid_argument("CHELOU j'ai bien envoyer lol");
 }
 
-void	Server::serverHandler(std::string av, std::string av2)
+void Server::launch(std::string av, std::string av2)
 {
-	struct sockaddr_in address;
 	int opt = 1;
-	// char buffer[512];
 
 	// Création de la socket serveur
 
@@ -82,11 +80,11 @@ void	Server::serverHandler(std::string av, std::string av2)
 		throw std::invalid_argument("");
 	}
 
-	address.sin_family = AF_INET;
-	address.sin_addr.s_addr = INADDR_ANY;
-	address.sin_port = htons(atoi(av.c_str()));
+	_address.sin_family = AF_INET;
+	_address.sin_addr.s_addr = INADDR_ANY;
+	_address.sin_port = htons(atoi(av.c_str()));
 
-	if (bind(getFd(), (struct sockaddr *)&address, sizeof(address)) < 0)
+	if (bind(getFd(), (struct sockaddr *)&_address, sizeof(_address)) < 0)
 	{
 		perror("Error bind");
 		close(_fd);
@@ -99,115 +97,131 @@ void	Server::serverHandler(std::string av, std::string av2)
 		close(_fd);
 		throw std::invalid_argument("");
 	}
+	serverHandler();
+}
+
+bool Server::ClientConnexion()
+{
+	int newClientFd = 0;
+	std::cout << "New connexion detected" << std::endl;
+	Clients newClient;
+	socklen_t sock_info_len = sizeof(_address);
+	struct pollfd pollClienTmp;
+	newClientFd = accept(getFd(), (struct sockaddr*)&_address, &sock_info_len);
+	newClient.setFd(newClientFd);
+	_clients.insert(std::make_pair(newClient.getFd(), newClient));
+	pollClienTmp.fd = newClientFd;
+	pollClienTmp.events = POLLIN;
+	pollClienTmp.revents = 0;
+	_lstPollFd.push_back(pollClienTmp);
+	return (true);
+}
+
+void Server::ClientHandler(bool init)
+{
+	size_t i = 1;
+	while (i < _lstPollFd.size())
+	{
+		if (_lstPollFd[i].revents & POLLIN)
+		{
+			std::map<int, Clients>::iterator itClients = getClients().find(_lstPollFd[i].fd);
+			if (itClients == getClients().end())
+			{
+				i++;
+				continue;
+			}
+
+			bzero(itClients->second.getBuffer(), 512);
+			ssize_t bytes = recv(_lstPollFd[i].fd, itClients->second.getBuffer(), 511, MSG_DONTWAIT);
+			if (bytes < 0)
+			{
+				std::cerr << "ERROR rcve !" << std::endl;
+			}
+			else if (bytes == 0)
+			{
+				std::cout << "connexion closed " << std::endl;
+				close(itClients->second.getFd());
+				close(_lstPollFd[i].fd);
+				_clients.erase(itClients->first);
+				_lstPollFd.erase(_lstPollFd.begin() + i);
+				continue;
+			}
+			else if (itClients->second.getBuffer()[strlen(itClients->second.getBuffer())] == '\n')
+			{
+				itClients->second.setBufferTmp(itClients->second.getBuffer());
+				itClients->second.setBuffer(NULL);
+				continue ;
+			}
+			else if (strlen(itClients->second.getBufferTmp()) > 0)
+			{
+				itClients->second.setBuffer(itClients->second.getBufferTmp());
+				itClients->second.setBufferTmp(NULL);
+			}
+
+			std::cout << "buffer = " << itClients->second.getBuffer() << std::endl;
+			if (startWith(itClients->second.getBuffer(), "CAP LS 302") || !init)
+			{
+				std::cout << "init 1 = " << (init ? "true" : "false") << std::endl;
+				init = itClients->second.initClients(itClients->second.getBuffer(), *this);
+				std::cout << "init 2 = " << (init ? "true" : "false") << std::endl;
+				std::cout << "isRegistered = " << (itClients->second.getIsRegistered() ? "true" : "false") << std::endl;
+				if (init && itClients->second.getIsRegistered() == true)
+				{
+					std::cout << "init client" << std::endl;
+					itClients->second.printInfo();
+				}
+				else if (init && itClients->second.getIsRegistered() == false)
+				{
+					std::cout << "client not registered" << std::endl;
+					sendCmd("ERROR :Deconnexion", itClients->second);
+					close(itClients->second.getFd());
+					close(_lstPollFd[i].fd);
+					std::cout << "close client fd = " << itClients->second.getFd() << std::endl;
+					std::cout << "close poll fd = " << _lstPollFd[i].fd << std::endl;
+
+					std::map<int, Clients>::iterator itNext = itClients;
+					++itNext;
+					_clients.erase(itClients->first);
+					itClients = itNext;
+					// std::vector<pollfd>::iterator pollNext = it;
+					// ++pollNext;
+					_lstPollFd.erase(_lstPollFd.begin() + i);
+					// it = pollNext;
+					i--;
+					std::cout << "init 3 = " << (init ? "true" : "false") << std::endl;
+					if (itClients == _clients.end())
+					{
+						break;
+					}
+				}
+			}
+			else
+			{
+				cmdHandler(itClients->second.getBuffer(), itClients->second);
+			}
+		}
+		i++;
+	}
+}
+
+void	Server::serverHandler()
+{
+
 
 	struct pollfd pollServ;
 	pollServ.fd = getFd();
 	pollServ.events = POLLIN;
 	pollServ.revents = 0;
 	_lstPollFd.push_back(pollServ);
-	int newClientFd = 0;
 	bool init = false;
 	while (true)
 	{
 		if (poll(&_lstPollFd[0], _lstPollFd.size(), -1) >= 0)
 		{
 			if (_lstPollFd[0].revents & POLLIN)
-			{
-				Clients newClient;
-				socklen_t sock_info_len = sizeof(address);
-				struct pollfd pollClienTmp;
-				newClientFd = accept(getFd(), (struct sockaddr*)&address, &sock_info_len);
-				// test
-				std::cerr << "New connexion detected" << std::endl;
-				// Clients newClient;
-				newClient.setFd(newClientFd);
-				std::cout << "newClient.getFd() = " << newClient.getFd() << std::endl;
-				_clients.insert(std::make_pair(newClient.getFd(), newClient));
-				// test
-   				pollClienTmp.fd = newClientFd;
-				pollClienTmp.events = POLLIN;
-				pollClienTmp.revents = 0;
-				_lstPollFd.push_back(pollClienTmp);
-			}
-			size_t i = 1;
-			for (std::vector<pollfd>::iterator it = _lstPollFd.begin() + 1; it < _lstPollFd.end(); it++)
-			{
-				if (_lstPollFd[i].revents & POLLIN)
-				{
-					// bzero(buffer, 512);
-					std::map<int, Clients>::iterator itClients = getClients().find(_lstPollFd[i].fd);
-					bzero(itClients->second.getBuffer(), 512);
-					ssize_t bytes = recv(_lstPollFd[i].fd, itClients->second.getBuffer(), 511, MSG_DONTWAIT);
-					std::cout << "itClients->second.getBuffer()[strlen(itClients->second.getBuffer()) - 1] = |" << itClients->second.getBuffer()[strlen(itClients->second.getBuffer()) - 1] << "|" << std::endl;
-					std::cout << "bytes = " << bytes << std::endl;
-					std::cout << "Juste after the recv, itClients->second.getBuffer() = |" << itClients->second.getBuffer() << "|" << std::endl;
-					if (bytes < 0)
-						std::cerr << "ERROR rcve !" << std::endl;
-					else if (bytes == 0)
-					{
-						std::cout << "connexion closed " << std::endl;
-						// throw std::invalid_argument("tg");
-					}
-					else if (itClients->second.getBuffer()[strlen(itClients->second.getBuffer())] == '\n')
-					{
-						std::cout << "In the else if check, itClients->second.getBuffer() = " << itClients->second.getBuffer() << std::endl;
-						itClients->second.setBufferTmp(itClients->second.getBuffer());
-						itClients->second.setBuffer(NULL);
-						continue ;
-					}
-					else if (strlen(itClients->second.getBufferTmp()) > 0)
-					{
-						std::cout << "In the else check, itClients->second.getBuffer() = |" << itClients->second.getBuffer() << "|" << std::endl;
-						std::cout << "In the else check, itClients->second.getBufferTmp() = |" << itClients->second.getBufferTmp() << "|" << std::endl;
-						itClients->second.setBuffer(itClients->second.getBufferTmp());
-						itClients->second.setBufferTmp(NULL);
-					}
-					if (startWith(itClients->second.getBuffer(), "CAP LS 302") || !init)
-					{
-						// Clients newClient;
-						// newClient.setFd(_lstPollFd[i].fd);
-						init = itClients->second.initClients(itClients->second.getBuffer(), *this);
-						if (init && itClients->second.getIsRegistered() == true)
-						{
-							std::cout << "init client" << std::endl;
-							itClients->second.printInfo();
-							// _clients.insert(std::make_pair(newClient.getFd(), newClient));
-						}
-						else if (init && itClients->second.getIsRegistered() == false)
-						{
-							std::cout << "client not registered" << std::endl;
-							std::cout << "itClients->first = " << itClients->first << std::endl;
-							for (std::map<int, Clients>::iterator it = _clients.begin(); it != _clients.end(); it++)
-							{
-								std::cout << "it->first = " << it->first << std::endl;
-							}
-							std::map<int, Clients>::iterator itNext = itClients;
-							++itNext;
-							_clients.erase(itClients);
-							itClients = itNext;
-							if (itClients != _clients.end())
-							{
-								std::cout << "itClients->first after erase = " << itClients->first << std::endl;
-							}
-							else
-							{
-								std::cout << "No more clients after erase." << std::endl;
-							}
-						}
-						// else {
-						// 	std::cout << "cacaboudin = " << itClients->first << std::endl;
-						// 	// _clients.erase(it);
-						// }
-					}
-					else
-					{
-						cmdHandler(itClients->second.getBuffer(), itClients->second);
-						// itClients->second.printChannels();
-					}
-					itClients++;
-				}
-				i++;
-			}
+				init = ClientConnexion();
+			else
+				ClientHandler(init);
 		}
 		else
 			throw std::invalid_argument("lol");

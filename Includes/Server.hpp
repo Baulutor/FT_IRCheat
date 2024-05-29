@@ -28,10 +28,9 @@ class Server
 {
     public:
 		Server();
-//        Server( std::string av, std::string av2 );
+    //    Server( std::string av, std::string av2 );
         ~Server();
 
-		void	serverHandler(std::string av, std::string av2);
 
         void setFd(int fd);
         void setAddrIp(std::string addrIp);
@@ -48,11 +47,16 @@ class Server
         std::string getPassword() const;
 
         void cmdHandler(std::string cmd, Clients& client);
+        bool ClientConnexion();
+        void ClientHandler(bool init);
+        void launch(std::string av, std::string av2);
+		void serverHandler();
 
 		// void	broadcast_message(const std::string &message, int sender_fd, std::vector<pollfd> &clients);
 
     private:
 	    std::vector<pollfd> _lstPollFd;
+        struct sockaddr_in _address;
         int _fd;
         std::string _addrIp;
         std::string _password;
