@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:36:58 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/28 18:03:40 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/29 14:45:07 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,19 @@ Clients::Clients()
     _nickname = "";
     _username = "";
     _pass = "";
-    //std::cout << "Clients constructor created" << std::endl;
+    _isRegistered = false;
+    bzero(_buffer, 512);
+    bzero(_bufferTmp, 512);
+    // std::cout << "Clients constructor created" << std::endl;
 }
 
 Clients::~Clients()
 {
-    //std::cout << "Clients destructor created" << std::endl;
+    // std::cout << "Clients destructor created" << std::endl;
+    // std::cout << "fd : " << _fd << std::endl;
+    // std::cout << "name : " << _nickname << std::endl;
+    // delete[] _buffer;
+    // delete[] _bufferTmp;
 }
 
 // Getters
@@ -44,6 +51,12 @@ std::map<std::string, Channels>& Clients::getChannels() {return (_channels);}
 
 std::map<std::string, Channels> Clients::getChannelsInvite() {return (_channelsInvite);}
 
+bool Clients::getIsRegistered() const {return (_isRegistered);}
+
+char* Clients::getBuffer() {return (_buffer);}
+
+char* Clients::getBufferTmp() {return (_bufferTmp);}
+
 // Setters
 
 void Clients::setFd(int fd) {_fd = fd;}
@@ -55,6 +68,24 @@ void Clients::setNickname(std::string nickname) {_nickname = nickname;}
 void Clients::setUsername(std::string username) {_username = username;}
 
 void Clients::setPass(std::string pass) {_pass = pass;}
+
+void Clients::setIsRegistered(bool isRegistered) {_isRegistered = isRegistered;}
+
+void Clients::setBuffer(char* buffer)
+{
+    if (_buffer == NULL)
+        strcpy(_buffer, buffer);
+    else
+        bzero(_buffer, 512);
+}
+
+void Clients::setBufferTmp(char* bufferTmp)
+{
+    if (bufferTmp != NULL)
+        strcat(_bufferTmp, bufferTmp);
+    else
+        bzero(_bufferTmp, 512);
+}
 
 // Print info
 
@@ -132,6 +163,15 @@ bool Clients::initClients(std::string line, Server &server)
         // std::cout << "caca ici" << std::endl;
         if (tokens[i].find("PASS") != std::string::npos && PASS < 0)
         {
+            if (tokens[i + 1] != server.getPassword())
+            {
+                std::cout << "ERR_PASSWDMISMATCH = " << ERR_PASSWDMISMATCH(tokens[i + 1]) << std::endl;
+                sendCmd(ERR_PASSWDMISMATCH(tokens[i + 1]), *this);
+                _isRegistered = false;
+                PASS = i;
+                // server.getClients().erase(getFd());
+                return (false);
+            }
             PASS = i;
             setPass(tokens[i + 1]);
         }
@@ -140,10 +180,10 @@ bool Clients::initClients(std::string line, Server &server)
     {
         if (tokens[i].find("USER") != std::string::npos && USER < 0)
         {
-            if (_pass == "") {
-                // sendCmd("ERROR: must confirm password first\r\n", *this);
-                return (false);
-            }
+            // if (_pass == "") {
+            //     // sendCmd("ERROR: must confirm password first\r\n", *this);
+            //     return (false);
+            // }
             USER = i;
             setUsername(tokens[i + 1]);
         }
@@ -174,12 +214,28 @@ bool Clients::initClients(std::string line, Server &server)
             setNickname(tokens[i + 1]);
         }
     }
+    std::cout << "USER : " << USER << std::endl;
+    std::cout << "NICK : " << NICK << std::endl;
+    std::cout << "PASS : " << PASS << std::endl;
+    if (((USER > -1 || NICK > -1) || (USER > -1 && NICK > -1)) && PASS == -1)
+    {
+        std::cout << "ERR_PASSWDMISMATCH = " << ERR_PASSWDMISMATCH(getNickname()) << std::endl;
+        sendCmd(ERR_PASSWDMISMATCH(getNickname()), *this);
+        _isRegistered = false;
+        // PASS = i;
+        PASS = -1; 
+        NICK = -1;
+        USER = -1;
+        // server.getClients().erase(getFd());
+        return (true);
+    }
     if (PASS > -1 && NICK > -1 && USER > -1)
     {
         sendCmd(RPL_MOTD_START(getNickname()), *this);
         sendCmd(RPL_MOTD_MSG(getNickname(), "Welcome to the FT_IRCheat"), *this);
         sendCmd(RPL_MOTD_END(getNickname()), *this);
         setAddrIp(server.getAddrIp());
+        _isRegistered = true;
         PASS = -1;
         NICK = -1;
         USER = -1;

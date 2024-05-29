@@ -22,6 +22,8 @@ Channels::Channels(std::string name, Clients& op)
     _operator.push_back(op);
     _topic = "";
     _password = " ";
+    _nbClients = 0;
+    _nbMaxClients = 0;
     _mode.insert(std::make_pair(name, "t"));
     _mode.insert(std::make_pair(op.getNickname(), "o"));
 }
@@ -40,12 +42,13 @@ std::map<std::string, Clients>& Channels::getClientInvited() {return (_inviteCli
 
 //Clients Channels::getOperator() const {return (*_operator);}
 
-
 std::string Channels::getPassword() const {return (_password);}
 
 std::string Channels::getMode(std::string target) const {return (_mode.find(target)->second);}
 
 int Channels::getLimit() const {return (_nbMaxClients);}
+
+int Channels::getNbClients() const {return (_nbClients);}
 
 Clients Channels::getOperator(std::string target) const
 {
@@ -80,6 +83,8 @@ void Channels::setMode(std::string target, std::string mode)
 void Channels::setLimit(int limit) {_nbMaxClients = limit;}
 
 void Channels::setClients(std::map<std::string, Clients> clients) {_clients = clients;}
+
+void Channels::incrementNbClients() {_nbClients++;}
 
 // Remover
 

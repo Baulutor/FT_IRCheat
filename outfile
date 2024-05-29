@@ -1,122 +1,176 @@
+newClient.getFd() = 4
+newClient.getFd() = 5
+itClients->second.getBuffer()[strlen(itClients->second.getBuffer()) - 1] = |
+|
+bytes = 62
+Juste after the recv, itClients->second.getBuffer() = |CAP LS 302
+PASS toto
+NICK bfaure_
+USER ben 0 * :bfaure___
+|
+USER : 6
+NICK : 4
+PASS : 2
 init client
 Nickname : bfaure_
 Username : ben
 Pass : toto
 fd : 4
 Ip Address : 127.0.0.1
+itClients->second.getBuffer()[strlen(itClients->second.getBuffer()) - 1] = |
+|
+bytes = 44
+Juste after the recv, itClients->second.getBuffer() = |CAP LS 302
+NICK ben
+USER b 0 * :benjamin
+|
+USER : 4
+NICK : 2
+PASS : -1
+ERR_PASSWDMISMATCH = :server 464 ben :Password incorrect 
+
+client not registered
+itClients->first = 5
+it->first = 4
+it->first = 5
+No more clients after erase.
+itClients->second.getBuffer()[strlen(itClients->second.getBuffer()) - 1] = |
+|
+bytes = 23
+Juste after the recv, itClients->second.getBuffer() = |PING LAG1716936993618
+|
+cmd: PING LAG1716936993618
+
+itClients->second.getBuffer()[strlen(itClients->second.getBuffer()) - 1] = |
+|
+bytes = 12
+Juste after the recv, itClients->second.getBuffer() = |JOIN #test
+|
 cmd: JOIN #test
 
 JOIN
 channel = #test
 channelsServer.size() = 0
+channel.getMode(channel.getName()) = t
 setMode Mode = 
 Channel client ADD : #test
+RPL_CMD_JOIN = :bfaure_!ben@127.0.0.1 JOIN :#test
+
 RPL_CMD_NAME_LST_START = :server 353 bfaure_ = #test :@bfaure_
 
 RPL_CMD_NAME_LST_END = :server 366 bfaure_ #test :End of /NAMES list
 
-init client
-Nickname : bfaure
-Username : bf
-Pass : toto
-fd : 5
-Ip Address : 127.0.0.1
-cmd: MODE #test
-
-Mode
-tokens: |#test|
-cmd: JOIN #test
-
-JOIN
-channel = #test
-channelsServer.size() = 1
-it->first = #test
-setMode Mode = 
-Channel client ADD : #test
-RPL_CMD_NAME_LST_START = :server 353 bfaure = #test :bfaure @bfaure_
-
-RPL_CMD_NAME_LST_END = :server 366 bfaure #test :End of /NAMES list
-
-cmd: MODE #test
-
-Mode
-tokens: |#test|
-cmd: WHO #test
-
-cmd: WHO #test
-
-cmd: PING LAG1716866447618
-
-cmd: MODE #test 
-
-Mode
-tokens: |#test|
-cmd: PING LAG1716866454620
-
-cmd: MODE #test +k tutu
-
-Mode
-tokens: |#test|
-tokens: |+k|
-tokens: |tutu|
-target isMode = |+k|
-target isArgsMode = |+k|
-checkArgs modes = |+k|
-modes[i] = |+|
-plusSign = false
-target = |#test|
-args[i] = |tutu|
-channelIt->second.getMode(target) = ||
-setMode Mode = k
-cmd: MODE #test 
-
-Mode
-tokens: |#test|
-cmd: KICK #test #test :bfaure
-
-couille ici = bfaurefd = 5
-je suis la lol
-cmd: PING LAG1716866477619
-
-cmd: PING LAG1716866484620
-
-cmd: MODE #test 
-
-Mode
-tokens: |#test|
-cmd: JOIN #test
-
-JOIN
-channel = #test
-channelsServer.size() = 1
-it->first = #test
-cmd: PING LAG1716866507619
-
-cmd: PING LAG1716866514619
-
-cmd: JOIN #test tutu
-
-JOIN
-channel = #test
-channelsServer.size() = 1
-it->first = #test
-RPL_CMD_NAME_LST_START = :server 353 bfaure = #test :bfaure @bfaure_
-
-RPL_CMD_NAME_LST_END = :server 366 bfaure #test :End of /NAMES list
-
+itClients->second.getBuffer()[strlen(itClients->second.getBuffer()) - 1] = |
+|
+bytes = 23
+Juste after the recv, itClients->second.getBuffer() = |MODE #test
+WHO #test
+|
 cmd: MODE #test
 WHO #test
 
 Mode
+cmd = |MODE #test
+WHO #test
+|
+cmd erase = |#test
+WHO #test
+|
+tokens.size() = 2
 tokens: |#testWHO|
 tokens: |#test|
-cmd: PING LAG1716866537619
+target checkChannel = |#testWHO|
+sendCmd(ERR_NOSUCHCHANNEL(client.getNickname(), target), client)
+itClients->second.getBuffer()[strlen(itClients->second.getBuffer()) - 1] = |
+|
+bytes = 23
+Juste after the recv, itClients->second.getBuffer() = |PING LAG1716937023618
+|
+cmd: PING LAG1716937023618
 
-cmd: PING LAG1716866544619
+itClients->second.getBuffer()[strlen(itClients->second.getBuffer()) - 1] = |
+|
+bytes = 22
+Juste after the recv, itClients->second.getBuffer() = |PRIVMSG #test :opias
+|
+cmd: PRIVMSG #test :opias
 
-cmd: PING LAG1716866567619
+PRIVMSG
+RPL_CMD_PRIVMSG:bfaure_!ben@127.0.0.1 PRIVMSG #test :opias
 
-cmd: PING LAG1716866574619
+newClient.getFd() = 6
+itClients->second.getBuffer()[strlen(itClients->second.getBuffer()) - 1] = |
+|
+bytes = 59
+Juste after the recv, itClients->second.getBuffer() = |CAP LS 302
+PASS toto
+NICK bfaure
+USER bf 0 * :realname
+|
+USER : 6
+NICK : 4
+PASS : 2
+init client
+Nickname : bfaure
+Username : bf
+Pass : toto
+fd : 6
+Ip Address : 127.0.0.1
+itClients->second.getBuffer()[strlen(itClients->second.getBuffer()) - 1] = |
+|
+bytes = 12
+Juste after the recv, itClients->second.getBuffer() = |JOIN #test
+|
+cmd: JOIN #test
 
-cmd: PING LAG1716866597619
+JOIN
+channel = #test
+channelsServer.size() = 1
+it->first = #test
+channel.getMode(channel.getName()) = t
+setMode Mode = 
+Channel client ADD : #test
+RPL_CMD_JOIN = :bfaure!bf@127.0.0.1 JOIN :#test
+
+RPL_CMD_NAME_LST_START = :server 353 bfaure = #test :bfaure @bfaure_
+
+RPL_CMD_NAME_LST_END = :server 366 bfaure #test :End of /NAMES list
+
+itClients->second.getBuffer()[strlen(itClients->second.getBuffer()) - 1] = |
+|
+bytes = 23
+Juste after the recv, itClients->second.getBuffer() = |MODE #test
+WHO #test
+|
+cmd: MODE #test
+WHO #test
+
+Mode
+cmd = |MODE #test
+WHO #test
+|
+cmd erase = |#test
+WHO #test
+|
+tokens.size() = 2
+tokens: |#testWHO|
+tokens: |#test|
+target checkChannel = |#testWHO|
+sendCmd(ERR_NOSUCHCHANNEL(client.getNickname(), target), client)
+itClients->second.getBuffer()[strlen(itClients->second.getBuffer()) - 1] = |
+|
+bytes = 26
+Juste after the recv, itClients->second.getBuffer() = |PRIVMSG #test :;kjahopad
+|
+cmd: PRIVMSG #test :;kjahopad
+
+PRIVMSG
+RPL_CMD_PRIVMSG:bfaure!bf@127.0.0.1 PRIVMSG #test :;kjahopad
+
+itClients->second.getBuffer()[strlen(itClients->second.getBuffer()) - 1] = |
+|
+bytes = 23
+Juste after the recv, itClients->second.getBuffer() = |PING LAG1716937053618
+|
+cmd: PING LAG1716937053618
 
