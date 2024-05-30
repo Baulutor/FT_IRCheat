@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:36:58 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/29 14:45:07 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/30 18:27:36 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,9 @@ void Clients::setIsRegistered(bool isRegistered) {_isRegistered = isRegistered;}
 
 void Clients::setBuffer(char* buffer)
 {
-//    if (_buffer == NULL)
-//        strcpy(_buffer, buffer);
-//    else
-	(void)buffer;
+    if (buffer != NULL)
+        strcpy(_buffer, buffer);
+    else
         bzero(_buffer, 512);
 }
 
@@ -120,71 +119,78 @@ void Clients::printChannels()
     }
 }
 
-bool Clients::initClients(std::string line, Server &server)
+std::vector<std::string> parseLine(std::string line)
 {
-    static int PASS = -1;
-    static int NICK = -1;
-    static int USER = -1;
-
-    // Split line on \r and \n, then split by the first space in each part
     std::vector<std::string> tokens;
     std::istringstream iss(line);
     std::string part;
     while (std::getline(iss, part, '\n'))
 	{
         size_t pos = part.find('\r');
-        if (pos != std::string::npos) {
+        if (pos != std::string::npos)
             part = part.substr(0, pos);
-        }
-        // Check if the line contains "USER" and split all spaces if it does
         if (part.find("USER") != std::string::npos)
 		{
             std::istringstream userStream(part);
             std::string userToken;
             while (userStream >> userToken)
-			{
                 tokens.push_back(userToken);
-            }
-        } else {
-            // Otherwise, split only at the first space
+        }
+        else
+        {
             pos = part.find(' ');
             if (pos != std::string::npos)
 			{
-                tokens.push_back(part.substr(0, pos)); // Before the space
-                tokens.push_back(part.substr(pos + 1)); // After the space
-            } else
-			{
-                tokens.push_back(part); // No space found, push the whole part
+                tokens.push_back(part.substr(0, pos));
+                tokens.push_back(part.substr(pos + 1));
             }
+            else
+                tokens.push_back(part);
         }
     }
+    return (tokens);
+}
+
+bool Clients::initClients(std::string line, Server &server)
+{
+    static int PASS = -1;
+    static int NICK = -1;
+    static int USER = -1;
+
+    std::vector<std::string> tokens = parseLine(line);
 
     for (size_t i = 0; i < tokens.size(); ++i)
     {
-        // std::cout << "caca ici" << std::endl;
         if (tokens[i].find("PASS") != std::string::npos && PASS < 0)
         {
             if (tokens[i + 1] != server.getPassword())
             {
-                std::cout << "ERR_PASSWDMISMATCH = " << ERR_PASSWDMISMATCH(tokens[i + 1]) << std::endl;
                 sendCmd(ERR_PASSWDMISMATCH(tokens[i + 1]), *this);
                 _isRegistered = false;
-                PASS = i;
-                // server.getClients().erase(getFd());
+                PASS = -1; 
+                NICK = -1;
+                USER = -1;
                 return (false);
             }
             PASS = i;
             setPass(tokens[i + 1]);
         }
     }
+    // std::cout << "PASS value : " << tokens[i + 1] << std::endl;
+    std::cout << "PASS value : " << _pass << std::endl;
     for (size_t i = 0; i < tokens.size(); ++i)
     {
         if (tokens[i].find("USER") != std::string::npos && USER < 0)
         {
-            // if (_pass == "") {
-            //     // sendCmd("ERROR: must confirm password first\r\n", *this);
-            //     return (false);
-            // }
+            if (_pass == "")
+            {
+                sendCmd("ERROR :You must confirm your password before registering\r\n", *this);
+                _isRegistered = false;
+                PASS = -1;
+                NICK = -1;
+                USER = -1;
+                return (false);
+            }
             USER = i;
             setUsername(tokens[i + 1]);
         }
@@ -196,6 +202,15 @@ bool Clients::initClients(std::string line, Server &server)
         // std::cout << "caca ici" << std::endl;
         if (tokens[i].find("NICK") != std::string::npos && NICK < 0)
         {
+            if (_pass == "")
+            {
+                sendCmd("ERROR :You must confirm your password before registering\r\n", *this);
+                _isRegistered = false;
+                PASS = -1;
+                NICK = -1;
+                USER = -1;
+                return (false);
+            }
             for (std::map<int, Clients>::iterator it = server.getClients().begin(); it != server.getClients().end(); it++)
             {
                 if (it->second.getNickname() == tokens[i + 1])
@@ -220,14 +235,11 @@ bool Clients::initClients(std::string line, Server &server)
     std::cout << "PASS : " << PASS << std::endl;
     if (((USER > -1 || NICK > -1) || (USER > -1 && NICK > -1)) && PASS == -1)
     {
-        std::cout << "ERR_PASSWDMISMATCH = " << ERR_PASSWDMISMATCH(getNickname()) << std::endl;
         sendCmd(ERR_PASSWDMISMATCH(getNickname()), *this);
         _isRegistered = false;
-        // PASS = i;
         PASS = -1; 
         NICK = -1;
         USER = -1;
-        // server.getClients().erase(getFd());
         return (true);
     }
     if (PASS > -1 && NICK > -1 && USER > -1)
@@ -240,6 +252,7 @@ bool Clients::initClients(std::string line, Server &server)
         PASS = -1;
         NICK = -1;
         USER = -1;
+		std::cout << "===============================================================================================" << std::endl;
         return (true);
     }
     return (false);
