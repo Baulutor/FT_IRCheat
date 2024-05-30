@@ -98,11 +98,9 @@ std::vector<std::string> split(const std::string &s, char delim)
     std::string remove = "\r\n";
     while (std::getline(iss, item, delim))
     {
-        // Enlever les caractères de fin de ligne \r\n
         size_t endpos = item.find(remove);
         if (endpos != std::string::npos && item.find("\n") == endpos + 1 && item.find("\r") == endpos)
             item.erase(endpos, remove.size());
-        }
 
         if (!item.empty())
             elems.push_back(item);

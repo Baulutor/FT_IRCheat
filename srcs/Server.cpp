@@ -177,26 +177,17 @@ bool Server::ClientHandler(bool init)
 					sendCmd("ERROR :Deconnexion", itClients->second);
 					close(itClients->second.getFd());
 					close(_lstPollFd[i].fd);
-					std::cout << "close client fd = " << itClients->second.getFd() << std::endl;
-					std::cout << "close poll fd = " << _lstPollFd[i].fd << std::endl;
 
 					std::map<int, Clients>::iterator itNext = itClients;
 					++itNext;
 					_clients.erase(itClients->first);
 					itClients = itNext;
-					// std::vector<pollfd>::iterator pollNext = it;
-					// ++pollNext;
 					_lstPollFd.erase(_lstPollFd.begin() + i);
-					// it = pollNext;
 					i--;
-					std::cout << "init 3 = " << (init ? "true" : "false") << std::endl;
 					if (itClients == _clients.end())
-					{
 						break;
-					}
 				}
 			}
-			else
 			else if (itClients->second.getIsRegistered() == true)
 			{
 				cmdHandler(itClients->second.getBuffer(), itClients->second);
