@@ -15,7 +15,7 @@ void 	Quit(std::string cmd, Clients& client, Server& server)
 	for (; chan != channels.end(); chan++)
 	{
 		std::map<std::string, Clients> clientMap = chan->second.getClientMap();
-		std::map<std::string, Clients>::iterator ok = clientMap.find();
+//		std::map<std::string, Clients>::iterator ok = clientMap.find();
 	}
 
 	(void)client;

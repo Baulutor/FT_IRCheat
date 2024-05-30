@@ -200,8 +200,6 @@ bool Server::ClientHandler(bool init)
 
 void	Server::serverHandler()
 {
-
-
 	struct pollfd pollServ;
 	pollServ.fd = getFd();
 	pollServ.events = POLLIN;
