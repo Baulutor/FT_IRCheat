@@ -48,7 +48,7 @@ class Server
 
         void cmdHandler(std::string cmd, Clients& client);
         bool ClientConnexion();
-        void ClientHandler(bool init);
+        bool ClientHandler(bool init);
         void launch(std::string av, std::string av2);
 		void serverHandler();
 
