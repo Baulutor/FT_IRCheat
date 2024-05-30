@@ -53,7 +53,7 @@ void 	Topic(std::string cmd, Clients& client, Server& server)
 		return ;
 	}
 
-	time_t t;
+//	time_t t;
 
 	server.getChannels().find(channel->first)->second.convertTimestampToDateString();
 	std::cout << channel->second.getTimeTopic() << "= CHELOU SA MERE C'est channel second la loll" << std::endl;
@@ -61,7 +61,7 @@ void 	Topic(std::string cmd, Clients& client, Server& server)
 	sendBrodcastChannel(RPL_CMD_TOPIC(client.getNickname(), channelName, topicMessage), channel->second);
 
 //	std::cout << "RPL_TOPICWHOTIME = " << RPL_TOPICWHOTIME(channelName, client.getNickname(), channel->second.getTimeTopic()) << std::endl;
-	sendBrodcastChannel(RPL_TOPICWHOTIME(client.getNickname(), channelName, client.getNickname(), channel->second.getTimeTopic(), std::asctime(std::localtime(&t))), channel->second);
+//	sendBrodcastChannel(RPL_TOPICWHOTIME(client.getNickname(), channelName, client.getNickname(), channel->second.getTimeTopic(), std::asctime(std::localtime(&t))), channel->second);
 }
 
 void Channels::convertTimestampToDateString()

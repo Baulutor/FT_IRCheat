@@ -35,7 +35,8 @@ SRC 	=	srcs/main.cpp \
 			srcs/cmd/Privmsg.cpp \
 			srcs/cmd/Invite.cpp \
 			srcs/cmd/Mode.cpp \
-			srcs/cmd/Topic.cpp
+			srcs/cmd/Topic.cpp \
+			srcs/cmd/Quit.cpp
 
 
 ############## DIRECTORIES ##############

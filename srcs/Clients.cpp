@@ -73,9 +73,10 @@ void Clients::setIsRegistered(bool isRegistered) {_isRegistered = isRegistered;}
 
 void Clients::setBuffer(char* buffer)
 {
-    if (_buffer == NULL)
-        strcpy(_buffer, buffer);
-    else
+//    if (_buffer == NULL)
+//        strcpy(_buffer, buffer);
+//    else
+	(void)buffer;
         bzero(_buffer, 512);
 }
 
