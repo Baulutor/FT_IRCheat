@@ -16,6 +16,7 @@
 # include "FT_IRCheat.hpp"
 # include "Clients.hpp"
 # include <map>
+#include <ctime>
 
 class Clients;
 
@@ -30,8 +31,9 @@ class Channels
         // Getter
         std::string getName() const;
         std::string getTopic() const;
+		std::string getTimeTopic()const;
         std::map<std::string, Clients>& getClientMap();
-	std::map<std::string, Clients>& getClientInvited();
+		std::map<std::string, Clients>& getClientInvited();
 
 //        Clients getOperator() const;
         std::string getPassword() const;
@@ -44,6 +46,7 @@ class Channels
         // Setter
         void setName(std::string name);
         void setTopic(std::string topic);
+		void setTimeTopic(std::string timeTopic);
         void setOperator(Clients& op);
         void setPassword(std::string password);
         void setMode(std::string target, std::string mode);
@@ -60,9 +63,12 @@ class Channels
         void    checkClientMapChannel();
 	bool	checkIfOpeUserForInvite(Clients client);
 
+	void convertTimestampToDateString();
+
     private :
         std::string _name;
         std::string _topic;
+		std::string _timeTopic;
         std::string _password;
         // std::string _mode;
         std::map<std::string, std::string> _mode;
@@ -71,7 +77,8 @@ class Channels
         int _nbMaxClients;
         std::map<std::string, Clients> _clients;
         std::vector<Clients> _operator;
-	std::map<std::string, Clients>	_inviteClient;
+		std::map<std::string, Clients>	_inviteClient;
+
 };
 
 #endif

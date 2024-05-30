@@ -4,6 +4,7 @@
 
 #include "Cmd.hpp"
 
+#include <ctime>
 
 void 	Topic(std::string cmd, Clients& client, Server& server)
 {
@@ -13,7 +14,6 @@ void 	Topic(std::string cmd, Clients& client, Server& server)
 	channelName = channelName.substr(0, forSeparate);
 	if (channelName[channelName.size() - 1] == '\n')
 		channelName = channelName.substr(0, channelName.size() - 2);
-	std::cout <<"["<< channelName<<"]channelName et client.getNickname()[" << client.getNickname()<<"]" << std::endl;
 	if (channelName == client.getNickname())
 	{
 		sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), "topic"), client);
@@ -28,9 +28,12 @@ void 	Topic(std::string cmd, Clients& client, Server& server)
 	if (cmd[6 + channelName.size() + 2] == '\0')
 	{
 		if (channel->second.getTopic() == "")
-			sendCmd(RPL_NOTOPIC(channelName), client); // je veux envoyer le message dans le channel maius uniquement au client concerne !
+			sendCmd(RPL_NOTOPIC(channelName),client);
 		else
-			sendCmd(RPL_TOPIC(channelName, channel->second.getTopic()), client); // pareil
+		{
+			sendCmd(RPL_CMD_TOPIC(client.getNickname(), channelName, channel->second.getTopic()), client); // affiche pas correctement le channelname
+//			sendCmd(RPL_TOPICWHOTIME(client.getNickname(), channelName, channel->second.getTimeTopic()), client);
+		}
 		return ;
 	}
 	std::string topicMessage = &cmd[6 + channelName.size() + 2];
@@ -49,6 +52,27 @@ void 	Topic(std::string cmd, Clients& client, Server& server)
 		sendCmd(ERR_CHANOPRIVSNEEDED(client.getNickname(), channelName), client); // ptre mieux d'envoyer au mec uniauement mais sur le channel !
 		return ;
 	}
+
+	time_t t;
+
+	server.getChannels().find(channel->first)->second.convertTimestampToDateString();
+	std::cout << channel->second.getTimeTopic() << "= CHELOU SA MERE C'est channel second la loll" << std::endl;
 	server.getChannels().find(channelName)->second.setTopic(topicMessage);
 	sendBrodcastChannel(RPL_CMD_TOPIC(client.getNickname(), channelName, topicMessage), channel->second);
+
+//	std::cout << "RPL_TOPICWHOTIME = " << RPL_TOPICWHOTIME(channelName, client.getNickname(), channel->second.getTimeTopic()) << std::endl;
+	sendBrodcastChannel(RPL_TOPICWHOTIME(client.getNickname(), channelName, client.getNickname(), channel->second.getTimeTopic(), std::asctime(std::localtime(&t))), channel->second);
 }
+
+void Channels::convertTimestampToDateString()
+{
+	std::time_t t = std::time(NULL);
+
+//	std::cout << "|" << std::asctime(std::localtime(&t)) << "|" << std::endl;
+	std::string buf = std::asctime(std::localtime(&t));;
+	buf = buf.substr(0, buf.size() - 1);
+	setTimeTopic(buf);
+
+}
+
+

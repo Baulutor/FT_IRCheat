@@ -21,6 +21,7 @@ Channels::Channels(std::string name, Clients& op)
     _name = name;
     _operator.push_back(op);
     _topic = "";
+	_timeTopic = "";
     _password = " ";
     _nbClients = 0;
     _nbMaxClients = 0;
@@ -35,6 +36,8 @@ Channels::~Channels() {}
 std::string Channels::getName() const {return (_name);}
 
 std::string Channels::getTopic() const {return (_topic);}
+
+std::string Channels::getTimeTopic() const {return (_timeTopic);}
 
 std::map<std::string, Clients>& Channels::getClientMap() {return (_clients);}
 
@@ -65,6 +68,8 @@ Clients Channels::getOperator(std::string target) const
 void Channels::setName(std::string name) {_name = name;}
 
 void Channels::setTopic(std::string topic) {_topic = topic;}
+
+void Channels::setTimeTopic(std::string timeTopic) {_timeTopic = timeTopic;}
 
 void Channels::setOperator(Clients& op) {_operator.push_back(op);}
 
