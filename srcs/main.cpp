@@ -10,7 +10,8 @@ int main(int argc, char **argv) {
 	try
 	{
 		// parsArg(argv);
-		server.serverHandler(argv[1], argv[2]);
+		// server.serverHandler(argv[1], argv[2]);
+		server.launch(argv[1], argv[2]);
 	}
 	catch (std::exception &e)
 	{

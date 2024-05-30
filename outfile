@@ -1,51 +1,45 @@
-newClient.getFd() = 4
-newClient.getFd() = 5
-itClients->second.getBuffer()[strlen(itClients->second.getBuffer()) - 1] = |
-|
-bytes = 62
-Juste after the recv, itClients->second.getBuffer() = |CAP LS 302
+New connexion detected
+New connexion detected
+buffer = CAP LS 302
 PASS toto
 NICK bfaure_
 USER ben 0 * :bfaure___
-|
+
+init 1 = true
 USER : 6
 NICK : 4
 PASS : 2
+init 2 = true
+isRegistered = true
 init client
 Nickname : bfaure_
 Username : ben
 Pass : toto
 fd : 4
 Ip Address : 127.0.0.1
-itClients->second.getBuffer()[strlen(itClients->second.getBuffer()) - 1] = |
-|
-bytes = 44
-Juste after the recv, itClients->second.getBuffer() = |CAP LS 302
-NICK ben
-USER b 0 * :benjamin
-|
-USER : 4
-NICK : 2
-PASS : -1
-ERR_PASSWDMISMATCH = :server 464 ben :Password incorrect 
+buffer = CAP LS 302
+PASS toto
+NICK bfaure
+USER bf 0 * :realname
 
-client not registered
-itClients->first = 5
-it->first = 4
-it->first = 5
-No more clients after erase.
-itClients->second.getBuffer()[strlen(itClients->second.getBuffer()) - 1] = |
-|
-bytes = 23
-Juste after the recv, itClients->second.getBuffer() = |PING LAG1716936993618
-|
-cmd: PING LAG1716936993618
+init 1 = true
+USER : 6
+NICK : 4
+PASS : 2
+init 2 = true
+isRegistered = true
+init client
+Nickname : bfaure
+Username : bf
+Pass : toto
+fd : 5
+Ip Address : 127.0.0.1
+buffer = PING LAG1716946634619
 
-itClients->second.getBuffer()[strlen(itClients->second.getBuffer()) - 1] = |
-|
-bytes = 12
-Juste after the recv, itClients->second.getBuffer() = |JOIN #test
-|
+cmd: PING LAG1716946634619
+
+buffer = JOIN #test
+
 cmd: JOIN #test
 
 JOIN
@@ -54,18 +48,15 @@ channelsServer.size() = 0
 channel.getMode(channel.getName()) = t
 setMode Mode = 
 Channel client ADD : #test
-RPL_CMD_JOIN = :bfaure_!ben@127.0.0.1 JOIN :#test
+RPL_CMD_JOIN = :bfaure!bf@127.0.0.1 JOIN :#test
 
-RPL_CMD_NAME_LST_START = :server 353 bfaure_ = #test :@bfaure_
+RPL_CMD_NAME_LST_START = :server 353 bfaure = #test :@bfaure
 
-RPL_CMD_NAME_LST_END = :server 366 bfaure_ #test :End of /NAMES list
+RPL_CMD_NAME_LST_END = :server 366 bfaure #test :End of /NAMES list
 
-itClients->second.getBuffer()[strlen(itClients->second.getBuffer()) - 1] = |
-|
-bytes = 23
-Juste after the recv, itClients->second.getBuffer() = |MODE #test
+buffer = MODE #test
 WHO #test
-|
+
 cmd: MODE #test
 WHO #test
 
@@ -81,67 +72,71 @@ tokens: |#testWHO|
 tokens: |#test|
 target checkChannel = |#testWHO|
 sendCmd(ERR_NOSUCHCHANNEL(client.getNickname(), target), client)
-itClients->second.getBuffer()[strlen(itClients->second.getBuffer()) - 1] = |
-|
-bytes = 23
-Juste after the recv, itClients->second.getBuffer() = |PING LAG1716937023618
-|
-cmd: PING LAG1716937023618
+buffer = PING LAG1716946653619
 
-itClients->second.getBuffer()[strlen(itClients->second.getBuffer()) - 1] = |
-|
-bytes = 22
-Juste after the recv, itClients->second.getBuffer() = |PRIVMSG #test :opias
-|
-cmd: PRIVMSG #test :opias
+cmd: PING LAG1716946653619
 
-PRIVMSG
-RPL_CMD_PRIVMSG:bfaure_!ben@127.0.0.1 PRIVMSG #test :opias
+buffer = JOIN #testw
 
-newClient.getFd() = 6
-itClients->second.getBuffer()[strlen(itClients->second.getBuffer()) - 1] = |
+cmd: JOIN #testw
+
+JOIN
+channel = #testw
+channelsServer.size() = 1
+it->first = #test
+channelToJoin = #testw
+ChannelToJoin.getPassword =  
+channel.getMode(channel.getName()) = t
+setMode Mode = 
+Channel client ADD : #testw
+RPL_CMD_JOIN = :bfaure_!ben@127.0.0.1 JOIN :#testw
+
+RPL_CMD_NAME_LST_START = :server 353 bfaure_ = #testw :@bfaure_
+
+RPL_CMD_NAME_LST_END = :server 366 bfaure_ #testw :End of /NAMES list
+
+buffer = MODE #testw
+WHO #testw
+
+cmd: MODE #testw
+WHO #testw
+
+Mode
+cmd = |MODE #testw
+WHO #testw
 |
-bytes = 59
-Juste after the recv, itClients->second.getBuffer() = |CAP LS 302
-PASS toto
-NICK bfaure
-USER bf 0 * :realname
+cmd erase = |#testw
+WHO #testw
 |
-USER : 6
-NICK : 4
-PASS : 2
-init client
-Nickname : bfaure
-Username : bf
-Pass : toto
-fd : 6
-Ip Address : 127.0.0.1
-itClients->second.getBuffer()[strlen(itClients->second.getBuffer()) - 1] = |
-|
-bytes = 12
-Juste after the recv, itClients->second.getBuffer() = |JOIN #test
-|
+tokens.size() = 2
+tokens: |#testwWHO|
+tokens: |#testw|
+target checkChannel = |#testwWHO|
+sendCmd(ERR_NOSUCHCHANNEL(client.getNickname(), target), client)
+buffer = PING LAG1716946664619
+
+cmd: PING LAG1716946664619
+
+buffer = JOIN #test
+
 cmd: JOIN #test
 
 JOIN
 channel = #test
-channelsServer.size() = 1
+channelsServer.size() = 2
 it->first = #test
 channel.getMode(channel.getName()) = t
 setMode Mode = 
 Channel client ADD : #test
-RPL_CMD_JOIN = :bfaure!bf@127.0.0.1 JOIN :#test
+RPL_CMD_JOIN = :bfaure_!ben@127.0.0.1 JOIN :#test
 
-RPL_CMD_NAME_LST_START = :server 353 bfaure = #test :bfaure @bfaure_
+RPL_CMD_NAME_LST_START = :server 353 bfaure_ = #test :@bfaure bfaure_
 
-RPL_CMD_NAME_LST_END = :server 366 bfaure #test :End of /NAMES list
+RPL_CMD_NAME_LST_END = :server 366 bfaure_ #test :End of /NAMES list
 
-itClients->second.getBuffer()[strlen(itClients->second.getBuffer()) - 1] = |
-|
-bytes = 23
-Juste after the recv, itClients->second.getBuffer() = |MODE #test
+buffer = MODE #test
 WHO #test
-|
+
 cmd: MODE #test
 WHO #test
 
@@ -157,20 +152,286 @@ tokens: |#testWHO|
 tokens: |#test|
 target checkChannel = |#testWHO|
 sendCmd(ERR_NOSUCHCHANNEL(client.getNickname(), target), client)
-itClients->second.getBuffer()[strlen(itClients->second.getBuffer()) - 1] = |
+New connexion detected
+buffer = CAP LS 302
+NICK ben
+USER b 0 * :benjamin
+
+init 1 = true
+USER : 4
+NICK : 2
+PASS : -1
+ERR_PASSWDMISMATCH = :server 464 ben :Password incorrect 
+
+init 2 = true
+isRegistered = false
+client not registered
+close client fd = 6
+close poll fd = 6
+init 3 = true
+buffer = PING LAG1716946683619
+
+cmd: PING LAG1716946683619
+
+New connexion detected
+buffer = CAP LS 302
+NICK ben
+USER b 0 * :benjamin
+
+init 1 = true
+USER : 4
+NICK : 2
+PASS : -1
+ERR_PASSWDMISMATCH = :server 464 ben :Password incorrect 
+
+init 2 = true
+isRegistered = false
+client not registered
+close client fd = 6
+close poll fd = 6
+init 3 = true
+buffer = PING LAG1716946694619
+
+cmd: PING LAG1716946694619
+
+New connexion detected
+buffer = CAP LS 302
+NICK ben
+USER b 0 * :benjamin
+
+init 1 = true
+USER : 4
+NICK : 2
+PASS : -1
+ERR_PASSWDMISMATCH = :server 464 ben :Password incorrect 
+
+init 2 = true
+isRegistered = false
+client not registered
+close client fd = 6
+close poll fd = 6
+init 3 = true
+buffer = JOIN #testc
+
+cmd: JOIN #testc
+
+JOIN
+channel = #testc
+channelsServer.size() = 2
+it->first = #test
+channelToJoin = #testc
+ChannelToJoin.getPassword =  
+channel.getMode(channel.getName()) = t
+setMode Mode = 
+Channel client ADD : #testc
+RPL_CMD_JOIN = :bfaure_!ben@127.0.0.1 JOIN :#testc
+
+RPL_CMD_NAME_LST_START = :server 353 bfaure_ = #testc :@bfaure_
+
+RPL_CMD_NAME_LST_END = :server 366 bfaure_ #testc :End of /NAMES list
+
+buffer = MODE #testc
+WHO #testc
+
+cmd: MODE #testc
+WHO #testc
+
+Mode
+cmd = |MODE #testc
+WHO #testc
 |
-bytes = 26
-Juste after the recv, itClients->second.getBuffer() = |PRIVMSG #test :;kjahopad
+cmd erase = |#testc
+WHO #testc
 |
-cmd: PRIVMSG #test :;kjahopad
+tokens.size() = 2
+tokens: |#testcWHO|
+tokens: |#testc|
+target checkChannel = |#testcWHO|
+sendCmd(ERR_NOSUCHCHANNEL(client.getNickname(), target), client)
+New connexion detected
+buffer = CAP LS 302
+NICK ben
+USER b 0 * :benjamin
+
+init 1 = true
+USER : 4
+NICK : 2
+PASS : -1
+ERR_PASSWDMISMATCH = :server 464 ben :Password incorrect 
+
+init 2 = true
+isRegistered = false
+client not registered
+close client fd = 6
+close poll fd = 6
+init 3 = true
+buffer = PING LAG1716946713619
+
+cmd: PING LAG1716946713619
+
+buffer = JOIN #testc
+
+cmd: JOIN #testc
+
+JOIN
+channel = #testc
+channelsServer.size() = 3
+it->first = #test
+channelToJoin = #testc
+ChannelToJoin.getPassword =  
+channel.getMode(channel.getName()) = t
+setMode Mode = 
+Channel client ADD : #testc
+RPL_CMD_JOIN = :bfaure!bf@127.0.0.1 JOIN :#testc
+
+RPL_CMD_NAME_LST_START = :server 353 bfaure = #testc :bfaure @bfaure_
+
+RPL_CMD_NAME_LST_END = :server 366 bfaure #testc :End of /NAMES list
+
+buffer = MODE #testc
+WHO #testc
+
+cmd: MODE #testc
+WHO #testc
+
+Mode
+cmd = |MODE #testc
+WHO #testc
+|
+cmd erase = |#testc
+WHO #testc
+|
+tokens.size() = 2
+tokens: |#testcWHO|
+tokens: |#testc|
+target checkChannel = |#testcWHO|
+sendCmd(ERR_NOSUCHCHANNEL(client.getNickname(), target), client)
+buffer = PRIVMSG #testc :jkashd
+
+cmd: PRIVMSG #testc :jkashd
 
 PRIVMSG
-RPL_CMD_PRIVMSG:bfaure!bf@127.0.0.1 PRIVMSG #test :;kjahopad
+RPL_CMD_PRIVMSG:bfaure!bf@127.0.0.1 PRIVMSG #testc :jkashd
 
-itClients->second.getBuffer()[strlen(itClients->second.getBuffer()) - 1] = |
-|
-bytes = 23
-Juste after the recv, itClients->second.getBuffer() = |PING LAG1716937053618
-|
-cmd: PING LAG1716937053618
+New connexion detected
+buffer = CAP LS 302
+NICK ben
+USER b 0 * :benjamin
+
+init 1 = true
+USER : 4
+NICK : 2
+PASS : -1
+ERR_PASSWDMISMATCH = :server 464 ben :Password incorrect 
+
+init 2 = true
+isRegistered = false
+client not registered
+close client fd = 6
+close poll fd = 6
+init 3 = true
+buffer = PING LAG1716946724619
+
+cmd: PING LAG1716946724619
+
+New connexion detected
+buffer = CAP LS 302
+NICK ben
+USER b 0 * :benjamin
+
+init 1 = true
+USER : 4
+NICK : 2
+PASS : -1
+ERR_PASSWDMISMATCH = :server 464 ben :Password incorrect 
+
+init 2 = true
+isRegistered = false
+client not registered
+close client fd = 6
+close poll fd = 6
+init 3 = true
+New connexion detected
+buffer = PING LAG1716946743619
+
+cmd: PING LAG1716946743619
+
+buffer = CAP LS 302
+NICK ben
+USER b 0 * :benjamin
+
+init 1 = true
+USER : 4
+NICK : 2
+PASS : -1
+ERR_PASSWDMISMATCH = :server 464 ben :Password incorrect 
+
+init 2 = true
+isRegistered = false
+client not registered
+close client fd = 6
+close poll fd = 6
+init 3 = true
+New connexion detected
+buffer = PING LAG1716946754619
+
+cmd: PING LAG1716946754619
+
+buffer = CAP LS 302
+NICK ben
+USER b 0 * :benjamin
+
+init 1 = true
+USER : 4
+NICK : 2
+PASS : -1
+ERR_PASSWDMISMATCH = :server 464 ben :Password incorrect 
+
+init 2 = true
+isRegistered = false
+client not registered
+close client fd = 6
+close poll fd = 6
+init 3 = true
+New connexion detected
+buffer = CAP LS 302
+NICK ben
+USER b 0 * :benjamin
+
+init 1 = true
+USER : 4
+NICK : 2
+PASS : -1
+ERR_PASSWDMISMATCH = :server 464 ben :Password incorrect 
+
+init 2 = true
+isRegistered = false
+client not registered
+close client fd = 6
+close poll fd = 6
+init 3 = true
+buffer = PING LAG1716946773619
+
+cmd: PING LAG1716946773619
+
+New connexion detected
+buffer = CAP LS 302
+NICK ben
+USER b 0 * :benjamin
+
+init 1 = true
+USER : 4
+NICK : 2
+PASS : -1
+ERR_PASSWDMISMATCH = :server 464 ben :Password incorrect 
+
+init 2 = true
+isRegistered = false
+client not registered
+close client fd = 6
+close poll fd = 6
+init 3 = true
+buffer = PING LAG1716946784619
+
+cmd: PING LAG1716946784619
 
