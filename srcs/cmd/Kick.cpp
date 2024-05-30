@@ -13,97 +13,43 @@
 #include "Cmd.hpp"
 #include "Channels.hpp"
 
-void LFTarget(std::string & chanTarget, std::string & target, std::string & com, std::string cmd, Clients& client) {
+bool LFTarget(std::string &chanTarget, std::string &target, std::string &com, std::string cmd) {
     std::vector<std::string> splited = split(cmd, ' ');
-    if (splited.size() == 1) {
-        std::cout << "KICK <channel> <user> :<comment>" << std::endl;
-        return(sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), ""), client));
-    }
-    chanTarget = splited[2];
+    
+    if (splited.size() < 3)
+        return false;
+    
+    size_t targetIdx = 2;
+    size_t commentIdx = 3;
+    chanTarget = splited[1];
+
     if (splited[1][0] == '#') {
-        if (splited.size() == 2) {
-            target = splited[2];
-            com = "";
+        if (splited.size() == 3 || (splited.size() > 3 && splited[2][0] == '#')) {
+            targetIdx = 3;
+            chanTarget = splited[2];
         }
-        else if (splited.size() == 3) {
-            if (splited[2][0] == '#') {
-                target = splited[3].substr(1, splited[3].size());
-                com = "";
-            }
-            else {
-                target = splited[2];
-                for (size_t i = 3; i != splited.size(); i++)
-                    com += (splited[i] + " ");
-            }
-        }
+        if ((splited.size() > 3 && splited[2][0] == '#'))
+            commentIdx = 4;
+    } else {
+        if (splited.size() < 4)
+            return false;
+        if (splited.size() == 2)
+            targetIdx = 2;
         else {
-            if (splited[2][0] == '#') {
-                target = splited[3].substr(1, splited[3].size());
-                for (size_t i = 4; i != splited.size(); i++) 
-                    com += (splited[i] + " ");
-            }
-            else {
-                target = splited[2];
-                for (size_t i = 3; i != splited.size(); i++)
-                    com += (splited[i] + " ");
-            }
+            chanTarget = splited[2];
+            targetIdx = 3;
         }
+        commentIdx = 4;
     }
-    else {
-        if (splited.size() == 2) {
-            std::cout << "KICK <channel> <user> :<comment>" << std::endl;
-            return(sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), ""), client));
-        }
-        if (splited.size() == 3) {
-            target = splited[3].substr(1, splited[3].size());
-            com = "";
-        }
-        else {
-            target = splited[3].substr(1, splited[3].size());
-            for (size_t i = 4; i != splited.size(); i++) 
-                com += (splited[i] + " ");
-        }
+
+    target = splited[targetIdx][0] == ':' ? splited[targetIdx].substr(1) : splited[targetIdx];
+
+    com = "";
+    for (size_t i = commentIdx; i < splited.size(); i++) {
+        com += " " + splited[i];
     }
+    return true;
 }
-
-
-// void LFTarget(std::string &chanTarget, std::string &target, std::string &com, std::string cmd, Clients &client) {
-//     std::vector<std::string> splited = split(cmd, ' ');
-    
-//     if (splited.size() < 3) {
-//         std::cout << "KICK <channel> <user> :<comment>" << std::endl;
-//         return sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), ""), client);
-//     }
-    
-//     size_t targetIdx = 2;
-//     size_t commentIdx = 3;
-//     chanTarget = splited[2];
-
-//     if (splited[1][0] == '#') {
-//         if (splited.size() == 3 || (splited.size() > 3 && splited[2][0] == '#'))
-//             targetIdx = 3;
-//         if ((splited.size() > 3 && splited[2][0] == '#'))
-//             commentIdx = 4;
-//     } else {
-//         if (splited.size() < 4) {
-//             std::cout << "KICK <channel> <user> :<comment>" << std::endl;
-//             return sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), ""), client);
-//         }
-//         if (splited.size() == 3)
-//             targetIdx = 3;
-//         commentIdx = 4;
-//     }
-
-//     target = splited[targetIdx][0] == '#' ? splited[targetIdx].substr(1) : splited[targetIdx];
-
-//     com = "";
-//     for (size_t i = commentIdx; i < splited.size(); i++) {
-//         com += splited[i] + " ";
-//     }
-//     // if (!com.empty()) {
-//     //     com.pop_back(); // Remove the trailing space
-//     // }
-// }
 
 
 void Kick(std::string cmd, Clients& client, Server& server) {
@@ -116,7 +62,11 @@ void Kick(std::string cmd, Clients& client, Server& server) {
     Clients op = it->second.getOperator(client.getNickname());
     if (op.getNickname() == "")
         return(sendCmd(ERR_NOTCHANOP(client.getNickname(), it->second.getName()), client));
-    LFTarget(chanTarget, target, com, cmd, client);
+    if (LFTarget(chanTarget, target, com, cmd) != true) {
+        std::cout << "KICK <channel> <user> :<comment>" << std::endl;
+        sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), ""), client);
+        return;
+    }
     for (; it != channel.end(); it++) {
         if (it->first == chanTarget) {
             std::map<std::string, Clients>& clientsMap = it->second.getClientMap();

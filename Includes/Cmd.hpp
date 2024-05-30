@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cmd.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nibernar <nibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 10:14:18 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/27 20:54:34 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/30 17:15:02 by nibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void 	Privmsg(std::string cmd, Clients& client, Server& server);
 void 	Pong(std::string cmd, Clients& client, Server& server);
 void 	Mode(std::string cmd, Clients& client, Server& server);
 void 	Topic(std::string cmd, Clients& client, Server& server);
+void 	Nick(std::string cmd, Clients& client, Server& server);
+void 	User(std::string cmd, Clients& client, Server& server);
 
 class SendErrorExeption : public std::exception
 {

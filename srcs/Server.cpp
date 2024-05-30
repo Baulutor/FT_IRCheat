@@ -30,10 +30,10 @@ bool startWith(const std::string &line, const char *cmd) {return (line.find(cmd)
 void Server::cmdHandler(std::string cmd, Clients& client)
 {
 	std::cout << "cmd: " << cmd << std::endl;
-    const char *lstCmd[] = {"JOIN", "KICK", "PRIVMSG", "PING", "INVITE", "MODE", "TOPIC"};
+    const char *lstCmd[] = {"JOIN", "KICK", "PRIVMSG", "PING", "INVITE", "MODE", "TOPIC", "NICK", "USER"};
     // , "NAMES", "NICK", "INVITE", "TOPIC", "PRIVMSG", "QUIT", "PART", "KICK", "MODE"
-    void (*lstFunc[])(std::string, Clients&, Server&) = {Join, Kick, Privmsg, Pong, Invite, Mode, Topic};
-    for (int i = 0; i < 7; i++)
+    void (*lstFunc[])(std::string, Clients&, Server&) = {Join, Kick, Privmsg, Pong, Invite, Mode, Topic, Nick, User};
+    for (int i = 0; i < 9; i++)
     {
         if (startWith(cmd, lstCmd[i]))
         {
@@ -43,25 +43,10 @@ void Server::cmdHandler(std::string cmd, Clients& client)
     }
 }
 
-std::string intToString(int value) {
-    std::ostringstream oss;
-    oss << value;
-    return oss.str();
-}
-
-void signalHandler(int signum)
-{
-	(void)signum; // a differencier ctrl C et ctrl D
-	throw std::invalid_argument("CHELOU j'ai bien envoyer lol");
-}
-
 void	Server::serverHandler(std::string av, std::string av2)
 {
 	struct sockaddr_in address;
 	int opt = 1;
-	// char buffer[512];
-
-	// Création de la socket serveur
 
 	setAddrIp("127.0.0.1");
 	setPassword(av2);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Clients.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nibernar <nibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:36:58 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/29 14:45:07 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/30 13:17:13 by nibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void Clients::setIsRegistered(bool isRegistered) {_isRegistered = isRegistered;}
 
 void Clients::setBuffer(char* buffer)
 {
-    if (_buffer == NULL)
+    if (_buffer[0] == '\0')
         strcpy(_buffer, buffer);
     else
         bzero(_buffer, 512);
