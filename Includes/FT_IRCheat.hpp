@@ -48,4 +48,5 @@ std::map<std::string, Channels>::iterator findChannelByName(std::string channelN
 bool isClientInChannel(std::string nickname, Channels& channel);
 std::vector<std::string> splitInit(const std::string &line, char delim);
 // std::vector<std::string> split(const std::string &s, const std::string &delim);
+void signalHandler(int signum);
 #endif
