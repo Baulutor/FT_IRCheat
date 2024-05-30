@@ -33,6 +33,8 @@ class Channels;
 
 class Server;
 
+std::string intToString(int value);
+void signalHandler(int signum);
 std::vector<std::string> split(const std::string &s, char delim);
 std::vector<std::string> splitEOF(const std::string &s, char delim);
 void sendCmd(const std::string& cmd, Clients &client);

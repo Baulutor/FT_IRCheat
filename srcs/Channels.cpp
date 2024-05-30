@@ -43,7 +43,6 @@ std::map<std::string, Clients>& Channels::getClientMap() {return (_clients);}
 
 std::map<std::string, Clients>& Channels::getClientInvited() {return (_inviteClient);}
 
-//Clients Channels::getOperator() const {return (*_operator);}
 
 std::string Channels::getPassword() const {return (_password);}
 

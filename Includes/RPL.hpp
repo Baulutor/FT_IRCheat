@@ -75,9 +75,8 @@
 # define ERR_NOTREGISTERED(Nickfd)(":server 451 " + Nickfd + ":You have not registered" + "\r\n")
 
 # define RPL_KICK_NOTICE(Nickname, Channel) (":server NOTICE " + Channel + " :" + Nickname + " cannot kick yourself" + "\r\n")
-
-# define RPL_TOPICWHOTIME(Nickname, Channel, Time) (":server 333 " + Nickname + " " + Channel + " " + Time + "\r\n")
-
+# define ERR_ALREADYREGISTERED(Nickname) (":server 462 " + Nickname + " :You may not reregister\r\n")
+# define RPL_ISUPPORT(Nickname, token) (":server 005 " + Nickname + " " + token + " :are supported by this server" + "\r\n")
 // # define ERR_PASSWDMISMATCH(Nickname) (":server 464 " + Nickname + " :Password incorrect" + "\r\n")
 
 #endif

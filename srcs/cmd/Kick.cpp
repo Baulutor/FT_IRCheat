@@ -13,63 +13,79 @@
 #include "Cmd.hpp"
 #include "Channels.hpp"
 
-//KICK <channel> <user> :<comment>
-//peu t on kick un operator ?
+bool LFTarget(std::string &chanTarget, std::string &target, std::string &com, std::string cmd) {
+    std::vector<std::string> splited = split(cmd, ' ');
+    
+    if (splited.size() < 3)
+        return false;
+    
+    size_t targetIdx = 2;
+    size_t commentIdx = 3;
+    chanTarget = splited[1];
+
+    if (splited[1][0] == '#') {
+        if (splited.size() == 3 || (splited.size() > 3 && splited[2][0] == '#')) {
+            targetIdx = 3;
+            chanTarget = splited[2];
+        }
+        if ((splited.size() > 3 && splited[2][0] == '#'))
+            commentIdx = 4;
+    } else {
+        if (splited.size() < 4)
+            return false;
+        if (splited.size() == 2)
+            targetIdx = 2;
+        else {
+            chanTarget = splited[2];
+            targetIdx = 3;
+        }
+        commentIdx = 4;
+    }
+
+    target = splited[targetIdx][0] == ':' ? splited[targetIdx].substr(1) : splited[targetIdx];
+
+    com = "";
+    for (size_t i = commentIdx; i < splited.size(); i++) {
+        com += " " + splited[i];
+    }
+    return true;
+}
+
+
 void Kick(std::string cmd, Clients& client, Server& server) {
     std::map<std::string, Channels>& channel = server.getChannels();
     std::map<std::string, Channels>::iterator it = channel.begin();
-    std::vector<std::string> splited = split(cmd, ' ');
-    std::string cible;
+    std::string chanTarget;
+    std::string target;
     std::string com;
 
-    if (splited.size() == 2) {
-        std::cout << "KICK <channel> <user> :<comment>" << std::endl;
-        return(sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), ""), client));
-    }
-    if (splited.size() == 3) {
-        std::cout << "KICK <channel> <user> :<comment>" << std::endl;
-        return(sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), ""), client));
-    }
-    // std::vector<Clients> clientsOperator = it->second.getOperator();
-    // std::vector<Clients>::iterator itOp = clientsOperator.begin();
-    // for (; itOp != clientsOperator.end(); itOp++) {
-    //     if (itOp->getNickname() == client.getNickname())
-    //         break;
-    // }
     Clients op = it->second.getOperator(client.getNickname());
     if (op.getNickname() == "")
         return(sendCmd(ERR_NOTCHANOP(client.getNickname(), it->second.getName()), client));
-    if (splited.size() > 4) {
-        cible = splited[3];
-        for (size_t i = 4; i != splited.size(); i++) 
-            com += (splited[i] + " ");
+    if (LFTarget(chanTarget, target, com, cmd) != true) {
+        std::cout << "KICK <channel> <user> :<comment>" << std::endl;
+        sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), ""), client);
+        return;
     }
-    else {
-        com = "";
-        cible = splited[3].substr(0, splited[3].size());
-    }
-
     for (; it != channel.end(); it++) {
-        if (it->first == splited[2]) {
+        if (it->first == chanTarget) {
             std::map<std::string, Clients>& clientsMap = it->second.getClientMap();
             std::map<std::string, Clients>::iterator it2 = clientsMap.begin();
             for(; it2 != clientsMap.end(); it2++) {
-                std::cout << "couille ici = " << it2->first << "fd = " << it2->second.getFd() << std::endl;
-                if ((':' + it2->first) == cible) {
-                    if (':' + client.getNickname() == cible)
+                if ((it2->first) == target) {
+                    if (client.getNickname() == target)
                         return (sendBrodcastChannel(RPL_KICK_NOTICE(client.getNickname(), it->first), it->second));
                     sendBrodcastChannel(RPL_CMD_KICK(client.getNickname(), client.getUsername(), client.getAddrIp(), it->first, it2->first, com), it->second);
-                    std::cout << "je suis la lol" << std::endl;
                     clientsMap.erase(it2);
                     return ;
                 }
             }
             if (it2 == clientsMap.end())
-                return (sendBrodcastChannel(ERR_USERNOTFOUND(client.getNickname(), cible, it->first), it->second));
+                return (sendBrodcastChannel(ERR_USERNOTFOUND(client.getNickname(), target, it->first), it->second));
         }
     }
     if (it == channel.end()) {
         it--;
-        return (sendBrodcastChannel(ERR_NOSUCHCHANNEL(client.getNickname(), splited[2]), it->second));
+        return (sendBrodcastChannel(ERR_NOSUCHCHANNEL(client.getNickname(), chanTarget), it->second));
     }
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+         #
+#    By: nibernar <nibernar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 13:54:50 by bfaure            #+#    #+#              #
-#    Updated: 2024/05/28 18:12:09 by bfaure           ###   ########.fr        #
+#    Updated: 2024/05/30 17:15:24 by nibernar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,9 @@ SRC 	=	srcs/main.cpp \
 			srcs/cmd/Invite.cpp \
 			srcs/cmd/Mode.cpp \
 			srcs/cmd/Topic.cpp \
-			srcs/cmd/Quit.cpp
+			srcs/cmd/Quit.cpp \
+			srcs/cmd/User.cpp \
+			srcs/cmd/Nick.cpp
 
 
 ############## DIRECTORIES ##############

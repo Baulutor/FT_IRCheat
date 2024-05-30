@@ -35,7 +35,6 @@ class Channels
         std::map<std::string, Clients>& getClientMap();
 		std::map<std::string, Clients>& getClientInvited();
 
-//        Clients getOperator() const;
         std::string getPassword() const;
         std::vector<Clients> getOperator() const;
         std::string getMode(std::string target) const;
