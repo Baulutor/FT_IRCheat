@@ -6,7 +6,7 @@
 /*   By: nibernar <nibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:57:44 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/30 18:27:59 by nibernar         ###   ########.fr       */
+/*   Updated: 2024/05/31 13:21:32 by nibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@
 # define RPL_CMD_PRIVMSG(Nickname, Username, Hostname, Channel, Message) (":" + Nickname + "!" + Username + "@" + Hostname + " PRIVMSG " + Channel + " :" + Message + "\r\n")
 
 # define RPL_ERROR_NICKNAME_IN_USE(Nickname, Nickname2) (":server 433 " + Nickname + " " + Nickname2 + " :Nickname is already in use" + "\r\n")
+
 # define RPL_CMD_NICK(Nickname, Username, Hostname, NewNickname) (":" + Nickname + "!" + Username + "@" + Hostname + " NICK " + NewNickname + "\r\n")
 
 # define RPL_CMD_MODE(Nickname, Username, Hostname, Channel, Mode, Target, Args) (":" + Nickname + "!" + Username + "@" + Hostname + " MODE " + Channel + " " + Mode + " " + Target + " " + Args + "\r\n")
@@ -75,7 +76,6 @@
 # define RPL_KICK_NOTICE(Nickname, Channel) (":server NOTICE " + Channel + " :" + Nickname + " cannot kick yourself" + "\r\n")
 # define ERR_ALREADYREGISTERED(Nickname) (":server 462 " + Nickname + " :You may not reregister\r\n")
 # define RPL_ISUPPORT(Nickname, token) (":server 005 " + Nickname + " " + token + " :are supported by this server" + "\r\n")
-// # define ERR_PASSWDMISMATCH(Nickname) (":server 464 " + Nickname + " :Password incorrect" + "\r\n")
 
 #endif
 
