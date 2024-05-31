@@ -65,7 +65,7 @@ void Kick(std::string cmd, Clients& client, Server& server) {
                         return (sendBrodcastChannel(RPL_KICK_NOTICE(client.getNickname(), it->first), it->second));
                     sendBrodcastChannel(RPL_CMD_KICK(client.getNickname(), client.getUsername(), client.getAddrIp(), it->first, it2->second.getNickname(), com), it->second);
                     clientsMap.erase(it2);
-                    client.getChannels().erase(it2->second.getNickname());
+                    client.getChannelsClient().erase(it2->second.getNickname());
                     return ;
                 }
             }
