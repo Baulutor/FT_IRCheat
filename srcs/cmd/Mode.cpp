@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:42:28 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/30 13:51:14 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/31 18:47:29 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,17 @@ char getMode(std::string target, size_t i)
     return (target[i]);
 }
 
-int addOpMode(std::vector<std::string> args, size_t i, std::map<std::string, Channels>::iterator channelIt)
+int addOpMode(std::vector<std::string> args, size_t i, std::map<std::string, Channels>::iterator channelIt, Server& server)
 {
-    std::cout << "getMode(args[i]) = |" << getMode(args[i], i) << "|" << std::endl;
-    std::map<std::string, Clients>::iterator clientIt = channelIt->second.getClientMap().find(args[i]);
+    int fdClient = findFdClientByName(args[i], server.getClients());
+    std::map<int, Clients>::iterator clientIt = channelIt->second.getClientMap().find(fdClient);
     if (clientIt != channelIt->second.getClientMap().end())
     {
         std::cout << "channelIt->second.getMode(args[i]) = |" << channelIt->second.getMode(args[i]) << "|" << std::endl;
-        if (channelIt->second.getMode(args[i]).find('o') == std::string::npos)
+        if (server.getChannels().find(channelIt->first)->second.getMode(args[i]).find('o') == std::string::npos)
         {
-            channelIt->second.setMode(args[i], "o");
-            channelIt->second.setOperator(clientIt->second);
+            server.getChannels().find(channelIt->first)->second.setMode(args[i], "o");
+            server.getChannels().find(channelIt->first)->second.setOperator(clientIt->second);
             NameLstUpadte(clientIt->second, channelIt->second);
             return (1);
         }
@@ -80,16 +80,17 @@ int addOpMode(std::vector<std::string> args, size_t i, std::map<std::string, Cha
     return (1);
 }
 
-int removeOpMode(std::vector<std::string> args, size_t i, std::map<std::string, Channels>::iterator channelIt)
+int removeOpMode(std::vector<std::string> args, size_t i, std::map<std::string, Channels>::iterator channelIt, Server& server)
 {
-    std::map<std::string, Clients>::iterator clientIt = channelIt->second.getClientMap().find(args[i]);
+    int fdClient = findFdClientByName(args[i], server.getClients());
+    std::map<int, Clients>::iterator clientIt = channelIt->second.getClientMap().find(fdClient);
     if (clientIt != channelIt->second.getClientMap().end())
     {
         std::cout << "channelIt->second.getMode(args[i]) = |" << channelIt->second.getMode(args[i]) << "|" << std::endl;
-        if (channelIt->second.getMode(args[i]).find('o') != std::string::npos)
+        if (server.getChannels().find(channelIt->first)->second.getMode(args[i]).find('o') != std::string::npos)
         {
-            channelIt->second.removeMode(args[i], "o");
-            channelIt->second.removeOperator(clientIt->second);
+            server.getChannels().find(channelIt->first)->second.removeMode(args[i], "o");
+            server.getChannels().find(channelIt->first)->second.removeOperator(clientIt->second);
             NameLstUpadte(clientIt->second, channelIt->second);
             return (1);
         }
@@ -124,9 +125,6 @@ int removeInviteMode(std::string target, std::map<std::string, Channels>::iterat
 
 int addTopicMode(std::string target, std::map<std::string, Channels>::iterator channelIt)
 {
-    std::cout << "target addTopicMode = |" << target << "|" << std::endl;
-    std::cout << "channelIt->second.getMode(target) = |" << channelIt->second.getMode(target) << "|" << std::endl;
-    std::cout << "channelIt->second.getMode(target).find('t') = |" << channelIt->second.getMode(target).find('t') << "|" << std::endl;
     if (channelIt->second.getMode(target).find('t') == std::string::npos)
     {
         channelIt->second.setMode(target, "t");
@@ -197,7 +195,7 @@ int removeLimitMode(std::string target, std::map<std::string, Channels>::iterato
     return (1);
 }
 
-void checkArgs(std::vector<std::string> args, std::string modes, Clients& client, std::map<std::string, Channels>::iterator channelIt)
+void checkArgs(std::vector<std::string> args, std::string modes, Clients& client, std::map<std::string, Channels>::iterator channelIt, Server& server)
 {
     size_t i = 0;
     bool plusSign = false;
@@ -213,7 +211,7 @@ void checkArgs(std::vector<std::string> args, std::string modes, Clients& client
             minusSign = false;
             plusSign = true;
             if (getMode(modes, i) == 'o')
-                i += addOpMode(args, i, channelIt);
+                i += addOpMode(args, i, channelIt, server);
             if (getMode(modes, i) == 'i')
                 i += addInviteMode(channelIt->first, channelIt);
             if (getMode(modes, i) == 't')
@@ -229,7 +227,7 @@ void checkArgs(std::vector<std::string> args, std::string modes, Clients& client
             plusSign = false;
             minusSign = true;
             if (getMode(modes, i) == 'o')
-                i += removeOpMode(args, i, channelIt);
+                i += removeOpMode(args, i, channelIt, server);
             if (getMode(modes, i) == 'i')
                 i += removeInviteMode(channelIt->first, channelIt);
             if (getMode(modes, i) == 't')
@@ -262,10 +260,19 @@ void Mode(std::string cmd, Clients& client, Server& server)
         }
         std::cout << "tokens: |" << *it << "|" << std::endl;
     }
+    if (channelIt == server.getChannels().end())
+        return (sendCmd(ERR_NOSUCHCHANNEL(client.getNickname(), tokens[0]), client));
+    std::cout << "channelIt->second.getOperator(client.getNickname()).getNickname() = |" << channelIt->second.getOperator(client.getNickname()).getNickname() << "|" << std::endl;
+    if (channelIt->second.getOperator(client.getNickname()).getNickname() != client.getNickname())
+    {
+        std::cout << "sendCmd(ERR_CHANOPRIVSNEEDED(client.getNickname(), tokens[0]), client)" << std::endl;
+        return (sendCmd(ERR_CHANOPRIVSNEEDED(client.getNickname(), tokens[0]), client));
+    }
     if (tokens.size() < 1)
         return (sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), tokens[0]), client));
     else if (tokens.size() == 1)
     {
+        std::cout << "pass" << std::endl;
         if (!checkChannel(tokens[0], server, client, channelIt))
             return ;
         return (sendCmd(RPL_CHANNELMODEIS(client.getNickname(), tokens[0], channelIt->second.getMode(tokens[0])), client));
@@ -274,7 +281,9 @@ void Mode(std::string cmd, Clients& client, Server& server)
     {
         if (!checkChannel(tokens[0], server, client, channelIt))
             return ;
-        if (channelIt->second.getClientMap().find(tokens[1]) == channelIt->second.getClientMap().end())
+        int fdClient = findFdClientByName(tokens[1], server.getClients());
+        std::map<int, Clients>::iterator clientIt = channelIt->second.getClientMap().find(fdClient);
+        if (clientIt == channelIt->second.getClientMap().end())
         {
             if (!isMode(tokens[1]) && (tokens[1][0] != '-' || tokens[1][0] != '+'))
             {
@@ -286,7 +295,7 @@ void Mode(std::string cmd, Clients& client, Server& server)
             else
             {
                 std::vector<std::string> args(tokens.begin() + 2, tokens.end());
-                checkArgs(args, tokens[1], client, channelIt);
+                checkArgs(args, tokens[1], client, channelIt, server);
             }
         }
         else
@@ -301,7 +310,10 @@ void Mode(std::string cmd, Clients& client, Server& server)
         if (!isArgsMode(tokens[1]) && (tokens[1][0] != '-' || tokens[1][0] != '+'))
             return (sendCmd(ERR_UMODEUNKNOWNFLAG(client.getNickname(), tokens[1]), client)); 
         std::vector<std::string> args(tokens.begin() + 2, tokens.end());
-        checkArgs(args, tokens[1], client, channelIt);
+        std::cout << "args.size() = " << args.size() << std::endl;
+        std::cout << "tokens[1] = " << tokens[1] << std::endl;
+        std::cout << "tokens[2] = " << tokens[2] << std::endl;
+        checkArgs(args, tokens[1], client, channelIt, server);
     }
 }
 

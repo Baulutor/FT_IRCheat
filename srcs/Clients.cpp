@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:36:58 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/30 18:27:36 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/31 18:00:40 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ std::string Clients::getUsername() const {return (_username);}
 
 std::string Clients::getPass() const {return (_pass);}
 
-std::map<std::string, Channels>& Clients::getChannels() {return (_channels);}
+std::map<std::string, Channels>& Clients::getChannelsClient() {return (_channels);}
 
-std::map<std::string, Channels> Clients::getChannelsInvite() {return (_channelsInvite);}
+std::map<std::string, Channels>& Clients::getChannelsInvite() {return (_channelsInvite);}
 
 bool Clients::getIsRegistered() const {return (_isRegistered);}
 
@@ -225,6 +225,11 @@ bool Clients::initClients(std::string line, Server &server)
             {
                 std::cout << "RPL_CMD_NICK = " << RPL_CMD_NICK(falseNickname, getUsername(), getAddrIp(), tokens[i + 1]) << std::endl;
                 sendCmd(RPL_CMD_NICK(falseNickname, getUsername(), getAddrIp(), tokens[i + 1]), *this);
+            }
+            else 
+            {
+                std::cout << "RPL_CMD_NICK = " << RPL_CMD_NICK(tokens[i + 1], getUsername(), getAddrIp(), tokens[i + 1]) << std::endl;
+                sendCmd(RPL_CMD_NICK(tokens[i + 1], getUsername(), getAddrIp(), tokens[i + 1]), *this);
             }
             NICK = i;
             setNickname(tokens[i + 1]);

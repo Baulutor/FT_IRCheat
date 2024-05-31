@@ -1,46 +1,44 @@
 ClientHandler$
-buffer first = CAP LS 302^M$
+bytes = 62$
+buffer = CAP LS 302^M$
 PASS toto^M$
-NICK bfaure^M$
-USER bf 0 * :realname^M$
+NICK bfaure_^M$
+USER ben 0 * :bfaure___^M$
 $
-bytes = 59$
-(itClients->second.getBuffer()[bytes - 1] != '\n' && (bytes == 1 || itClients->second.getBuffer()[bytes - 2] != '\r')) = false$
-itClients->second.getBuffer()[bytes - 2] = |^M|$
-itClients->second.getBuffer()[bytes - 1] = |$
-|$
-buffer last = CAP LS 302^M$
-PASS toto^M$
-NICK bfaure^M$
-USER bf 0 * :realname^M$
-$
-init = true$
 ===============================================================================================$
-init 1 = true$
 PASS value : toto$
 USER : 6$
 NICK : 4$
 PASS : 2$
 ===============================================================================================$
-init 2 = true$
-isRegistered = true$
+init client$
+Nickname : bfaure_$
+Username : ben$
+Pass : toto$
+fd : 4$
+Ip Address : 10.14.10.5$
+bytes = 59$
+buffer = CAP LS 302^M$
+PASS toto^M$
+NICK bfaure^M$
+USER bf 0 * :realname^M$
+$
+===============================================================================================$
+PASS value : toto$
+USER : 6$
+NICK : 4$
+PASS : 2$
+===============================================================================================$
 init client$
 Nickname : bfaure$
 Username : bf$
 Pass : toto$
-fd : 4$
-Ip Address : 10.13.4.3$
+fd : 5$
+Ip Address : 10.14.10.5$
 ClientHandler$
-buffer first = JOIN #test^M$
-$
 bytes = 12$
-(itClients->second.getBuffer()[bytes - 1] != '\n' && (bytes == 1 || itClients->second.getBuffer()[bytes - 2] != '\r')) = false$
-itClients->second.getBuffer()[bytes - 2] = |^M|$
-itClients->second.getBuffer()[bytes - 1] = |$
-|$
-buffer last = JOIN #test^M$
+buffer = JOIN #test^M$
 $
-init = true$
 cmd: JOIN #test^M$
 $
 JOIN$
@@ -49,161 +47,200 @@ channelsServer.size() = 0$
 channel.getMode(channel.getName()) = t$
 setMode Mode = $
 Channel client ADD : #test$
-RPL_CMD_JOIN = :bfaure!bf@10.13.4.3 JOIN :#test^M$
+RPL_CMD_JOIN = :bfaure_!ben@10.14.10.5 JOIN :#test^M$
 $
-RPL_CMD_NAME_LST_START = :server 353 bfaure = #test :@bfaure^M$
+RPL_CMD_NAME_LST_START = :server 353 bfaure_ = #test :@bfaure_^M$
+$
+RPL_CMD_NAME_LST_END = :server 366 bfaure_ #test :End of /NAMES list^M$
+$
+bytes = 18$
+buffer = JOIN #bite,#test^M$
+$
+cmd: JOIN #bite,#test^M$
+$
+JOIN$
+channel = #bite$
+channelsServer.size() = 1$
+it->first = #test$
+channelToJoin = #bite$
+ChannelToJoin.getPassword =  $
+channel.getMode(channel.getName()) = t$
+setMode Mode = $
+Channel client ADD : #bite$
+RPL_CMD_JOIN = :bfaure!bf@10.14.10.5 JOIN :#bite^M$
+$
+RPL_CMD_NAME_LST_START = :server 353 bfaure = #bite :@bfaure^M$
+$
+RPL_CMD_NAME_LST_END = :server 366 bfaure #bite :End of /NAMES list^M$
+$
+channel = #test$
+channelsServer.size() = 2$
+it->first = #bite$
+channelToJoin = #test$
+ChannelToJoin.getPassword =  $
+channel.getMode(channel.getName()) = t$
+setMode Mode = $
+Channel client ADD : #test$
+RPL_CMD_JOIN = :bfaure!bf@10.14.10.5 JOIN :#test^M$
+$
+RPL_CMD_NAME_LST_START = :server 353 bfaure = #test :bfaure @bfaure_^M$
 $
 RPL_CMD_NAME_LST_END = :server 366 bfaure #test :End of /NAMES list^M$
 $
 ClientHandler$
-buffer first = MODE #test^M$
-WHO #test^M$
+bytes = 12$
+buffer = MODE #test^M$
 $
-bytes = 23$
-(itClients->second.getBuffer()[bytes - 1] != '\n' && (bytes == 1 || itClients->second.getBuffer()[bytes - 2] != '\r')) = false$
-itClients->second.getBuffer()[bytes - 2] = |^M|$
-itClients->second.getBuffer()[bytes - 1] = |$
-|$
-buffer last = MODE #test^M$
-WHO #test^M$
-$
-init = true$
 cmd: MODE #test^M$
-WHO #test^M$
 $
 Mode$
 cmd = |MODE #test^M$
-WHO #test^M$
 |$
 cmd erase = |#test^M$
-WHO #test^M$
 |$
-tokens.size() = 3$
+tokens.size() = 1$
 tokens: |#test|$
 target checkChannel = |#test|$
-ClientHandler$
-buffer first = PING LAG1717036288618^M$
-$
-bytes = 23$
-(itClients->second.getBuffer()[bytes - 1] != '\n' && (bytes == 1 || itClients->second.getBuffer()[bytes - 2] != '\r')) = false$
-itClients->second.getBuffer()[bytes - 2] = |^M|$
-itClients->second.getBuffer()[bytes - 1] = |$
-|$
-buffer last = PING LAG1717036288618^M$
-$
-init = true$
-cmd: PING LAG1717036288618^M$
-$
-ClientHandler$
-buffer first = CAP LS 302^M$
-$
 bytes = 12$
-(itClients->second.getBuffer()[bytes - 1] != '\n' && (bytes == 1 || itClients->second.getBuffer()[bytes - 2] != '\r')) = false$
-itClients->second.getBuffer()[bytes - 2] = |^M|$
-itClients->second.getBuffer()[bytes - 1] = |$
-|$
-buffer last = CAP LS 302^M$
+buffer = MODE #bite^M$
 $
-init = true$
+cmd: MODE #bite^M$
+$
+Mode$
+cmd = |MODE #bite^M$
+|$
+cmd erase = |#bite^M$
+|$
+tokens.size() = 1$
+tokens: |#bite|$
+target checkChannel = |#bite|$
+ClientHandler$
+bytes = 11$
+buffer = WHO #test^M$
+$
+cmd: WHO #test^M$
+$
+ClientHandler$
+bytes = 11$
+buffer = WHO #bite^M$
+$
+cmd: WHO #bite^M$
+$
+ClientHandler$
+bytes = 12$
+buffer = MODE #test^M$
+$
+cmd: MODE #test^M$
+$
+Mode$
+cmd = |MODE #test^M$
+|$
+cmd erase = |#test^M$
+|$
+tokens.size() = 1$
+tokens: |#test|$
+sendCmd(ERR_CHANOPRIVSNEEDED(client.getNickname(), tokens[0]), client)$
+ClientHandler$
+bytes = 11$
+buffer = WHO #test^M$
+$
+cmd: WHO #test^M$
+$
+ClientHandler$
+bytes = 12$
+buffer = CAP LS 302^M$
+$
 ===============================================================================================$
-init 1 = true$
 PASS value : $
 USER : -1$
 NICK : -1$
 PASS : -1$
-init 2 = false$
-isRegistered = false$
 ClientHandler$
-buffer first = PASS toto^M$
+bytes = 23$
+buffer = PING LAG1717105294883^M$
 $
-bytes = 11$
-(itClients->second.getBuffer()[bytes - 1] != '\n' && (bytes == 1 || itClients->second.getBuffer()[bytes - 2] != '\r')) = false$
-itClients->second.getBuffer()[bytes - 2] = |^M|$
-itClients->second.getBuffer()[bytes - 1] = |$
-|$
-buffer last = PASS toto^M$
-$
-init = false$
 ===============================================================================================$
-init 1 = false$
+PASS value : toto$
+USER : -1$
+NICK : -1$
+PASS : -1$
+ClientHandler$
+bytes = 11$
+buffer = PASS toto^M$
+$
+===============================================================================================$
 PASS value : toto$
 USER : -1$
 NICK : -1$
 PASS : 0$
-init 2 = false$
-isRegistered = false$
 ClientHandler$
-buffer first = NICK bfaure_^M$
+bytes = 23$
+buffer = PING LAG1717105300883^M$
 $
-bytes = 14$
-(itClients->second.getBuffer()[bytes - 1] != '\n' && (bytes == 1 || itClients->second.getBuffer()[bytes - 2] != '\r')) = false$
-itClients->second.getBuffer()[bytes - 2] = |^M|$
-itClients->second.getBuffer()[bytes - 1] = |$
-|$
-buffer last = NICK bfaure_^M$
-$
-init = false$
 ===============================================================================================$
-init 1 = false$
+PASS value : toto$
+USER : -1$
+NICK : -1$
+PASS : 0$
+ClientHandler$
+bytes = 16$
+buffer = NICK bfaure___^M$
+$
+===============================================================================================$
 PASS value : toto$
 USER : -1$
 NICK : 0$
 PASS : 0$
-init 2 = false$
-isRegistered = false$
 ClientHandler$
-buffer first = USER ben^M$
-$
 bytes = 10$
-(itClients->second.getBuffer()[bytes - 1] != '\n' && (bytes == 1 || itClients->second.getBuffer()[bytes - 2] != '\r')) = false$
-itClients->second.getBuffer()[bytes - 2] = |^M|$
-itClients->second.getBuffer()[bytes - 1] = |$
-|$
-buffer last = USER ben^M$
+buffer = USER ben^M$
 $
-init = false$
 ===============================================================================================$
-init 1 = false$
 PASS value : toto$
 USER : 0$
 NICK : 0$
 PASS : 0$
 ===============================================================================================$
-init 2 = true$
-isRegistered = true$
 init client$
-Nickname : bfaure_$
+Nickname : bfaure___$
 Username : ben$
 Pass : toto$
-fd : 5$
-Ip Address : 10.13.4.3$
+fd : 6$
+Ip Address : 10.14.10.5$
 ClientHandler$
-buffer first = JOIN #test$
-bytes = 10$
-(itClients->second.getBuffer()[bytes - 1] != '\n' && (bytes == 1 || itClients->second.getBuffer()[bytes - 2] != '\r')) = true$
-itClients->second.getBuffer()[bytes - 2] = |s|$
-itClients->second.getBuffer()[bytes - 1] = |t|$
-bufferTmp = JOIN #test$
-buffer = $
-buffer first = $
+bytes = 23$
+buffer = PING LAG1717105324882^M$
+$
+cmd: PING LAG1717105324882^M$
+$
+ClientHandler$
+bytes = 23$
+buffer = PING LAG1717105330882^M$
+$
+cmd: PING LAG1717105330882^M$
+$
+ClientHandler$
+bytes = 23$
+buffer = PING LAG1717105354883^M$
+$
+cmd: PING LAG1717105354883^M$
+$
+ClientHandler$
+bytes = 23$
+buffer = PING LAG1717105360882^M$
+$
+cmd: PING LAG1717105360882^M$
+$
+ClientHandler$
+bytes = 20$
+buffer = PRIVMSG #test coucou$
 bytes = -1$
-buffer last = $
-init = true$
+buffer = $
 cmd: $
 ClientHandler$
-buffer first = ^M$
-$
 bytes = 2$
-(itClients->second.getBuffer()[bytes - 1] != '\n' && (bytes == 1 || itClients->second.getBuffer()[bytes - 2] != '\r')) = false$
-itClients->second.getBuffer()[bytes - 2] = |^M|$
-itClients->second.getBuffer()[bytes - 1] = |$
-|$
-bufferTmp 2 = JOIN #test$
-buffer 2 = ^M$
+buffer = ^M$
 $
-bufferTmp 3 = JOIN #test^M$
+cmd: PRIVMSG #test coucou^M$
 $
-buffer 3 = $
-buffer last = $
-init = true$
-cmd: $
+PRIVMSG$

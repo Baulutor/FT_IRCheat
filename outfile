@@ -1,213 +1,66 @@
 ClientHandler
-buffer first = CAP LS 302
+bytes = 62
+buffer = CAP LS 302
 PASS toto
-NICK bfaure
-USER bf 0 * :realname
+NICK bfaure_
+USER ben 0 * :bfaure___
 
-bytes = 59
-(itClients->second.getBuffer()[bytes - 1] != '\n' && (bytes == 1 || itClients->second.getBuffer()[bytes - 2] != '\r')) = false
-itClients->second.getBuffer()[bytes - 2] = ||
-itClients->second.getBuffer()[bytes - 1] = |
-|
-buffer last = CAP LS 302
-PASS toto
-NICK bfaure
-USER bf 0 * :realname
-
-init = true
 ===============================================================================================
-init 1 = true
 PASS value : toto
+RPL_CMD_NICK = :bfaure_!ben@ NICK bfaure_
+
 USER : 6
 NICK : 4
 PASS : 2
 ===============================================================================================
-init 2 = true
-isRegistered = true
+init client
+Nickname : bfaure_
+Username : ben
+Pass : toto
+fd : 4
+Ip Address : 10.14.10.5
+bytes = 59
+buffer = CAP LS 302
+PASS toto
+NICK bfaure
+USER bf 0 * :realname
+
+===============================================================================================
+PASS value : toto
+RPL_CMD_NICK = :bfaure!bf@ NICK bfaure
+
+USER : 6
+NICK : 4
+PASS : 2
+===============================================================================================
 init client
 Nickname : bfaure
 Username : bf
 Pass : toto
-fd : 4
-Ip Address : 10.13.4.3
+fd : 5
+Ip Address : 10.14.10.5
 ClientHandler
-buffer first = JOIN #test
-
 bytes = 12
-(itClients->second.getBuffer()[bytes - 1] != '\n' && (bytes == 1 || itClients->second.getBuffer()[bytes - 2] != '\r')) = false
-itClients->second.getBuffer()[bytes - 2] = ||
-itClients->second.getBuffer()[bytes - 1] = |
-|
-buffer last = JOIN #test
+buffer = JOIN #test
 
-init = true
 cmd: JOIN #test
 
 JOIN
 channel = #test
 channelsServer.size() = 0
+Channels operator : 1
 channel.getMode(channel.getName()) = t
 setMode Mode = 
 Channel client ADD : #test
-RPL_CMD_JOIN = :bfaure!bf@10.13.4.3 JOIN :#test
+RPL_CMD_JOIN = :bfaure_!ben@10.14.10.5 JOIN :#test
 
-RPL_CMD_NAME_LST_START = :server 353 bfaure = #test :@bfaure
+RPL_CMD_NAME_LST_START = :server 353 bfaure_ = #test :@bfaure_
 
-RPL_CMD_NAME_LST_END = :server 366 bfaure #test :End of /NAMES list
-
-ClientHandler
-buffer first = MODE #test
-WHO #test
-
-bytes = 23
-(itClients->second.getBuffer()[bytes - 1] != '\n' && (bytes == 1 || itClients->second.getBuffer()[bytes - 2] != '\r')) = false
-itClients->second.getBuffer()[bytes - 2] = ||
-itClients->second.getBuffer()[bytes - 1] = |
-|
-buffer last = MODE #test
-WHO #test
-
-init = true
-cmd: MODE #test
-WHO #test
-
-Mode
-cmd = |MODE #test
-WHO #test
-|
-cmd erase = |#test
-WHO #test
-|
-tokens.size() = 3
-tokens: |#test|
-target checkChannel = |#test|
-ClientHandler
-buffer first = CAP LS 302
+RPL_CMD_NAME_LST_END = :server 366 bfaure_ #test :End of /NAMES list
 
 bytes = 12
-(itClients->second.getBuffer()[bytes - 1] != '\n' && (bytes == 1 || itClients->second.getBuffer()[bytes - 2] != '\r')) = false
-itClients->second.getBuffer()[bytes - 2] = ||
-itClients->second.getBuffer()[bytes - 1] = |
-|
-buffer last = CAP LS 302
+buffer = JOIN #test
 
-init = true
-===============================================================================================
-init 1 = true
-PASS value : 
-USER : -1
-NICK : -1
-PASS : -1
-init 2 = false
-isRegistered = false
-ClientHandler
-buffer first = PASS toto
-
-bytes = 11
-(itClients->second.getBuffer()[bytes - 1] != '\n' && (bytes == 1 || itClients->second.getBuffer()[bytes - 2] != '\r')) = false
-itClients->second.getBuffer()[bytes - 2] = ||
-itClients->second.getBuffer()[bytes - 1] = |
-|
-buffer last = PASS toto
-
-init = false
-===============================================================================================
-init 1 = false
-PASS value : toto
-USER : -1
-NICK : -1
-PASS : 0
-init 2 = false
-isRegistered = false
-ClientHandler
-buffer first = USER ben
-
-bytes = 10
-(itClients->second.getBuffer()[bytes - 1] != '\n' && (bytes == 1 || itClients->second.getBuffer()[bytes - 2] != '\r')) = false
-itClients->second.getBuffer()[bytes - 2] = ||
-itClients->second.getBuffer()[bytes - 1] = |
-|
-buffer last = USER ben
-
-init = false
-===============================================================================================
-init 1 = false
-PASS value : toto
-USER : 0
-NICK : -1
-PASS : 0
-init 2 = false
-isRegistered = false
-ClientHandler
-buffer first = NICK bfaure_
-
-bytes = 14
-(itClients->second.getBuffer()[bytes - 1] != '\n' && (bytes == 1 || itClients->second.getBuffer()[bytes - 2] != '\r')) = false
-itClients->second.getBuffer()[bytes - 2] = ||
-itClients->second.getBuffer()[bytes - 1] = |
-|
-buffer last = NICK bfaure_
-
-init = false
-===============================================================================================
-init 1 = false
-PASS value : toto
-USER : 0
-NICK : 0
-PASS : 0
-===============================================================================================
-init 2 = true
-isRegistered = true
-init client
-Nickname : bfaure_
-Username : ben
-Pass : toto
-fd : 5
-Ip Address : 10.13.4.3
-ClientHandler
-buffer first = PING LAG1717036498619
-
-bytes = 23
-(itClients->second.getBuffer()[bytes - 1] != '\n' && (bytes == 1 || itClients->second.getBuffer()[bytes - 2] != '\r')) = false
-itClients->second.getBuffer()[bytes - 2] = ||
-itClients->second.getBuffer()[bytes - 1] = |
-|
-buffer last = PING LAG1717036498619
-
-init = true
-cmd: PING LAG1717036498619
-
-ClientHandler
-buffer first = JOIN #test
-bytes = 10
-(itClients->second.getBuffer()[bytes - 1] != '\n' && (bytes == 1 || itClients->second.getBuffer()[bytes - 2] != '\r')) = true
-itClients->second.getBuffer()[bytes - 2] = |s|
-itClients->second.getBuffer()[bytes - 1] = |t|
-bufferTmp = JOIN #test
-buffer = 
-buffer first = 
-bytes = -1
-buffer last = 
-init = true
-cmd: 
-ClientHandler
-buffer first = 
-
-bytes = 2
-(itClients->second.getBuffer()[bytes - 1] != '\n' && (bytes == 1 || itClients->second.getBuffer()[bytes - 2] != '\r')) = false
-itClients->second.getBuffer()[bytes - 2] = ||
-itClients->second.getBuffer()[bytes - 1] = |
-|
-bufferTmp 2 = JOIN #test
-buffer 2 = 
-
-bufferTmp 3 = JOIN #test
-
-buffer 3 = JOIN #test
-
-buffer last = JOIN #test
-
-init = true
 cmd: JOIN #test
 
 JOIN
@@ -217,110 +70,159 @@ it->first = #test
 channel.getMode(channel.getName()) = t
 setMode Mode = 
 Channel client ADD : #test
-RPL_CMD_JOIN = :bfaure_!ben@10.13.4.3 JOIN :#test
+RPL_CMD_JOIN = :bfaure!bf@10.14.10.5 JOIN :#test
 
-RPL_CMD_NAME_LST_START = :server 353 bfaure_ = #test :@bfaure bfaure_
+RPL_CMD_NAME_LST_START = :server 353 bfaure = #test :@bfaure_ bfaure
 
-RPL_CMD_NAME_LST_END = :server 366 bfaure_ #test :End of /NAMES list
+RPL_CMD_NAME_LST_END = :server 366 bfaure #test :End of /NAMES list
 
 ClientHandler
-buffer first = PING LAG1717036528619
+bytes = 12
+buffer = MODE #test
 
+cmd: MODE #test
+
+Mode
+cmd = |MODE #test
+|
+cmd erase = |#test
+|
+tokens.size() = 1
+tokens: |#test|
+channelIt->second.getOperator(client.getNickname()).getNickname() = |bfaure_|
+pass
+target checkChannel = |#test|
+bytes = 12
+buffer = MODE #test
+
+cmd: MODE #test
+
+Mode
+cmd = |MODE #test
+|
+cmd erase = |#test
+|
+tokens.size() = 1
+tokens: |#test|
+channelIt->second.getOperator(client.getNickname()).getNickname() = ||
+sendCmd(ERR_CHANOPRIVSNEEDED(client.getNickname(), tokens[0]), client)
+ClientHandler
+bytes = 11
+buffer = WHO #test
+
+cmd: WHO #test
+
+ClientHandler
+bytes = 11
+buffer = WHO #test
+
+cmd: WHO #test
+
+ClientHandler
+bytes = 22
+buffer = MODE #test +o bfaure
+
+cmd: MODE #test +o bfaure
+
+Mode
+cmd = |MODE #test +o bfaure
+|
+cmd erase = |#test +o bfaure
+|
+tokens.size() = 3
+tokens: |#test|
+tokens: |+o|
+tokens: |bfaure|
+channelIt->second.getOperator(client.getNickname()).getNickname() = |bfaure_|
+target checkChannel = |#test|
+target isMode = |+o|
+target isArgsMode = |+o|
+args.size() = 1
+tokens[1] = +o
+tokens[2] = bfaure
+checkArgs modes = |+o|
+modes[i] = |+|
+plusSign = false
+channelIt->second.getMode(args[i]) = ||
+setMode Mode = o
+test [0]bfaure_
+test opbfaure
+test size1
+Channels operator in setOperator : 2
+&_operator ref = 0x4e0c3e0
+RPL_CMD_NAME_LST_START = :server 353 bfaure = #test :@bfaure_ @bfaure
+
+RPL_CMD_NAME_LST_END = :server 366 bfaure #test :End of /NAMES list
+
+ClientHandler
 bytes = 23
-(itClients->second.getBuffer()[bytes - 1] != '\n' && (bytes == 1 || itClients->second.getBuffer()[bytes - 2] != '\r')) = false
-itClients->second.getBuffer()[bytes - 2] = ||
-itClients->second.getBuffer()[bytes - 1] = |
-|
-buffer last = PING LAG1717036528619
+buffer = PING LAG1717124088882
 
-init = true
-cmd: PING LAG1717036528619
+cmd: PING LAG1717124088882
 
 ClientHandler
-buffer first = PING LAG1717036558619
-
 bytes = 23
-(itClients->second.getBuffer()[bytes - 1] != '\n' && (bytes == 1 || itClients->second.getBuffer()[bytes - 2] != '\r')) = false
-itClients->second.getBuffer()[bytes - 2] = ||
-itClients->second.getBuffer()[bytes - 1] = |
-|
-buffer last = PING LAG1717036558619
+buffer = PING LAG1717124093882
 
-init = true
-cmd: PING LAG1717036558619
+cmd: PING LAG1717124093882
 
 ClientHandler
-buffer first = PING LAG1717036588619
-
 bytes = 23
-(itClients->second.getBuffer()[bytes - 1] != '\n' && (bytes == 1 || itClients->second.getBuffer()[bytes - 2] != '\r')) = false
-itClients->second.getBuffer()[bytes - 2] = ||
-itClients->second.getBuffer()[bytes - 1] = |
-|
-buffer last = PING LAG1717036588619
+buffer = PING LAG1717124118882
 
-init = true
-cmd: PING LAG1717036588619
+cmd: PING LAG1717124118882
 
 ClientHandler
-buffer first = PING LAG1717036618619
-
 bytes = 23
-(itClients->second.getBuffer()[bytes - 1] != '\n' && (bytes == 1 || itClients->second.getBuffer()[bytes - 2] != '\r')) = false
-itClients->second.getBuffer()[bytes - 2] = ||
-itClients->second.getBuffer()[bytes - 1] = |
-|
-buffer last = PING LAG1717036618619
+buffer = PING LAG1717124123883
 
-init = true
-cmd: PING LAG1717036618619
+cmd: PING LAG1717124123883
 
 ClientHandler
-buffer first = PRIVMSG #test Sal
-bytes = 17
-(itClients->second.getBuffer()[bytes - 1] != '\n' && (bytes == 1 || itClients->second.getBuffer()[bytes - 2] != '\r')) = true
-itClients->second.getBuffer()[bytes - 2] = |a|
-itClients->second.getBuffer()[bytes - 1] = |l|
-bufferTmp = PRIVMSG #test Sal
-buffer = 
-buffer first = 
-bytes = -1
-buffer last = 
-init = true
-cmd: 
-ClientHandler
-buffer first = lut
-
-bytes = 5
-(itClients->second.getBuffer()[bytes - 1] != '\n' && (bytes == 1 || itClients->second.getBuffer()[bytes - 2] != '\r')) = false
-itClients->second.getBuffer()[bytes - 2] = ||
-itClients->second.getBuffer()[bytes - 1] = |
-|
-bufferTmp 2 = PRIVMSG #test Sal
-buffer 2 = lut
-
-bufferTmp 3 = PRIVMSG #test Sallut
-
-buffer 3 = PRIVMSG #test Sallut
-
-buffer last = PRIVMSG #test Sallut
-
-init = true
-cmd: PRIVMSG #test Sallut
-
-PRIVMSG
-RPL_CMD_PRIVMSG:bfaure_!ben@10.13.4.3 PRIVMSG #test :Sallut
-
-ClientHandler
-buffer first = PING LAG1717036648619
-
 bytes = 23
-(itClients->second.getBuffer()[bytes - 1] != '\n' && (bytes == 1 || itClients->second.getBuffer()[bytes - 2] != '\r')) = false
-itClients->second.getBuffer()[bytes - 2] = ||
-itClients->second.getBuffer()[bytes - 1] = |
-|
-buffer last = PING LAG1717036648619
+buffer = PING LAG1717124148882
 
-init = true
-cmd: PING LAG1717036648619
+cmd: PING LAG1717124148882
+
+ClientHandler
+bytes = 23
+buffer = PING LAG1717124153882
+
+cmd: PING LAG1717124153882
+
+ClientHandler
+bytes = 23
+buffer = PING LAG1717124178882
+
+cmd: PING LAG1717124178882
+
+ClientHandler
+bytes = 23
+buffer = PING LAG1717124183882
+
+cmd: PING LAG1717124183882
+
+ClientHandler
+bytes = 23
+buffer = PING LAG1717124208882
+
+cmd: PING LAG1717124208882
+
+ClientHandler
+bytes = 23
+buffer = PING LAG1717124213882
+
+cmd: PING LAG1717124213882
+
+ClientHandler
+bytes = 23
+buffer = PING LAG1717124238883
+
+cmd: PING LAG1717124238883
+
+ClientHandler
+bytes = 23
+buffer = PING LAG1717124243883
+
+cmd: PING LAG1717124243883
 

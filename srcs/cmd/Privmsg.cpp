@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:12:48 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/24 13:36:02 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/31 18:33:04 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,19 @@ void Privmsg(std::string cmd, Clients& client, Server& server)
 {
     std::cout << "PRIVMSG" << std::endl;
     std::vector<std::string> cmd_split = split(cmd, ' ');
+    if (cmd_split.size() < 3)
+        return (sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), cmd_split[0]), client));
+    std::map<std::string, Channels>& channelsServer = server.getChannels();
+    std::map<std::string, Channels>::iterator it = channelsServer.find(cmd_split[1]);
+    std::map<int, Clients>& clientsServer = server.getClients();
+    if (it == channelsServer.end())
+    {
+        if (findFdClientByName(cmd_split[1], clientsServer) != -1)
+            return (sendCmd(ERR_NOSUCHNICK(client.getNickname(), cmd_split[1]), client));
+        return (sendCmd(ERR_NOSUCHCHANNEL(client.getNickname(), cmd_split[1]), client));
+    }
+    if (it != channelsServer.end() && it->second.getClientMap().find(client.getFd()) == it->second.getClientMap().end())
+        return (sendCmd(ERR_CANNOTSENDTOCHAN(client.getNickname(), cmd_split[1]), client));
     if (cmd_split[2][0] == ':')
     {
         cmd_split[2].erase(0, 1);
@@ -30,9 +43,6 @@ void Privmsg(std::string cmd, Clients& client, Server& server)
         cmd_split[2] = msg;
         cmd_split.resize(3);
     }
-    std::map<std::string, Channels>& channelsServer = server.getChannels();
-    std::map<int, Clients>& clientsServer = server.getClients();
-    std::map<std::string, Channels>::iterator it = channelsServer.find(cmd_split[1]);
     if (it != channelsServer.end())
     {
         std::cout << "RPL_CMD_PRIVMSG" << RPL_CMD_PRIVMSG(client.getNickname(), client.getUsername(), client.getAddrIp(), cmd_split[1], cmd_split[2]) << std::endl;

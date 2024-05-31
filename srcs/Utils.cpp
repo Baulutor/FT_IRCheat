@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:59:26 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/30 17:41:39 by nibernar         ###   ########.fr       */
+/*   Updated: 2024/05/31 18:31:22 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,16 +122,16 @@ void signalHandler(int signum)
 
 void sendCmd(const std::string& cmd, Clients &client)
 {
-    if (send(client.getFd(), cmd.c_str(), cmd.size(), 0) < 0)
+    if (send(client.getFd(), cmd.c_str(), cmd.size(), MSG_NOSIGNAL | MSG_DONTWAIT) < 0)
         std::cerr << "Error: send() failed" << std::endl;
         // throw std::exception();
 }
 
 void sendBrodcastChannel(const std::string& cmd, Channels& channel)
 {
-	for (std::map<std::string, Clients>::iterator it = channel.getClientMap().begin(); it != channel.getClientMap().end(); ++it)
+	for (std::map<int, Clients>::iterator it = channel.getClientMap().begin(); it != channel.getClientMap().end(); ++it)
 	{
-		if (send(it->second.getFd(), cmd.c_str(), cmd.size(), 0) < 0)
+		if (send(it->first, cmd.c_str(), cmd.size(), MSG_NOSIGNAL | MSG_DONTWAIT) < 0)
             std::cerr << "Error: send() failed" << std::endl;
 			// throw std::exception();
 	}
@@ -139,11 +139,11 @@ void sendBrodcastChannel(const std::string& cmd, Channels& channel)
 
 void sendBrodcastMSG(const std::string& cmd, Channels& channel, Clients& client)
 {
-    for (std::map<std::string, Clients>::iterator it = channel.getClientMap().begin(); it != channel.getClientMap().end(); ++it)
+    for (std::map<int, Clients>::iterator it = channel.getClientMap().begin(); it != channel.getClientMap().end(); ++it)
     {
-        if (it->second.getFd() != client.getFd())
+        if (it->first != client.getFd())
         {
-            if (send(it->second.getFd(), cmd.c_str(), cmd.size(), 0) < 0)
+            if (send(it->second.getFd(), cmd.c_str(), cmd.size(), MSG_NOSIGNAL | MSG_DONTWAIT) < 0)
                 std::cerr << "Error: send() failed" << std::endl;
                 // throw std::exception();
         }
@@ -154,7 +154,7 @@ void sendBrodcastServer(const std::string& cmd, Server& server)
 {
 	for (std::map<int, Clients>::iterator it = server.getClients().begin(); it != server.getClients().end(); ++it)
 	{
-		if (send(it->first, cmd.c_str(), cmd.size(), 0) < 0)
+		if (send(it->first, cmd.c_str(), cmd.size(), MSG_NOSIGNAL | MSG_DONTWAIT) < 0)
 			std::cerr << "Error: send() failed" << std::endl;
 			// throw std::exception();
 	}
@@ -163,13 +163,13 @@ void sendBrodcastServer(const std::string& cmd, Server& server)
 void NameLstUpadte(Clients& client, Channels& channel)
 {
 	std::string user;
-	for (std::map<std::string, Clients>::iterator it = channel.getClientMap().begin(); it != channel.getClientMap().end(); it++)
+	for (std::map<int, Clients>::iterator it = channel.getClientMap().begin(); it != channel.getClientMap().end(); it++)
 	{
 		if (channel.getOperator(it->second.getNickname()).getNickname() == it->second.getNickname())
 			user += "@" + it->second.getNickname();
 		else
 			user += it->second.getNickname();
-		std::map<std::string, Clients>::iterator ite = channel.getClientMap().end();
+		std::map<int, Clients>::iterator ite = channel.getClientMap().end();
 		ite--;
 		if (it != ite)
 			user += " ";
@@ -201,18 +201,18 @@ std::map<int, Clients>::iterator findClientByName(std::string nickname, std::map
     return (clientsServer.end());
 }
 
-bool isClientInChannel(std::string nickname, Channels& channel)
-{
-	if (channel.getClientMap().find(nickname) != channel.getClientMap().end())
-		return (true);
-	return (false);
-    // for (std::map<std::string, Clients>::iterator it = channel.getClientMap().begin(); it != channel.getClientMap().end(); ++it)
-    // {
-    //     if (it->second.getNickname() == nickname)
-    //         return (true);
-    // }
-    // return (false);
-}
+// bool isClientInChannel(std::string nickname, Channels& channel)
+// {
+// 	if (channel.getClientMap().find(nickname) != channel.getClientMap().end())
+// 		return (true);
+// 	return (false);
+//     // for (std::map<std::string, Clients>::iterator it = channel.getClientMap().begin(); it != channel.getClientMap().end(); ++it)
+//     // {
+//     //     if (it->second.getNickname() == nickname)
+//     //         return (true);
+//     // }
+//     // return (false);
+// }
 
 std::map<std::string, Channels>::iterator findChannelByName(std::string channelName, std::map<std::string, Channels>& channelsServer)
 {

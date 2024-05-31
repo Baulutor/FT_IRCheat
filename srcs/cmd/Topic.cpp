@@ -40,7 +40,7 @@ void 	Topic(std::string cmd, Clients& client, Server& server)
 	topicMessage = topicMessage.substr(0, topicMessage.size() - 2);
 	if (topicMessage == "\"\"")
 		topicMessage = "\0";
-	std::map<std::string, Clients>::iterator ClientInChannel= channel->second.getClientMap().find(client.getNickname());
+	std::map<int, Clients>::iterator ClientInChannel = channel->second.getClientMap().find(client.getFd());
 	if (ClientInChannel == channel->second.getClientMap().end())
 	{
 		sendCmd(ERR_NOTONCHANNEL(client.getNickname(), channelName), client);

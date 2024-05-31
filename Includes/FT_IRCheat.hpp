@@ -44,7 +44,7 @@ void sendBrodcastServer(const std::string& cmd, Server& server);
 void NameLstUpadte(Clients& client, Channels& channel);
 int findFdClientByName(std::string nickname, std::map<int, Clients>& clientsServer);
 std::map<int, Clients>::iterator findClientByName(std::string nickname, std::map<int, Clients>& clientsServer);
-std::map<std::string, Channels>::iterator findChannelByName(std::string channelName, std::map<std::string, Channels>& channelsServer);
+std::map<std::string, Channels>::iterator findChannelByName(std::string channelName, std::map<std::string, Channels>& channelsServer); // VERIF
 bool isClientInChannel(std::string nickname, Channels& channel);
 std::vector<std::string> splitInit(const std::string &line, char delim);
 // std::vector<std::string> split(const std::string &s, const std::string &delim);

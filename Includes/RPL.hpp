@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:57:44 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/29 18:37:29 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/31 11:57:48 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@
 # define RPL_KICK_NOTICE(Nickname, Channel) (":server NOTICE " + Channel + " :" + Nickname + " cannot kick yourself" + "\r\n")
 # define ERR_ALREADYREGISTERED(Nickname) (":server 462 " + Nickname + " :You may not reregister\r\n")
 # define RPL_ISUPPORT(Nickname, token) (":server 005 " + Nickname + " " + token + " :are supported by this server" + "\r\n")
-// # define ERR_PASSWDMISMATCH(Nickname) (":server 464 " + Nickname + " :Password incorrect" + "\r\n")
+
+# define ERR_CANNOTSENDTOCHAN(Nickname, Channel) (":server 404 " + Nickname + " " + Channel + " :Cannot send to channel\r\n")
 
 #endif
 
