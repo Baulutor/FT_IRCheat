@@ -1,0 +1,2968 @@
+ClientHandler
+===============================================================================================
+PASS value : 0000
+USER : 6
+NICK : 4
+PASS : 2
+===============================================================================================
+init client
+Nickname : IRCheat
+Username : IRCheat
+Pass : 0000
+fd : 4
+Ip Address : 127.0.0.1
+===============================================================================================
+PASS value : 0000
+USER : 6
+NICK : 4
+PASS : 2
+===============================================================================================
+init client
+Nickname : salut
+Username : ddlegoat
+Pass : 0000
+fd : 5
+Ip Address : 127.0.0.1
+===============================================================================================
+PASS value : 0000
+USER : 6
+NICK : 4
+PASS : 2
+===============================================================================================
+init client
+Nickname : dbaule
+Username : dbaule
+Pass : 0000
+fd : 6
+Ip Address : 127.0.0.1
+ClientHandler
+cmd: JOIN #lol
+
+JOIN
+channel = #lol
+channelsServer.size() = 0
+channel.getMode(channel.getName()) = t
+setMode Mode = 
+Channel client ADD : #lol
+RPL_CMD_JOIN = :IRCheat!IRCheat@127.0.0.1 JOIN :#lol
+
+RPL_CMD_NAME_LST_START = :server 353 IRCheat = #lol :@IRCheat
+
+RPL_CMD_NAME_LST_END = :server 366 IRCheat #lol :End of /NAMES list
+
+taille de operator: 1, dans le channel: #lol
+cmd: JOIN #lol
+
+JOIN
+channel = #lol
+channelsServer.size() = 1
+it->first = #lol
+channel.getMode(channel.getName()) = t
+setMode Mode = 
+Channel client ADD : #lol
+RPL_CMD_JOIN = :salut!ddlegoat@127.0.0.1 JOIN :#lol
+
+RPL_CMD_NAME_LST_START = :server 353 salut = #lol :@IRCheat salut
+
+RPL_CMD_NAME_LST_END = :server 366 salut #lol :End of /NAMES list
+
+taille de operator: 1, dans le channel: #lol
+cmd: JOIN #lol
+
+JOIN
+channel = #lol
+channelsServer.size() = 1
+it->first = #lol
+channel.getMode(channel.getName()) = t
+setMode Mode = 
+Channel client ADD : #lol
+RPL_CMD_JOIN = :dbaule!dbaule@127.0.0.1 JOIN :#lol
+
+RPL_CMD_NAME_LST_START = :server 353 dbaule = #lol :@IRCheat dbaule salut
+
+RPL_CMD_NAME_LST_END = :server 366 dbaule #lol :End of /NAMES list
+
+taille de operator: 1, dans le channel: #lol
+ClientHandler
+cmd: MODE #lol
+WHO #lol
+
+Mode
+cmd = |MODE #lol
+WHO #lol
+|
+cmd erase = |#lol
+WHO #lol
+|
+tokens.size() = 3
+tokens: |#lol|
+target checkChannel = |#lol|
+taille de operator: 1, dans le channel: #lol
+cmd: MODE #lol
+WHO #lol
+
+Mode
+cmd = |MODE #lol
+WHO #lol
+|
+cmd erase = |#lol
+WHO #lol
+|
+tokens.size() = 3
+tokens: |#lol|
+target checkChannel = |#lol|
+taille de operator: 1, dans le channel: #lol
+cmd: MODE #lol
+WHO #lol
+
+Mode
+cmd = |MODE #lol
+WHO #lol
+|
+cmd erase = |#lol
+WHO #lol
+|
+tokens.size() = 3
+tokens: |#lol|
+target checkChannel = |#lol|
+taille de operator: 1, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116020456
+
+taille de operator: 1, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116020456
+
+taille de operator: 1, dans le channel: #lol
+ClientHandler
+cmd: MODE #lol +o dbaule
+
+Mode
+cmd = |MODE #lol +o dbaule
+|
+cmd erase = |#lol +o dbaule
+|
+tokens.size() = 3
+tokens: |#lol|
+tokens: |+o|
+tokens: |dbaule|
+target checkChannel = |#lol|
+target isMode = |+o|
+target isArgsMode = |+o|
+checkArgs modes = |+o|
+modes[i] = |+|
+plusSign = false
+getMode(args[i]) = |d|
+channelIt->second.getMode(args[i]) = ||
+setMode Mode = o
+JE SUIS DANS MODE ET JE RAJOUTE UN OPERATEUR
+#lol: channel de: dbaule, deviens operateur ! la taille de mon delire est donc de: 2
+RPL_CMD_NAME_LST_START = :server 353 dbaule = #lol :@IRCheat @dbaule salut
+
+RPL_CMD_NAME_LST_END = :server 366 dbaule #lol :End of /NAMES list
+
+FIN DE MODE apres ajout, le vecteur operateur du channel de l'itterateur: 2, et celui de serveur dans mode!!2
+le pointeur de l'iterateur   : 0x4e55770
+le pointeur de server        : 0x4e59300
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116029456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116050456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717116050456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116059456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116080456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116080456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116089457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116110456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717116110456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116119456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116140456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116140456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116149456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116170456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116170457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116179456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116200456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717116200456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116209456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116230456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116230456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116239456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116260456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116260457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116269456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116290456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717116290456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116299455
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116320456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116320456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116329456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116350456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717116350456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116359457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116380456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717116380456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116389457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116410456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116410456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116419457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116440456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116440456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116449456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116470456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717116470456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116479456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116500455
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116500456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116509456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116530456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717116530456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116539456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116560456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116560456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116569456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116590456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116590457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116599456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116620455
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116620456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116629455
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116650456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116650456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116659456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116680456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717116680456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116689456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116710456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116710456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116719456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116740456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717116740456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116749457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116770455
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116770456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116779456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116800456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717116800456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116809456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116830456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116830457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116839456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116860456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717116860456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116869456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116890456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717116890456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116899456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116920456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717116920456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116929456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116950456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116950456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116959456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116980456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116980456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717116989455
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117010456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117010456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117019456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117040456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117040456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117049456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117070456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117070456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117079457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117100456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717117100456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117109456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117130456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717117130456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117139456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117160456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117160456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117169457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117190456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117190456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117199456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117220456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717117220456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117229456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117250456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717117250456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117259456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117280456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717117280456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117289456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117310456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117310457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117319456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117340456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117340456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117349456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117370455
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117370456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117379457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117400456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117400456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117409456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117430456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117430456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117439456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117460456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117460456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117469456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117490456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117490457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117499456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117520456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717117520456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117529457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117550456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717117550456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117559456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117580456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717117580456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117589456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117610456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117610456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117619456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117640455
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117640456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117649455
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117670456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117670456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117679456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117700456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717117700456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117709455
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117730456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117730456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117739457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117760456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717117760456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117769456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117790456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117790456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117799456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117820456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117820456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117829456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117850456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117850456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117859457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117880456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717117880456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117889456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117910456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117910456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117919456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117940457
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717117940456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117949456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117970456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117970457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717117979456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118000456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717118000456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118009456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118030456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118030456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118039455
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118060456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118060456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118069456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118090456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118090456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118099456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118120456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118120457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118129456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118150457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118150457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118159457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118180456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118180457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118189456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118210455
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118210456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118219456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118240455
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118240456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118249456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118270456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118270456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118279456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118300456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717118300456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118309456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118330456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118330456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118339456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118360456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717118360456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118369455
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118390456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717118390456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118399456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118420456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717118420456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118429456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118450456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118450456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118459456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118480456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717118480456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118489457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118510456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118510457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118519456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118540456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118540456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118549456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118570456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118570456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118579456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118600456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118600456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118609456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118630456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118630456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118639456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118660456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118660456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118669456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118690456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717118690456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118699456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118720456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118720456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118729456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118750456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717118750456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118759456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118780456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118780457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118789456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118810456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717118810456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118819456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118840456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118840456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118849456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118870456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118870456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118879457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118900456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118900456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118909456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118930456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118930456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118939456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118960456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717118960456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118969456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118990456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717118990456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717118999456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119020456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119020457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119029456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119050456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119050456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119059456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119080456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119080456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119089456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119110456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119110456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119119456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119140456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119140456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119149457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119170456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717119170456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119179456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119200456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119200457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119209456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119230456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119230456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119239456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119260456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119260456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119269456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119290456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119290456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119299457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119320456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717119320456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119329456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119350456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119350457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119359456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119380456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119380456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119389456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119410456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119410456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119419456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119440456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119440456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119449455
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119470456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119470456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119479456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119500456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717119500456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119509456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119530456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119530457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119539457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119560456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717119560456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119569456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119590456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717119590456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119599456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119620456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119620457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119629456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119650456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717119650456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119659456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119680456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119680457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119689456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119710456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119710457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119719456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119740456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119740456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119749455
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119770456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119770456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119779456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119800457
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717119800456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119809456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119830456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119830456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119839456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119860456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119860457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119869456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119890456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119890456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119899457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119920456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717119920456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119929457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119950456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119950456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119959456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119980456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119980457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717119989456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120010456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120010457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120019456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120040456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120040456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120049456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120070456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120070457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120079456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120100456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120100456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120109456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120130456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120130456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120139455
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120160456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120160456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120169456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120190456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120190456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120199456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120220456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120220457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120229456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120250455
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120250456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120259456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120280456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120280456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120289457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120310456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120310456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120319457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120340456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717120340456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120349456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120370456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120370456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120379456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120400456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717120400456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120409457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120430456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120430457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120439455
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120460456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120460456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120469456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120490456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120490456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120499456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120520455
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120520456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120529456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120550456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120550456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120559456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120580456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120580456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120589457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120610456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120610457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120619456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120640456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717120640456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120649456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120670456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120670457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120679457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120700456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717120700456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120709457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120730456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120730457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120739456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120760456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717120760456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120769456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120790456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717120790456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120799456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120820456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120820456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120829455
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120850456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120850456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120859456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120880455
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120880456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120889456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120910456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120910456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120919456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120940456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120940457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120949456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120970456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120970456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717120979456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121000456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121000456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121009457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121030456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717121030456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121039456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121060456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121060456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121069456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121090456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717121090456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121099455
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121120456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121120456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121129456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121150456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121150456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121159456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121180455
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121180457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121189456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121210456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717121210456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121219456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121240456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717121240456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121249456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121270456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717121270456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121279456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121300456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121300456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121309457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121330456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121330456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121339457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121360456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717121360456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121369456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121390456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121390456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121399457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121420456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121420456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121429456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121450456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121450456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121459456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121480456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121480456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121489456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121510456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121510456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121519455
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121540456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121540456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121549456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121570456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121570456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121579456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121600456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121600456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121609456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121630456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121630457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121639456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121660456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121660456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121669456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121690456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121690457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121699456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121720456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717121720456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121729456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121750456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717121750456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121759456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121780456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717121780457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121789456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121810455
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121810456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121819456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121840456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717121840456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121849456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121870456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121870457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121879456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121900456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717121900456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121909456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121930456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121930456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121939455
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121960456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121960456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121969456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121990456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121990456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717121999456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122020456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717122020456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122029457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122050456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717122050456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122059456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122080456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717122080456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122089456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122110456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717122110456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122119456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122140456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717122140456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122149456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122170456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717122170456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122179456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122200456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122200456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122209456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122230456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717122230456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122239456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122260456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717122260456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122269456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122290456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122290456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122299456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122320456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122320456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122329457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122350456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122350456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122359456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122380456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122380456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122389456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122410456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122410456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122419456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122440456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122440456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122449456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122470456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122470456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122479456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122500456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717122500456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122509456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122530456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717122530456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122539457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122560456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122560457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122569456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122590456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122590456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122599456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122620456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717122620456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122629456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122650456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122650456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122659456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122680457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122680457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122689456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122710456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122710456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122719456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122740456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717122740456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122749457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122770456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717122770456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122779457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122800455
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122800456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122809456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122830456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122830456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122839456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122860456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122860456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122869456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122890456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122890457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122899456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122920456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717122920456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122929456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122950456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122950456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122959456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122980456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122980456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717122989456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717123010456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717123010456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717123019456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717123040456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717123040456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717123049457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717123070457
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717123070457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717123079456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717123100456
+
+taille de operator: 2, dans le channel: #lol
+cmd: PING LAG1717123100456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717123109456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717123130456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717123130457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717123139456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717123160456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717123160456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717123169457
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717123190456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717123190456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717123199456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717123220456
+
+taille de operator: 2, dans le channel: #lol
+ClientHandler
+cmd: PING LAG1717123220456
+
+taille de operator: 2, dans le channel: #lol

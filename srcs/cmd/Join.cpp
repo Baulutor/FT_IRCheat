@@ -132,7 +132,8 @@ void Join(std::string cmd, Clients& client, Server& server)
         std::pair<std::map<std::string, Channels>::iterator, bool> insertClient = server.getClients().find(client.getFd())->second.getChannels().insert(std::make_pair(channel, channelToJoin));
         if (insertClient.second)
         {
-            insertClient.first->second.setOperator(client);
+//            insertClient.first->second.setOperator(client);
+
             // insertClient.first->second.setMode(client.getNickname(), " ");
             insertServer.first->second.setMode(client.getNickname(), "");
             insertServer.first->second.incrementNbClients();

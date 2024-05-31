@@ -36,7 +36,7 @@ class Channels
 		std::map<std::string, Clients>& getClientInvited();
 
         std::string getPassword() const;
-        std::vector<Clients> getOperator() const;
+        std::vector<Clients> getOperatorVector() const;
         std::string getMode(std::string target) const;
         int getLimit() const;
         int getNbClients() const;

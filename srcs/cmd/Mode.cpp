@@ -72,7 +72,9 @@ int addOpMode(std::vector<std::string> args, size_t i, std::map<std::string, Cha
         if (channelIt->second.getMode(args[i]).find('o') == std::string::npos)
         {
             channelIt->second.setMode(args[i], "o");
+			std::cout << "JE SUIS DANS MODE ET JE RAJOUTE UN OPERATEUR" << std::endl;
             channelIt->second.setOperator(clientIt->second);
+			std::cout << channelIt->first << ": channel de: " << clientIt->second.getNickname() << ", deviens operateur ! la taille de mon delire est donc de: " << channelIt->second.getOperatorVector().size() << std::endl;
             NameLstUpadte(clientIt->second, channelIt->second);
             return (1);
         }
@@ -302,6 +304,9 @@ void Mode(std::string cmd, Clients& client, Server& server)
             return (sendCmd(ERR_UMODEUNKNOWNFLAG(client.getNickname(), tokens[1]), client)); 
         std::vector<std::string> args(tokens.begin() + 2, tokens.end());
         checkArgs(args, tokens[1], client, channelIt);
+		std::cout << "FIN DE MODE apres ajout, le vecteur operateur du channel de l'itterateur: " << channelIt->second.getOperatorVector().size() << ", et celui de serveur dans mode!!" << server.getChannels().begin()->second.getOperatorVector().size() << std::endl;
+		std::cout << "le pointeur de l'iterateur   : " << &channelIt->second.getOperatorVector()[0] << std::endl;
+		std::cout << "le pointeur de server        : " << &server.getChannels().begin()->second.getOperatorVector()[0] << std::endl;
     }
 }
 

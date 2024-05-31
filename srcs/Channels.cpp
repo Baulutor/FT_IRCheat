@@ -43,7 +43,6 @@ std::map<std::string, Clients>& Channels::getClientMap() {return (_clients);}
 
 std::map<std::string, Clients>& Channels::getClientInvited() {return (_inviteClient);}
 
-
 std::string Channels::getPassword() const {return (_password);}
 
 std::string Channels::getMode(std::string target) const {return (_mode.find(target)->second);}
@@ -51,6 +50,8 @@ std::string Channels::getMode(std::string target) const {return (_mode.find(targ
 int Channels::getLimit() const {return (_nbMaxClients);}
 
 int Channels::getNbClients() const {return (_nbClients);}
+
+std::vector<Clients> Channels::getOperatorVector() const{return (_operator);}
 
 Clients Channels::getOperator(std::string target) const
 {

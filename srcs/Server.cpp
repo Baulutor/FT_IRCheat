@@ -38,6 +38,8 @@ void Server::cmdHandler(std::string cmd, Clients& client)
         if (startWith(cmd, lstCmd[i]))
         {
             lstFunc[i](cmd, client, *this);
+			if (client.getChannels().size() > 0)
+				std::cout << "taille de operator: " << this->getChannels().begin()->second.getOperatorVector().size() << ", dans le channel: " << client.getChannels().begin()->first << std::endl;
             return;
         }
     }
