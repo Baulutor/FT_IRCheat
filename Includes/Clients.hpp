@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:27:47 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/29 10:56:13 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/31 18:00:08 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ class Clients
         pollfd  getPollFd();
         void    setPollFd(pollfd poll);
 
-        std::map<std::string, Channels>& getChannels();
-        std::map<std::string, Channels> getChannelsInvite();
+        std::map<std::string, Channels>& getChannelsClient();
+        std::map<std::string, Channels>& getChannelsInvite();
 
         void addChannel(std::string channel);
         void addChannelInvite(std::string channel);

@@ -26,7 +26,7 @@ void    Invite(std::string cmd, Clients& client, Server& server)
 		{
 			if (checkIfUserAlreadyInviteOrInChannel(it, nickname, channelName, client, ite))
 					return ;
-			server.getChannels().find(it->first)->second.getClientInvited().insert(std::make_pair(ite->second.getNickname(), ite->second));
+			server.getChannels().find(it->first)->second.getClientInvited().insert(std::make_pair(ite->first, ite->second));
 			sendCmd(RPL_INVITING(nickname, channelName), client);
 			sendCmd(RPL_INVITING_NOTICE( client.getNickname(), channelName), ite->second);
 			return ;
@@ -79,7 +79,7 @@ bool	checkChannelExistAndUserLegitimateToInvite(std::map<std::string, Channels> 
 	}
 	if (it->second.checkIfOpeUserForInvite(client) == 1)
 		return true;
-	if (it->second.getClientMap().end() == it->second.getClientMap().find(client.getNickname()))
+	if (it->second.getClientMap().end() == it->second.getClientMap().find(client.getFd()))
 	{
 		sendCmd(ERR_NOTONCHANNEL(channelName, it->second.getName()), client);
 		return true;
@@ -89,15 +89,15 @@ bool	checkChannelExistAndUserLegitimateToInvite(std::map<std::string, Channels> 
 
 bool checkIfUserAlreadyInviteOrInChannel(std::map<std::string, Channels>::iterator it, std::string nickname, std::string channelName, Clients client, std::map<int, Clients>::iterator ite)
 {
-	std::map<std::string, Clients> clientChannel = it->second.getClientMap();
-	if (clientChannel.find(nickname) != clientChannel.end())
+	std::map<int, Clients> clientChannel = it->second.getClientMap();
+	if (clientChannel.find(ite->first) != clientChannel.end())
 	{
 		sendCmd(ERR_USERONCHANNEL(client.getNickname(), nickname, channelName), client);
 		return true;
 	}
 
-	std::map<std::string, Clients> &verif = it->second.getClientInvited();
-	if (verif.find(nickname) != verif.end())
+	std::map<int, Clients> &verif = it->second.getClientInvited();
+	if (verif.find(ite->first) != verif.end())
 	{
 		sendCmd(RPL_INVITING(nickname, channelName), client);
 		sendCmd(RPL_INVITING_NOTICE( client.getNickname(), channelName), ite->second);

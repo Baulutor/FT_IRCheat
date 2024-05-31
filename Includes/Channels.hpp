@@ -32,11 +32,11 @@ class Channels
         std::string getName() const;
         std::string getTopic() const;
 		std::string getTimeTopic()const;
-        std::map<std::string, Clients>& getClientMap();
-		std::map<std::string, Clients>& getClientInvited();
+        std::map<int, Clients>& getClientMap();
+		std::map<int, Clients>& getClientInvited();
 
         std::string getPassword() const;
-        std::vector<Clients> getOperatorVector() const;
+        std::vector<Clients>& getOperatorVector();
         std::string getMode(std::string target) const;
         int getLimit() const;
         int getNbClients() const;
@@ -49,34 +49,32 @@ class Channels
         void setOperator(Clients& op);
         void setPassword(std::string password);
         void setMode(std::string target, std::string mode);
-        void setClients(std::map<std::string, Clients> clients);
+        void setClients(std::map<int, Clients> clients);
         void setLimit(int limit);
         
         void incrementNbClients();
 
         void removeMode(std::string target, std::string mode);
         void removeOperator(Clients& op);
-	void ClientInvite(std::map<std::string, Clients> &clients);
+	    void ClientInvite(std::map<int, Clients> &clients);
 
         //Invite
         void    checkClientMapChannel();
-	bool	checkIfOpeUserForInvite(Clients client);
+	    bool	checkIfOpeUserForInvite(Clients client);
 
-	void convertTimestampToDateString();
+	    void convertTimestampToDateString();
 
     private :
         std::string _name;
         std::string _topic;
 		std::string _timeTopic;
         std::string _password;
-        // std::string _mode;
         std::map<std::string, std::string> _mode;
-        // bool _isPrivate;
         int _nbClients;
         int _nbMaxClients;
-        std::map<std::string, Clients> _clients;
+        std::map<int, Clients> _clients;
         std::vector<Clients> _operator;
-		std::map<std::string, Clients>	_inviteClient;
+		std::map<int, Clients>	_inviteClient;
 
 };
 

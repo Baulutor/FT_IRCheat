@@ -69,13 +69,13 @@ void Kick(std::string cmd, Clients& client, Server& server) {
     }
     for (; it != channel.end(); it++) {
         if (it->first == chanTarget) {
-            std::map<std::string, Clients>& clientsMap = it->second.getClientMap();
-            std::map<std::string, Clients>::iterator it2 = clientsMap.begin();
+            std::map<int, Clients>& clientsMap = it->second.getClientMap();
+            std::map<int, Clients>::iterator it2 = clientsMap.begin();
             for(; it2 != clientsMap.end(); it2++) {
-                if ((it2->first) == target) {
+                if ((it2->second.getNickname()) == target) {
                     if (client.getNickname() == target)
                         return (sendBrodcastChannel(RPL_KICK_NOTICE(client.getNickname(), it->first), it->second));
-                    sendBrodcastChannel(RPL_CMD_KICK(client.getNickname(), client.getUsername(), client.getAddrIp(), it->first, it2->first, com), it->second);
+                    sendBrodcastChannel(RPL_CMD_KICK(client.getNickname(), client.getUsername(), client.getAddrIp(), it->first, it2->second.getNickname(), com), it->second);
                     clientsMap.erase(it2);
                     return ;
                 }

@@ -58,7 +58,7 @@ void Server::launch(std::string av, std::string av2)
 
 	// Création de la socket serveur
 
-	setAddrIp("127.0.0.1");
+	setAddrIp("10.14.10.5");
 	setPassword(av2);
 	_fd = -1;
 
@@ -131,6 +131,8 @@ bool Server::ClientHandler(bool init)
 
 			bzero(itClients->second.getBuffer(), 512);
 			ssize_t bytes = recv(_lstPollFd[i].fd, itClients->second.getBuffer(), 511, MSG_DONTWAIT);
+			std::cout << "bytes = " << bytes << std::endl;
+			std::cout << "buffer = " << itClients->second.getBuffer() << std::endl;
 			if (bytes < 0)
 			{
 				std::cerr << "ERROR rcve !" << std::endl;
@@ -214,7 +216,7 @@ void	Server::serverHandler()
 		}
 		else
 			throw std::invalid_argument("lol");
-		sleep(1);
+		// sleep(1);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 10:13:36 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/29 11:41:31 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/31 18:27:24 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ bool check_key(std::string key, Channels& channel, Clients& client)
 
 bool check_invited(Channels& channel, Clients& client)
 {
-    std::map<std::string, Clients>::iterator it = channel.getClientInvited().find(client.getNickname());
+    std::map<int, Clients>::iterator it = channel.getClientInvited().find(client.getFd());
     // std::cout << "it = " << it->first << std::endl;
     std::cout << "channel.getMode(channel.getName()) = " << channel.getMode(channel.getName()) << std::endl;
     if (it == channel.getClientInvited().end() && channel.getMode(channel.getName()).find('i') != std::string::npos)
@@ -128,12 +128,10 @@ void Join(std::string cmd, Clients& client, Server& server)
         std::pair<std::map<std::string, Channels>::iterator, bool> insertServer = channelsServer.insert(std::make_pair(channel, channelToJoin));
         if (insertServer.second)
             std::cout << "channel serveur ADD : " << insertServer.first->second.getName() << std::endl;
-
-        std::pair<std::map<std::string, Channels>::iterator, bool> insertClient = server.getClients().find(client.getFd())->second.getChannels().insert(std::make_pair(channel, channelToJoin));
+        std::pair<std::map<std::string, Channels>::iterator, bool> insertClient = server.getClients().find(client.getFd())->second.getChannelsClient().insert(std::make_pair(channel, channelToJoin));
         if (insertClient.second)
         {
-//            insertClient.first->second.setOperator(client);
-
+            // insertClient.first->second.setOperator(client);
             // insertClient.first->second.setMode(client.getNickname(), " ");
             insertServer.first->second.setMode(client.getNickname(), "");
             insertServer.first->second.incrementNbClients();
@@ -141,10 +139,10 @@ void Join(std::string cmd, Clients& client, Server& server)
         }
         std::string Topic = insertClient.first->second.getTopic();
         std::string user;
-        std::map<std::string, Clients>& serverMap = insertServer.first->second.getClientMap();
-        serverMap.insert(std::make_pair(client.getNickname(), client));
-        std::map<std::string, Clients>& clientMap = insertClient.first->second.getClientMap();
-        clientMap.insert(std::make_pair(client.getNickname(), client));
+        std::map<int, Clients>& serverMap = insertServer.first->second.getClientMap();
+        serverMap.insert(std::make_pair(client.getFd(), client));
+        std::map<int, Clients>& clientMap = insertClient.first->second.getClientMap();
+        clientMap.insert(std::make_pair(client.getFd(), client));
         try
         {
             if (key != "")

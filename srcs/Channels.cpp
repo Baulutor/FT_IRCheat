@@ -39,9 +39,11 @@ std::string Channels::getTopic() const {return (_topic);}
 
 std::string Channels::getTimeTopic() const {return (_timeTopic);}
 
-std::map<std::string, Clients>& Channels::getClientMap() {return (_clients);}
+std::map<int, Clients>& Channels::getClientMap() {return (_clients);}
 
-std::map<std::string, Clients>& Channels::getClientInvited() {return (_inviteClient);}
+std::map<int, Clients>& Channels::getClientInvited() {return (_inviteClient);}
+
+std::vector<Clients>& Channels::getOperatorVector() {return (_operator);}
 
 std::string Channels::getPassword() const {return (_password);}
 
@@ -51,10 +53,9 @@ int Channels::getLimit() const {return (_nbMaxClients);}
 
 int Channels::getNbClients() const {return (_nbClients);}
 
-std::vector<Clients> Channels::getOperatorVector() const{return (_operator);}
-
 Clients Channels::getOperator(std::string target) const
 {
+    // std::cout << "Channels operator : " << _operator.size() << std::endl;
     for (size_t i = 0; i < _operator.size(); i++)
     {
         if (_operator[i].getNickname() == target)
@@ -87,7 +88,7 @@ void Channels::setMode(std::string target, std::string mode)
 
 void Channels::setLimit(int limit) {_nbMaxClients = limit;}
 
-void Channels::setClients(std::map<std::string, Clients> clients) {_clients = clients;}
+void Channels::setClients(std::map<int, Clients> clients) {_clients = clients;}
 
 void Channels::incrementNbClients() {_nbClients++;}
 
@@ -113,5 +114,6 @@ void Channels::removeOperator(Clients& op)
         if (_operator[i].getNickname() == op.getNickname())
             _operator.erase(_operator.begin() + i);
     }
+
 }
-void Channels::ClientInvite(std::map<std::string, Clients> &client){_inviteClient = client;}
+void Channels::ClientInvite(std::map<int, Clients> &client){_inviteClient = client;}
