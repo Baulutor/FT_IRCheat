@@ -90,17 +90,6 @@ void Clients::setBufferTmp(char* bufferTmp)
 // Print info
 
 
-void Clients::setPollFd(pollfd newPoll)
-{
-	this->pollClient = newPoll;
-}
-
-
-pollfd	Clients::getPollFd()
-{
-    return (this->pollClient);
-}
-
 void Clients::printInfo()
 {
     std::cout << "Nickname : " << _nickname << std::endl;

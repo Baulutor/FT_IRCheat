@@ -48,9 +48,9 @@ class Clients
         bool getIsRegistered() const;
         char* getBuffer();
         char* getBufferTmp();
+//        pollfd  getPollFd();
 
-        pollfd  getPollFd();
-        void    setPollFd(pollfd poll);
+//        void    setPollFd(pollfd poll);
 
         std::map<std::string, Channels>& getChannelsClient();
         std::map<std::string, Channels>& getChannelsInvite();
@@ -76,7 +76,7 @@ class Clients
 
         std::map<std::string, Channels> _channels;
 
-        pollfd pollClient;
+//        pollfd pollClient;
 };
 
 #endif
