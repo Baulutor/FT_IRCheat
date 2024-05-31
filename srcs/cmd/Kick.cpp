@@ -22,32 +22,20 @@ bool LFTarget(std::string &chanTarget, std::string &target, std::string &com, st
     size_t targetIdx = 2;
     size_t commentIdx = 3;
     chanTarget = splited[1];
-
-    if (splited[1][0] == '#') {
-        if (splited.size() == 3 || (splited.size() > 3 && splited[2][0] == '#')) {
-            targetIdx = 3;
-            chanTarget = splited[2];
-        }
-        if ((splited.size() > 3 && splited[2][0] == '#'))
-            commentIdx = 4;
-    } else {
-        if (splited.size() < 4)
-            return false;
-        if (splited.size() == 2)
-            targetIdx = 2;
-        else {
-            chanTarget = splited[2];
-            targetIdx = 3;
-        }
+    if (splited[1][0] == '#' && splited[2][0] == '#')
+        return false;
+    if (splited[2][0] == '#') {
+        chanTarget = splited[2];
+        targetIdx = 3;
         commentIdx = 4;
     }
-
     target = splited[targetIdx][0] == ':' ? splited[targetIdx].substr(1) : splited[targetIdx];
 
     com = "";
     for (size_t i = commentIdx; i < splited.size(); i++) {
         com += " " + splited[i];
     }
+    std::cout << "chantarget = " << chanTarget << "   target = " << target << std::endl;
     return true;
 }
 
@@ -77,6 +65,7 @@ void Kick(std::string cmd, Clients& client, Server& server) {
                         return (sendBrodcastChannel(RPL_KICK_NOTICE(client.getNickname(), it->first), it->second));
                     sendBrodcastChannel(RPL_CMD_KICK(client.getNickname(), client.getUsername(), client.getAddrIp(), it->first, it2->second.getNickname(), com), it->second);
                     clientsMap.erase(it2);
+                    client.getChannels().erase(it2->second.getNickname());
                     return ;
                 }
             }

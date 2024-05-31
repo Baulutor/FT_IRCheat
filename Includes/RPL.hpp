@@ -25,9 +25,7 @@
 // TOPIC
 #define RPL_NOTOPIC(channelName) (":server 331 " + channelName + " :No topic is set\r\n")
 #define RPL_TOPIC(channelName, topicMessage) (":server 332 " + channelName + " : " + topicMessage + "\r\n")
-//#define RPL_TOPICWHOTIME( channel, nick, setat) (":server 333 " + channel + " " + nick + " " + setat + "\r\n")
-//# define RPL_TOPICWHOTIME(client, chan, nick, setat, date) (":server 333 " + client + ": " + chan + " " + nick + " " + setat +  " " + date + "\r\n")
-//# define RPL_TOPICWHOTIME(Nickname, Channel, Time) (":server 333 " + Nickname + " " + Channel +  " " + Nickname + " " + Time + " GMT\r\n")
+
 
 # define RPL_CMD_JOIN(Nickname, Username, Hostname, Channel) (":" + Nickname + "!" + Username + "@" + Hostname + " JOIN :" + Channel + "\r\n")
 # define RPL_CMD_JOIN_KEY(Nickname, Username, Hostname, Channel, Key) (":" + Nickname + "!" + Username + "@" + Hostname + " JOIN :" + Channel + " " + Key + "\r\n")
