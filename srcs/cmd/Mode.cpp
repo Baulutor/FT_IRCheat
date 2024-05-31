@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:42:28 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/31 18:47:29 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/31 20:04:38 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,17 +262,15 @@ void Mode(std::string cmd, Clients& client, Server& server)
     }
     if (channelIt == server.getChannels().end())
         return (sendCmd(ERR_NOSUCHCHANNEL(client.getNickname(), tokens[0]), client));
-    std::cout << "channelIt->second.getOperator(client.getNickname()).getNickname() = |" << channelIt->second.getOperator(client.getNickname()).getNickname() << "|" << std::endl;
     if (channelIt->second.getOperator(client.getNickname()).getNickname() != client.getNickname())
     {
         std::cout << "sendCmd(ERR_CHANOPRIVSNEEDED(client.getNickname(), tokens[0]), client)" << std::endl;
         return (sendCmd(ERR_CHANOPRIVSNEEDED(client.getNickname(), tokens[0]), client));
     }
     if (tokens.size() < 1)
-        return (sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), tokens[0]), client));
+        return (sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), "MODE"), client));
     else if (tokens.size() == 1)
     {
-        std::cout << "pass" << std::endl;
         if (!checkChannel(tokens[0], server, client, channelIt))
             return ;
         return (sendCmd(RPL_CHANNELMODEIS(client.getNickname(), tokens[0], channelIt->second.getMode(tokens[0])), client));
@@ -288,7 +286,7 @@ void Mode(std::string cmd, Clients& client, Server& server)
             if (!isMode(tokens[1]) && (tokens[1][0] != '-' || tokens[1][0] != '+'))
             {
                 if (isArgsMode(tokens[1]) && (tokens[1][0] != '-' || tokens[1][0] != '+'))
-                    return (sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), tokens[0]), client));
+                    return (sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), "MODE"), client));
                 else
                     return (sendCmd(ERR_UMODEUNKNOWNFLAG(client.getNickname(), tokens[1]), client));
             }
@@ -310,9 +308,6 @@ void Mode(std::string cmd, Clients& client, Server& server)
         if (!isArgsMode(tokens[1]) && (tokens[1][0] != '-' || tokens[1][0] != '+'))
             return (sendCmd(ERR_UMODEUNKNOWNFLAG(client.getNickname(), tokens[1]), client)); 
         std::vector<std::string> args(tokens.begin() + 2, tokens.end());
-        std::cout << "args.size() = " << args.size() << std::endl;
-        std::cout << "tokens[1] = " << tokens[1] << std::endl;
-        std::cout << "tokens[2] = " << tokens[2] << std::endl;
         checkArgs(args, tokens[1], client, channelIt, server);
     }
 }

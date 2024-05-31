@@ -52,7 +52,7 @@ void Kick(std::string cmd, Clients& client, Server& server) {
         return(sendCmd(ERR_NOTCHANOP(client.getNickname(), it->second.getName()), client));
     if (LFTarget(chanTarget, target, com, cmd) != true) {
         std::cout << "KICK <channel> <user> :<comment>" << std::endl;
-        sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), ""), client);
+        sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), "KICK"), client);
         return;
     }
     for (; it != channel.end(); it++) {

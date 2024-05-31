@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:27:47 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/31 18:00:08 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/05/31 22:00:52 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,6 @@ class Clients
         char* getBuffer();
         char* getBufferTmp();
 
-        pollfd  getPollFd();
-        void    setPollFd(pollfd poll);
-
         std::map<std::string, Channels>& getChannelsClient();
         std::map<std::string, Channels>& getChannelsInvite();
 
@@ -75,8 +72,6 @@ class Clients
         std::map<std::string, Channels> _channelsInvite;
 
         std::map<std::string, Channels> _channels;
-
-        pollfd pollClient;
 };
 
 #endif

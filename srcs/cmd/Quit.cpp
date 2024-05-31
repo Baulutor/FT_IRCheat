@@ -20,10 +20,6 @@ void Quit(std::string cmd, Clients& client, Server& server)
 		std::map<int, Clients> clientInvitedMap = chan->second.getClientInvited();
 		std::map<int, Clients>::iterator ok = clientMap.find(client.getFd());
 		std::vector<Clients> opeVec = chan->second.getOperatorVector();
-//		for (size_t i = 0; i < opeVec.size(); i++)
-//		{
-//			std::cout << opeVec[i].getFd() << ": c'est les differents frero dans le bail operateur !!!!!" << std::endl;
-//		}
 		std::cout << "chan->first: " << chan->first << " , valeur de opeVec.size(): " << opeVec.size() << std::endl;
 		if (opeVec.size() == 1)
 		{
@@ -45,7 +41,6 @@ void Quit(std::string cmd, Clients& client, Server& server)
 					{
 						if (it->first != client.getFd())
 						{
-//client.getChannels().find(chan->first)->second.setOperator(it->second);
 							break ;
 						}
 					}
