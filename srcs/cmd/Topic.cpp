@@ -16,7 +16,7 @@ void 	Topic(std::string cmd, Clients& client, Server& server)
 		channelName = channelName.substr(0, channelName.size() - 2);
 	if (channelName == client.getNickname())
 	{
-		sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), "topic"), client);
+		sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), "TOPIC"), client);
 		return ;
 	}
 	std::map<std::string, Channels>::iterator channel = server.getChannels().find(channelName);

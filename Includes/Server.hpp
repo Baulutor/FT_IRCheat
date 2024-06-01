@@ -50,7 +50,7 @@ class Server
         bool ClientConnexion();
         bool ClientHandler(bool init);
         void launch(std::string av, std::string av2);
-		void serverHandler();
+	    	void serverHandler();
 
 		// void	broadcast_message(const std::string &message, int sender_fd, std::vector<pollfd> &clients);
 
