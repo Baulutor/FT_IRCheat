@@ -191,9 +191,21 @@ bool Server::ClientHandler(bool init)
 				}
 			}
 			else if (itClients->second.getIsRegistered() == true)
+			{
+				for (std::map<std::string, Channels>::iterator it = _channels.begin(); it != _channels.end() ; it++)
+				{
+					std::cout << "PENDANT:" << _lstPollFd.size() << ", nombre de client PENDANT: " << it->second.getClientMap().size() <<  std::endl;
+					for (std::map<int, Clients>::iterator ite = it->second.getClientMap().begin(); ite != it->second.getClientMap().end(); ite++)
+						std::cout << "blaze du gars: " << ite->second.getNickname() << ", dans le chANNEL PENDANT: " << it->first << std::endl;
+				}
 				cmdHandler(itClients->second.getBuffer(), itClients->second);
+			}
 			for (std::map<std::string, Channels>::iterator it = _channels.begin(); it != _channels.end() ; it++)
-				std::cout << "APRES: " << _lstPollFd.size() << ", nombre de client: " << it->second.getClientMap().size() << ", dans ce channel: " << it->first << std::endl;
+			{
+				std::cout << "APRES: " << _lstPollFd.size() << ", nombre de client: " << it->second.getClientMap().size() <<  std::endl;
+				for (std::map<int, Clients>::iterator ite = it->second.getClientMap().begin(); ite != it->second.getClientMap().end(); ite++)
+					std::cout << "blaze du gars: " << ite->second.getNickname() << ", dans le chANNEL: " << it->first << std::endl;
+			}
 		}
 		i++;
 	}

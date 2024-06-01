@@ -3,8 +3,7 @@
 //
 
 #include "Cmd.hpp"
-
-#include "Cmd.hpp"
+#include "Server.hpp"
 
 //void Quit(std::string cmd, Clients& client, Server& server)
 //{
@@ -144,7 +143,8 @@ void Quit(std::string cmd, Clients& client, Server& server)
 		{
 			std::cout << "JE vais supprimer le frero du channel donc la taille avant: " << server.getChannels().find(it->first)->second.getClientMap().size() << std::endl;
 			server.getChannels().find(it->first)->second.getClientMap().erase(serverMapClients.find(client.getFd()));
-			client.getChannelsClient().find(it->first)->second.getClientMap().erase(serverMapClients.find(client.getFd()));
+			std::cout << "APRERERERRSRRERRSRRERRSRRERSRERRSRERRSRERSRRERSRERRSRFUJHFKLSIHDGFVJHDBKNCSIFUHHBJK" << std::endl;
+			client.getChannelsClient().find(it->first)->second.getClientMap().erase(client.getChannelsClient().find(it->first)->second.getClientMap().find(client.getFd()));
 			std::cout << "taille apres: " << server.getChannels().find(it->first)->second.getClientMap().size() << std::endl;
 		}
 	}
@@ -153,19 +153,17 @@ void Quit(std::string cmd, Clients& client, Server& server)
 	std::vector<pollfd> lstPollFdVec = server.getLstPollFd();
 	for (size_t i = 0; i < lstPollFdVec.size(); i++)
 	{
-		std::cout << "client.getFd(): " << client.getFd() << ", et de lstPollFd: " << lstPollFdVec[i].fd << std::endl;
 		if (client.getFd() == lstPollFdVec[i].fd)
 		{
 			server.getLstPollFd().at(i).revents = 0;
 			server.getLstPollFd().at(i).events = 0;
-			close(server.getLstPollFd().at(i).fd);
+			std::cerr << "close pollfd= " << close(server.getLstPollFd().at(i).fd) << std::endl;
 			server.getLstPollFd().erase(server.getLstPollFd().begin() + i);
 			break ;
 		}
 	}
-	close(client.getFd());
-	server.getClients().erase(server.getClients().find(client.getFd()));
 
-// donc pollfd et supression client ici;
-
+	int buf = client.getFd();
+	client.setFd(-1);
+	server.getClients().erase(server.getClients().find(buf));
 }

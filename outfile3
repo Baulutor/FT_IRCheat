@@ -1,43 +1,3 @@
-bytes = 64
-buffer = CAP LS 302
-PASS 0000
-NICK salut
-USER ddlegoat 0 * :realname
-
-===============================================================================================
-token : |CAP|
-token : |LS 302|
-token : |PASS|
-token : |0000|
-token : |NICK|
-token : |salut|
-token : |USER|
-token : |ddlegoat 0 * :realname|
-USER
-cmd: ddlegoat 0 * :realname
-parseUser
-Username = ddlegoat
-NickInit
-cmd : salut
-nickname_used = 0
-falseNickname = 
-parseNick
-splited[0] = salut
-it->second.getNickname() = 
-it->second.getNickname() = 
-RPL_CMD_NICK = :salut!ddlegoat@ NICK salut
-
-PASS value : 0000
-USER : 6
-NICK : 4
-PASS : 2
-===============================================================================================
-init client
-Nickname : salut
-Username : ddlegoat
-Pass : 0000
-fd : 4
-Ip Address : 127.0.0.1
 bytes = 65
 buffer = CAP LS 302
 PASS 0000
@@ -55,43 +15,117 @@ token : |USER|
 token : |IRCheat 0 * :realname|
 USER
 cmd: IRCheat 0 * :realname
+splited.size() = 4
+splited[0] = IRCheat
+splited[1] = 0
+splited[2] = *
+splited[3] = :realname
 parseUser
 Username = IRCheat
 NickInit
 cmd : IRCheat
-nickname_used = 0
-falseNickname = 
 parseNick
 splited[0] = IRCheat
-it->second.getNickname() = salut
 it->second.getNickname() = 
-RPL_CMD_NICK = :IRCheat!IRCheat@ NICK IRCheat
-
+it->second.getNickname() = 
+flags[3] = 1
 PASS value : 0000
 USER : 6
 NICK : 4
 PASS : 2
+BOOL : 1
+getNicknameTmp = ||
+RPL_CMD_NICK = :IRCheat!IRCheat@ NICK IRCheat
+
 ===============================================================================================
 init client
 Nickname : IRCheat
 Username : IRCheat
 Pass : 0000
+fd : 4
+Ip Address : 127.0.0.1
+bytes = 64
+buffer = CAP LS 302
+PASS 0000
+NICK salut
+USER ddlegoat 0 * :realname
+
+===============================================================================================
+token : |CAP|
+token : |LS 302|
+token : |PASS|
+token : |0000|
+token : |NICK|
+token : |salut|
+token : |USER|
+token : |ddlegoat 0 * :realname|
+USER
+cmd: ddlegoat 0 * :realname
+splited.size() = 4
+splited[0] = ddlegoat
+splited[1] = 0
+splited[2] = *
+splited[3] = :realname
+parseUser
+Username = ddlegoat
+NickInit
+cmd : salut
+parseNick
+splited[0] = salut
+it->second.getNickname() = IRCheat
+it->second.getNickname() = 
+flags[3] = 1
+PASS value : 0000
+USER : 6
+NICK : 4
+PASS : 2
+BOOL : 1
+getNicknameTmp = ||
+RPL_CMD_NICK = :salut!ddlegoat@ NICK salut
+
+===============================================================================================
+init client
+Nickname : salut
+Username : ddlegoat
+Pass : 0000
 fd : 5
 Ip Address : 127.0.0.1
-bytes = 17
-buffer = JOIN #no,#salut
+bytes = 10
+buffer = JOIN #no
 
-cmd: JOIN #no,#salut
+cmd: JOIN #no
 
 JOIN
 channel = #no
 channelsServer.size() = 0
-channel.getMode(channel.getName()) = t
+channel.getMode(-42) = t
+setMode Mode = 
+Channel client ADD : #no
+RPL_CMD_JOIN = :IRCheat!IRCheat@127.0.0.1 JOIN :#no
+
+RPL_CMD_NAME_LST_START = :server 353 IRCheat = #no :@IRCheat
+
+RPL_CMD_NAME_LST_END = :server 366 IRCheat #no :End of /NAMES list
+
+APRES: 3, nombre de client: 1
+blaze du gars: IRCheat, dans le chANNEL: #no
+bytes = 17
+buffer = JOIN #no,#salut
+
+PENDANT:3, nombre de client PENDANT: 1
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+cmd: JOIN #no,#salut
+
+JOIN
+channel = #no
+channelsServer.size() = 1
+it->first = #no
+channel.getMode(-42) = t
 setMode Mode = 
 Channel client ADD : #no
 RPL_CMD_JOIN = :salut!ddlegoat@127.0.0.1 JOIN :#no
 
-RPL_CMD_NAME_LST_START = :server 353 salut = #no :@salut
+RPL_CMD_NAME_LST_START = :server 353 salut = #no :@IRCheat salut
 
 RPL_CMD_NAME_LST_END = :server 366 salut #no :End of /NAMES list
 
@@ -100,7 +134,7 @@ channelsServer.size() = 1
 it->first = #no
 channelToJoin = #salut
 ChannelToJoin.getPassword =  
-channel.getMode(channel.getName()) = t
+channel.getMode(-42) = t
 setMode Mode = 
 Channel client ADD : #salut
 RPL_CMD_JOIN = :salut!ddlegoat@127.0.0.1 JOIN :#salut
@@ -109,81 +143,88 @@ RPL_CMD_NAME_LST_START = :server 353 salut = #salut :@salut
 
 RPL_CMD_NAME_LST_END = :server 366 salut #salut :End of /NAMES list
 
-APRES: 3, nombre de client: 1, dans ce channel: #no
-APRES: 3, nombre de client: 1, dans ce channel: #salut
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
 bytes = 10
-buffer = JOIN #no
-
-cmd: JOIN #no
-
-JOIN
-channel = #no
-channelsServer.size() = 2
-it->first = #no
-channel.getMode(channel.getName()) = t
-setMode Mode = 
-Channel client ADD : #no
-RPL_CMD_JOIN = :IRCheat!IRCheat@127.0.0.1 JOIN :#no
-
-RPL_CMD_NAME_LST_START = :server 353 IRCheat = #no :@salut IRCheat
-
-RPL_CMD_NAME_LST_END = :server 366 IRCheat #no :End of /NAMES list
-
-APRES: 3, nombre de client: 2, dans ce channel: #no
-APRES: 3, nombre de client: 1, dans ce channel: #salut
-bytes = 19
 buffer = MODE #no
-WHO #no
 
+PENDANT:3, nombre de client PENDANT: 2
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+PENDANT:3, nombre de client PENDANT: 1
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
 cmd: MODE #no
-WHO #no
 
 Mode
 cmd = |MODE #no
-WHO #no
 |
 cmd erase = |#no
-WHO #no
-|
-tokens.size() = 3
-tokens: |#no|
-target checkChannel = |#no|
-APRES: 3, nombre de client: 2, dans ce channel: #no
-APRES: 3, nombre de client: 1, dans ce channel: #salut
-bytes = 19
-buffer = MODE #no
-WHO #no
-
-cmd: MODE #no
-WHO #no
-
-Mode
-cmd = |MODE #no
-WHO #no
-|
-cmd erase = |#no
-WHO #no
-|
-tokens.size() = 3
-tokens: |#no|
-sendCmd(ERR_CHANOPRIVSNEEDED(client.getNickname(), tokens[0]), client)
-APRES: 3, nombre de client: 2, dans ce channel: #no
-APRES: 3, nombre de client: 1, dans ce channel: #salut
-bytes = 13
-buffer = MODE #salut
-
-cmd: MODE #salut
-
-Mode
-cmd = |MODE #salut
-|
-cmd erase = |#salut
 |
 tokens.size() = 1
-tokens: |#salut|
-target checkChannel = |#salut|
-APRES: 3, nombre de client: 2, dans ce channel: #no
-APRES: 3, nombre de client: 1, dans ce channel: #salut
+tokens: |#no|
+target checkChannel = |#no|
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
+bytes = 10
+buffer = MODE #no
+
+PENDANT:3, nombre de client PENDANT: 2
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+PENDANT:3, nombre de client PENDANT: 1
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+cmd: MODE #no
+
+Mode
+cmd = |MODE #no
+|
+cmd erase = |#no
+|
+tokens.size() = 1
+tokens: |#no|
+ERR_CHANOPRIVSNEEDEDED = |:server 482 salut #no :You're not channel operator
+|
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
+bytes = 9
+buffer = WHO #no
+
+PENDANT:3, nombre de client PENDANT: 2
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+PENDANT:3, nombre de client PENDANT: 1
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+cmd: WHO #no
+
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
+bytes = 9
+buffer = WHO #no
+
+PENDANT:3, nombre de client PENDANT: 2
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+PENDANT:3, nombre de client PENDANT: 1
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+cmd: WHO #no
+
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
 bytes = 63
 buffer = CAP LS 302
 PASS 0000
@@ -201,23 +242,29 @@ token : |USER|
 token : |dbaule 0 * :realname|
 USER
 cmd: dbaule 0 * :realname
+splited.size() = 4
+splited[0] = dbaule
+splited[1] = 0
+splited[2] = *
+splited[3] = :realname
 parseUser
 Username = dbaule
 NickInit
 cmd : dbaule
-nickname_used = 0
-falseNickname = 
 parseNick
 splited[0] = dbaule
-it->second.getNickname() = salut
 it->second.getNickname() = IRCheat
+it->second.getNickname() = salut
 it->second.getNickname() = 
-RPL_CMD_NICK = :dbaule!dbaule@ NICK dbaule
-
+flags[3] = 1
 PASS value : 0000
 USER : 6
 NICK : 4
 PASS : 2
+BOOL : 1
+getNicknameTmp = ||
+RPL_CMD_NICK = :dbaule!dbaule@ NICK dbaule
+
 ===============================================================================================
 init client
 Nickname : dbaule
@@ -225,46 +272,88 @@ Username : dbaule
 Pass : 0000
 fd : 6
 Ip Address : 127.0.0.1
-APRES: 4, nombre de client: 2, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
+APRES: 4, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+APRES: 4, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
+bytes = 13
+buffer = MODE #salut
+
+PENDANT:4, nombre de client PENDANT: 2
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+PENDANT:4, nombre de client PENDANT: 1
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+cmd: MODE #salut
+
+Mode
+cmd = |MODE #salut
+|
+cmd erase = |#salut
+|
+tokens.size() = 1
+tokens: |#salut|
+target checkChannel = |#salut|
+APRES: 4, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+APRES: 4, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
 bytes = 12
 buffer = WHO #salut
 
+PENDANT:4, nombre de client PENDANT: 2
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+PENDANT:4, nombre de client PENDANT: 1
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
 cmd: WHO #salut
 
-APRES: 4, nombre de client: 2, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
-bytes = 23
-buffer = PING LAG1717210915878
-
-cmd: PING LAG1717210915878
-
-APRES: 4, nombre de client: 2, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
+APRES: 4, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+APRES: 4, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
 bytes = 10
 buffer = JOIN #no
 
+PENDANT:4, nombre de client PENDANT: 2
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+PENDANT:4, nombre de client PENDANT: 1
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
 cmd: JOIN #no
 
 JOIN
 channel = #no
 channelsServer.size() = 2
 it->first = #no
-channel.getMode(channel.getName()) = t
+channel.getMode(-42) = t
 setMode Mode = 
 Channel client ADD : #no
 RPL_CMD_JOIN = :dbaule!dbaule@127.0.0.1 JOIN :#no
 
-RPL_CMD_NAME_LST_START = :server 353 dbaule = #no :@salut IRCheat dbaule
+RPL_CMD_NAME_LST_START = :server 353 dbaule = #no :@IRCheat salut dbaule
 
 RPL_CMD_NAME_LST_END = :server 366 dbaule #no :End of /NAMES list
 
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
+APRES: 4, nombre de client: 3
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 4, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
 bytes = 19
 buffer = MODE #no
 WHO #no
 
+PENDANT:4, nombre de client PENDANT: 3
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:4, nombre de client PENDANT: 1
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
 cmd: MODE #no
 WHO #no
 
@@ -277,308 +366,592 @@ WHO #no
 |
 tokens.size() = 3
 tokens: |#no|
-sendCmd(ERR_CHANOPRIVSNEEDED(client.getNickname(), tokens[0]), client)
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
-bytes = 18
-buffer = TOPIC #no :salut
-
-cmd: TOPIC #no :salut
-
-Sat Jun  1 18:55:30 2024= CHELOU SA MERE C'est channel second la loll
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
-bytes = 23
-buffer = PING LAG1717210931878
-
-cmd: PING LAG1717210931878
-
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
-bytes = 23
-buffer = PING LAG1717210933878
-
-cmd: PING LAG1717210933878
-
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
-bytes = 28
-buffer = TOPIC #no :ppppppppppppooo
-
-cmd: TOPIC #no :ppppppppppppooo
-
-Sat Jun  1 18:55:41 2024= CHELOU SA MERE C'est channel second la loll
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
-bytes = 23
-buffer = PING LAG1717210945878
-
-cmd: PING LAG1717210945878
-
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
-bytes = 31
-buffer = TOPIC #no :bienvenue les gonz
-
-cmd: TOPIC #no :bienvenue les gonz
-
-Sat Jun  1 18:55:51 2024= CHELOU SA MERE C'est channel second la loll
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
-bytes = 23
-buffer = PING LAG1717210961878
-
-cmd: PING LAG1717210961878
-
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
-bytes = 23
-buffer = PING LAG1717210963878
-
-cmd: PING LAG1717210963878
-
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
-bytes = 18
-buffer = TOPIC #no :salut
-
-cmd: TOPIC #no :salut
-
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
-bytes = 23
-buffer = PING LAG1717210975878
-
-cmd: PING LAG1717210975878
-
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
-bytes = 11
-buffer = MODE #no 
-
-cmd: MODE #no 
-
-Mode
-cmd = |MODE #no 
+ERR_CHANOPRIVSNEEDEDED = |:server 482 dbaule #no :You're not channel operator
 |
-cmd erase = |#no 
-|
-tokens.size() = 1
-tokens: |#no|
-target checkChannel = |#no|
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
-bytes = 23
-buffer = PING LAG1717210991877
-
-cmd: PING LAG1717210991877
-
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
+APRES: 4, nombre de client: 3
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 4, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
 bytes = 13
-buffer = MODE #no -t
+buffer = JOIN #salut
 
-cmd: MODE #no -t
+PENDANT:4, nombre de client PENDANT: 3
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:4, nombre de client PENDANT: 1
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+cmd: JOIN #salut
 
-Mode
-cmd = |MODE #no -t
-|
-cmd erase = |#no -t
-|
-tokens.size() = 2
-tokens: |#no|
-tokens: |-t|
-target checkChannel = |#no|
-target isMode = |-t|
-checkArgs modes = |-t|
-modes[i] = |-|
-minusSign = false
-channelIt->second.getTopic() = |bienvenue les gonz|
-removeMode Mode = t
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
-bytes = 11
-buffer = MODE #no 
+JOIN
+channel = #salut
+channelsServer.size() = 2
+it->first = #no
+channelToJoin = #salut
+ChannelToJoin.getPassword =  
+channel.getMode(-42) = t
+setMode Mode = 
+Channel client ADD : #salut
+RPL_CMD_JOIN = :dbaule!dbaule@127.0.0.1 JOIN :#salut
 
-cmd: MODE #no 
+RPL_CMD_NAME_LST_START = :server 353 dbaule = #salut :@salut dbaule
 
-Mode
-cmd = |MODE #no 
-|
-cmd erase = |#no 
-|
-tokens.size() = 1
-tokens: |#no|
-target checkChannel = |#no|
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
-bytes = 23
-buffer = PING LAG1717210993878
+RPL_CMD_NAME_LST_END = :server 366 dbaule #salut :End of /NAMES list
 
-cmd: PING LAG1717210993878
-
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
-bytes = 21
-buffer = TOPIC #no :OKOKOKOK
-
-cmd: TOPIC #no :OKOKOKOK
-
-Sat Jun  1 18:56:40 2024= CHELOU SA MERE C'est channel second la loll
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
-bytes = 23
-buffer = PING LAG1717211005878
-
-cmd: PING LAG1717211005878
-
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
-bytes = 23
-buffer = PING LAG1717211021878
-
-cmd: PING LAG1717211021878
-
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
-bytes = 23
-buffer = PING LAG1717211023878
-
-cmd: PING LAG1717211023878
-
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
+APRES: 4, nombre de client: 3
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 4, nombre de client: 2
+blaze du gars: salut, dans le chANNEL: #salut
+blaze du gars: dbaule, dans le chANNEL: #salut
 bytes = 13
-buffer = MODE #no +t
+buffer = MODE #salut
 
-cmd: MODE #no +t
-
-Mode
-cmd = |MODE #no +t
-|
-cmd erase = |#no +t
-|
-tokens.size() = 2
-tokens: |#no|
-tokens: |+t|
-target checkChannel = |#no|
-target isMode = |+t|
-checkArgs modes = |+t|
-modes[i] = |+|
-plusSign = false
-setMode Mode = t
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
-bytes = 11
-buffer = MODE #no 
-
-cmd: MODE #no 
+PENDANT:4, nombre de client PENDANT: 3
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:4, nombre de client PENDANT: 2
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+blaze du gars: dbaule, dans le chANNEL PENDANT: #salut
+cmd: MODE #salut
 
 Mode
-cmd = |MODE #no 
+cmd = |MODE #salut
 |
-cmd erase = |#no 
+cmd erase = |#salut
 |
 tokens.size() = 1
-tokens: |#no|
-target checkChannel = |#no|
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
+tokens: |#salut|
+ERR_CHANOPRIVSNEEDEDED = |:server 482 dbaule #salut :You're not channel operator
+|
+APRES: 4, nombre de client: 3
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 4, nombre de client: 2
+blaze du gars: salut, dans le chANNEL: #salut
+blaze du gars: dbaule, dans le chANNEL: #salut
+bytes = 12
+buffer = WHO #salut
+
+PENDANT:4, nombre de client PENDANT: 3
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:4, nombre de client PENDANT: 2
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+blaze du gars: dbaule, dans le chANNEL PENDANT: #salut
+cmd: WHO #salut
+
+APRES: 4, nombre de client: 3
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 4, nombre de client: 2
+blaze du gars: salut, dans le chANNEL: #salut
+blaze du gars: dbaule, dans le chANNEL: #salut
 bytes = 23
-buffer = PING LAG1717211035878
+buffer = PING LAG1717215521878
 
-cmd: PING LAG1717211035878
+PENDANT:4, nombre de client PENDANT: 3
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:4, nombre de client PENDANT: 2
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+blaze du gars: dbaule, dans le chANNEL PENDANT: #salut
+cmd: PING LAG1717215521878
 
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
-bytes = 24
-buffer = TOPIC #no :OKOKOKOKlol
-
-cmd: TOPIC #no :OKOKOKOKlol
-
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
+APRES: 4, nombre de client: 3
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 4, nombre de client: 2
+blaze du gars: salut, dans le chANNEL: #salut
+blaze du gars: dbaule, dans le chANNEL: #salut
 bytes = 23
-buffer = PING LAG1717211051878
+buffer = PING LAG1717215523877
 
-cmd: PING LAG1717211051878
+PENDANT:4, nombre de client PENDANT: 3
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:4, nombre de client PENDANT: 2
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+blaze du gars: dbaule, dans le chANNEL PENDANT: #salut
+cmd: PING LAG1717215523877
 
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
+APRES: 4, nombre de client: 3
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 4, nombre de client: 2
+blaze du gars: salut, dans le chANNEL: #salut
+blaze du gars: dbaule, dans le chANNEL: #salut
 bytes = 23
-buffer = PING LAG1717211053878
+buffer = PING LAG1717215535878
 
-cmd: PING LAG1717211053878
+PENDANT:4, nombre de client PENDANT: 3
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:4, nombre de client PENDANT: 2
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+blaze du gars: dbaule, dans le chANNEL PENDANT: #salut
+cmd: PING LAG1717215535878
 
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
+APRES: 4, nombre de client: 3
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 4, nombre de client: 2
+blaze du gars: salut, dans le chANNEL: #salut
+blaze du gars: dbaule, dans le chANNEL: #salut
 bytes = 23
-buffer = PING LAG1717211065878
+buffer = PING LAG1717215551878
 
-cmd: PING LAG1717211065878
+PENDANT:4, nombre de client PENDANT: 3
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:4, nombre de client PENDANT: 2
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+blaze du gars: dbaule, dans le chANNEL PENDANT: #salut
+cmd: PING LAG1717215551878
 
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
+APRES: 4, nombre de client: 3
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 4, nombre de client: 2
+blaze du gars: salut, dans le chANNEL: #salut
+blaze du gars: dbaule, dans le chANNEL: #salut
 bytes = 23
-buffer = PING LAG1717211081877
+buffer = PING LAG1717215553878
 
-cmd: PING LAG1717211081877
+PENDANT:4, nombre de client PENDANT: 3
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:4, nombre de client PENDANT: 2
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+blaze du gars: dbaule, dans le chANNEL PENDANT: #salut
+cmd: PING LAG1717215553878
 
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
+APRES: 4, nombre de client: 3
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 4, nombre de client: 2
+blaze du gars: salut, dans le chANNEL: #salut
+blaze du gars: dbaule, dans le chANNEL: #salut
+bytes = 15
+buffer = QUIT :Leaving
+
+PENDANT:4, nombre de client PENDANT: 3
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:4, nombre de client PENDANT: 2
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+blaze du gars: dbaule, dans le chANNEL PENDANT: #salut
+cmd: QUIT :Leaving
+
+cmd: [Leaving]
+JE vais supprimer le frero du channel donc la taille avant: 3
+APRERERERRSRRERRSRRERRSRRERSRERRSRERRSRERSRRERSRERRSRFUJHFKLSIHDGFVJHDBKNCSIFUHHBJK
+taille apres: 2
+JE vais supprimer le frero du channel donc la taille avant: 2
+APRERERERRSRRERRSRRERRSRRERSRERRSRERRSRERSRRERSRERRSRFUJHFKLSIHDGFVJHDBKNCSIFUHHBJK
+taille apres: 1
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
+blaze du gars: dbaule, dans le chANNEL: #salut
 bytes = 23
-buffer = PING LAG1717211083878
+buffer = PING LAG1717215581878
 
-cmd: PING LAG1717211083878
+PENDANT:3, nombre de client PENDANT: 2
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:3, nombre de client PENDANT: 1
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+blaze du gars: dbaule, dans le chANNEL PENDANT: #salut
+cmd: PING LAG1717215581878
 
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
+blaze du gars: dbaule, dans le chANNEL: #salut
 bytes = 23
-buffer = PING LAG1717211095878
+buffer = PING LAG1717215583878
 
-cmd: PING LAG1717211095878
+PENDANT:3, nombre de client PENDANT: 2
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:3, nombre de client PENDANT: 1
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+blaze du gars: dbaule, dans le chANNEL PENDANT: #salut
+cmd: PING LAG1717215583878
 
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
+blaze du gars: dbaule, dans le chANNEL: #salut
 bytes = 23
-buffer = PING LAG1717211111878
+buffer = PING LAG1717215611878
 
-cmd: PING LAG1717211111878
+PENDANT:3, nombre de client PENDANT: 2
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:3, nombre de client PENDANT: 1
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+blaze du gars: dbaule, dans le chANNEL PENDANT: #salut
+cmd: PING LAG1717215611878
 
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
+blaze du gars: dbaule, dans le chANNEL: #salut
 bytes = 23
-buffer = PING LAG1717211113877
+buffer = PING LAG1717215613878
 
-cmd: PING LAG1717211113877
+PENDANT:3, nombre de client PENDANT: 2
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:3, nombre de client PENDANT: 1
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+blaze du gars: dbaule, dans le chANNEL PENDANT: #salut
+cmd: PING LAG1717215613878
 
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
+blaze du gars: dbaule, dans le chANNEL: #salut
 bytes = 23
-buffer = PING LAG1717211125877
+buffer = PING LAG1717215641878
 
-cmd: PING LAG1717211125877
+PENDANT:3, nombre de client PENDANT: 2
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:3, nombre de client PENDANT: 1
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+blaze du gars: dbaule, dans le chANNEL PENDANT: #salut
+cmd: PING LAG1717215641878
 
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
+blaze du gars: dbaule, dans le chANNEL: #salut
 bytes = 23
-buffer = PING LAG1717211141878
+buffer = PING LAG1717215643878
 
-cmd: PING LAG1717211141878
+PENDANT:3, nombre de client PENDANT: 2
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:3, nombre de client PENDANT: 1
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+blaze du gars: dbaule, dans le chANNEL PENDANT: #salut
+cmd: PING LAG1717215643878
 
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
+blaze du gars: dbaule, dans le chANNEL: #salut
 bytes = 23
-buffer = PING LAG1717211143878
+buffer = PING LAG1717215671878
 
-cmd: PING LAG1717211143878
+PENDANT:3, nombre de client PENDANT: 2
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:3, nombre de client PENDANT: 1
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+blaze du gars: dbaule, dans le chANNEL PENDANT: #salut
+cmd: PING LAG1717215671878
 
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
+blaze du gars: dbaule, dans le chANNEL: #salut
 bytes = 23
-buffer = PING LAG1717211155877
+buffer = PING LAG1717215673878
 
-cmd: PING LAG1717211155877
+PENDANT:3, nombre de client PENDANT: 2
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:3, nombre de client PENDANT: 1
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+blaze du gars: dbaule, dans le chANNEL PENDANT: #salut
+cmd: PING LAG1717215673878
 
-APRES: 4, nombre de client: 3, dans ce channel: #no
-APRES: 4, nombre de client: 1, dans ce channel: #salut
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
+blaze du gars: dbaule, dans le chANNEL: #salut
+bytes = 23
+buffer = PING LAG1717215701878
+
+PENDANT:3, nombre de client PENDANT: 2
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:3, nombre de client PENDANT: 1
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+blaze du gars: dbaule, dans le chANNEL PENDANT: #salut
+cmd: PING LAG1717215701878
+
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
+blaze du gars: dbaule, dans le chANNEL: #salut
+bytes = 23
+buffer = PING LAG1717215703878
+
+PENDANT:3, nombre de client PENDANT: 2
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:3, nombre de client PENDANT: 1
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+blaze du gars: dbaule, dans le chANNEL PENDANT: #salut
+cmd: PING LAG1717215703878
+
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
+blaze du gars: dbaule, dans le chANNEL: #salut
+bytes = 23
+buffer = PING LAG1717215731877
+
+PENDANT:3, nombre de client PENDANT: 2
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:3, nombre de client PENDANT: 1
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+blaze du gars: dbaule, dans le chANNEL PENDANT: #salut
+cmd: PING LAG1717215731877
+
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
+blaze du gars: dbaule, dans le chANNEL: #salut
+bytes = 23
+buffer = PING LAG1717215733878
+
+PENDANT:3, nombre de client PENDANT: 2
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:3, nombre de client PENDANT: 1
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+blaze du gars: dbaule, dans le chANNEL PENDANT: #salut
+cmd: PING LAG1717215733878
+
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
+blaze du gars: dbaule, dans le chANNEL: #salut
+bytes = 23
+buffer = PING LAG1717215761878
+
+PENDANT:3, nombre de client PENDANT: 2
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:3, nombre de client PENDANT: 1
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+blaze du gars: dbaule, dans le chANNEL PENDANT: #salut
+cmd: PING LAG1717215761878
+
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
+blaze du gars: dbaule, dans le chANNEL: #salut
+bytes = 23
+buffer = PING LAG1717215763878
+
+PENDANT:3, nombre de client PENDANT: 2
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:3, nombre de client PENDANT: 1
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+blaze du gars: dbaule, dans le chANNEL PENDANT: #salut
+cmd: PING LAG1717215763878
+
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
+blaze du gars: dbaule, dans le chANNEL: #salut
+bytes = 23
+buffer = PING LAG1717215791878
+
+PENDANT:3, nombre de client PENDANT: 2
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:3, nombre de client PENDANT: 1
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+blaze du gars: dbaule, dans le chANNEL PENDANT: #salut
+cmd: PING LAG1717215791878
+
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
+blaze du gars: dbaule, dans le chANNEL: #salut
+bytes = 23
+buffer = PING LAG1717215793877
+
+PENDANT:3, nombre de client PENDANT: 2
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:3, nombre de client PENDANT: 1
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+blaze du gars: dbaule, dans le chANNEL PENDANT: #salut
+cmd: PING LAG1717215793877
+
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
+blaze du gars: dbaule, dans le chANNEL: #salut
+bytes = 23
+buffer = PING LAG1717215821878
+
+PENDANT:3, nombre de client PENDANT: 2
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:3, nombre de client PENDANT: 1
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+blaze du gars: dbaule, dans le chANNEL PENDANT: #salut
+cmd: PING LAG1717215821878
+
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
+blaze du gars: dbaule, dans le chANNEL: #salut
+bytes = 23
+buffer = PING LAG1717215823878
+
+PENDANT:3, nombre de client PENDANT: 2
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:3, nombre de client PENDANT: 1
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+blaze du gars: dbaule, dans le chANNEL PENDANT: #salut
+cmd: PING LAG1717215823878
+
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
+blaze du gars: dbaule, dans le chANNEL: #salut
+bytes = 23
+buffer = PING LAG1717215851878
+
+PENDANT:3, nombre de client PENDANT: 2
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:3, nombre de client PENDANT: 1
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+blaze du gars: dbaule, dans le chANNEL PENDANT: #salut
+cmd: PING LAG1717215851878
+
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
+blaze du gars: dbaule, dans le chANNEL: #salut
+bytes = 23
+buffer = PING LAG1717215853878
+
+PENDANT:3, nombre de client PENDANT: 2
+blaze du gars: IRCheat, dans le chANNEL PENDANT: #no
+blaze du gars: salut, dans le chANNEL PENDANT: #no
+blaze du gars: dbaule, dans le chANNEL PENDANT: #no
+PENDANT:3, nombre de client PENDANT: 1
+blaze du gars: salut, dans le chANNEL PENDANT: #salut
+blaze du gars: dbaule, dans le chANNEL PENDANT: #salut
+cmd: PING LAG1717215853878
+
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #no
+blaze du gars: salut, dans le chANNEL: #no
+blaze du gars: dbaule, dans le chANNEL: #no
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #salut
+blaze du gars: dbaule, dans le chANNEL: #salut

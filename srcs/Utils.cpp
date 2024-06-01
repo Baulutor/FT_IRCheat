@@ -142,7 +142,10 @@ void sendBrodcastMSG(const std::string& cmd, Channels& channel, Clients& client)
         if (it->first != client.getFd())
         {
             if (send(it->second.getFd(), cmd.c_str(), cmd.size(), MSG_NOSIGNAL | MSG_DONTWAIT) < 0)
-                std::cerr << "Error: send() failed" << std::endl;
+			{
+                std::cerr << "Error: send() failed: " << it->second.getNickname() << std::endl;
+
+			}
         }
     }
 }
