@@ -1,14 +1,73 @@
+bytes = 64
+buffer = CAP LS 302
+PASS 0000
+NICK salut
+USER ddlegoat 0 * :realname
+
+===============================================================================================
+token : |CAP|
+token : |LS 302|
+token : |PASS|
+token : |0000|
+token : |NICK|
+token : |salut|
+token : |USER|
+token : |ddlegoat 0 * :realname|
+USER
+cmd: ddlegoat 0 * :realname
+parseUser
+Username = ddlegoat
+NickInit
+cmd : salut
+nickname_used = 0
+falseNickname = 
+parseNick
+splited[0] = salut
+it->second.getNickname() = 
+it->second.getNickname() = 
+RPL_CMD_NICK = :salut!ddlegoat@ NICK salut
+
+PASS value : 0000
+USER : 6
+NICK : 4
+PASS : 2
+===============================================================================================
+init client
+Nickname : salut
+Username : ddlegoat
+Pass : 0000
+fd : 4
+Ip Address : 127.0.0.1
 bytes = 65
 buffer = CAP LS 302
 PASS 0000
 NICK IRCheat
 USER IRCheat 0 * :realname
 
-Size de lstPollFd avant cmd Handler: 2
 ===============================================================================================
-PASS value : 0000
+token : |CAP|
+token : |LS 302|
+token : |PASS|
+token : |0000|
+token : |NICK|
+token : |IRCheat|
+token : |USER|
+token : |IRCheat 0 * :realname|
+USER
+cmd: IRCheat 0 * :realname
+parseUser
+Username = IRCheat
+NickInit
+cmd : IRCheat
+nickname_used = 0
+falseNickname = 
+parseNick
+splited[0] = IRCheat
+it->second.getNickname() = salut
+it->second.getNickname() = 
 RPL_CMD_NICK = :IRCheat!IRCheat@ NICK IRCheat
 
+PASS value : 0000
 USER : 6
 NICK : 4
 PASS : 2
@@ -17,74 +76,145 @@ init client
 Nickname : IRCheat
 Username : IRCheat
 Pass : 0000
-fd : 4
+fd : 5
 Ip Address : 127.0.0.1
-_channels.size(): 0
-bytes = 12
-buffer = JOIN #asaa
+bytes = 17
+buffer = JOIN #no,#salut
 
-Size de lstPollFd avant cmd Handler: 2
-normal oklm
-cmd: JOIN #asaa
+cmd: JOIN #no,#salut
 
 JOIN
-channel = #asaa
+channel = #no
 channelsServer.size() = 0
 channel.getMode(channel.getName()) = t
 setMode Mode = 
-Channel client ADD : #asaa
-RPL_CMD_JOIN = :IRCheat!IRCheat@127.0.0.1 JOIN :#asaa
+Channel client ADD : #no
+RPL_CMD_JOIN = :salut!ddlegoat@127.0.0.1 JOIN :#no
 
-RPL_CMD_NAME_LST_START = :server 353 IRCheat = #asaa :@IRCheat
+RPL_CMD_NAME_LST_START = :server 353 salut = #no :@salut
 
-RPL_CMD_NAME_LST_END = :server 366 IRCheat #asaa :End of /NAMES list
+RPL_CMD_NAME_LST_END = :server 366 salut #no :End of /NAMES list
 
-j'aterris al ??????
-2REVE TA CAPTE JE KIFF PUTAIN
-APRES: 2, nombre de client: 1
-_channels.size(): 1
-bytes = 12
-buffer = MODE #asaa
+channel = #salut
+channelsServer.size() = 1
+it->first = #no
+channelToJoin = #salut
+ChannelToJoin.getPassword =  
+channel.getMode(channel.getName()) = t
+setMode Mode = 
+Channel client ADD : #salut
+RPL_CMD_JOIN = :salut!ddlegoat@127.0.0.1 JOIN :#salut
 
-Size de lstPollFd avant cmd Handler: 2
-normal oklm
-cmd: MODE #asaa
+RPL_CMD_NAME_LST_START = :server 353 salut = #salut :@salut
+
+RPL_CMD_NAME_LST_END = :server 366 salut #salut :End of /NAMES list
+
+APRES: 3, nombre de client: 1, dans ce channel: #no
+APRES: 3, nombre de client: 1, dans ce channel: #salut
+bytes = 10
+buffer = JOIN #no
+
+cmd: JOIN #no
+
+JOIN
+channel = #no
+channelsServer.size() = 2
+it->first = #no
+channel.getMode(channel.getName()) = t
+setMode Mode = 
+Channel client ADD : #no
+RPL_CMD_JOIN = :IRCheat!IRCheat@127.0.0.1 JOIN :#no
+
+RPL_CMD_NAME_LST_START = :server 353 IRCheat = #no :@salut IRCheat
+
+RPL_CMD_NAME_LST_END = :server 366 IRCheat #no :End of /NAMES list
+
+APRES: 3, nombre de client: 2, dans ce channel: #no
+APRES: 3, nombre de client: 1, dans ce channel: #salut
+bytes = 19
+buffer = MODE #no
+WHO #no
+
+cmd: MODE #no
+WHO #no
 
 Mode
-cmd = |MODE #asaa
+cmd = |MODE #no
+WHO #no
 |
-cmd erase = |#asaa
+cmd erase = |#no
+WHO #no
+|
+tokens.size() = 3
+tokens: |#no|
+target checkChannel = |#no|
+APRES: 3, nombre de client: 2, dans ce channel: #no
+APRES: 3, nombre de client: 1, dans ce channel: #salut
+bytes = 19
+buffer = MODE #no
+WHO #no
+
+cmd: MODE #no
+WHO #no
+
+Mode
+cmd = |MODE #no
+WHO #no
+|
+cmd erase = |#no
+WHO #no
+|
+tokens.size() = 3
+tokens: |#no|
+sendCmd(ERR_CHANOPRIVSNEEDED(client.getNickname(), tokens[0]), client)
+APRES: 3, nombre de client: 2, dans ce channel: #no
+APRES: 3, nombre de client: 1, dans ce channel: #salut
+bytes = 13
+buffer = MODE #salut
+
+cmd: MODE #salut
+
+Mode
+cmd = |MODE #salut
+|
+cmd erase = |#salut
 |
 tokens.size() = 1
-tokens: |#asaa|
-channelIt->second.getOperator(client.getNickname()).getNickname() = |IRCheat|
-pass
-target checkChannel = |#asaa|
-j'aterris al ??????
-2REVE TA CAPTE JE KIFF PUTAIN
-APRES: 2, nombre de client: 1
-_channels.size(): 1
-bytes = 11
-buffer = WHO #asaa
-
-Size de lstPollFd avant cmd Handler: 2
-normal oklm
-cmd: WHO #asaa
-
-2REVE TA CAPTE JE KIFF PUTAIN
-APRES: 2, nombre de client: 1
-_channels.size(): 1
+tokens: |#salut|
+target checkChannel = |#salut|
+APRES: 3, nombre de client: 2, dans ce channel: #no
+APRES: 3, nombre de client: 1, dans ce channel: #salut
 bytes = 63
 buffer = CAP LS 302
 PASS 0000
 NICK dbaule
 USER dbaule 0 * :realname
 
-Size de lstPollFd avant cmd Handler: 3
 ===============================================================================================
-PASS value : 0000
+token : |CAP|
+token : |LS 302|
+token : |PASS|
+token : |0000|
+token : |NICK|
+token : |dbaule|
+token : |USER|
+token : |dbaule 0 * :realname|
+USER
+cmd: dbaule 0 * :realname
+parseUser
+Username = dbaule
+NickInit
+cmd : dbaule
+nickname_used = 0
+falseNickname = 
+parseNick
+splited[0] = dbaule
+it->second.getNickname() = salut
+it->second.getNickname() = IRCheat
+it->second.getNickname() = 
 RPL_CMD_NICK = :dbaule!dbaule@ NICK dbaule
 
+PASS value : 0000
 USER : 6
 NICK : 4
 PASS : 2
@@ -93,132 +223,362 @@ init client
 Nickname : dbaule
 Username : dbaule
 Pass : 0000
-fd : 5
+fd : 6
 Ip Address : 127.0.0.1
-APRES: 3, nombre de client: 1
-_channels.size(): 1
+APRES: 4, nombre de client: 2, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
 bytes = 12
-buffer = JOIN #asaa
+buffer = WHO #salut
 
-Size de lstPollFd avant cmd Handler: 3
-normal oklm
-cmd: JOIN #asaa
+cmd: WHO #salut
+
+APRES: 4, nombre de client: 2, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 23
+buffer = PING LAG1717210915878
+
+cmd: PING LAG1717210915878
+
+APRES: 4, nombre de client: 2, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 10
+buffer = JOIN #no
+
+cmd: JOIN #no
 
 JOIN
-channel = #asaa
-channelsServer.size() = 1
-it->first = #asaa
+channel = #no
+channelsServer.size() = 2
+it->first = #no
 channel.getMode(channel.getName()) = t
 setMode Mode = 
-Channel client ADD : #asaa
-RPL_CMD_JOIN = :dbaule!dbaule@127.0.0.1 JOIN :#asaa
+Channel client ADD : #no
+RPL_CMD_JOIN = :dbaule!dbaule@127.0.0.1 JOIN :#no
 
-RPL_CMD_NAME_LST_START = :server 353 dbaule = #asaa :@IRCheat dbaule
+RPL_CMD_NAME_LST_START = :server 353 dbaule = #no :@salut IRCheat dbaule
 
-RPL_CMD_NAME_LST_END = :server 366 dbaule #asaa :End of /NAMES list
+RPL_CMD_NAME_LST_END = :server 366 dbaule #no :End of /NAMES list
 
-j'aterris al ??????
-2REVE TA CAPTE JE KIFF PUTAIN
-APRES: 3, nombre de client: 2
-_channels.size(): 1
-bytes = 23
-buffer = MODE #asaa
-WHO #asaa
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 19
+buffer = MODE #no
+WHO #no
 
-Size de lstPollFd avant cmd Handler: 3
-normal oklm
-cmd: MODE #asaa
-WHO #asaa
+cmd: MODE #no
+WHO #no
 
 Mode
-cmd = |MODE #asaa
-WHO #asaa
+cmd = |MODE #no
+WHO #no
 |
-cmd erase = |#asaa
-WHO #asaa
+cmd erase = |#no
+WHO #no
 |
 tokens.size() = 3
-tokens: |#asaa|
-channelIt->second.getOperator(client.getNickname()).getNickname() = ||
+tokens: |#no|
 sendCmd(ERR_CHANOPRIVSNEEDED(client.getNickname(), tokens[0]), client)
-j'aterris al ??????
-2REVE TA CAPTE JE KIFF PUTAIN
-APRES: 3, nombre de client: 2
-_channels.size(): 1
-bytes = 15
-buffer = QUIT :Leaving
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 18
+buffer = TOPIC #no :salut
 
-Size de lstPollFd avant cmd Handler: 3
-normal oklm
-cmd: QUIT :Leaving
+cmd: TOPIC #no :salut
 
-[QUIT :Leaving
-]
-chan->first: #asaa , valeur de opeVec.size(): 1
-est ce que je suis la ??
-est ce que je suis la ??
-nombre d'ope apres avoir rajoute !: 1
-RPL_CMD_NAME_LST_START = :server 353 IRCheat = #asaa :@IRCheat
-
-RPL_CMD_NAME_LST_END = :server 366 IRCheat #asaa :End of /NAMES list
-
-j'aterris al ??????
-2REVE TA CAPTE JE KIFF PUTAIN
-APRES: 3, nombre de client: 2
-_channels.size(): 1
-bytes = -1
-buffer = 
-Size de lstPollFd avant cmd Handler: 3
-normal oklm
-cmd: 
-2REVE TA CAPTE JE KIFF PUTAIN
-APRES: 3, nombre de client: 2
-_channels.size(): 1
-bytes = 0
-buffer = 
-Size de lstPollFd avant cmd Handler: 3
+Sat Jun  1 18:55:30 2024= CHELOU SA MERE C'est channel second la loll
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
 bytes = 23
-buffer = PING LAG1717146290456
+buffer = PING LAG1717210931878
 
-Size de lstPollFd avant cmd Handler: 2
-normal oklm
-cmd: PING LAG1717146290456
+cmd: PING LAG1717210931878
 
-j'aterris al ??????
-2REVE TA CAPTE JE KIFF PUTAIN
-APRES: 2, nombre de client: 2
-_channels.size(): 1
-bytes = 19
-buffer = MODE #asaa chelou
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 23
+buffer = PING LAG1717210933878
 
-Size de lstPollFd avant cmd Handler: 2
-normal oklm
-cmd: MODE #asaa chelou
+cmd: PING LAG1717210933878
+
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 28
+buffer = TOPIC #no :ppppppppppppooo
+
+cmd: TOPIC #no :ppppppppppppooo
+
+Sat Jun  1 18:55:41 2024= CHELOU SA MERE C'est channel second la loll
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 23
+buffer = PING LAG1717210945878
+
+cmd: PING LAG1717210945878
+
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 31
+buffer = TOPIC #no :bienvenue les gonz
+
+cmd: TOPIC #no :bienvenue les gonz
+
+Sat Jun  1 18:55:51 2024= CHELOU SA MERE C'est channel second la loll
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 23
+buffer = PING LAG1717210961878
+
+cmd: PING LAG1717210961878
+
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 23
+buffer = PING LAG1717210963878
+
+cmd: PING LAG1717210963878
+
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 18
+buffer = TOPIC #no :salut
+
+cmd: TOPIC #no :salut
+
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 23
+buffer = PING LAG1717210975878
+
+cmd: PING LAG1717210975878
+
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 11
+buffer = MODE #no 
+
+cmd: MODE #no 
 
 Mode
-cmd = |MODE #asaa chelou
+cmd = |MODE #no 
 |
-cmd erase = |#asaa chelou
+cmd erase = |#no 
+|
+tokens.size() = 1
+tokens: |#no|
+target checkChannel = |#no|
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 23
+buffer = PING LAG1717210991877
+
+cmd: PING LAG1717210991877
+
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 13
+buffer = MODE #no -t
+
+cmd: MODE #no -t
+
+Mode
+cmd = |MODE #no -t
+|
+cmd erase = |#no -t
 |
 tokens.size() = 2
-tokens: |#asaa|
-tokens: |chelou|
-channelIt->second.getOperator(client.getNickname()).getNickname() = |dbaule|
-target checkChannel = |#asaa|
-target isMode = |chelou|
-target isArgsMode = |chelou|
-j'aterris al ??????
-2REVE TA CAPTE JE KIFF PUTAIN
-APRES: 2, nombre de client: 2
-_channels.size(): 1
+tokens: |#no|
+tokens: |-t|
+target checkChannel = |#no|
+target isMode = |-t|
+checkArgs modes = |-t|
+modes[i] = |-|
+minusSign = false
+channelIt->second.getTopic() = |bienvenue les gonz|
+removeMode Mode = t
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 11
+buffer = MODE #no 
+
+cmd: MODE #no 
+
+Mode
+cmd = |MODE #no 
+|
+cmd erase = |#no 
+|
+tokens.size() = 1
+tokens: |#no|
+target checkChannel = |#no|
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
 bytes = 23
-buffer = PING LAG1717146320456
+buffer = PING LAG1717210993878
 
-Size de lstPollFd avant cmd Handler: 2
-normal oklm
-cmd: PING LAG1717146320456
+cmd: PING LAG1717210993878
 
-j'aterris al ??????
-2REVE TA CAPTE JE KIFF PUTAIN
-APRES: 2, nombre de client: 2
-_channels.size(): 1
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 21
+buffer = TOPIC #no :OKOKOKOK
+
+cmd: TOPIC #no :OKOKOKOK
+
+Sat Jun  1 18:56:40 2024= CHELOU SA MERE C'est channel second la loll
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 23
+buffer = PING LAG1717211005878
+
+cmd: PING LAG1717211005878
+
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 23
+buffer = PING LAG1717211021878
+
+cmd: PING LAG1717211021878
+
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 23
+buffer = PING LAG1717211023878
+
+cmd: PING LAG1717211023878
+
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 13
+buffer = MODE #no +t
+
+cmd: MODE #no +t
+
+Mode
+cmd = |MODE #no +t
+|
+cmd erase = |#no +t
+|
+tokens.size() = 2
+tokens: |#no|
+tokens: |+t|
+target checkChannel = |#no|
+target isMode = |+t|
+checkArgs modes = |+t|
+modes[i] = |+|
+plusSign = false
+setMode Mode = t
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 11
+buffer = MODE #no 
+
+cmd: MODE #no 
+
+Mode
+cmd = |MODE #no 
+|
+cmd erase = |#no 
+|
+tokens.size() = 1
+tokens: |#no|
+target checkChannel = |#no|
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 23
+buffer = PING LAG1717211035878
+
+cmd: PING LAG1717211035878
+
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 24
+buffer = TOPIC #no :OKOKOKOKlol
+
+cmd: TOPIC #no :OKOKOKOKlol
+
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 23
+buffer = PING LAG1717211051878
+
+cmd: PING LAG1717211051878
+
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 23
+buffer = PING LAG1717211053878
+
+cmd: PING LAG1717211053878
+
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 23
+buffer = PING LAG1717211065878
+
+cmd: PING LAG1717211065878
+
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 23
+buffer = PING LAG1717211081877
+
+cmd: PING LAG1717211081877
+
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 23
+buffer = PING LAG1717211083878
+
+cmd: PING LAG1717211083878
+
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 23
+buffer = PING LAG1717211095878
+
+cmd: PING LAG1717211095878
+
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 23
+buffer = PING LAG1717211111878
+
+cmd: PING LAG1717211111878
+
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 23
+buffer = PING LAG1717211113877
+
+cmd: PING LAG1717211113877
+
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 23
+buffer = PING LAG1717211125877
+
+cmd: PING LAG1717211125877
+
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 23
+buffer = PING LAG1717211141878
+
+cmd: PING LAG1717211141878
+
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 23
+buffer = PING LAG1717211143878
+
+cmd: PING LAG1717211143878
+
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut
+bytes = 23
+buffer = PING LAG1717211155877
+
+cmd: PING LAG1717211155877
+
+APRES: 4, nombre de client: 3, dans ce channel: #no
+APRES: 4, nombre de client: 1, dans ce channel: #salut

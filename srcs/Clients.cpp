@@ -187,88 +187,38 @@ std::vector<int> userMode(std::vector<std::string> tokens, Clients &client, Serv
 
 std::vector<int> nickMode(std::vector<std::string> tokens, Clients &client, Server &server, std::vector<int> &flags)
 {
-    for (size_t i = 0; i < tokens.size(); ++i)
-    {
-        // std::cout << "caca ici" << std::endl;
-        if (tokens[i].find("NICK") != std::string::npos && flags[2] < 0)
-        {
-            if (client.getPass() == "")
-            {
-                sendCmd("ERROR :You must confirm your password before registering\r\n", client);
-                client.setIsRegistered(false);
-                flags[0] = -1; // PASS
-                flags[1] = -1; // USER
-                flags[2] = -1; // NICK
-                flags[3] = 0; // BOOL FALSE
-                return (flags);
-            }
-            if (NickInit(tokens[i + 1], client, server) == false)
-                return (flags);
-            flags[2] = i; // NICK
-            flags[3] = 1; // BOOL TRUE
-            return (flags);
-        }
-    }
-    flags[3] = 0; // BOOL FALSE
-    return (flags);
-}
-
-std::vector<int> initializeFlags()
-{
-    std::vector<int> temp(4, -1);
-    temp[3] = 0; // Si vous avez besoin de définir une valeur spécifique
-    return (temp);
-}
-
-bool Clients::initClients(std::string line, Server &server)
-{
-    // static int PASS = -1;
-    // static int NICK = -1;
-    // static int USER = -1;
-
-    static std::vector<int> flags = initializeFlags();
-
-    std::vector<std::string> tokens = parseLine(line);
-    for (size_t i = 0; i < tokens.size(); ++i)
-    {
-        std::cout << "token : |" << tokens[i] << "|" << std::endl;
-    }
-
-    flags = passMode(tokens, *this, server, flags);
-    flags = userMode(tokens, *this, server, flags);
-    flags = nickMode(tokens, *this, server, flags);
-    if (flags[3] == 0)
-        return (false);
-    if (flags[3] == 0)
-        return (false);
-    if (flags[3] == 0)
-        return (false);
-    std::cout << "PASS value : " << _pass << std::endl;
-    std::cout << "USER : " << flags[1] << std::endl;
-    std::cout << "NICK : " << flags[2] << std::endl;
-    std::cout << "PASS : " << flags[0] << std::endl;
-    if (((flags[1] > -1 || flags[2] > -1) || (flags[1] > -1 && flags[2] > -1)) && flags[0] == -1)
-    {
-        sendCmd(ERR_PASSWDMISMATCH(getNickname()), *this);
-        _isRegistered = false;
-        flags[0] = -1;
-        flags[1] = -1;
-        flags[2] = -1;
-        flags[3] = 0;
-        return (true);
-    }
-    if (flags[0] > -1 && flags[1] > -1 && flags[2] > -1)
-    {
-        sendCmd(RPL_MOTD_START(getNickname()), *this);
-        sendCmd(RPL_MOTD_MSG(getNickname(), "Welcome to the FT_IRCheat"), *this);
-        sendCmd(RPL_MOTD_END(getNickname()), *this);
-        setAddrIp(server.getAddrIp());
-        _isRegistered = true;
-        flags[0] = -1;
-        flags[1] = -1;
-        flags[2] = -1;
-		std::cout << "===============================================================================================" << std::endl;
-        return (true);
-    }
-    return (false);
+	for (size_t i = 0; i < tokens.size(); ++i)
+	{
+		// std::cout << "caca ici" << std::endl;
+		if (tokens[i].find("NICK") != std::string::npos && flags[2] < 0)
+		{
+			if (client.getPass() == "")
+			{
+				sendCmd("ERROR :You must confirm your password before registering\r\n", client);
+				client.setIsRegistered(false);
+				flags[0] = -1; // PASS
+				flags[1] = -1; // USER
+				flags[2] = -1; // NICK
+				flags[3] = 0; // BOOL FALSE
+				return (flags);
+			}
+			if (tokens[i + 1].find(" ") != std::string::npos)
+			{
+				sendCmd(ERR_NONICKNAMEGIVEN(client.getNickname()), client);
+				return (flags);
+			}
+			if (NickInit(tokens[i + 1], client, server) == false)
+				return (flags);
+			flags[2] = i; // NICK
+			flags[3] = 1; // BOOL TRUE
+			return (flags);
+		}
+		else if (flags[2] >= 0)
+		{
+			flags[3] = 1; // BOOL TRUE
+			return (flags);
+		}
+	}
+	flags[3] = 0; // BOOL FALSE
+	return (flags);
 }

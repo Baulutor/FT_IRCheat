@@ -38,7 +38,6 @@ void Server::cmdHandler(std::string cmd, Clients& client)
         if (startWith(cmd, lstCmd[i]))
         {
             lstFunc[i](cmd, client, *this);
-			std::cout << "j'aterris al ??????" << std::endl;
             return;
         }
     }
@@ -123,11 +122,8 @@ bool Server::ClientHandler(bool init)
 			ssize_t bytes = recv(_lstPollFd[i].fd, itClients->second.getBuffer(), 511, MSG_DONTWAIT);
 			std::cout << "bytes = " << bytes << std::endl;
 			std::cout << "buffer = " << itClients->second.getBuffer() << std::endl;
-			std::cout << "Size de lstPollFd avant cmd Handler: " << _lstPollFd.size() << std::endl;
 			if (bytes < 0)
-			{
 				std::cerr << "ERROR rcve !" << std::endl;
-			}
 			else if (bytes == 0)
 			{
 				std::cerr << "connexion closed " << std::endl;
@@ -179,16 +175,9 @@ bool Server::ClientHandler(bool init)
 				}
 			}
 			else if (itClients->second.getIsRegistered() == true)
-			{
-
-				std::cout << "normal oklm" << std::endl;
 				cmdHandler(itClients->second.getBuffer(), itClients->second);
-				std::cout << "2REVE TA CAPTE JE KIFF PUTAIN" << std::endl;
-
-			}
-			if (_channels.size() > 0)
-				std::cout << "APRES: " << _lstPollFd.size() << ", nombre de client: " << _channels.begin()->second.getClientMap().size() << std::endl;
-			std::cout << "_channels.size(): " << _channels.size() << std::endl;
+			for (std::map<std::string, Channels>::iterator it = _channels.begin(); it != _channels.end() ; it++)
+				std::cout << "APRES: " << _lstPollFd.size() << ", nombre de client: " << it->second.getClientMap().size() << ", dans ce channel: " << it->first << std::endl;
 		}
 		i++;
 	}

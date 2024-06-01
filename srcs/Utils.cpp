@@ -123,7 +123,7 @@ void signalHandler(int signum)
 void sendCmd(const std::string& cmd, Clients &client)
 {
     if (send(client.getFd(), cmd.c_str(), cmd.size(), MSG_NOSIGNAL | MSG_DONTWAIT) < 0)
-        std::cerr << "Error: send() failed" << std::endl;
+        std::cerr << "Error sendCmd client:" << client.getFd() <<  "send() failed" << std::endl;
         // throw std::exception();
 }
 
@@ -132,8 +132,9 @@ void sendBrodcastChannel(const std::string& cmd, Channels& channel)
 	for (std::map<int, Clients>::iterator it = channel.getClientMap().begin(); it != channel.getClientMap().end(); ++it)
 	{
 		if (send(it->first, cmd.c_str(), cmd.size(), MSG_NOSIGNAL | MSG_DONTWAIT) < 0)
-            std::cerr << "Error: send() failed" << std::endl;
-			// throw std::exception();
+			std::cerr << "Error sendCmd client:" << channel.getName() <<  "send() failed" << std::endl;
+
+		// throw std::exception();
 	}
 }
 
@@ -144,8 +145,9 @@ void sendBrodcastMSG(const std::string& cmd, Channels& channel, Clients& client)
         if (it->first != client.getFd())
         {
             if (send(it->second.getFd(), cmd.c_str(), cmd.size(), MSG_NOSIGNAL | MSG_DONTWAIT) < 0)
-                std::cerr << "Error: send() failed" << std::endl;
-                // throw std::exception();
+				std::cerr << "Error sendCmd client ICIICICCIICCI LOL: " << it->second.getFd() <<  "send() failed, le client: " << it->second.getNickname() << std::endl;
+
+			// throw std::exception();
         }
     }
 }

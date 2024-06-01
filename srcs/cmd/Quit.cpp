@@ -81,8 +81,91 @@
 void Quit(std::string cmd, Clients& client, Server& server)
 {
 
+	std::string reason = &cmd[6];
+	reason = reason.substr(0, reason.size() - 2);
+	std::cout << "cmd: [" << reason << "]" << std::endl;
 
-	(void)cmd;
-	(void)client;
-	(void)server;
+
+	// server.getChannels();
+	std::map<std::string, Channels> servChannel = server.getChannels();
+
+	// le seul truc que je veux utiliser du vecteur de client le reste ca va etre server
+	std::map<std::string, Channels> clientChannel = client.getChannelsClient();
+
+
+	// BOUCLE de for du nombre de channel dont le client est inclus !
+	for (std::map<std::string, Channels>::iterator it = clientChannel.begin(); it != clientChannel.end(); it++)
+	{
+		std::vector<Clients> vecOperator = servChannel.find(it->first)->second.getOperatorVector();
+		//servChannel.find(it->first)
+		std::map<std::string, Channels>::iterator iterServChannel = servChannel.find(it->first);
+
+		// servChannel.find(it->first)->second.getClientMap();
+		std::map<int, Clients> serverMapClients = servChannel.find(it->first)->second.getClientMap();
+
+		if (vecOperator.size() == 1)
+		{
+			if (serverMapClients.size() > 1)
+			{
+				if (vecOperator.begin()->getFd() == client.getFd()) // ca veut dire si le client est l'operateur !
+				{
+					if (serverMapClients.begin()->second.getFd() == client.getFd())
+					{
+						std::map<int, Clients>::iterator forOpe =  serverMapClients.begin()++;
+						iterServChannel->second.setOperator(forOpe->second);
+					}
+					else
+						iterServChannel->second.setOperator(serverMapClients.begin()->second);
+					iterServChannel->second.removeOperator(client);
+				}
+			}
+		}
+		else
+		{
+			// juste supprimer le client du channel (serv)! et enlever de son role d'operateur si jamais il l'etais !
+			for (std::vector<Clients>::iterator ite = vecOperator.begin(); ite != vecOperator.end(); ite++)
+			{
+				if (ite->getFd() == client.getFd())
+					iterServChannel->second.removeOperator(client);
+			}
+		}
+//		NameLstUpadte(client, iterServChannel->second);
+		sendBrodcastChannel(RPL_QUIT_CHANNEL(client.getNickname(), client.getUsername(), client.getAddrIp(), it->first, reason), it->second);
+		if (serverMapClients.size() == 1)
+		{
+			std::cout << "serverMapClients get clear  " << std::endl;
+			sendBrodcastChannel("quit avec la raison suivant : " + reason, iterServChannel->second);
+			client.getChannelsClient().find(it->first)->second.getClientMap().clear();
+			server.getChannels().find(it->first)->second.getClientMap().clear();
+			server.getChannels().erase(server.getChannels().find(it->first));
+			continue ;
+		}
+		else
+		{
+			std::cout << "JE vais supprimer le frero du channel donc la taille avant: " << server.getChannels().find(it->first)->second.getClientMap().size() << std::endl;
+			server.getChannels().find(it->first)->second.getClientMap().erase(serverMapClients.find(client.getFd()));
+			client.getChannelsClient().find(it->first)->second.getClientMap().erase(serverMapClients.find(client.getFd()));
+			std::cout << "taille apres: " << server.getChannels().find(it->first)->second.getClientMap().size() << std::endl;
+		}
+	}
+	sendBrodcastServer("ERROR: " + client.getNickname() + " Disconnected from server\r\n", server);
+
+	std::vector<pollfd> lstPollFdVec = server.getLstPollFd();
+	for (size_t i = 0; i < lstPollFdVec.size(); i++)
+	{
+		std::cout << "client.getFd(): " << client.getFd() << ", et de lstPollFd: " << lstPollFdVec[i].fd << std::endl;
+		if (client.getFd() == lstPollFdVec[i].fd)
+		{
+			server.getLstPollFd().at(i).revents = 0;
+			server.getLstPollFd().at(i).events = 0;
+			close(server.getLstPollFd().at(i).fd);
+			server.getLstPollFd().erase(server.getLstPollFd().begin() + i);
+			break ;
+		}
+	}
+	close(client.getFd());
+	server.getClients().erase(server.getClients().find(client.getFd()));
+
+// donc pollfd et supression client ici;
+
 }
