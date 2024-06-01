@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:57:44 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/31 23:29:53 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/06/01 15:37:49 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@
 # define ERR_CANNOTSENDTOCHAN(Nickname, Channel) (":server 404 " + Nickname + " " + Channel + " :Cannot send to channel\r\n")
 
 # define ERR_ERRONEUSNICKNAME(Nickname, Nickname2) (":server 432 " + Nickname + " " + Nickname2 + " :Erroneus nickname" + "\r\n")
+# define ERR_NONICKNAMEGIVEN(Nickname) (":server 431 " + Nickname + " :No nickname given" + "\r\n")
+
 
 #endif
 

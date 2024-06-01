@@ -30,7 +30,7 @@ bool startWith(const std::string &line, const char *cmd) {return (line.find(cmd)
 void Server::cmdHandler(std::string cmd, Clients& client)
 {
 	std::cout << "cmd: " << cmd << std::endl;
-    const char *lstCmd[] = {"JOIN", "KICK", "PRIVMSG", "PING", "INVITE", "MODE", "TOPIC", "NICK", "QUIT"};
+    const char *lstCmd[] = {"JOIN ", "KICK ", "PRIVMSG ", "PING ", "INVITE ", "MODE ", "TOPIC ", "NICK ", "QUIT "};
     // , "NAMES", "NICK", "INVITE", "TOPIC", "PRIVMSG", "QUIT", "PART", "KICK", "MODE"
     void (*lstFunc[])(std::string, Clients&, Server&) = {Join, Kick, Privmsg, Pong, Invite, Mode, Topic, Nick, Quit};
     for (int i = 0; i < 9; i++)
@@ -51,7 +51,7 @@ void Server::launch(std::string av, std::string av2)
 
 	// Création de la socket serveur
 
-	//setAddrIp("10.14.10.5");
+	setAddrIp("127.0.0.1");
 	setPassword(av2);
 	_fd = -1;
 

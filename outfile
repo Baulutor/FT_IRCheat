@@ -1,0 +1,208 @@
+ClientHandler
+bytes = 59
+buffer = CAP LS 302
+PASS toto
+NICK bfaure
+USER bf 0 * :realname
+
+===============================================================================================
+token : |CAP|
+token : |LS 302|
+token : |PASS|
+token : |toto|
+token : |NICK|
+token : |bfaure|
+token : |USER|
+token : |bf 0 * :realname|
+USER
+cmd: bf 0 * :realname
+splited.size() = 4
+splited[0] = bf
+splited[1] = 0
+splited[2] = *
+splited[3] = :realname
+parseUser
+Username = bf
+NickInit
+cmd : bfaure
+parseNick
+splited[0] = bfaure
+it->second.getNickname() = 
+flags[3] = 1
+PASS value : toto
+USER : 6
+NICK : 4
+PASS : 2
+BOOL : 1
+getNicknameTmp = ||
+RPL_CMD_NICK = :bfaure!bf@ NICK bfaure
+
+===============================================================================================
+init client
+Nickname : bfaure
+Username : bf
+Pass : toto
+fd : 4
+Ip Address : 127.0.0.1
+ClientHandler
+bytes = 23
+buffer = PING LAG1717203013874
+
+cmd: PING LAG1717203013874
+
+ClientHandler
+bytes = 12
+buffer = CAP LS 302
+
+===============================================================================================
+token : |CAP|
+token : |LS 302|
+flags[3] = 0
+ClientHandler
+bytes = 11
+buffer = PASS toto
+
+===============================================================================================
+token : |PASS|
+token : |toto|
+flags[3] = 0
+ClientHandler
+bytes = 23
+buffer = PING LAG1717203043874
+
+===============================================================================================
+token : |PING|
+token : |LAG1717203043874|
+flags[3] = 0
+ClientHandler
+bytes = 16
+buffer = NICK bfaureeee
+
+===============================================================================================
+token : |NICK|
+token : |bfaureeee|
+NickInit
+cmd : bfaureeee
+parseNick
+splited[0] = bfaureeee
+it->second.getNickname() = bfaure
+it->second.getNickname() = 
+flags[3] = 1
+PASS value : toto
+USER : -1
+NICK : 0
+PASS : 0
+BOOL : 1
+ClientHandler
+bytes = 29
+buffer = USER benjamin 0 * :realname
+
+===============================================================================================
+token : |USER|
+token : |benjamin 0 * :realname|
+USER
+cmd: benjamin 0 * :realname
+splited.size() = 4
+splited[0] = benjamin
+splited[1] = 0
+splited[2] = *
+splited[3] = :realname
+parseUser
+Username = benjamin
+flags[3] = 1
+PASS value : toto
+USER : 0
+NICK : 0
+PASS : 0
+BOOL : 1
+getNicknameTmp = ||
+RPL_CMD_NICK = :bfaureeee!benjamin@ NICK bfaureeee
+
+===============================================================================================
+init client
+Nickname : bfaureeee
+Username : benjamin
+Pass : toto
+fd : 5
+Ip Address : 127.0.0.1
+ClientHandler
+bytes = 23
+buffer = PING LAG1717203073874
+
+cmd: PING LAG1717203073874
+
+ClientHandler
+bytes = 10
+buffer = JOIN #test
+bytes = -1
+buffer = 
+cmd: 
+ClientHandler
+bytes = 2
+buffer = 
+
+cmd: JOIN #test
+
+JOIN
+channel = #test
+channelsServer.size() = 0
+channel.getMode(channel.getName()) = t
+setMode Mode = 
+Channel client ADD : #test
+RPL_CMD_JOIN = :bfaureeee!benjamin@127.0.0.1 JOIN :#test
+
+RPL_CMD_NAME_LST_START = :server 353 bfaureeee = #test :@bfaureeee
+
+RPL_CMD_NAME_LST_END = :server 366 bfaureeee #test :End of /NAMES list
+
+ClientHandler
+bytes = 12
+buffer = JOIN #test
+
+cmd: JOIN #test
+
+JOIN
+channel = #test
+channelsServer.size() = 1
+it->first = #test
+channel.getMode(channel.getName()) = t
+setMode Mode = 
+Channel client ADD : #test
+RPL_CMD_JOIN = :bfaure!bf@127.0.0.1 JOIN :#test
+
+RPL_CMD_NAME_LST_START = :server 353 bfaure = #test :bfaure @bfaureeee
+
+RPL_CMD_NAME_LST_END = :server 366 bfaure #test :End of /NAMES list
+
+ClientHandler
+bytes = 12
+buffer = MODE #test
+
+cmd: MODE #test
+
+Mode
+cmd = |MODE #test
+|
+cmd erase = |#test
+|
+tokens.size() = 1
+tokens: |#test|
+sendCmd(ERR_CHANOPRIVSNEEDED(client.getNickname(), tokens[0]), client)
+ClientHandler
+bytes = 11
+buffer = WHO #test
+
+cmd: WHO #test
+
+ClientHandler
+bytes = 23
+buffer = PING LAG1717203103874
+
+cmd: PING LAG1717203103874
+
+ClientHandler
+bytes = 23
+buffer = PING LAG1717203133874
+
+cmd: PING LAG1717203133874
+

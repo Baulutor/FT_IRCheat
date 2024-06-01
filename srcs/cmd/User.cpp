@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 17:15:48 by nibernar          #+#    #+#             */
-/*   Updated: 2024/06/01 00:37:01 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/06/01 15:17:42 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ bool    User(std::string cmd, Clients& client, Server& server)
     std::map<int, Clients>& mapClients = server.getClients();
     std::map<int, Clients>::iterator itClients = mapClients.begin();
     std::vector<std::string> splited = split(cmd, ' ');
+    std::cout << "splited.size() = " << splited.size() << std::endl;
+    for (size_t i = 0; i < splited.size(); i++)
+        std::cout << "splited[" << i << "] = " << splited[i] << std::endl;
     if (splited.size() != 4)
         return (sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), "USER"), client), false);
     if (splited[1].size() != 1 && splited[1][0] != '0')
