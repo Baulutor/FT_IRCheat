@@ -25,8 +25,9 @@ Channels::Channels(std::string name, Clients& op)
     _password = " ";
     _nbClients = 0;
     _nbMaxClients = 0;
-    _mode.insert(std::make_pair(name, "t"));
-    _mode.insert(std::make_pair(op.getNickname(), "o"));
+    _id = -42;
+    _mode.insert(std::make_pair(_id, "t"));
+    _mode.insert(std::make_pair(op.getFd(), "o"));
 }
 
 Channels::~Channels() {}
@@ -47,18 +48,18 @@ std::vector<Clients>& Channels::getOperatorVector() {return (_operator);}
 
 std::string Channels::getPassword() const {return (_password);}
 
-std::string Channels::getMode(std::string target) const {return (_mode.find(target)->second);}
+std::string Channels::getMode(int target) const {return (_mode.find(target)->second);}
 
 int Channels::getLimit() const {return (_nbMaxClients);}
 
 int Channels::getNbClients() const {return (_nbClients);}
 
-Clients Channels::getOperator(std::string target) const
+Clients Channels::getOperator(int target) const
 {
     // std::cout << "Channels operator : " << _operator.size() << std::endl;
     for (size_t i = 0; i < _operator.size(); i++)
     {
-        if (_operator[i].getNickname() == target)
+        if (_operator[i].getFd() == target)
             return (_operator[i]);
     }
     return (Clients());
@@ -76,10 +77,10 @@ void Channels::setOperator(Clients& op) {_operator.push_back(op);}
 
 void Channels::setPassword(std::string password) {_password = password;}
 
-void Channels::setMode(std::string target, std::string mode)
+void Channels::setMode(int target, std::string mode)
 {
     std::cout << "setMode Mode = " << mode << std::endl;
-    std::map<std::string, std::string>::iterator it = _mode.find(target);
+    std::map<int, std::string>::iterator it = _mode.find(target);
     if (it != _mode.end())
         it->second += mode;
     else
@@ -94,10 +95,10 @@ void Channels::incrementNbClients() {_nbClients++;}
 
 // Remover
 
-void Channels::removeMode(std::string target, std::string mode)
+void Channels::removeMode(int target, std::string mode)
 {
     std::cout << "removeMode Mode = " << mode << std::endl;
-    std::map<std::string, std::string>::iterator it = _mode.find(target);
+    std::map<int, std::string>::iterator it = _mode.find(target);
     if (it != _mode.end())
     {
         if (it->second.length() <= 1)  // Si la chaîne est vide ou contient une seule valeur
@@ -111,9 +112,8 @@ void Channels::removeOperator(Clients& op)
 {
     for (size_t i = 0; i < _operator.size(); i++)
     {
-        if (_operator[i].getNickname() == op.getNickname())
+        if (_operator[i].getFd() == op.getFd())
             _operator.erase(_operator.begin() + i);
     }
-
 }
 void Channels::ClientInvite(std::map<int, Clients> &client){_inviteClient = client;}

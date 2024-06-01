@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 17:15:55 by nibernar          #+#    #+#             */
-/*   Updated: 2024/06/01 01:01:47 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/06/01 18:31:01 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ void 	Nick(std::string cmd, Clients& client, Server& server)
     std::map<int, Clients>& mapClients = server.getClients();
     // std::map<int, Clients>::iterator itClients = mapClients.begin();
     std::vector<std::string> splited = split(cmd, ' ');
+    std::cout << "splited.size() = " << splited.size() << std::endl;
+    for (size_t i = 0; i < splited.size(); i++)
+        std::cout << "splited[" << i << "] = " << splited[i] << std::endl;
     if (splited.size() != 2)
     {
         std::cout << "ERR_NEEDMOREPARAMS = " << ERR_NEEDMOREPARAMS(client.getNickname(), "NICK") << std::endl;
@@ -80,7 +83,7 @@ void 	Nick(std::string cmd, Clients& client, Server& server)
     {
         nickname_used = false;
         std::cout << "RPL_CMD_NICK = " << RPL_CMD_NICK(falseNickname, client.getUsername(), client.getAddrIp(), splited[1]) << std::endl;
-        sendBrodcastServer(RPL_CMD_NICK(client.getNickname(), client.getUsername(), client.getAddrIp(), splited[1]), server);
+        sendBrodcastServer(RPL_CMD_NICK(falseNickname, client.getUsername(), client.getAddrIp(), splited[1]), server);
     }
     else
     {
@@ -96,12 +99,7 @@ bool 	NickInit(std::string cmd, Clients& client, Server& server)
 {
     std::cout << "NickInit" << std::endl;
     std::cout << "cmd : " << cmd << std::endl;
-    static bool nickname_used = false;
-    std::cout << "nickname_used = " << nickname_used << std::endl;
-    static std::string falseNickname = "";
-    std::cout << "falseNickname = " << falseNickname << std::endl;
     std::map<int, Clients>& mapClients = server.getClients();
-    // std::map<int, Clients>::iterator itClients = mapClients.begin();
     std::vector<std::string> splited = split(cmd, ' ');
     if (splited.size() != 1)
     {
@@ -116,22 +114,12 @@ bool 	NickInit(std::string cmd, Clients& client, Server& server)
         std::cout << "it->second.getNickname() = " << it->second.getNickname() << std::endl;
         if (it->second.getNickname() == splited[0])
         {
-            nickname_used = true;
-            falseNickname = splited[0];
-            std::cout << "RPL_ERROR_NICKNAME_IN_USE = " << RPL_ERROR_NICKNAME_IN_USE(client.getNickname(), falseNickname) << std::endl;
-            return (sendCmd(RPL_ERROR_NICKNAME_IN_USE(client.getNickname(), falseNickname), client), false);
+            // nickname_used = true;
+            // falseNickname = splited[0];
+            client.setNicknameTmp(splited[0]);
+            std::cout << "RPL_ERROR_NICKNAME_IN_USE = " << RPL_ERROR_NICKNAME_IN_USE(client.getNickname(), client.getNicknameTmp()) << std::endl;
+            return (sendCmd(RPL_ERROR_NICKNAME_IN_USE(client.getNickname(), client.getNicknameTmp()), client), false);
         }
-    }
-    if (nickname_used == true)
-    {
-        nickname_used = false;
-        std::cout << "RPL_CMD_NICK = " << RPL_CMD_NICK(falseNickname, client.getUsername(), client.getAddrIp(), splited[0]) << std::endl;
-        sendBrodcastServer(RPL_CMD_NICK(falseNickname, client.getUsername(), client.getAddrIp(), splited[0]), server);
-    }
-    else
-    {
-        std::cout << "RPL_CMD_NICK = " << RPL_CMD_NICK(splited[0], client.getUsername(), client.getAddrIp(), splited[0]) << std::endl;
-        sendBrodcastServer(RPL_CMD_NICK(splited[0], client.getUsername(), client.getAddrIp(), splited[0]), server);
     }
     mapClients.find(client.getFd())->second.setNickname(splited[0]);
     client.setNickname(splited[0]);

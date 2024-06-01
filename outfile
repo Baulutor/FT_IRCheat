@@ -2,47 +2,7 @@ ClientHandler
 bytes = 61
 buffer = CAP LS 302
 PASS toto
-NICK bfaure__
-USER bf 0 * :realname
-
-===============================================================================================
-token : |CAP|
-token : |LS 302|
-token : |PASS|
-token : |toto|
-token : |NICK|
-token : |bfaure__|
-token : |USER|
-token : |bf 0 * :realname|
-USER
-cmd: bf 0 * :realname
-parseUser
-Username = bf
-NickInit
-cmd : bfaure__
-nickname_used = 0
-falseNickname = 
-parseNick
-splited[0] = bfaure__
-it->second.getNickname() = 
-it->second.getNickname() = 
-RPL_CMD_NICK = :bfaure__!bf@ NICK bfaure__
-
-PASS value : toto
-USER : 6
-NICK : 4
-PASS : 2
-===============================================================================================
-init client
-Nickname : bfaure__
-Username : bf
-Pass : toto
-fd : 4
-Ip Address : 10.14.10.5
-bytes = 63
-buffer = CAP LS 302
-PASS toto
-NICK bfaure__
+NICK bfaure
 USER ben 0 * :bfaure___
 
 ===============================================================================================
@@ -51,85 +11,266 @@ token : |LS 302|
 token : |PASS|
 token : |toto|
 token : |NICK|
-token : |bfaure__|
+token : |bfaure|
 token : |USER|
 token : |ben 0 * :bfaure___|
 USER
 cmd: ben 0 * :bfaure___
+splited.size() = 4
+splited[0] = ben
+splited[1] = 0
+splited[2] = *
+splited[3] = :bfaure___
 parseUser
 Username = ben
 NickInit
-cmd : bfaure__
-nickname_used = 0
-falseNickname = 
+cmd : bfaure
 parseNick
-splited[0] = bfaure__
-it->second.getNickname() = bfaure__
-RPL_ERROR_NICKNAME_IN_USE = :server 433  bfaure__ :Nickname is already in use
+splited[0] = bfaure
+it->second.getNickname() = 
+it->second.getNickname() = 
+flags[3] = 1
+PASS value : toto
+USER : 6
+NICK : 4
+PASS : 2
+BOOL : 1
+getNicknameTmp = ||
+RPL_CMD_NICK = :bfaure!ben@ NICK bfaure
 
+===============================================================================================
+init client
+Nickname : bfaure
+Username : ben
+Pass : toto
+fd : 4
+Ip Address : 127.0.0.1
+bytes = 59
+buffer = CAP LS 302
+PASS toto
+NICK bfaure
+USER bf 0 * :realname
+
+===============================================================================================
+token : |CAP|
+token : |LS 302|
+token : |PASS|
+token : |toto|
+token : |NICK|
+token : |bfaure|
+token : |USER|
+token : |bf 0 * :realname|
+USER
+cmd: bf 0 * :realname
+splited.size() = 4
+splited[0] = bf
+splited[1] = 0
+splited[2] = *
+splited[3] = :realname
+parseUser
+Username = bf
+NickInit
+cmd : bfaure
+parseNick
+splited[0] = bfaure
+it->second.getNickname() = bfaure
+RPL_ERROR_NICKNAME_IN_USE = :server 433  bfaure :Nickname is already in use
+
+flags[3] = 1
 PASS value : toto
 USER : 6
 NICK : -1
 PASS : 2
+BOOL : 1
 ClientHandler
-bytes = 15
-buffer = NICK bfaure__
+bytes = 12
+buffer = JOIN #test
+
+===============================================================================================
+token : |JOIN|
+token : |#test|
+flags[3] = 0
+bytes = 14
+buffer = NICK bfaure_
 
 ===============================================================================================
 token : |NICK|
-token : |bfaure__|
+token : |bfaure_|
 NickInit
-cmd : bfaure__
-nickname_used = 1
-falseNickname = bfaure__
+cmd : bfaure_
 parseNick
-splited[0] = bfaure__
-it->second.getNickname() = bfaure__
-RPL_ERROR_NICKNAME_IN_USE = :server 433  bfaure__ :Nickname is already in use
-
-ClientHandler
-bytes = 18
-buffer = NICK bfaure_____
-
-===============================================================================================
-token : |NICK|
-token : |bfaure_____|
-NickInit
-cmd : bfaure_____
-nickname_used = 1
-falseNickname = bfaure__
-parseNick
-splited[0] = bfaure_____
-it->second.getNickname() = bfaure__
+splited[0] = bfaure_
+it->second.getNickname() = bfaure
 it->second.getNickname() = 
-RPL_CMD_NICK = :bfaure__!ben@ NICK bfaure_____
-
+flags[3] = 1
 PASS value : toto
 USER : 6
 NICK : 0
 PASS : 2
+BOOL : 1
+getNicknameTmp = |bfaure|
+RPL_CMD_NICK = :bfaure!bf@ NICK bfaure_
+
 ===============================================================================================
 init client
-Nickname : bfaure_____
-Username : ben
+Nickname : bfaure_
+Username : bf
 Pass : toto
 fd : 5
-Ip Address : 10.14.10.5
+Ip Address : 127.0.0.1
+ClientHandler
+bytes = 12
+buffer = JOIN #test
+
+cmd: JOIN #test
+
+JOIN
+channel = #test
+channelsServer.size() = 0
+channel.getMode(-42) = t
+setMode Mode = 
+Channel client ADD : #test
+RPL_CMD_JOIN = :bfaure_!bf@127.0.0.1 JOIN :#test
+
+RPL_CMD_NAME_LST_START = :server 353 bfaure_ = #test :@bfaure_
+
+RPL_CMD_NAME_LST_END = :server 366 bfaure_ #test :End of /NAMES list
+
+ClientHandler
+bytes = 12
+buffer = MODE #test
+
+cmd: MODE #test
+
+Mode
+cmd = |MODE #test
+|
+cmd erase = |#test
+|
+tokens.size() = 1
+tokens: |#test|
+target checkChannel = |#test|
+ClientHandler
+bytes = 11
+buffer = WHO #test
+
+cmd: WHO #test
+
+ClientHandler
+bytes = 12
+buffer = JOIN #test
+
+cmd: JOIN #test
+
+JOIN
+channel = #test
+channelsServer.size() = 1
+it->first = #test
+channel.getMode(-42) = t
+setMode Mode = 
+Channel client ADD : #test
+RPL_CMD_JOIN = :bfaure!ben@127.0.0.1 JOIN :#test
+
+RPL_CMD_NAME_LST_START = :server 353 bfaure = #test :bfaure @bfaure_
+
+RPL_CMD_NAME_LST_END = :server 366 bfaure #test :End of /NAMES list
+
 ClientHandler
 bytes = 23
-buffer = PING LAG1717146724882
+buffer = MODE #test
+WHO #test
 
-cmd: PING LAG1717146724882
+cmd: MODE #test
+WHO #test
+
+Mode
+cmd = |MODE #test
+WHO #test
+|
+cmd erase = |#test
+WHO #test
+|
+tokens.size() = 3
+tokens: |#test|
+ERR_CHANOPRIVSNEEDEDED = |:server 482 bfaure #test :You're not channel operator
+|
+ClientHandler
+bytes = 23
+buffer = PING LAG1717212160874
+
+cmd: PING LAG1717212160874
+
+ClientHandler
+bytes = 13
+buffer = MODE #test 
+
+cmd: MODE #test 
+
+Mode
+cmd = |MODE #test 
+|
+cmd erase = |#test 
+|
+tokens.size() = 1
+tokens: |#test|
+ERR_CHANOPRIVSNEEDEDED = |:server 482 bfaure #test :You're not channel operator
+|
+ClientHandler
+bytes = 23
+buffer = PING LAG1717212163874
+
+cmd: PING LAG1717212163874
+
+ClientHandler
+bytes = 13
+buffer = MODE #test 
+
+cmd: MODE #test 
+
+Mode
+cmd = |MODE #test 
+|
+cmd erase = |#test 
+|
+tokens.size() = 1
+tokens: |#test|
+target checkChannel = |#test|
+ClientHandler
+bytes = 14
+buffer = NICK bfauree
+
+cmd: NICK bfauree
+
+Nick
+splited.size() = 2
+splited[0] = NICK
+splited[1] = bfauree
+parseNick
+RPL_CMD_NICK = :bfauree!bf@127.0.0.1 NICK bfauree
+
+ClientHandler
+bytes = 13
+buffer = MODE #test 
+
+cmd: MODE #test 
+
+Mode
+cmd = |MODE #test 
+|
+cmd erase = |#test 
+|
+tokens.size() = 1
+tokens: |#test|
+target checkChannel = |#test|
+ClientHandler
+bytes = 23
+buffer = PING LAG1717212190874
+
+cmd: PING LAG1717212190874
 
 ClientHandler
 bytes = 23
-buffer = PING LAG1717146732883
+buffer = PING LAG1717212193875
 
-cmd: PING LAG1717146732883
-
-ClientHandler
-bytes = 23
-buffer = PING LAG1717146754882
-
-cmd: PING LAG1717146754882
+cmd: PING LAG1717212193875
 

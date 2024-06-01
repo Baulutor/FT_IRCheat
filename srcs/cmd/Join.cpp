@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 10:13:36 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/31 18:27:24 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/06/01 19:02:39 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ std::vector<std::string> make_keys(std::vector<std::string> splited)
 
 bool check_key(std::string key, Channels& channel, Clients& client)
 {
-    if (key != channel.getPassword() && channel.getMode(channel.getName()).find('k') != std::string::npos)
+    if (key != channel.getPassword() && channel.getMode(-42).find('k') != std::string::npos)
     {
         sendCmd(RPL_JOIN_ERROR_KEY(client.getNickname(), channel.getName()), client);
         return (false);
@@ -52,8 +52,8 @@ bool check_invited(Channels& channel, Clients& client)
 {
     std::map<int, Clients>::iterator it = channel.getClientInvited().find(client.getFd());
     // std::cout << "it = " << it->first << std::endl;
-    std::cout << "channel.getMode(channel.getName()) = " << channel.getMode(channel.getName()) << std::endl;
-    if (it == channel.getClientInvited().end() && channel.getMode(channel.getName()).find('i') != std::string::npos)
+    std::cout << "channel.getMode(-42) = " << channel.getMode(-42) << std::endl;
+    if (it == channel.getClientInvited().end() && channel.getMode(-42).find('i') != std::string::npos)
     {
         std::cout << "ERR_INVITEONLYCHAN = " << ERR_INVITEONLYCHAN(client.getNickname(), channel.getName()) << std::endl;
         sendCmd(ERR_INVITEONLYCHAN(client.getNickname(), channel.getName()), client);
@@ -64,7 +64,7 @@ bool check_invited(Channels& channel, Clients& client)
 
 bool check_nb_clients(Channels& channel, Clients& client)
 {
-    if (channel.getNbClients() >= channel.getLimit() && channel.getMode(channel.getName()).find('l') != std::string::npos)
+    if (channel.getNbClients() >= channel.getLimit() && channel.getMode(-42).find('l') != std::string::npos)
     {
         sendCmd(ERR_CHANNELFULL(client.getNickname(), channel.getName()), client);
         return (false);
@@ -133,7 +133,7 @@ void Join(std::string cmd, Clients& client, Server& server)
         {
             // insertClient.first->second.setOperator(client);
             // insertClient.first->second.setMode(client.getNickname(), " ");
-            insertServer.first->second.setMode(client.getNickname(), "");
+            insertServer.first->second.setMode(client.getFd(), "");
             insertServer.first->second.incrementNbClients();
             std::cout << "Channel client ADD : " << insertClient.first->second.getName() << std::endl;
         }

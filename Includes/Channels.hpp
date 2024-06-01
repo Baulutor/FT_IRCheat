@@ -37,10 +37,11 @@ class Channels
 
         std::string getPassword() const;
         std::vector<Clients>& getOperatorVector();
-        std::string getMode(std::string target) const;
+        std::string getMode(int target) const;
         int getLimit() const;
         int getNbClients() const;
-        Clients getOperator(std::string target) const;
+        Clients getOperator(int target) const;
+        int getId() const;
 
         // Setter
         void setName(std::string name);
@@ -48,13 +49,14 @@ class Channels
 		void setTimeTopic(std::string timeTopic);
         void setOperator(Clients& op);
         void setPassword(std::string password);
-        void setMode(std::string target, std::string mode);
+        void setMode(int target, std::string mode);
         void setClients(std::map<int, Clients> clients);
         void setLimit(int limit);
+        void setId(int id);
         
         void incrementNbClients();
 
-        void removeMode(std::string target, std::string mode);
+        void removeMode(int target, std::string mode);
         void removeOperator(Clients& op);
 	    void ClientInvite(std::map<int, Clients> &clients);
 
@@ -69,7 +71,8 @@ class Channels
         std::string _topic;
 		std::string _timeTopic;
         std::string _password;
-        std::map<std::string, std::string> _mode;
+        int _id;
+        std::map<int, std::string> _mode;
         int _nbClients;
         int _nbMaxClients;
         std::map<int, Clients> _clients;

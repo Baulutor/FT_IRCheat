@@ -45,6 +45,8 @@ class Server
         std::map<int, Clients>& getClients();
 		std::vector<pollfd> &getLstPollFd();
         std::string getPassword() const;
+        std::string getNameClientByFd(int fd);
+        int getFdClientByName(std::string name);
 
         void cmdHandler(std::string cmd, Clients& client);
         bool ClientConnexion();
