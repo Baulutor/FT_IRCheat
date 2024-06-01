@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 17:15:55 by nibernar          #+#    #+#             */
-/*   Updated: 2024/06/01 15:47:36 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/06/01 17:35:42 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,12 @@ void 	Nick(std::string cmd, Clients& client, Server& server)
     {
         nickname_used = false;
         std::cout << "RPL_CMD_NICK = " << RPL_CMD_NICK(falseNickname, client.getUsername(), client.getAddrIp(), splited[1]) << std::endl;
-        sendBrodcastServer(RPL_CMD_NICK(client.getNickname(), client.getUsername(), client.getAddrIp(), splited[1]), server);
+        sendCmd(RPL_CMD_NICK(falseNickname, client.getUsername(), client.getAddrIp(), splited[1]), client);
     }
     else
     {
         std::cout << "RPL_CMD_NICK = " << RPL_CMD_NICK(splited[1], client.getUsername(), client.getAddrIp(), splited[1]) << std::endl;
-        sendBrodcastServer(RPL_CMD_NICK(client.getNickname(), client.getUsername(), client.getAddrIp(), splited[1]), server);
+        sendCmd(RPL_CMD_NICK(client.getNickname(), client.getUsername(), client.getAddrIp(), splited[1]), client);
     }
     mapClients.find(client.getFd())->second.setNickname(splited[1]);
     client.setNickname(splited[1]);
@@ -99,12 +99,7 @@ bool 	NickInit(std::string cmd, Clients& client, Server& server)
 {
     std::cout << "NickInit" << std::endl;
     std::cout << "cmd : " << cmd << std::endl;
-    // static bool nickname_used = false;
-    // std::cout << "nickname_used = " << nickname_used << std::endl;
-    // static std::string falseNickname = "";
-    // std::cout << "falseNickname = " << falseNickname << std::endl;
     std::map<int, Clients>& mapClients = server.getClients();
-    // std::map<int, Clients>::iterator itClients = mapClients.begin();
     std::vector<std::string> splited = split(cmd, ' ');
     if (splited.size() != 1)
     {
