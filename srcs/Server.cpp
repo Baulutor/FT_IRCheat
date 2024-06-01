@@ -49,7 +49,7 @@ void Server::launch(std::string av, std::string av2)
 
 	// Création de la socket serveur
 
-	setAddrIp("10.14.10.5");
+	setAddrIp("127.0.0.1");
 	setPassword(av2);
 	_fd = -1;
 
