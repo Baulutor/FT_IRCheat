@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Nick.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nibernar <nibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 17:15:55 by nibernar          #+#    #+#             */
-/*   Updated: 2024/06/01 01:01:47 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/06/01 15:03:22 by nibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ bool parseNick(std::string& nick, Clients& client)
 
 void 	Nick(std::string cmd, Clients& client, Server& server)
 {
-    std::cout << "Nick" << std::endl;
+    std::cout << "Nick" << cmd << std::endl;
     static bool nickname_used = false;
     static std::string falseNickname = "";
     std::map<int, Clients>& mapClients = server.getClients();
@@ -126,12 +126,12 @@ bool 	NickInit(std::string cmd, Clients& client, Server& server)
     {
         nickname_used = false;
         std::cout << "RPL_CMD_NICK = " << RPL_CMD_NICK(falseNickname, client.getUsername(), client.getAddrIp(), splited[0]) << std::endl;
-        sendBrodcastServer(RPL_CMD_NICK(falseNickname, client.getUsername(), client.getAddrIp(), splited[0]), server);
+        sendCmd(RPL_CMD_NICK(falseNickname, client.getUsername(), client.getAddrIp(), splited[0]), client);
     }
     else
     {
         std::cout << "RPL_CMD_NICK = " << RPL_CMD_NICK(splited[0], client.getUsername(), client.getAddrIp(), splited[0]) << std::endl;
-        sendBrodcastServer(RPL_CMD_NICK(splited[0], client.getUsername(), client.getAddrIp(), splited[0]), server);
+        sendCmd(RPL_CMD_NICK(splited[0], client.getUsername(), client.getAddrIp(), splited[0]), client);
     }
     mapClients.find(client.getFd())->second.setNickname(splited[0]);
     client.setNickname(splited[0]);

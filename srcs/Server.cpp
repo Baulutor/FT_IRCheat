@@ -41,6 +41,8 @@ void Server::cmdHandler(std::string cmd, Clients& client)
             return;
         }
     }
+	std::cout << "ERROR : command not found\r\n" << std::endl;
+	sendCmd("ERROR : command not found\r\n", client);
 }
 
 void Server::launch(std::string av, std::string av2)
@@ -49,7 +51,7 @@ void Server::launch(std::string av, std::string av2)
 
 	// Création de la socket serveur
 
-	setAddrIp("10.14.10.5");
+	//setAddrIp("10.14.10.5");
 	setPassword(av2);
 	_fd = -1;
 
