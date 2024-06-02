@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Privmsg.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bfaure < bfaure@student.42lyon.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:12:48 by bfaure            #+#    #+#             */
-/*   Updated: 2024/06/01 19:52:31 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/06/02 14:33:36 by bfaure           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void Privmsg(std::string cmd, Clients& client, Server& server)
     std::cout << "PRIVMSG" << std::endl;
     std::vector<std::string> cmd_split = split(cmd, ' ');
     if (cmd_split.size() < 3)
+        return (sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), "PRIVMSG"), client));
+    if (cmd_split[2][0] != ':')
         return (sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), "PRIVMSG"), client));
     std::map<std::string, Channels>& channelsServer = server.getChannels();
     std::map<std::string, Channels>::iterator it = channelsServer.find(cmd_split[1]);
