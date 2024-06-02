@@ -26,6 +26,8 @@
 #define RPL_NOTOPIC(channelName) (":server 331 " + channelName + " :No topic is set\r\n")
 #define RPL_TOPIC(channelName, topicMessage) (":server 332 " + channelName + " : " + topicMessage + "\r\n")
 
+# define RPL_QUIT_CHANNEL(Nickname, Username, Hostname, Channel, reason) (":" + Nickname + "!" + Username + "@" + Hostname + " QUIT " + Channel + " " + reason + "\r\n")
+
 
 # define RPL_CMD_JOIN(Nickname, Username, Hostname, Channel) (":" + Nickname + "!" + Username + "@" + Hostname + " JOIN :" + Channel + "\r\n")
 # define RPL_CMD_JOIN_KEY(Nickname, Username, Hostname, Channel, Key) (":" + Nickname + "!" + Username + "@" + Hostname + " JOIN :" + Channel + " " + Key + "\r\n")

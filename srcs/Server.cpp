@@ -23,7 +23,7 @@ void Server::setPassword(std::string password) {this->_password = password;}
 
 std::string Server::getPassword() const {return (this->_password);}
 
-std::vector<pollfd> Server::getLstPollFd() {return (this->_lstPollFd);}
+std::vector<pollfd> &Server::getLstPollFd() {return (this->_lstPollFd);}
 
 bool startWith(const std::string &line, const char *cmd) {return (line.find(cmd) == 0);}
 
@@ -124,10 +124,9 @@ bool Server::ClientConnexion()
 bool Server::ClientHandler(bool init)
 {
 	size_t i = 1;
-	std::cout << "ClientHandler" << std::endl;
 	while (i < _lstPollFd.size())
 	{
-		if (_lstPollFd[i].revents & POLLIN)
+		if (i < _lstPollFd.size() && _lstPollFd[i].revents & POLLIN)
 		{
 			std::map<int, Clients>::iterator itClients = getClients().find(_lstPollFd[i].fd);
 			if (itClients == getClients().end())
@@ -135,15 +134,12 @@ bool Server::ClientHandler(bool init)
 				i++;
 				continue;
 			}
-
 			bzero(itClients->second.getBuffer(), 512);
 			ssize_t bytes = recv(_lstPollFd[i].fd, itClients->second.getBuffer(), 511, MSG_DONTWAIT);
 			std::cout << "bytes = " << bytes << std::endl;
 			std::cout << "buffer = " << itClients->second.getBuffer() << std::endl;
 			if (bytes < 0)
-			{
 				std::cerr << "ERROR rcve !" << std::endl;
-			}
 			else if (bytes == 0)
 			{
 				std::cerr << "connexion closed " << std::endl;
@@ -196,7 +192,19 @@ bool Server::ClientHandler(bool init)
 			}
 			else if (itClients->second.getIsRegistered() == true)
 			{
+				for (std::map<std::string, Channels>::iterator it = _channels.begin(); it != _channels.end() ; it++)
+				{
+					std::cout << "PENDANT:" << _lstPollFd.size() << ", nombre de client PENDANT: " << it->second.getClientMap().size() <<  std::endl;
+					for (std::map<int, Clients>::iterator ite = it->second.getClientMap().begin(); ite != it->second.getClientMap().end(); ite++)
+						std::cout << "blaze du gars: " << ite->second.getNickname() << ", dans le chANNEL PENDANT: " << it->first << std::endl;
+				}
 				cmdHandler(itClients->second.getBuffer(), itClients->second);
+			}
+			for (std::map<std::string, Channels>::iterator it = _channels.begin(); it != _channels.end() ; it++)
+			{
+				std::cout << "APRES: " << _lstPollFd.size() << ", nombre de client: " << it->second.getClientMap().size() <<  std::endl;
+				for (std::map<int, Clients>::iterator ite = it->second.getClientMap().begin(); ite != it->second.getClientMap().end(); ite++)
+					std::cout << "blaze du gars: " << ite->second.getNickname() << ", dans le chANNEL: " << it->first << std::endl;
 			}
 		}
 		i++;

@@ -43,7 +43,7 @@ class Server
         int getFd() const;
         std::map<std::string, Channels>& getChannels();
         std::map<int, Clients>& getClients();
-		    std::vector<pollfd> getLstPollFd();
+		std::vector<pollfd> &getLstPollFd();
         std::string getPassword() const;
         std::string getNameClientByFd(int fd);
         int getFdClientByName(std::string name);
