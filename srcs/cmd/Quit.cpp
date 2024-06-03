@@ -39,12 +39,12 @@ void Quit(std::string cmd, Clients& client, Server& server)
 							++itTmp;
 							itChan->second.setOperator(itTmp->second);
 						}
-						NameLstUpadte(client, itChan->second);
+						NameLstUpdate(client, itChan->second);
 					}
 					itChan->second.removeOperator(client);
 				}
 				std::cout << "PASS in Quit before sendBrodcastChannel" << std::endl;
-				sendBrodcastChannel(RPL_QUIT_CHANNEL(client.getNickname(), client.getUsername(), client.getAddrIp(), itChan->first, reason), itChan->second);
+				sendBroadcastChannel(RPL_QUIT_CHANNEL(client.getNickname(), client.getUsername(), client.getAddrIp(), itChan->first, reason), itChan->second);
 				std::cout << "PASS in Quit after sendBrodcastChannel" << std::endl;
 				std::cout << "itChan->second.getClientMap().size() = " << itChan->second.getClientMap().size() << std::endl;
 				if (itChan->second.getClientMap().size() == 1)
@@ -68,6 +68,7 @@ void Quit(std::string cmd, Clients& client, Server& server)
 							{
 								server.getLstPollFd().at(i).events = 0;
 								server.getLstPollFd().at(i).revents = 0;
+								close(server.getLstPollFd().at(i).fd);
 								server.getLstPollFd().erase(itPollFd);
 								std::cout << "PASS in Quit after erase pollfd" << std::endl;
 								break ;
@@ -95,6 +96,7 @@ void Quit(std::string cmd, Clients& client, Server& server)
 		{
 			server.getLstPollFd().at(i).events = 0;
 			server.getLstPollFd().at(i).revents = 0;
+			close(server.getLstPollFd().at(i).fd);
 			server.getLstPollFd().erase(itPollFd);
 			std::cout << "PASS in Quit after erase pollfd" << std::endl;
 			break ;

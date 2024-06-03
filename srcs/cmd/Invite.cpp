@@ -3,7 +3,7 @@
 
 bool	parsForInvite(Clients client, std::string &nickname, std::string &channelName, std::string cmd);
 bool 	checkIfUserAlreadyInviteOrInChannel(std::map<std::string, Channels>::iterator it, std::string nickname, std::string channelName, Clients client, std::map<int, Clients>::iterator ite);
-bool	checkChannelExistAndUserLegitimateToInvite(std::map<std::string, Channels> serv, std::map<std::string, Channels>::iterator it, Clients client, std::string channelName);
+bool	checkChannelExistAndUserLegitimateToInvite(std::map<std::string, Channels>::iterator it, Clients client, std::string channelName);
 
 
 void    Invite(std::string cmd, Clients& client, Server& server)
@@ -14,10 +14,14 @@ void    Invite(std::string cmd, Clients& client, Server& server)
 
 	if (parsForInvite(client, nickname, channelName, cmd) == 1)
 		return ;
-	std::map<std::string, Channels> &serv = server.getChannels();
-	std::map<std::string, Channels>::iterator it = serv.find(channelName);
-	std::cerr << "valeur de channel name: " << channelName << std::endl;
-	if (checkChannelExistAndUserLegitimateToInvite(serv, it, client, channelName))
+	std::map<std::string, Channels> &servChannel = server.getChannels();
+	std::map<std::string, Channels>::iterator it = servChannel.find(channelName);
+	if (it == servChannel.end() || servChannel.size() == 0)
+	{
+		sendCmd(ERR_NOSUCHCHANNEL(client.getNickname(), channelName), client);
+		return ;
+	}
+	if (checkChannelExistAndUserLegitimateToInvite(it, client, channelName))
 		return ;
 	std::map<int, Clients>::iterator ite;
 	std::map<int, Clients> allClient = server.getClients();
@@ -33,7 +37,7 @@ void    Invite(std::string cmd, Clients& client, Server& server)
 			return ;
 		}
 	}
-	sendCmd(ERR_NOSUCHNICK(nickname, client.getUsername()), client);
+	sendCmd(ERR_NOSUCHNICK(client.getUsername(), nickname), client);
 }
 
 bool	Channels::checkIfOpeUserForInvite(Clients client)
@@ -71,20 +75,15 @@ bool	parsForInvite(Clients client, std::string &nickname, std::string &channelNa
 	return 0;
 }
 
-bool	checkChannelExistAndUserLegitimateToInvite(std::map<std::string, Channels> serv, std::map<std::string, Channels>::iterator it, Clients client, std::string channelName)
+bool	checkChannelExistAndUserLegitimateToInvite(std::map<std::string, Channels>::iterator it, Clients client, std::string channelName)
 {
-	if (it == serv.end() || serv.size() == 0)
-	{
-		sendCmd(ERR_NOSUCHCHANNEL(client.getNickname(), channelName), client);
-		return true;
-	}
-	if (it->second.checkIfOpeUserForInvite(client) == 1)
-		return true;
 	if (it->second.getClientMap().end() == it->second.getClientMap().find(client.getFd()))
 	{
 		sendCmd(ERR_NOTONCHANNEL(channelName, it->second.getName()), client);
 		return true;
 	}
+	if (it->second.checkIfOpeUserForInvite(client) == 1)
+		return true;
 	return false;
 }
 
@@ -96,7 +95,6 @@ bool checkIfUserAlreadyInviteOrInChannel(std::map<std::string, Channels>::iterat
 		sendCmd(ERR_USERONCHANNEL(client.getNickname(), nickname, channelName), client);
 		return true;
 	}
-
 	std::map<int, Clients> &verif = it->second.getClientInvited();
 	if (verif.find(ite->first) != verif.end())
 	{

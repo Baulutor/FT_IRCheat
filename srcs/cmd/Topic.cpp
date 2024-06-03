@@ -14,7 +14,7 @@ void 	Topic(std::string cmd, Clients& client, Server& server)
 	channelName = channelName.substr(0, forSeparate);
 	if (channelName[channelName.size() - 1] == '\n')
 		channelName = channelName.substr(0, channelName.size() - 2);
-	if (channelName == client.getNickname())
+	if (channelName == client.getUsername())
 	{
 		sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), "TOPIC"), client);
 		return ;
@@ -30,10 +30,7 @@ void 	Topic(std::string cmd, Clients& client, Server& server)
 		if (channel->second.getTopic() == "")
 			sendCmd(RPL_NOTOPIC(channelName),client);
 		else
-		{
-			sendCmd(RPL_CMD_TOPIC(client.getNickname(), channelName, channel->second.getTopic()), client); // affiche pas correctement le channelname
-//			sendCmd(RPL_TOPICWHOTIME(client.getNickname(), channelName, channel->second.getTimeTopic()), client);
-		}
+			sendCmd(RPL_CMD_TOPIC(client.getNickname(), channelName, channel->second.getTopic()), client);
 		return ;
 	}
 	std::string topicMessage = &cmd[6 + channelName.size() + 2];
@@ -58,7 +55,7 @@ void 	Topic(std::string cmd, Clients& client, Server& server)
 	server.getChannels().find(channel->first)->second.convertTimestampToDateString();
 	std::cout << channel->second.getTimeTopic() << "= CHELOU SA MERE C'est channel second la loll" << std::endl;
 	server.getChannels().find(channelName)->second.setTopic(topicMessage);
-	sendBrodcastChannel(RPL_CMD_TOPIC(client.getNickname(), channelName, topicMessage), channel->second);
+	sendBroadcastChannel(RPL_CMD_TOPIC(client.getNickname(), channelName, topicMessage), channel->second);
 
 //	std::cout << "RPL_TOPICWHOTIME = " << RPL_TOPICWHOTIME(channelName, client.getNickname(), channel->second.getTimeTopic()) << std::endl;
 //	sendBrodcastChannel(RPL_TOPICWHOTIME(client.getNickname(), channelName, client.getNickname(), channel->second.getTimeTopic(), std::asctime(std::localtime(&t))), channel->second);

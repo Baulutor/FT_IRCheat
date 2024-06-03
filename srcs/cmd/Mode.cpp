@@ -45,12 +45,8 @@ bool isArgsMode(std::string target)
 
 bool checkChannel(std::string target, Server& server, Clients& client, std::map<std::string, Channels>::iterator channelIt)
 {
-    std::cout << "target checkChannel = |" << target << "|" << std::endl;
     if (channelIt == server.getChannels().end())
-    {
-        std::cout << "sendCmd(ERR_NOSUCHCHANNEL(client.getNickname(), target), client)" << std::endl;
         return (sendCmd(ERR_NOSUCHCHANNEL(client.getNickname(), target), client), false);
-    }
     return (true);
 }
 
@@ -74,7 +70,7 @@ int addOpMode(std::vector<std::string> args, size_t i, std::map<std::string, Cha
         {
             server.getChannels().find(channelIt->first)->second.setMode(fdClient, "o");
             server.getChannels().find(channelIt->first)->second.setOperator(clientIt->second);
-            NameLstUpadte(clientIt->second, channelIt->second);
+            NameLstUpdate(clientIt->second, channelIt->second);
             return (1);
         }
     }
@@ -93,7 +89,7 @@ int removeOpMode(std::vector<std::string> args, size_t i, std::map<std::string, 
         {
             server.getChannels().find(channelIt->first)->second.removeMode(fdClient, "o");
             server.getChannels().find(channelIt->first)->second.removeOperator(clientIt->second);
-            NameLstUpadte(clientIt->second, channelIt->second);
+            NameLstUpdate(clientIt->second, channelIt->second);
             return (1);
         }
     }
