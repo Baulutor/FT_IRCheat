@@ -40,6 +40,10 @@ int Server::getFdClientByName(std::string name)
         if (it->second.getNickname() == name)
             return (it->first);
     }
+	if (name[0] == '#')
+	{
+		return (-42);
+	}
     return (-1);
 }
 
@@ -202,24 +206,24 @@ bool Server::ClientHandler(bool init)
 				}
 				else if (client.getIsRegistered() == true)
 				{
-					for (std::map<std::string, Channels>::iterator it = _channels.begin(); it != _channels.end() ; it++)
-					{
-						std::cout << "PENDANT:" << _lstPollFd.size() << ", nombre de client PENDANT: " << it->second.getClientMap().size() <<  std::endl;
-						for (std::map<int, Clients>::iterator ite = it->second.getClientMap().begin(); ite != it->second.getClientMap().end(); ite++)
-							std::cout << "blaze du gars: " << ite->second.getNickname() << ", dans le chANNEL PENDANT: " << it->first << std::endl;
-					}
+					// for (std::map<std::string, Channels>::iterator it = _channels.begin(); it != _channels.end() ; it++)
+					// {
+					// 	std::cout << "PENDANT:" << _lstPollFd.size() << ", nombre de client PENDANT: " << it->second.getClientMap().size() <<  std::endl;
+					// 	for (std::map<int, Clients>::iterator ite = it->second.getClientMap().begin(); ite != it->second.getClientMap().end(); ite++)
+					// 		std::cout << "blaze du gars: " << ite->second.getNickname() << ", dans le chANNEL PENDANT: " << it->first << std::endl;
+					// }
 					cmdHandler(client.getBuffer(), client);
 				}
-				for (std::map<std::string, Channels>::iterator it = _channels.begin(); it != _channels.end() ; it++)
-				{
-					std::cout << "APRES suppression de pollFd: " << _lstPollFd.size() << ", nombre de client dans le channel: " << it->second.getClientMap().size() <<  std::endl;
-					for (std::map<int, Clients>::iterator ite = it->second.getClientMap().begin(); ite != it->second.getClientMap().end(); ite++)
-					{
-						std::cout << "Server Adress referance client in channel : " << &(getClients().find(ite->first)->second.getChannelsClient().find(it->first)->second.getClientMap().find(ite->first)->second) << std::endl;
-						std::cout << "Server Adress referance client : " << &(client) << std::endl;
-						std::cout << "blaze du gars: " << ite->second.getNickname() << ", dans le chANNEL: " << it->first << std::endl;
-					}
-				}
+				// for (std::map<std::string, Channels>::iterator it = _channels.begin(); it != _channels.end() ; it++)
+				// {
+				// 	std::cout << "APRES suppression de pollFd: " << _lstPollFd.size() << ", nombre de client dans le channel: " << it->second.getClientMap().size() <<  std::endl;
+				// 	for (std::map<int, Clients>::iterator ite = it->second.getClientMap().begin(); ite != it->second.getClientMap().end(); ite++)
+				// 	{
+				// 		std::cout << "Server Adress referance client in channel : " << &(getClients().find(ite->first)->second.getChannelsClient().find(it->first)->second.getClientMap().find(ite->first)->second) << std::endl;
+				// 		std::cout << "Server Adress referance client : " << &(client) << std::endl;
+				// 		std::cout << "blaze du gars: " << ite->second.getNickname() << ", dans le chANNEL: " << it->first << std::endl;
+				// 	}
+				// }
 			}
 		}
 		i++;

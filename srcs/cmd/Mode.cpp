@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:42:28 by bfaure            #+#    #+#             */
-/*   Updated: 2024/06/01 19:13:07 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/06/03 14:07:10 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,7 @@ void checkArgs(std::vector<std::string> args, std::string modes, Clients& client
             std::cout << "plusSign = " << (plusSign ? "true" : "false") << std::endl;
             minusSign = false;
             plusSign = true;
+            std::cout << "channelIt->first = |" << channelIt->first << "|" << std::endl;
             if (getMode(modes, i) == 'o')
                 i += addOpMode(args, i, channelIt, server);
             if (getMode(modes, i) == 'i')
