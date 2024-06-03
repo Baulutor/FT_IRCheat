@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:42:28 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/31 20:04:38 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/06/01 18:16:43 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,6 +250,8 @@ void Mode(std::string cmd, Clients& client, Server& server)
     std::cout << "cmd erase = |" << cmd << "|" << std::endl;
     std::vector<std::string> tokens = splitInit(cmd, ' ');
     std::cout << "tokens.size() = " << tokens.size() << std::endl;
+    if (tokens.size() == 0)
+        return (sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), "MODE"), client));
     std::map<std::string, Channels>::iterator channelIt = server.getChannels().find(tokens[0]);
     for (std::vector<std::string>::iterator it = tokens.begin(); it != tokens.end(); it++)
     {

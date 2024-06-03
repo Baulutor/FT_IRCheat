@@ -41,6 +41,7 @@ void Server::cmdHandler(std::string cmd, Clients& client)
             return;
         }
     }
+	//if "WHO" ==> skip
 	std::cout << "ERROR : command not found\r\n" << std::endl;
 	sendCmd("ERROR : command not found\r\n", client);
 }
