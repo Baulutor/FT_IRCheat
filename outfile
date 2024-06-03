@@ -1,180 +1,184 @@
-bytes = 63
+bytes = 59
 buffer = CAP LS 302
-PASS 0000
-NICK nanard
-USER nanard 0 * :realname
+PASS toto
+NICK bfaure
+USER bf 0 * :realname
 
 ===============================================================================================
 token : |CAP|
 token : |LS 302|
 token : |PASS|
-token : |0000|
+token : |toto|
 token : |NICK|
-token : |nanard|
+token : |bfaure|
 token : |USER|
-token : |nanard 0 * :realname|
+token : |bf 0 * :realname|
 USER
-cmd: nanard 0 * :realname
+cmd: bf 0 * :realname
 splited.size() = 4
-splited[0] = nanard
+splited[0] = bf
 splited[1] = 0
 splited[2] = *
 splited[3] = :realname
 parseUser
-Username = nanard
+Username = bf
 NickInit
-cmd : nanard
+cmd : bfaure
 parseNick
-splited[0] = nanard
-it->second.getNickname() = 
+splited[0] = bfaure
 it->second.getNickname() = 
 flags[3] = 1
-PASS value : 0000
+PASS value : toto
 USER : 6
 NICK : 4
 PASS : 2
 BOOL : 1
 getNicknameTmp = ||
-RPL_CMD_NICK = :nanard!nanard@ NICK nanard
+RPL_CMD_NICK = :bfaure!bf@ NICK bfaure
 
 ===============================================================================================
 init client
-Nickname : nanard
-Username : nanard
-Pass : 0000
+Nickname : bfaure
+Username : bf
+Pass : toto
 fd : 4
 Ip Address : 127.0.0.1
-bytes = 58
+bytes = 12
+buffer = JOIN #test
+
+cmd: JOIN #test
+
+JOIN
+channel = #test
+channelsServer.size() = 0
+channel.getMode(-42) = t
+setMode Mode = 
+Channel client ADD : #test
+RPL_CMD_JOIN = :bfaure!bf@127.0.0.1 JOIN :#test
+
+RPL_CMD_NAME_LST_START = :server 353 bfaure = #test :@bfaure
+
+RPL_CMD_NAME_LST_END = :server 366 bfaure #test :End of /NAMES list
+
+bytes = 12
+buffer = MODE #test
+
+cmd: MODE #test
+
+Mode
+cmd = |MODE #test
+|
+cmd erase = |#test
+|
+tokens.size() = 1
+tokens: |#test|
+target checkChannel = |#test|
+bytes = 11
+buffer = WHO #test
+
+cmd: WHO #test
+
+ERROR : command not found
+
+bytes = 66
 buffer = CAP LS 302
-PASS 0000
-NICK niber
-USER niber 0 * :niber
+PASS toto
+NICK bfaure_____
+USER ben 0 * :bfaure___
 
 ===============================================================================================
 token : |CAP|
 token : |LS 302|
 token : |PASS|
-token : |0000|
+token : |toto|
 token : |NICK|
-token : |niber|
+token : |bfaure_____|
 token : |USER|
-token : |niber 0 * :niber|
+token : |ben 0 * :bfaure___|
 USER
-cmd: niber 0 * :niber
+cmd: ben 0 * :bfaure___
 splited.size() = 4
-splited[0] = niber
+splited[0] = ben
 splited[1] = 0
 splited[2] = *
-splited[3] = :niber
+splited[3] = :bfaure___
 parseUser
-Username = niber
+Username = ben
 NickInit
-cmd : niber
+cmd : bfaure_____
 parseNick
-splited[0] = niber
-it->second.getNickname() = nanard
+splited[0] = bfaure_____
+it->second.getNickname() = bfaure
 it->second.getNickname() = 
 flags[3] = 1
-PASS value : 0000
+PASS value : toto
 USER : 6
 NICK : 4
 PASS : 2
 BOOL : 1
 getNicknameTmp = ||
-RPL_CMD_NICK = :niber!niber@ NICK niber
+RPL_CMD_NICK = :bfaure_____!ben@ NICK bfaure_____
 
 ===============================================================================================
 init client
-Nickname : niber
-Username : niber
-Pass : 0000
+Nickname : bfaure_____
+Username : ben
+Pass : toto
 fd : 5
 Ip Address : 127.0.0.1
-bytes = 13
-buffer = JOIN #chan1
+bytes = 23
+buffer = PING LAG1717370241879
 
-cmd: JOIN #chan1
+cmd: PING LAG1717370241879
 
-JOIN
-channel = #chan1
-channelsServer.size() = 0
-channel.getMode(-42) = t
-setMode Mode = 
-Channel client ADD : #chan1
-RPL_CMD_JOIN = :nanard!nanard@127.0.0.1 JOIN :#chan1
+bytes = 12
+buffer = JOIN #test
 
-RPL_CMD_NAME_LST_START = :server 353 nanard = #chan1 :@nanard
-
-RPL_CMD_NAME_LST_END = :server 366 nanard #chan1 :End of /NAMES list
-
-bytes = 13
-buffer = JOIN #chan1
-
-cmd: JOIN #chan1
+cmd: JOIN #test
 
 JOIN
-channel = #chan1
+channel = #test
 channelsServer.size() = 1
-it->first = #chan1
+it->first = #test
 channel.getMode(-42) = t
 setMode Mode = 
-Channel client ADD : #chan1
-RPL_CMD_JOIN = :niber!niber@127.0.0.1 JOIN :#chan1
+Channel client ADD : #test
+RPL_CMD_JOIN = :bfaure_____!ben@127.0.0.1 JOIN :#test
 
-RPL_CMD_NAME_LST_START = :server 353 niber = #chan1 :@nanard niber
+RPL_CMD_NAME_LST_START = :server 353 bfaure_____ = #test :@bfaure bfaure_____
 
-RPL_CMD_NAME_LST_END = :server 366 niber #chan1 :End of /NAMES list
-
-bytes = 13
-buffer = MODE #chan1
-
-cmd: MODE #chan1
-
-Mode
-cmd = |MODE #chan1
-|
-cmd erase = |#chan1
-|
-tokens.size() = 1
-tokens: |#chan1|
-target checkChannel = |#chan1|
-bytes = 13
-buffer = MODE #chan1
-
-cmd: MODE #chan1
-
-Mode
-cmd = |MODE #chan1
-|
-cmd erase = |#chan1
-|
-tokens.size() = 1
-tokens: |#chan1|
-ERR_CHANOPRIVSNEEDEDED = |:server 482 niber #chan1 :You're not channel operator
-|
-bytes = 12
-buffer = WHO #chan1
-
-cmd: WHO #chan1
-
-ERROR : command not found
-
-bytes = 12
-buffer = WHO #chan1
-
-cmd: WHO #chan1
-
-ERROR : command not found
+RPL_CMD_NAME_LST_END = :server 366 bfaure_____ #test :End of /NAMES list
 
 bytes = 23
-buffer = PING LAG1717368915878
+buffer = MODE #test
+WHO #test
 
-cmd: PING LAG1717368915878
+cmd: MODE #test
+WHO #test
 
+Mode
+cmd = |MODE #test
+WHO #test
+|
+cmd erase = |#test
+WHO #test
+|
+tokens.size() = 3
+tokens: |#test|
+ERR_CHANOPRIVSNEEDEDED = |:server 482 bfaure_____ #test :You're not channel operator
+|
 bytes = 23
-buffer = PING LAG1717368922878
+buffer = PING LAG1717370251879
 
-cmd: PING LAG1717368922878
+cmd: PING LAG1717370251879
+
+bytes = 21
+buffer = PRIVMSG #test :ssas
+
+cmd: PRIVMSG #test :ssas
+
+PRIVMSG
+RPL_CMD_PRIVMSG:bfaure_____!ben@127.0.0.1 PRIVMSG #test :ssas
 
 bytes = 15
 buffer = QUIT :Leaving
@@ -182,3 +186,8 @@ buffer = QUIT :Leaving
 cmd: QUIT :Leaving
 
 caca
+bytes = 23
+buffer = PING LAG1717370271879
+
+cmd: PING LAG1717370271879
+

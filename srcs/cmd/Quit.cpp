@@ -104,12 +104,15 @@ void Quit(std::string cmd, Clients& client, Server& server)
 	for (std::map<std::string, Channels>::iterator itChan = servChannel.begin(); itChan != servChannel.end(); ++itChan) 
 	{
 		std::map<int, Clients>& clientInChan = itChan->second.getClientMap();
-		for (std::map<int, Clients>::iterator itClient = clientInChan.begin(); itClient != clientInChan.end(); ++itClient) 
+		for (std::map<int, Clients>::iterator itClient = clientInChan.begin(); itClient != clientInChan.end();) 
 		{
-			if (cible == itClient->second.getNickname()) {
+			if (cible == itClient->second.getNickname())
+			{
 				sendBrodcastChannel(RPL_QUIT_CHANNEL(client.getNickname(), client.getUsername(), client.getAddrIp(), itChan->first, reason), itChan->second);
-				clientInChan.erase(itClient);
+				clientInChan.erase(itClient++);
 			}
+			else
+				++itClient;
 		}
 	}
 	int i = 0;
@@ -120,6 +123,7 @@ void Quit(std::string cmd, Clients& client, Server& server)
 			server.getLstPollFd().at(i).events = 0;
 			server.getLstPollFd().at(i).revents = 0;
 			server.getLstPollFd().erase(itPollFd);
+			return ;
 		}
 		i++;
 	}
