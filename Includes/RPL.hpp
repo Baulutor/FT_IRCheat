@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RPL.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nibernar <nibernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:57:44 by bfaure            #+#    #+#             */
-/*   Updated: 2024/06/03 17:13:49 by nibernar         ###   ########.fr       */
+/*   Updated: 2024/06/03 20:09:07 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@
 # define ERR_ERRONEUSNICKNAME(Nickname, Nickname2) (":server 432 " + Nickname + " " + Nickname2 + " :Erroneus nickname" + "\r\n")
 # define ERR_NONICKNAMEGIVEN(Nickname) (":server 431 " + Nickname + " :No nickname given" + "\r\n")
 # define RPL_PART(Nickname, Channel, Username, Hostname) (":" + Nickname + "!" + Username + "@" + Hostname + " PART " + Channel + "\r\n")
+
+# define RPL_INVITE_MESSAGE(Nickname, Channel, Username, Hostname) (":" + Nickname + "!" + Username + "@" + Hostname + " INVITE " + Nickname + " " + Channel + "\r\n")
 
 #endif
 
