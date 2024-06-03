@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 17:15:55 by nibernar          #+#    #+#             */
-/*   Updated: 2024/06/01 18:31:01 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/06/03 18:21:25 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ bool parseNick(std::string& nick, Clients& client)
 
 void 	Nick(std::string cmd, Clients& client, Server& server)
 {
-    std::cout << "Nick" << std::endl;
+    std::cout << "Nick : " << cmd << std::endl;
     static bool nickname_used = false;
     static std::string falseNickname = "";
     std::map<int, Clients>& mapClients = server.getClients();
@@ -83,12 +83,13 @@ void 	Nick(std::string cmd, Clients& client, Server& server)
     {
         nickname_used = false;
         std::cout << "RPL_CMD_NICK = " << RPL_CMD_NICK(falseNickname, client.getUsername(), client.getAddrIp(), splited[1]) << std::endl;
-        sendBroadcastServer(RPL_CMD_NICK(falseNickname, client.getUsername(), client.getAddrIp(), splited[1]), server);
+        sendBrodcastServer(RPL_CMD_NICK(falseNickname, client.getUsername(), client.getAddrIp(), splited[1]), server);
+        falseNickname = "";
     }
     else
     {
         std::cout << "RPL_CMD_NICK = " << RPL_CMD_NICK(splited[1], client.getUsername(), client.getAddrIp(), splited[1]) << std::endl;
-        sendBroadcastServer(RPL_CMD_NICK(client.getNickname(), client.getUsername(), client.getAddrIp(), splited[1]), server);
+        sendBrodcastServer(RPL_CMD_NICK(client.getNickname(), client.getUsername(), client.getAddrIp(), splited[1]), server);
     }
     mapClients.find(client.getFd())->second.setNickname(splited[1]);
     client.setNickname(splited[1]);

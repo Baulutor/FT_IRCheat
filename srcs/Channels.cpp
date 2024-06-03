@@ -48,7 +48,16 @@ std::vector<Clients>& Channels::getOperatorVector() {return (_operator);}
 
 std::string Channels::getPassword() const {return (_password);}
 
-std::string Channels::getMode(int target) const{return (_mode.find(target)->second);}
+std::string Channels::getMode(int target) const
+{
+    std::map<int, std::string>::const_iterator it = _mode.find(target);
+    if (it != _mode.end())
+    {
+        std::cout << "getMode Mode = " << it->second << std::endl;
+        return (it->second);
+    }
+    return ("");
+}
 
 int Channels::getLimit() const {return (_nbMaxClients);}
 

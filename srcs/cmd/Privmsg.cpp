@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Privmsg.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bfaure < bfaure@student.42lyon.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:12:48 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/31 19:58:43 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/06/02 18:52:57 by bfaure           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@ void Privmsg(std::string cmd, Clients& client, Server& server)
     std::vector<std::string> cmd_split = split(cmd, ' ');
     if (cmd_split.size() < 3)
         return (sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), "PRIVMSG"), client));
+    if (cmd_split[2][0] != ':')
+        return (sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), "PRIVMSG"), client));
     std::map<std::string, Channels>& channelsServer = server.getChannels();
     std::map<std::string, Channels>::iterator it = channelsServer.find(cmd_split[1]);
     std::map<int, Clients>& clientsServer = server.getClients();
     if (it == channelsServer.end())
     {
-        if (findFdClientByName(cmd_split[1], clientsServer) != -1)
+        if (server.getFdClientByName(cmd_split[1]) != -1)
             return (sendCmd(ERR_NOSUCHNICK(client.getNickname(), cmd_split[1]), client));
         return (sendCmd(ERR_NOSUCHCHANNEL(client.getNickname(), cmd_split[1]), client));
     }
@@ -46,9 +48,9 @@ void Privmsg(std::string cmd, Clients& client, Server& server)
     if (it != channelsServer.end())
     {
         std::cout << "RPL_CMD_PRIVMSG" << RPL_CMD_PRIVMSG(client.getNickname(), client.getUsername(), client.getAddrIp(), cmd_split[1], cmd_split[2]) << std::endl;
-        sendBroadcastMSG(RPL_CMD_PRIVMSG(client.getNickname(), client.getUsername(), client.getAddrIp(), cmd_split[1], cmd_split[2]), it->second, client);
+        sendBrodcastMSG(RPL_CMD_PRIVMSG(client.getNickname(), client.getUsername(), client.getAddrIp(), cmd_split[1], cmd_split[2]), server.getChannels().find(cmd_split[1])->second, client);
     }
-    else if (findFdClientByName(cmd_split[1], clientsServer) != -1)
+    else if (server.getFdClientByName(cmd_split[1]) != -1)
     {
         std::cout << "RPL_CMD_PRIVMSG" << RPL_CMD_PRIVMSG(client.getNickname(), client.getUsername(), client.getAddrIp(), cmd_split[1], cmd_split[2]) << std::endl;
         sendCmd(RPL_CMD_PRIVMSG(client.getNickname(), client.getUsername(), client.getAddrIp(), cmd_split[1], cmd_split[2]), findClientByName(cmd_split[1], clientsServer)->second);
