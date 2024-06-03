@@ -7,23 +7,23 @@ int Server::getFd() const {return this->_fd;}
 
 std::string Server::getAddrIp() const {return this->_addrIp;}
 
-void Server::setFd(int fd) {this->_fd = fd;}
-
-void Server::setAddrIp(std::string addrIp) {this->_addrIp = addrIp;}
+std::string Server::getPassword() const {return (this->_password);}
 
 std::map<std::string, Channels>& Server::getChannels() {return (_channels);}
 
 std::map<int, Clients>& Server::getClients() {return (_clients);}
+
+std::vector<pollfd> &Server::getLstPollFd() {return (this->_lstPollFd);}
+
+void Server::setFd(int fd) {this->_fd = fd;}
+
+void Server::setAddrIp(std::string addrIp) {this->_addrIp = addrIp;}
 
 void Server::setChannels(std::map<std::string, Channels> channels) {this->_channels = channels;}
 
 void Server::setClient(std::map<int, Clients> clients) {this->_clients = clients;}
 
 void Server::setPassword(std::string password) {this->_password = password;}
-
-std::string Server::getPassword() const {return (this->_password);}
-
-std::vector<pollfd> &Server::getLstPollFd() {return (this->_lstPollFd);}
 
 bool startWith(const std::string &line, const char *cmd) {return (line.find(cmd) == 0);}
 
@@ -50,7 +50,7 @@ int Server::getFdClientByName(std::string name)
 void Server::cmdHandler(std::string cmd, Clients& client)
 {
 	std::cout << "cmd: " << cmd << std::endl;
-    const char *lstCmd[] = {"JOIN", "KICK", "PRIVMSG", "PING", "INVITE", "MODE", "TOPIC", "NICK", "QUIT"};
+    const char *lstCmd[] = {"JOIN ", "KICK ", "PRIVMSG ", "PING ", "INVITE ", "MODE ", "TOPIC ", "NICK ", "QUIT "};
     // , "NAMES", "NICK", "INVITE", "TOPIC", "PRIVMSG", "QUIT", "PART", "KICK", "MODE"
     void (*lstFunc[])(std::string, Clients&, Server&) = {Join, Kick, Privmsg, Pong, Invite, Mode, Topic, Nick, Quit};
     for (int i = 0; i < 9; i++)
@@ -61,6 +61,9 @@ void Server::cmdHandler(std::string cmd, Clients& client)
             return;
         }
     }
+	//if "WHO" ==> skip
+	std::cout << "ERROR : command not found\r\n" << std::endl;
+	sendCmd("ERROR : command not found\r\n", client);
 }
 
 void Server::launch(std::string av, std::string av2)
@@ -145,7 +148,8 @@ bool Server::ClientHandler(bool init)
 			{
 				i++;
 				continue;
-			} else
+			}
+			else
 			{
 				Clients& client = itClients->second;
 				bzero(client.getBuffer(), 512);
@@ -204,27 +208,13 @@ bool Server::ClientHandler(bool init)
 							break;
 					}
 				}
-				else if (client.getIsRegistered() == true)
-				{
-					// for (std::map<std::string, Channels>::iterator it = _channels.begin(); it != _channels.end() ; it++)
-					// {
-					// 	std::cout << "PENDANT:" << _lstPollFd.size() << ", nombre de client PENDANT: " << it->second.getClientMap().size() <<  std::endl;
-					// 	for (std::map<int, Clients>::iterator ite = it->second.getClientMap().begin(); ite != it->second.getClientMap().end(); ite++)
-					// 		std::cout << "blaze du gars: " << ite->second.getNickname() << ", dans le chANNEL PENDANT: " << it->first << std::endl;
-					// }
-					cmdHandler(client.getBuffer(), client);
-				}
-				// for (std::map<std::string, Channels>::iterator it = _channels.begin(); it != _channels.end() ; it++)
-				// {
-				// 	std::cout << "APRES suppression de pollFd: " << _lstPollFd.size() << ", nombre de client dans le channel: " << it->second.getClientMap().size() <<  std::endl;
-				// 	for (std::map<int, Clients>::iterator ite = it->second.getClientMap().begin(); ite != it->second.getClientMap().end(); ite++)
-				// 	{
-				// 		std::cout << "Server Adress referance client in channel : " << &(getClients().find(ite->first)->second.getChannelsClient().find(it->first)->second.getClientMap().find(ite->first)->second) << std::endl;
-				// 		std::cout << "Server Adress referance client : " << &(client) << std::endl;
-				// 		std::cout << "blaze du gars: " << ite->second.getNickname() << ", dans le chANNEL: " << it->first << std::endl;
-				// 	}
-				// }
 			}
+			if (itClients->second.getIsRegistered() == true)
+			{
+				cmdHandler(itClients->second.getBuffer(), itClients->second);
+			}
+			else
+				Quit(itClients->second.getBuffer(), itClients->second, *this);
 		}
 		i++;
 	}

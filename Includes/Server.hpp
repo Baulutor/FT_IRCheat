@@ -52,9 +52,7 @@ class Server
         bool ClientConnexion();
         bool ClientHandler(bool init);
         void launch(std::string av, std::string av2);
-	    	void serverHandler();
-
-		// void	broadcast_message(const std::string &message, int sender_fd, std::vector<pollfd> &clients);
+		void serverHandler();
 
     private:
 	    std::vector<pollfd> _lstPollFd;
@@ -64,8 +62,6 @@ class Server
         std::string _password;
         std::map<int, Clients>  _clients;
         std::map<std::string, Channels> _channels;
-
-        // std::vector<pollfd>             _vecClient;
 };
 
 #endif

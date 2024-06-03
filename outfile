@@ -1,7 +1,7 @@
-bytes = 60
+bytes = 59
 buffer = CAP LS 302
 PASS toto
-NICK bfaure_
+NICK bfaure
 USER bf 0 * :realname
 
 ===============================================================================================
@@ -10,7 +10,7 @@ token : |LS 302|
 token : |PASS|
 token : |toto|
 token : |NICK|
-token : |bfaure_|
+token : |bfaure|
 token : |USER|
 token : |bf 0 * :realname|
 USER
@@ -23,10 +23,9 @@ splited[3] = :realname
 parseUser
 Username = bf
 NickInit
-cmd : bfaure_
+cmd : bfaure
 parseNick
-splited[0] = bfaure_
-it->second.getNickname() = 
+splited[0] = bfaure
 it->second.getNickname() = 
 flags[3] = 1
 PASS value : toto
@@ -35,19 +34,26 @@ NICK : 4
 PASS : 2
 BOOL : 1
 getNicknameTmp = ||
-RPL_CMD_NICK = :bfaure_!bf@ NICK bfaure_
+RPL_CMD_NICK = :bfaure!bf@ NICK bfaure
 
 ===============================================================================================
 init client
-Nickname : bfaure_
+Nickname : bfaure
 Username : bf
 Pass : toto
 fd : 4
 Ip Address : 127.0.0.1
-bytes = 61
-buffer = CAP LS 302
+cmd: CAP LS 302
 PASS toto
 NICK bfaure
+USER bf 0 * :realname
+
+ERROR : command not found
+
+bytes = 66
+buffer = CAP LS 302
+PASS toto
+NICK bfaure_____
 USER ben 0 * :bfaure___
 
 ===============================================================================================
@@ -56,7 +62,7 @@ token : |LS 302|
 token : |PASS|
 token : |toto|
 token : |NICK|
-token : |bfaure|
+token : |bfaure_____|
 token : |USER|
 token : |ben 0 * :bfaure___|
 USER
@@ -69,10 +75,10 @@ splited[3] = :bfaure___
 parseUser
 Username = ben
 NickInit
-cmd : bfaure
+cmd : bfaure_____
 parseNick
-splited[0] = bfaure
-it->second.getNickname() = bfaure_
+splited[0] = bfaure_____
+it->second.getNickname() = bfaure
 it->second.getNickname() = 
 flags[3] = 1
 PASS value : toto
@@ -81,15 +87,27 @@ NICK : 4
 PASS : 2
 BOOL : 1
 getNicknameTmp = ||
-RPL_CMD_NICK = :bfaure!ben@ NICK bfaure
+RPL_CMD_NICK = :bfaure_____!ben@ NICK bfaure_____
 
 ===============================================================================================
 init client
-Nickname : bfaure
+Nickname : bfaure_____
 Username : ben
 Pass : toto
 fd : 5
 Ip Address : 127.0.0.1
+cmd: CAP LS 302
+PASS toto
+NICK bfaure_____
+USER ben 0 * :bfaure___
+
+ERROR : command not found
+
+bytes = 23
+buffer = PING LAG1717380621879
+
+cmd: PING LAG1717380621879
+
 bytes = 12
 buffer = JOIN #test
 
@@ -105,15 +123,164 @@ getMode Mode = t
 getMode Mode = t
 setMode Mode = 
 Channel client ADD : #test
-RPL_CMD_JOIN = :bfaure_!bf@127.0.0.1 JOIN :#test
+RPL_CMD_JOIN = :bfaure!bf@127.0.0.1 JOIN :#test
 
-RPL_CMD_NAME_LST_START = :server 353 bfaure_ = #test :@bfaure_
+RPL_CMD_NAME_LST_START = :server 353 bfaure = #test :@bfaure
 
-RPL_CMD_NAME_LST_END = :server 366 bfaure_ #test :End of /NAMES list
+RPL_CMD_NAME_LST_END = :server 366 bfaure #test :End of /NAMES list
 
-Join Name = bfaure_
-Join Adress referance client in channel: 0x4df7848
+Join Name = bfaure
+Join Adress referance client in channel: 0x4df8598
 Join Adress referance client: 0x4de4cf8
+bytes = 23
+buffer = MODE #test
+WHO #test
+
+cmd: MODE #test
+WHO #test
+
+Mode
+cmd = |MODE #test
+WHO #test
+|
+cmd erase = |#test
+WHO #test
+|
+tokens.size() = 3
+tokens: |#test|
+target checkChannel = |#test|
+getMode Mode = t
+bytes = 23
+buffer = PING LAG1717380631879
+
+cmd: PING LAG1717380631879
+
+bytes = 15
+buffer = QUIT :Leaving
+
+cmd: QUIT :Leaving
+
+bytes = 23
+buffer = PING LAG1717380651878
+
+cmd: PING LAG1717380651878
+
+bytes = 66
+buffer = CAP LS 302
+PASS toto
+NICK bfaure_____
+USER ben 0 * :bfaure___
+
+===============================================================================================
+token : |CAP|
+token : |LS 302|
+token : |PASS|
+token : |toto|
+token : |NICK|
+token : |bfaure_____|
+token : |USER|
+token : |ben 0 * :bfaure___|
+USER
+cmd: ben 0 * :bfaure___
+splited.size() = 4
+splited[0] = ben
+splited[1] = 0
+splited[2] = *
+splited[3] = :bfaure___
+parseUser
+Username = ben
+NickInit
+cmd : bfaure_____
+parseNick
+splited[0] = bfaure_____
+it->second.getNickname() = bfaure
+it->second.getNickname() = 
+flags[3] = 1
+PASS value : toto
+USER : 6
+NICK : 4
+PASS : 2
+BOOL : 1
+getNicknameTmp = ||
+RPL_CMD_NICK = :bfaure_____!ben@ NICK bfaure_____
+
+===============================================================================================
+init client
+Nickname : bfaure_____
+Username : ben
+Pass : toto
+fd : 6
+Ip Address : 127.0.0.1
+cmd: CAP LS 302
+PASS toto
+NICK bfaure_____
+USER ben 0 * :bfaure___
+
+ERROR : command not found
+
+bytes = 15
+buffer = QUIT :Leaving
+
+cmd: QUIT :Leaving
+
+bytes = 66
+buffer = CAP LS 302
+PASS toto
+NICK bfaure_____
+USER ben 0 * :bfaure___
+
+===============================================================================================
+token : |CAP|
+token : |LS 302|
+token : |PASS|
+token : |toto|
+token : |NICK|
+token : |bfaure_____|
+token : |USER|
+token : |ben 0 * :bfaure___|
+USER
+cmd: ben 0 * :bfaure___
+splited.size() = 4
+splited[0] = ben
+splited[1] = 0
+splited[2] = *
+splited[3] = :bfaure___
+parseUser
+Username = ben
+NickInit
+cmd : bfaure_____
+parseNick
+splited[0] = bfaure_____
+it->second.getNickname() = bfaure
+it->second.getNickname() = 
+flags[3] = 1
+PASS value : toto
+USER : 6
+NICK : 4
+PASS : 2
+BOOL : 1
+getNicknameTmp = ||
+RPL_CMD_NICK = :bfaure_____!ben@ NICK bfaure_____
+
+===============================================================================================
+init client
+Nickname : bfaure_____
+Username : ben
+Pass : toto
+fd : 7
+Ip Address : 127.0.0.1
+cmd: CAP LS 302
+PASS toto
+NICK bfaure_____
+USER ben 0 * :bfaure___
+
+ERROR : command not found
+
+bytes = 23
+buffer = PING LAG1717380681879
+
+cmd: PING LAG1717380681879
+
 bytes = 12
 buffer = JOIN #test
 
@@ -130,29 +297,133 @@ getMode Mode = t
 getMode Mode = t
 setMode Mode = 
 Channel client ADD : #test
-RPL_CMD_JOIN = :bfaure!ben@127.0.0.1 JOIN :#test
+RPL_CMD_JOIN = :bfaure_____!ben@127.0.0.1 JOIN :#test
 
-RPL_CMD_NAME_LST_START = :server 353 bfaure = #test :@bfaure_ bfaure
+RPL_CMD_NAME_LST_START = :server 353 bfaure_____ = #test :@bfaure bfaure_____
+
+RPL_CMD_NAME_LST_END = :server 366 bfaure_____ #test :End of /NAMES list
+
+Join Name = bfaure_____
+Join Adress referance client in channel: 0x4e19398
+Join Adress referance client: 0x4e013e8
+bytes = 23
+buffer = MODE #test
+WHO #test
+
+cmd: MODE #test
+WHO #test
+
+Mode
+cmd = |MODE #test
+WHO #test
+|
+cmd erase = |#test
+WHO #test
+|
+tokens.size() = 3
+tokens: |#test|
+ERR_CHANOPRIVSNEEDEDED = |:server 482 bfaure_____ #test :You're not channel operator
+|
+bytes = 23
+buffer = PING LAG1717380691879
+
+cmd: PING LAG1717380691879
+
+bytes = 15
+buffer = QUIT :Leaving
+
+cmd: QUIT :Leaving
+
+RPL_CMD_NAME_LST_START = :server 353 bfaure = #test :@bfaure @bfaure_____
+
+RPL_CMD_NAME_LST_END = :server 366 bfaure #test :End of /NAMES list
+
+bytes = 28
+buffer = PRIVMSG #test :coiakjhcgas
+
+cmd: PRIVMSG #test :coiakjhcgas
+
+PRIVMSG
+RPL_CMD_PRIVMSG:bfaure_____!ben@127.0.0.1 PRIVMSG #test :coiakjhcgas
+
+bytes = 59
+buffer = CAP LS 302
+PASS toto
+NICK bfaure
+USER bf 0 * :realname
+
+===============================================================================================
+token : |CAP|
+token : |LS 302|
+token : |PASS|
+token : |toto|
+token : |NICK|
+token : |bfaure|
+token : |USER|
+token : |bf 0 * :realname|
+USER
+cmd: bf 0 * :realname
+splited.size() = 4
+splited[0] = bf
+splited[1] = 0
+splited[2] = *
+splited[3] = :realname
+parseUser
+Username = bf
+NickInit
+cmd : bfaure
+parseNick
+splited[0] = bfaure
+it->second.getNickname() = bfaure_____
+it->second.getNickname() = 
+flags[3] = 1
+PASS value : toto
+USER : 6
+NICK : 4
+PASS : 2
+BOOL : 1
+getNicknameTmp = ||
+RPL_CMD_NICK = :bfaure!bf@ NICK bfaure
+
+===============================================================================================
+init client
+Nickname : bfaure
+Username : bf
+Pass : toto
+fd : 8
+Ip Address : 127.0.0.1
+cmd: CAP LS 302
+PASS toto
+NICK bfaure
+USER bf 0 * :realname
+
+ERROR : command not found
+
+bytes = 12
+buffer = JOIN #test
+
+cmd: JOIN #test
+
+JOIN
+channel = #test
+channelsServer.size() = 1
+it->first = #test
+getMode Mode = t
+channel.getMode(-42) = getMode Mode = t
+t
+getMode Mode = t
+getMode Mode = t
+setMode Mode = 
+Channel client ADD : #test
+RPL_CMD_JOIN = :bfaure!bf@127.0.0.1 JOIN :#test
+
+RPL_CMD_NAME_LST_START = :server 353 bfaure = #test :@bfaure_____ bfaure
 
 RPL_CMD_NAME_LST_END = :server 366 bfaure #test :End of /NAMES list
 
 Join Name = bfaure
-Join Adress referance client in channel: 0x4e0d438
-Join Adress referance client: 0x4de52b8
-bytes = 12
-buffer = MODE #test
-
-cmd: MODE #test
-
-Mode
-cmd = |MODE #test
-|
-cmd erase = |#test
-|
-tokens.size() = 1
-tokens: |#test|
-target checkChannel = |#test|
-getMode Mode = t
+Join Adress referance client in channel: 0x4e5c508
+Join Adress referance client: 0x4e25958
 bytes = 12
 buffer = MODE #test
 
@@ -172,991 +443,45 @@ buffer = WHO #test
 
 cmd: WHO #test
 
-bytes = 11
-buffer = WHO #test
-
-cmd: WHO #test
+ERROR : command not found
 
 bytes = 23
-buffer = PING LAG1717366611878
+buffer = PING LAG1717380721879
 
-cmd: PING LAG1717366611878
+cmd: PING LAG1717380721879
 
-bytes = 24
-buffer = PRIVMSG #test :aoiuedh
+bytes = 23
+buffer = PRIVMSG #test :klajdh
 
-cmd: PRIVMSG #test :aoiuedh
+cmd: PRIVMSG #test :klajdh
 
 PRIVMSG
-RPL_CMD_PRIVMSG:bfaure_!bf@127.0.0.1 PRIVMSG #test :aoiuedh
+RPL_CMD_PRIVMSG:bfaure!bf@127.0.0.1 PRIVMSG #test :klajdh
 
-bytes = 23
-buffer = PING LAG1717366621880
-
-cmd: PING LAG1717366621880
-
-bytes = 13
-buffer = MODE #test 
-
-cmd: MODE #test 
-
-Mode
-cmd = |MODE #test 
-|
-cmd erase = |#test 
-|
-tokens.size() = 1
-tokens: |#test|
-target checkChannel = |#test|
-getMode Mode = t
 bytes = 15
-buffer = MODE #test +i
+buffer = QUIT :Leaving
 
-cmd: MODE #test +i
+cmd: QUIT :Leaving
 
-Mode
-cmd = |MODE #test +i
-|
-cmd erase = |#test +i
-|
-tokens.size() = 2
-tokens: |#test|
-tokens: |+i|
-target checkChannel = |#test|
-target isMode = |+i|
-checkArgs modes = |+i|
-modes[i] = |+|
-plusSign = false
-channelIt->first = |#test|
-target addInviteMode = |-42|
-channelIt->second.getMode(target) = |getMode Mode = t
-t|
-channelIt->second.getMode(target).find('i') = |getMode Mode = t
-18446744073709551615|
-getMode Mode = t
-setMode Mode = i
-bytes = 13
-buffer = MODE #test 
+RPL_CMD_NAME_LST_START = :server 353 bfaure_____ = #test :@bfaure_____ @bfaure
 
-cmd: MODE #test 
+RPL_CMD_NAME_LST_END = :server 366 bfaure_____ #test :End of /NAMES list
 
-Mode
-cmd = |MODE #test 
-|
-cmd erase = |#test 
-|
-tokens.size() = 1
-tokens: |#test|
-target checkChannel = |#test|
-getMode Mode = ti
 bytes = 23
-buffer = PING LAG1717366641878
+buffer = PING LAG1717380744879
 
-cmd: PING LAG1717366641878
+cmd: PING LAG1717380744879
 
 bytes = 23
-buffer = PING LAG1717366651879
+buffer = PRIVMSG #test :couocu
 
-cmd: PING LAG1717366651879
+cmd: PRIVMSG #test :couocu
 
-bytes = 13
-buffer = NICK benben
+PRIVMSG
+RPL_CMD_PRIVMSG:bfaure!bf@127.0.0.1 PRIVMSG #test :couocu
 
-cmd: NICK benben
+bytes = 15
+buffer = QUIT :Leaving
 
-Nick
-splited.size() = 2
-splited[0] = NICK
-splited[1] = benben
-parseNick
-RPL_CMD_NICK = :benben!bf@127.0.0.1 NICK benben
-
-bytes = 13
-buffer = MODE #test 
-
-cmd: MODE #test 
-
-Mode
-cmd = |MODE #test 
-|
-cmd erase = |#test 
-|
-tokens.size() = 1
-tokens: |#test|
-target checkChannel = |#test|
-getMode Mode = ti
-bytes = 23
-buffer = PING LAG1717366671879
-
-cmd: PING LAG1717366671879
-
-bytes = 13
-buffer = MODE #test 
-
-cmd: MODE #test 
-
-Mode
-cmd = |MODE #test 
-|
-cmd erase = |#test 
-|
-tokens.size() = 1
-tokens: |#test|
-ERR_CHANOPRIVSNEEDEDED = |:server 482 bfaure #test :You're not channel operator
-|
-bytes = 23
-buffer = PING LAG1717366681879
-
-cmd: PING LAG1717366681879
-
-bytes = 22
-buffer = MODE #test +o bfaure
-
-cmd: MODE #test +o bfaure
-
-Mode
-cmd = |MODE #test +o bfaure
-|
-cmd erase = |#test +o bfaure
-|
-tokens.size() = 3
-tokens: |#test|
-tokens: |+o|
-tokens: |bfaure|
-target checkChannel = |#test|
-target isMode = |+o|
-target isArgsMode = |+o|
-checkArgs modes = |+o|
-modes[i] = |+|
-plusSign = false
-channelIt->first = |#test|
-channelIt->second.getMode(args[i]) = |getMode Mode = 
-|
-getMode Mode = 
-setMode Mode = o
-RPL_CMD_NAME_LST_START = :server 353 bfaure = #test :@bfaure_ @bfaure
-
-RPL_CMD_NAME_LST_END = :server 366 bfaure #test :End of /NAMES list
-
-bytes = 13
-buffer = MODE #test 
-
-cmd: MODE #test 
-
-Mode
-cmd = |MODE #test 
-|
-cmd erase = |#test 
-|
-tokens.size() = 1
-tokens: |#test|
-target checkChannel = |#test|
-getMode Mode = ti
-bytes = 13
-buffer = MODE #test 
-
-cmd: MODE #test 
-
-Mode
-cmd = |MODE #test 
-|
-cmd erase = |#test 
-|
-tokens.size() = 1
-tokens: |#test|
-target checkChannel = |#test|
-getMode Mode = ti
-bytes = 23
-buffer = PING LAG1717366701879
-
-cmd: PING LAG1717366701879
-
-bytes = 13
-buffer = MODE #test 
-
-cmd: MODE #test 
-
-Mode
-cmd = |MODE #test 
-|
-cmd erase = |#test 
-|
-tokens.size() = 1
-tokens: |#test|
-target checkChannel = |#test|
-getMode Mode = ti
-bytes = 23
-buffer = PING LAG1717366711879
-
-cmd: PING LAG1717366711879
-
-bytes = 23
-buffer = PING LAG1717366731879
-
-cmd: PING LAG1717366731879
-
-bytes = 23
-buffer = PING LAG1717366741879
-
-cmd: PING LAG1717366741879
-
-bytes = 23
-buffer = PING LAG1717366761879
-
-cmd: PING LAG1717366761879
-
-bytes = 23
-buffer = PING LAG1717366771878
-
-cmd: PING LAG1717366771878
-
-bytes = 23
-buffer = PING LAG1717366791879
-
-cmd: PING LAG1717366791879
-
-bytes = 23
-buffer = PING LAG1717366801879
-
-cmd: PING LAG1717366801879
-
-bytes = 23
-buffer = PING LAG1717366821879
-
-cmd: PING LAG1717366821879
-
-bytes = 23
-buffer = PING LAG1717366831879
-
-cmd: PING LAG1717366831879
-
-bytes = 23
-buffer = PING LAG1717366851879
-
-cmd: PING LAG1717366851879
-
-bytes = 23
-buffer = PING LAG1717366861879
-
-cmd: PING LAG1717366861879
-
-bytes = 23
-buffer = PING LAG1717366881880
-
-cmd: PING LAG1717366881880
-
-bytes = 23
-buffer = PING LAG1717366891879
-
-cmd: PING LAG1717366891879
-
-bytes = 23
-buffer = PING LAG1717366911879
-
-cmd: PING LAG1717366911879
-
-bytes = 23
-buffer = PING LAG1717366921879
-
-cmd: PING LAG1717366921879
-
-bytes = 23
-buffer = PING LAG1717366941879
-
-cmd: PING LAG1717366941879
-
-bytes = 23
-buffer = PING LAG1717366951879
-
-cmd: PING LAG1717366951879
-
-bytes = 23
-buffer = PING LAG1717366971879
-
-cmd: PING LAG1717366971879
-
-bytes = 23
-buffer = PING LAG1717366981878
-
-cmd: PING LAG1717366981878
-
-bytes = 23
-buffer = PING LAG1717367001879
-
-cmd: PING LAG1717367001879
-
-bytes = 23
-buffer = PING LAG1717367011879
-
-cmd: PING LAG1717367011879
-
-bytes = 23
-buffer = PING LAG1717367031879
-
-cmd: PING LAG1717367031879
-
-bytes = 23
-buffer = PING LAG1717367041879
-
-cmd: PING LAG1717367041879
-
-bytes = 23
-buffer = PING LAG1717367061879
-
-cmd: PING LAG1717367061879
-
-bytes = 23
-buffer = PING LAG1717367071879
-
-cmd: PING LAG1717367071879
-
-bytes = 23
-buffer = PING LAG1717367091879
-
-cmd: PING LAG1717367091879
-
-bytes = 23
-buffer = PING LAG1717367101879
-
-cmd: PING LAG1717367101879
-
-bytes = 23
-buffer = PING LAG1717367121878
-
-cmd: PING LAG1717367121878
-
-bytes = 23
-buffer = PING LAG1717367131878
-
-cmd: PING LAG1717367131878
-
-bytes = 23
-buffer = PING LAG1717367151879
-
-cmd: PING LAG1717367151879
-
-bytes = 23
-buffer = PING LAG1717367161879
-
-cmd: PING LAG1717367161879
-
-bytes = 23
-buffer = PING LAG1717367181879
-
-cmd: PING LAG1717367181879
-
-bytes = 23
-buffer = PING LAG1717367191878
-
-cmd: PING LAG1717367191878
-
-bytes = 23
-buffer = PING LAG1717367211879
-
-cmd: PING LAG1717367211879
-
-bytes = 23
-buffer = PING LAG1717367221879
-
-cmd: PING LAG1717367221879
-
-bytes = 23
-buffer = PING LAG1717367241879
-
-cmd: PING LAG1717367241879
-
-bytes = 23
-buffer = PING LAG1717367251880
-
-cmd: PING LAG1717367251880
-
-bytes = 23
-buffer = PING LAG1717367271880
-
-cmd: PING LAG1717367271880
-
-bytes = 23
-buffer = PING LAG1717367281880
-
-cmd: PING LAG1717367281880
-
-bytes = 23
-buffer = PING LAG1717367301879
-
-cmd: PING LAG1717367301879
-
-bytes = 23
-buffer = PING LAG1717367311879
-
-cmd: PING LAG1717367311879
-
-bytes = 23
-buffer = PING LAG1717367331879
-
-cmd: PING LAG1717367331879
-
-bytes = 23
-buffer = PING LAG1717367341879
-
-cmd: PING LAG1717367341879
-
-bytes = 23
-buffer = PING LAG1717367361879
-
-cmd: PING LAG1717367361879
-
-bytes = 23
-buffer = PING LAG1717367371879
-
-cmd: PING LAG1717367371879
-
-bytes = 23
-buffer = PING LAG1717367391879
-
-cmd: PING LAG1717367391879
-
-bytes = 23
-buffer = PING LAG1717367401879
-
-cmd: PING LAG1717367401879
-
-bytes = 23
-buffer = PING LAG1717367421879
-
-cmd: PING LAG1717367421879
-
-bytes = 23
-buffer = PING LAG1717367431879
-
-cmd: PING LAG1717367431879
-
-bytes = 23
-buffer = PING LAG1717367451879
-
-cmd: PING LAG1717367451879
-
-bytes = 23
-buffer = PING LAG1717367461878
-
-cmd: PING LAG1717367461878
-
-bytes = 23
-buffer = PING LAG1717367481879
-
-cmd: PING LAG1717367481879
-
-bytes = 23
-buffer = PING LAG1717367491879
-
-cmd: PING LAG1717367491879
-
-bytes = 23
-buffer = PING LAG1717367511879
-
-cmd: PING LAG1717367511879
-
-bytes = 23
-buffer = PING LAG1717367521879
-
-cmd: PING LAG1717367521879
-
-bytes = 23
-buffer = PING LAG1717367541878
-
-cmd: PING LAG1717367541878
-
-bytes = 23
-buffer = PING LAG1717367551879
-
-cmd: PING LAG1717367551879
-
-bytes = 23
-buffer = PING LAG1717367571880
-
-cmd: PING LAG1717367571880
-
-bytes = 23
-buffer = PING LAG1717367581879
-
-cmd: PING LAG1717367581879
-
-bytes = 23
-buffer = PING LAG1717367601879
-
-cmd: PING LAG1717367601879
-
-bytes = 23
-buffer = PING LAG1717367611879
-
-cmd: PING LAG1717367611879
-
-bytes = 23
-buffer = PING LAG1717367631879
-
-cmd: PING LAG1717367631879
-
-bytes = 23
-buffer = PING LAG1717367641879
-
-cmd: PING LAG1717367641879
-
-bytes = 23
-buffer = PING LAG1717367661879
-
-cmd: PING LAG1717367661879
-
-bytes = 23
-buffer = PING LAG1717367671879
-
-cmd: PING LAG1717367671879
-
-bytes = 23
-buffer = PING LAG1717367691879
-
-cmd: PING LAG1717367691879
-
-bytes = 23
-buffer = PING LAG1717367701879
-
-cmd: PING LAG1717367701879
-
-bytes = 23
-buffer = PING LAG1717367721878
-
-cmd: PING LAG1717367721878
-
-bytes = 23
-buffer = PING LAG1717367731879
-
-cmd: PING LAG1717367731879
-
-bytes = 23
-buffer = PING LAG1717367751879
-
-cmd: PING LAG1717367751879
-
-bytes = 23
-buffer = PING LAG1717367761879
-
-cmd: PING LAG1717367761879
-
-bytes = 23
-buffer = PING LAG1717367781879
-
-cmd: PING LAG1717367781879
-
-bytes = 23
-buffer = PING LAG1717367791879
-
-cmd: PING LAG1717367791879
-
-bytes = 23
-buffer = PING LAG1717367811879
-
-cmd: PING LAG1717367811879
-
-bytes = 23
-buffer = PING LAG1717367821879
-
-cmd: PING LAG1717367821879
-
-bytes = 23
-buffer = PING LAG1717367841879
-
-cmd: PING LAG1717367841879
-
-bytes = 23
-buffer = PING LAG1717367851879
-
-cmd: PING LAG1717367851879
-
-bytes = 23
-buffer = PING LAG1717367871879
-
-cmd: PING LAG1717367871879
-
-bytes = 23
-buffer = PING LAG1717367881878
-
-cmd: PING LAG1717367881878
-
-bytes = 23
-buffer = PING LAG1717367901879
-
-cmd: PING LAG1717367901879
-
-bytes = 23
-buffer = PING LAG1717367911878
-
-cmd: PING LAG1717367911878
-
-bytes = 23
-buffer = PING LAG1717367931879
-
-cmd: PING LAG1717367931879
-
-bytes = 23
-buffer = PING LAG1717367941878
-
-cmd: PING LAG1717367941878
-
-bytes = 23
-buffer = PING LAG1717367961879
-
-cmd: PING LAG1717367961879
-
-bytes = 23
-buffer = PING LAG1717367971879
-
-cmd: PING LAG1717367971879
-
-bytes = 23
-buffer = PING LAG1717367991879
-
-cmd: PING LAG1717367991879
-
-bytes = 23
-buffer = PING LAG1717368001880
-
-cmd: PING LAG1717368001880
-
-bytes = 23
-buffer = PING LAG1717368021880
-
-cmd: PING LAG1717368021880
-
-bytes = 23
-buffer = PING LAG1717368031879
-
-cmd: PING LAG1717368031879
-
-bytes = 23
-buffer = PING LAG1717368051879
-
-cmd: PING LAG1717368051879
-
-bytes = 23
-buffer = PING LAG1717368061879
-
-cmd: PING LAG1717368061879
-
-bytes = 23
-buffer = PING LAG1717368081879
-
-cmd: PING LAG1717368081879
-
-bytes = 23
-buffer = PING LAG1717368091879
-
-cmd: PING LAG1717368091879
-
-bytes = 23
-buffer = PING LAG1717368111879
-
-cmd: PING LAG1717368111879
-
-bytes = 23
-buffer = PING LAG1717368121879
-
-cmd: PING LAG1717368121879
-
-bytes = 23
-buffer = PING LAG1717368141879
-
-cmd: PING LAG1717368141879
-
-bytes = 23
-buffer = PING LAG1717368151879
-
-cmd: PING LAG1717368151879
-
-bytes = 23
-buffer = PING LAG1717368171879
-
-cmd: PING LAG1717368171879
-
-bytes = 23
-buffer = PING LAG1717368181878
-
-cmd: PING LAG1717368181878
-
-bytes = 23
-buffer = PING LAG1717368201879
-
-cmd: PING LAG1717368201879
-
-bytes = 23
-buffer = PING LAG1717368211878
-
-cmd: PING LAG1717368211878
-
-bytes = 23
-buffer = PING LAG1717368231878
-
-cmd: PING LAG1717368231878
-
-bytes = 23
-buffer = PING LAG1717368241879
-
-cmd: PING LAG1717368241879
-
-bytes = 23
-buffer = PING LAG1717368261879
-
-cmd: PING LAG1717368261879
-
-bytes = 23
-buffer = PING LAG1717368271879
-
-cmd: PING LAG1717368271879
-
-bytes = 23
-buffer = PING LAG1717368291879
-
-cmd: PING LAG1717368291879
-
-bytes = 23
-buffer = PING LAG1717368301878
-
-cmd: PING LAG1717368301878
-
-bytes = 23
-buffer = PING LAG1717368321879
-
-cmd: PING LAG1717368321879
-
-bytes = 23
-buffer = PING LAG1717368331880
-
-cmd: PING LAG1717368331880
-
-bytes = 23
-buffer = PING LAG1717368351879
-
-cmd: PING LAG1717368351879
-
-bytes = 23
-buffer = PING LAG1717368361880
-
-cmd: PING LAG1717368361880
-
-bytes = 23
-buffer = PING LAG1717368381879
-
-cmd: PING LAG1717368381879
-
-bytes = 23
-buffer = PING LAG1717368391879
-
-cmd: PING LAG1717368391879
-
-bytes = 23
-buffer = PING LAG1717368411879
-
-cmd: PING LAG1717368411879
-
-bytes = 23
-buffer = PING LAG1717368421879
-
-cmd: PING LAG1717368421879
-
-bytes = 23
-buffer = PING LAG1717368441879
-
-cmd: PING LAG1717368441879
-
-bytes = 23
-buffer = PING LAG1717368451879
-
-cmd: PING LAG1717368451879
-
-bytes = 23
-buffer = PING LAG1717368471879
-
-cmd: PING LAG1717368471879
-
-bytes = 23
-buffer = PING LAG1717368481879
-
-cmd: PING LAG1717368481879
-
-bytes = 23
-buffer = PING LAG1717368501879
-
-cmd: PING LAG1717368501879
-
-bytes = 23
-buffer = PING LAG1717368511879
-
-cmd: PING LAG1717368511879
-
-bytes = 23
-buffer = PING LAG1717368531879
-
-cmd: PING LAG1717368531879
-
-bytes = 23
-buffer = PING LAG1717368541878
-
-cmd: PING LAG1717368541878
-
-bytes = 23
-buffer = PING LAG1717368561879
-
-cmd: PING LAG1717368561879
-
-bytes = 23
-buffer = PING LAG1717368571879
-
-cmd: PING LAG1717368571879
-
-bytes = 23
-buffer = PING LAG1717368591878
-
-cmd: PING LAG1717368591878
-
-bytes = 23
-buffer = PING LAG1717368601879
-
-cmd: PING LAG1717368601879
-
-bytes = 23
-buffer = PING LAG1717368621879
-
-cmd: PING LAG1717368621879
-
-bytes = 23
-buffer = PING LAG1717368631879
-
-cmd: PING LAG1717368631879
-
-bytes = 23
-buffer = PING LAG1717368651879
-
-cmd: PING LAG1717368651879
-
-bytes = 23
-buffer = PING LAG1717368661879
-
-cmd: PING LAG1717368661879
-
-bytes = 23
-buffer = PING LAG1717368681879
-
-cmd: PING LAG1717368681879
-
-bytes = 23
-buffer = PING LAG1717368691879
-
-cmd: PING LAG1717368691879
-
-bytes = 23
-buffer = PING LAG1717368711880
-
-cmd: PING LAG1717368711880
-
-bytes = 23
-buffer = PING LAG1717368721879
-
-cmd: PING LAG1717368721879
-
-bytes = 23
-buffer = PING LAG1717368741880
-
-cmd: PING LAG1717368741880
-
-bytes = 23
-buffer = PING LAG1717368751880
-
-cmd: PING LAG1717368751880
-
-bytes = 23
-buffer = PING LAG1717368771879
-
-cmd: PING LAG1717368771879
-
-bytes = 23
-buffer = PING LAG1717368781879
-
-cmd: PING LAG1717368781879
-
-bytes = 23
-buffer = PING LAG1717368801879
-
-cmd: PING LAG1717368801879
-
-bytes = 23
-buffer = PING LAG1717368811878
-
-cmd: PING LAG1717368811878
-
-bytes = 23
-buffer = PING LAG1717368831879
-
-cmd: PING LAG1717368831879
-
-bytes = 23
-buffer = PING LAG1717368841879
-
-cmd: PING LAG1717368841879
-
-bytes = 23
-buffer = PING LAG1717368861878
-
-cmd: PING LAG1717368861878
-
-bytes = 23
-buffer = PING LAG1717368871879
-
-cmd: PING LAG1717368871879
-
-bytes = 23
-buffer = PING LAG1717368891879
-
-cmd: PING LAG1717368891879
-
-bytes = 23
-buffer = PING LAG1717368901879
-
-cmd: PING LAG1717368901879
-
-bytes = 23
-buffer = PING LAG1717368921879
-
-cmd: PING LAG1717368921879
-
-bytes = 23
-buffer = PING LAG1717368931879
-
-cmd: PING LAG1717368931879
-
-bytes = 23
-buffer = PING LAG1717368951879
-
-cmd: PING LAG1717368951879
-
-bytes = 23
-buffer = PING LAG1717368961879
-
-cmd: PING LAG1717368961879
-
-bytes = 23
-buffer = PING LAG1717368981879
-
-cmd: PING LAG1717368981879
-
-bytes = 23
-buffer = PING LAG1717368991879
-
-cmd: PING LAG1717368991879
-
-bytes = 23
-buffer = PING LAG1717369011878
-
-cmd: PING LAG1717369011878
-
-bytes = 23
-buffer = PING LAG1717369021878
-
-cmd: PING LAG1717369021878
+cmd: QUIT :Leaving
 

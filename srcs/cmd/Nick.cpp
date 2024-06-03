@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Nick.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nibernar <nibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 17:15:55 by nibernar          #+#    #+#             */
-/*   Updated: 2024/06/01 18:31:01 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/06/03 12:48:57 by nibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ bool parseNick(std::string& nick, Clients& client)
 
 void 	Nick(std::string cmd, Clients& client, Server& server)
 {
-    std::cout << "Nick" << std::endl;
+    std::cout << "Nick" << cmd << std::endl;
     static bool nickname_used = false;
     static std::string falseNickname = "";
     std::map<int, Clients>& mapClients = server.getClients();
