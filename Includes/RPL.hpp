@@ -85,7 +85,5 @@
 # define ERR_NONICKNAMEGIVEN(Nickname) (":server 431 " + Nickname + " :No nickname given" + "\r\n")
 # define RPL_PART(Nickname, Channel, Username, Hostname) (":" + Nickname + "!" + Username + "@" + Hostname + " PART " + Channel + "\r\n")
 
-# define RPL_INVITE_MESSAGE(Nickname, Channel, Username, Hostname) (":" + Nickname + "!" + Username + "@" + Hostname + " INVITE " + Nickname + " " + Channel + "\r\n")
-
 #endif
 
