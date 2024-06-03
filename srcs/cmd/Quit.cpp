@@ -165,5 +165,9 @@ void Quit(std::string cmd, Clients& client, Server& server)
 
 	int buf = client.getFd();
 	client.setFd(-1);
+	std::cout << "Quit Address client = " << &(client) << std::endl;
+	std::cout << "Quit Address client in server = " << &(server.getClients().find(buf)->second) << std::endl;
+	// std::cout << "Quit Address client in channel = " << &(server.getClients().find(buf)->second.getChannelsClient().find(channel)->second.getClientMap().find(client.getFd())->second) << std::endl;
 	server.getClients().erase(server.getClients().find(buf));
 }
+

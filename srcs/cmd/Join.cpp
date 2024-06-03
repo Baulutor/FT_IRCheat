@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Join.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bfaure < bfaure@student.42lyon.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 10:13:36 by bfaure            #+#    #+#             */
-/*   Updated: 2024/06/01 19:02:39 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/06/03 12:44:51 by bfaure           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void Join(std::string cmd, Clients& client, Server& server)
     std::vector<std::string> channels = split(splited[1], ',');
     std::vector<std::string> keys = make_keys(splited);
     std::string remove = "\r\n";
-    std::map<std::string, Channels>& channelsServer = server.getChannels();
+    // std::map<std::string, Channels>& channelsServer = server.getChannels();
     size_t pos;
     
     for (size_t i = 0; i < channels.size(); i++)
@@ -118,14 +118,14 @@ void Join(std::string cmd, Clients& client, Server& server)
         std::string key = (i < keys.size()) ? keys[i] : "";
         std::string channel = channels[i];
         std::cout << "channel = " << channel << std::endl;
-        Channels& channelToJoin = findChannel(channel, channelsServer, client);
+        Channels& channelToJoin = findChannel(channel, server.getChannels(), client);
         if (check_key(key, channelToJoin, client) == false)
             continue;
         if (check_invited(channelToJoin, client) == false)
             continue;
         if (check_nb_clients(channelToJoin, client) == false)
             continue;
-        std::pair<std::map<std::string, Channels>::iterator, bool> insertServer = channelsServer.insert(std::make_pair(channel, channelToJoin));
+        std::pair<std::map<std::string, Channels>::iterator, bool> insertServer = server.getChannels().insert(std::make_pair(channel, channelToJoin));
         if (insertServer.second)
             std::cout << "channel serveur ADD : " << insertServer.first->second.getName() << std::endl;
         std::pair<std::map<std::string, Channels>::iterator, bool> insertClient = server.getClients().find(client.getFd())->second.getChannelsClient().insert(std::make_pair(channel, channelToJoin));
@@ -139,10 +139,10 @@ void Join(std::string cmd, Clients& client, Server& server)
         }
         std::string Topic = insertClient.first->second.getTopic();
         std::string user;
-        std::map<int, Clients>& serverMap = insertServer.first->second.getClientMap();
-        serverMap.insert(std::make_pair(client.getFd(), client));
-        std::map<int, Clients>& clientMap = insertClient.first->second.getClientMap();
-        clientMap.insert(std::make_pair(client.getFd(), client));
+        // std::map<int, Clients>& serverMap = insertServer.first->second.getClientMap();
+        insertServer.first->second.getClientMap().insert(std::make_pair(client.getFd(), client));
+        // std::map<int, Clients>& clientMap = insertClient.first->second.getClientMap();
+        insertClient.first->second.getClientMap().insert(std::make_pair(client.getFd(), client));
         try
         {
             if (key != "")
@@ -168,5 +168,9 @@ void Join(std::string cmd, Clients& client, Server& server)
         {
             std::cout << "Error : " << e.what() << std::endl;
         }
+        std::cout << "Join Name = " << server.getClients().find(client.getFd())->second.getChannelsClient().find(channel)->second.getClientMap().find(client.getFd())->second.getNickname() << std::endl;
+		std::cout << "Join Adress referance client in channel: " << &(server.getClients().find(client.getFd())->second.getChannelsClient().find(channel)->second.getClientMap().find(client.getFd())->second) << std::endl;
+        // std::cout << "Adress referance 2: " << &(server.getClients().find(client.getFd())->second.getChannelsClient().find(channel)->second.getClientMap()) << std::endl;
+        std::cout << "Join Adress referance client: " << &(client) << std::endl;
     }
 }

@@ -128,83 +128,98 @@ bool Server::ClientHandler(bool init)
 	{
 		if (i < _lstPollFd.size() && _lstPollFd[i].revents & POLLIN)
 		{
-			std::map<int, Clients>::iterator itClients = getClients().find(_lstPollFd[i].fd);
-			if (itClients == getClients().end())
+			// std::map<int, Clients>::iterator itClients = getClients().find(_lstPollFd[i].fd);
+			// if (itClients == getClients().end())
+			// {
+			// 	i++;
+			// 	continue;
+			// }
+			std::map<int, Clients>& clientsMap = getClients(); // Obtenez une référence à la map des clients
+			std::map<int, Clients>::iterator itClients = clientsMap.find(_lstPollFd[i].fd);
+
+			if (itClients == clientsMap.end())
 			{
 				i++;
 				continue;
-			}
-			bzero(itClients->second.getBuffer(), 512);
-			ssize_t bytes = recv(_lstPollFd[i].fd, itClients->second.getBuffer(), 511, MSG_DONTWAIT);
-			std::cout << "bytes = " << bytes << std::endl;
-			std::cout << "buffer = " << itClients->second.getBuffer() << std::endl;
-			if (bytes < 0)
-				std::cerr << "ERROR rcve !" << std::endl;
-			else if (bytes == 0)
+			} else
 			{
-				std::cerr << "connexion closed " << std::endl;
-				close(itClients->second.getFd());
-				close(_lstPollFd[i].fd);
-				_clients.erase(itClients->first);
-				_lstPollFd.erase(_lstPollFd.begin() + i);
-				continue ;
-			}
-			else if (bytes > 0)
-			{
-				if ((itClients->second.getBuffer()[bytes - 1] != '\n' && (bytes == 1 || itClients->second.getBuffer()[bytes - 2] != '\r')))
+				Clients& client = itClients->second;
+				bzero(client.getBuffer(), 512);
+				ssize_t bytes = recv(_lstPollFd[i].fd, client.getBuffer(), 511, MSG_DONTWAIT);
+				std::cout << "bytes = " << bytes << std::endl;
+				std::cout << "buffer = " << client.getBuffer() << std::endl;
+				if (bytes < 0)
+					std::cerr << "ERROR rcve !" << std::endl;
+				else if (bytes == 0)
 				{
-					itClients->second.setBufferTmp(itClients->second.getBuffer());
-					itClients->second.setBuffer(NULL);
+					std::cerr << "connexion closed " << std::endl;
+					close(client.getFd());
+					close(_lstPollFd[i].fd);
+					_clients.erase(client.getFd());
+					_lstPollFd.erase(_lstPollFd.begin() + i);
 					continue ;
 				}
-				if (itClients->second.getBufferTmp()[0] != '\0')
+				else if (bytes > 0)
 				{
-					itClients->second.setBufferTmp(itClients->second.getBuffer());
-					itClients->second.setBuffer(itClients->second.getBufferTmp());
-					itClients->second.setBufferTmp(NULL);
+					if ((client.getBuffer()[bytes - 1] != '\n' && (bytes == 1 || client.getBuffer()[bytes - 2] != '\r')))
+					{
+						client.setBufferTmp(client.getBuffer());
+						itClients->second.setBuffer(NULL);
+						continue ;
+					}
+					if (client.getBufferTmp()[0] != '\0')
+					{
+						client.setBufferTmp(client.getBuffer());
+						client.setBuffer(client.getBufferTmp());
+						client.setBufferTmp(NULL);
+					}
 				}
-			}
-			if (startWith(itClients->second.getBuffer(), "CAP LS 302") || !init)
-			{
-				std::cout << "===============================================================================================" << std::endl;
-				init = itClients->second.initClients(itClients->second.getBuffer(), *this);
-				if (init && itClients->second.getIsRegistered() == true)
+				if (startWith(client.getBuffer(), "CAP LS 302") || !init)
 				{
-					std::cout << "init client" << std::endl;
-					itClients->second.printInfo();
-				}
-				else if (init && itClients->second.getIsRegistered() == false)
-				{
-					std::cerr << "client not registered" << std::endl;
-					sendCmd("ERROR :Deconnexion", itClients->second);
-					close(itClients->second.getFd());
-					close(_lstPollFd[i].fd);
+					std::cout << "===============================================================================================" << std::endl;
+					init = client.initClients(client.getBuffer(), *this);
+					if (init && client.getIsRegistered() == true)
+					{
+						std::cout << "init client" << std::endl;
+						itClients->second.printInfo();
+					}
+					else if (init && client.getIsRegistered() == false)
+					{
+						std::cerr << "client not registered" << std::endl;
+						sendCmd("ERROR :Deconnexion", client);
+						close(client.getFd());
+						close(_lstPollFd[i].fd);
 
-					std::map<int, Clients>::iterator itNext = itClients;
-					++itNext;
-					_clients.erase(itClients->first);
-					itClients = itNext;
-					_lstPollFd.erase(_lstPollFd.begin() + i);
-					i--;
-					if (itClients == _clients.end())
-						break;
+						std::map<int, Clients>::iterator itNext = itClients;
+						++itNext;
+						_clients.erase(itClients->first);
+						itClients = itNext;
+						_lstPollFd.erase(_lstPollFd.begin() + i);
+						i--;
+						if (itClients == _clients.end())
+							break;
+					}
 				}
-			}
-			else if (itClients->second.getIsRegistered() == true)
-			{
+				else if (client.getIsRegistered() == true)
+				{
+					for (std::map<std::string, Channels>::iterator it = _channels.begin(); it != _channels.end() ; it++)
+					{
+						std::cout << "PENDANT:" << _lstPollFd.size() << ", nombre de client PENDANT: " << it->second.getClientMap().size() <<  std::endl;
+						for (std::map<int, Clients>::iterator ite = it->second.getClientMap().begin(); ite != it->second.getClientMap().end(); ite++)
+							std::cout << "blaze du gars: " << ite->second.getNickname() << ", dans le chANNEL PENDANT: " << it->first << std::endl;
+					}
+					cmdHandler(client.getBuffer(), client);
+				}
 				for (std::map<std::string, Channels>::iterator it = _channels.begin(); it != _channels.end() ; it++)
 				{
-					std::cout << "PENDANT:" << _lstPollFd.size() << ", nombre de client PENDANT: " << it->second.getClientMap().size() <<  std::endl;
+					std::cout << "APRES suppression de pollFd: " << _lstPollFd.size() << ", nombre de client dans le channel: " << it->second.getClientMap().size() <<  std::endl;
 					for (std::map<int, Clients>::iterator ite = it->second.getClientMap().begin(); ite != it->second.getClientMap().end(); ite++)
-						std::cout << "blaze du gars: " << ite->second.getNickname() << ", dans le chANNEL PENDANT: " << it->first << std::endl;
+					{
+						std::cout << "Server Adress referance client in channel : " << &(getClients().find(ite->first)->second.getChannelsClient().find(it->first)->second.getClientMap().find(ite->first)->second) << std::endl;
+						std::cout << "Server Adress referance client : " << &(client) << std::endl;
+						std::cout << "blaze du gars: " << ite->second.getNickname() << ", dans le chANNEL: " << it->first << std::endl;
+					}
 				}
-				cmdHandler(itClients->second.getBuffer(), itClients->second);
-			}
-			for (std::map<std::string, Channels>::iterator it = _channels.begin(); it != _channels.end() ; it++)
-			{
-				std::cout << "APRES: " << _lstPollFd.size() << ", nombre de client: " << it->second.getClientMap().size() <<  std::endl;
-				for (std::map<int, Clients>::iterator ite = it->second.getClientMap().begin(); ite != it->second.getClientMap().end(); ite++)
-					std::cout << "blaze du gars: " << ite->second.getNickname() << ", dans le chANNEL: " << it->first << std::endl;
 			}
 		}
 		i++;
