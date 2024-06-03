@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 17:15:55 by nibernar          #+#    #+#             */
-/*   Updated: 2024/06/03 18:21:25 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/06/03 18:36:33 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,6 @@ bool 	NickInit(std::string cmd, Clients& client, Server& server)
         std::cout << "it->second.getNickname() = " << it->second.getNickname() << std::endl;
         if (it->second.getNickname() == splited[0])
         {
-            // nickname_used = true;
-            // falseNickname = splited[0];
             client.setNicknameTmp(splited[0]);
             std::cout << "RPL_ERROR_NICKNAME_IN_USE = " << RPL_ERROR_NICKNAME_IN_USE(client.getNickname(), client.getNicknameTmp()) << std::endl;
             return (sendCmd(RPL_ERROR_NICKNAME_IN_USE(client.getNickname(), client.getNicknameTmp()), client), false);
