@@ -27,6 +27,22 @@ std::vector<pollfd> Server::getLstPollFd() {return (this->_lstPollFd);}
 
 bool startWith(const std::string &line, const char *cmd) {return (line.find(cmd) == 0);}
 
+std::string Server::getNameClientByFd(int fd)
+{
+    std::map<int, Clients>::iterator it = _clients.find(fd);
+    return (it->second.getNickname());
+}
+
+int Server::getFdClientByName(std::string name)
+{
+    for (std::map<int, Clients>::iterator it = _clients.begin(); it != _clients.end(); it++)
+    {
+        if (it->second.getNickname() == name)
+            return (it->first);
+    }
+    return (-1);
+}
+
 void Server::cmdHandler(std::string cmd, Clients& client)
 {
 	std::cout << "cmd: " << cmd << std::endl;

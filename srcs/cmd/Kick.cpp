@@ -47,7 +47,7 @@ void Kick(std::string cmd, Clients& client, Server& server) {
     std::string target;
     std::string com;
 
-    Clients op = it->second.getOperator(client.getNickname());
+    Clients op = it->second.getOperator(client.getFd());
     if (op.getNickname() == "")
         return(sendCmd(ERR_NOTCHANOP(client.getNickname(), it->second.getName()), client));
     if (LFTarget(chanTarget, target, com, cmd) != true) {
