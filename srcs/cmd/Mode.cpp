@@ -74,7 +74,7 @@ int addOpMode(std::vector<std::string> args, size_t i, std::map<std::string, Cha
         {
             server.getChannels().find(channelIt->first)->second.setMode(fdClient, "o");
             server.getChannels().find(channelIt->first)->second.setOperator(clientIt->second);
-            NameLstUpdate(clientIt->second, channelIt->second);
+            NameLstUpadte(clientIt->second, channelIt->second);
             return (1);
         }
     }
@@ -93,7 +93,7 @@ int removeOpMode(std::vector<std::string> args, size_t i, std::map<std::string, 
         {
             server.getChannels().find(channelIt->first)->second.removeMode(fdClient, "o");
             server.getChannels().find(channelIt->first)->second.removeOperator(clientIt->second);
-            NameLstUpdate(clientIt->second, channelIt->second);
+            NameLstUpadte(clientIt->second, channelIt->second);
             return (1);
         }
     }

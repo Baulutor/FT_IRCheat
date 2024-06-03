@@ -11,13 +11,14 @@ void    Invite(std::string cmd, Clients& client, Server& server)
 	std::string nickname = &cmd[7];
 	std::string channelName;
 
+
 	if (parsForInvite(client, nickname, channelName, cmd) == 1)
 		return ;
 	std::map<std::string, Channels> &serv = server.getChannels();
 	std::map<std::string, Channels>::iterator it = serv.find(channelName);
+	std::cerr << "valeur de channel name: " << channelName << std::endl;
 	if (checkChannelExistAndUserLegitimateToInvite(serv, it, client, channelName))
 		return ;
-
 	std::map<int, Clients>::iterator ite;
 	std::map<int, Clients> allClient = server.getClients();
 	for (ite = allClient.begin(); ite != allClient.end(); ite++)
@@ -27,12 +28,12 @@ void    Invite(std::string cmd, Clients& client, Server& server)
 			if (checkIfUserAlreadyInviteOrInChannel(it, nickname, channelName, client, ite))
 					return ;
 			server.getChannels().find(it->first)->second.getClientInvited().insert(std::make_pair(ite->first, ite->second));
-			sendCmd(RPL_INVITING(nickname, channelName), client);
-			sendCmd(RPL_INVITING_NOTICE( client.getNickname(), channelName), ite->second);
+			sendCmd(RPL_INVITING(client.getNickname(), channelName, nickname), client);
+			sendCmd(RPL_INVITE_MESSAGE(client.getNickname(), channelName, client.getUsername(), client.getAddrIp(), ite->second.getNickname()),  ite->second);
 			return ;
 		}
 	}
-	sendCmd(ERR_NOSUCHNICK(nickname, client.getUsername()), client); // vraiment pas sur des infos que je lui transmet
+	sendCmd(ERR_NOSUCHNICK(nickname, client.getUsername()), client);
 }
 
 bool	Channels::checkIfOpeUserForInvite(Clients client)
@@ -99,8 +100,8 @@ bool checkIfUserAlreadyInviteOrInChannel(std::map<std::string, Channels>::iterat
 	std::map<int, Clients> &verif = it->second.getClientInvited();
 	if (verif.find(ite->first) != verif.end())
 	{
-		sendCmd(RPL_INVITING(nickname, channelName), client);
-		sendCmd(RPL_INVITING_NOTICE( client.getNickname(), channelName), ite->second);
+		sendCmd(RPL_INVITING(client.getNickname(), channelName, nickname), client);
+		sendCmd(RPL_INVITE_MESSAGE(client.getNickname(), channelName, client.getUsername(), client.getAddrIp(), ite->second.getNickname()),  ite->second);
 		return true;
 	}
 	return false;

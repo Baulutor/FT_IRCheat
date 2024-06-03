@@ -17,11 +17,12 @@
 
 //Invite
 # define ERR_USERONCHANNEL(ClientNickname, nickname, Channel) (ClientNickname + " " + nickname + " " + Channel + " :is already on channel\r\n")
-# define RPL_INVITING_NOTICE(nickname, channelName) (":server NOTICE " + nickname + " " + channelName + "\r\n")
 # define ERR_CHANOPRIVSNEEDED(nickname, channel) (":server 482 " + nickname + " " + channel + " :You\'re not channel operator\r\n")
-# define RPL_INVITING(nickname, channelName) (":server 341 " + nickname + " " + channelName + "\r\n")
-
-
+# define RPL_INVITING(client, channel, nick) (":server 341 " + client + " " + nick + " " + channel + "\r\n")
+//# define RPL_INVITING_NOTICE(nick, username, Hostname, args) (":" + nick + "!" + username + "@" + Hostname + " INVITE " + args + "\r\n")
+//# define RPL_INVITING_NOTICE(nick, username, Hostname, args) (":" + nick + "!" + "@" + Hostname + username + " INVITE " + args + "\r\n")
+//# define RPL_INVITE_MESSAGE(Nickname, Channel, Username, Hostname) (":" + Nickname + "!" + Username + "@" + Hostname + " INVITE " + Channel + "\r\n")
+# define RPL_INVITE_MESSAGE(Nickname, Channel, Username, Hostname, Target) (":" + Nickname + "!" + Username + "@" + Hostname + " INVITE " + Target + " " + Channel + "\r\n")
 // TOPIC
 #define RPL_NOTOPIC(channelName) (":server 331 " + channelName + " :No topic is set\r\n")
 #define RPL_TOPIC(channelName, topicMessage) (":server 332 " + channelName + " : " + topicMessage + "\r\n")

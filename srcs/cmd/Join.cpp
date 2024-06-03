@@ -160,9 +160,9 @@ void Join(std::string cmd, Clients& client, Server& server)
             sendCmd(RPL_CMD_TOPIC(client.getNickname(), channel, Topic), client);
             
             //std::cout << "NameLstUpadte channel = " << insertServer.first->second.getClientMap().find(client.getNickname())->second.getNickname() << std::endl;
-            NameLstUpdate(client, insertServer.first->second);
+            NameLstUpadte(client, insertServer.first->second);
 
-            sendBroadcastChannel(RPL_JOIN_NOTICE(client.getNickname(), channel), insertServer.first->second);
+            sendBrodcastChannel(RPL_JOIN_NOTICE(client.getNickname(), channel), insertServer.first->second);
         }
         catch (std::exception& e)
         {
