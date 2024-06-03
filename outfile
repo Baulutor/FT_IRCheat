@@ -27,7 +27,6 @@ cmd : nanard
 parseNick
 splited[0] = nanard
 it->second.getNickname() = 
-it->second.getNickname() = 
 flags[3] = 1
 PASS value : 0000
 USER : 6
@@ -44,6 +43,43 @@ Username : nanard
 Pass : 0000
 fd : 4
 Ip Address : 127.0.0.1
+bytes = 13
+buffer = JOIN #chan1
+
+cmd: JOIN #chan1
+
+JOIN
+channel = #chan1
+channelsServer.size() = 0
+channel.getMode(-42) = t
+setMode Mode = 
+Channel client ADD : #chan1
+RPL_CMD_JOIN = :nanard!nanard@127.0.0.1 JOIN :#chan1
+
+RPL_CMD_NAME_LST_START = :server 353 nanard = #chan1 :@nanard
+
+RPL_CMD_NAME_LST_END = :server 366 nanard #chan1 :End of /NAMES list
+
+bytes = 13
+buffer = MODE #chan1
+
+cmd: MODE #chan1
+
+Mode
+cmd = |MODE #chan1
+|
+cmd erase = |#chan1
+|
+tokens.size() = 1
+tokens: |#chan1|
+target checkChannel = |#chan1|
+bytes = 12
+buffer = WHO #chan1
+
+cmd: WHO #chan1
+
+ERROR : command not found
+
 bytes = 58
 buffer = CAP LS 302
 PASS 0000
@@ -90,22 +126,10 @@ Username : niber
 Pass : 0000
 fd : 5
 Ip Address : 127.0.0.1
-bytes = 13
-buffer = JOIN #chan1
+bytes = 23
+buffer = PING LAG1717369372878
 
-cmd: JOIN #chan1
-
-JOIN
-channel = #chan1
-channelsServer.size() = 0
-channel.getMode(-42) = t
-setMode Mode = 
-Channel client ADD : #chan1
-RPL_CMD_JOIN = :nanard!nanard@127.0.0.1 JOIN :#chan1
-
-RPL_CMD_NAME_LST_START = :server 353 nanard = #chan1 :@nanard
-
-RPL_CMD_NAME_LST_END = :server 366 nanard #chan1 :End of /NAMES list
+cmd: PING LAG1717369372878
 
 bytes = 13
 buffer = JOIN #chan1
@@ -125,57 +149,24 @@ RPL_CMD_NAME_LST_START = :server 353 niber = #chan1 :@nanard niber
 
 RPL_CMD_NAME_LST_END = :server 366 niber #chan1 :End of /NAMES list
 
-bytes = 13
+bytes = 25
 buffer = MODE #chan1
+WHO #chan1
 
 cmd: MODE #chan1
+WHO #chan1
 
 Mode
 cmd = |MODE #chan1
+WHO #chan1
 |
 cmd erase = |#chan1
+WHO #chan1
 |
-tokens.size() = 1
-tokens: |#chan1|
-target checkChannel = |#chan1|
-bytes = 13
-buffer = MODE #chan1
-
-cmd: MODE #chan1
-
-Mode
-cmd = |MODE #chan1
-|
-cmd erase = |#chan1
-|
-tokens.size() = 1
+tokens.size() = 3
 tokens: |#chan1|
 ERR_CHANOPRIVSNEEDEDED = |:server 482 niber #chan1 :You're not channel operator
 |
-bytes = 12
-buffer = WHO #chan1
-
-cmd: WHO #chan1
-
-ERROR : command not found
-
-bytes = 12
-buffer = WHO #chan1
-
-cmd: WHO #chan1
-
-ERROR : command not found
-
-bytes = 23
-buffer = PING LAG1717368915878
-
-cmd: PING LAG1717368915878
-
-bytes = 23
-buffer = PING LAG1717368922878
-
-cmd: PING LAG1717368922878
-
 bytes = 15
 buffer = QUIT :Leaving
 

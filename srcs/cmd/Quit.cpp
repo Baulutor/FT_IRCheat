@@ -96,7 +96,7 @@ void Quit(std::string cmd, Clients& client, Server& server)
 	std::string reason = &cmd[6];
 	reason = reason.substr(0, reason.size() - 2);
 	std::string cible = client.getNickname();
-	int fdCible = client.getFd();
+	//int fdCible = client.getFd();
 
 	// server.getChannels();
 	std::map<std::string, Channels>& servChannel = server.getChannels();
@@ -104,25 +104,26 @@ void Quit(std::string cmd, Clients& client, Server& server)
 	for (std::map<std::string, Channels>::iterator itChan = servChannel.begin(); itChan != servChannel.end(); ++itChan) 
 	{
 		std::map<int, Clients>& clientInChan = itChan->second.getClientMap();
-		for (std::map<int, Clients>::iterator itClient = clientInChan.begin(); itClient != clientInChan.end(); ++itClient) 
+		std::cerr << "premier client: " << itChan->second.getClientMap().begin()->first << ", dans le channel: " << itChan->first << std::endl;
+		for (std::map<int, Clients>::iterator itClient = clientInChan.begin(); itClient != clientInChan.end(); itClient++) 
 		{
 			if (cible == itClient->second.getNickname()) {
 				sendBrodcastChannel(RPL_QUIT_CHANNEL(client.getNickname(), client.getUsername(), client.getAddrIp(), itChan->first, reason), itChan->second);
-				clientInChan.erase(itClient);
+				clientInChan.erase(itClient++);
 			}
 		}
 	}
-	int i = 0;
-	for (std::vector<pollfd>::iterator itPollFd = server.getLstPollFd().begin(); itPollFd != server.getLstPollFd().end(); ++itPollFd) 
-	{
-		if (itPollFd->fd == fdCible)
-		{
-			server.getLstPollFd().at(i).events = 0;
-			server.getLstPollFd().at(i).revents = 0;
-			server.getLstPollFd().erase(itPollFd);
-		}
-		i++;
-	}
+	// int i = 0;
+	// for (std::vector<pollfd>::iterator itPollFd = server.getLstPollFd().begin(); itPollFd != server.getLstPollFd().end(); ++itPollFd) 
+	// {
+	// 	if (itPollFd->fd == fdCible)
+	// 	{
+	// 		server.getLstPollFd().at(i).events = 0;
+	// 		server.getLstPollFd().at(i).revents = 0;
+	// 		server.getLstPollFd().erase(itPollFd);
+	// 	}
+	// 	i++;
+	// }
 }
 
 
