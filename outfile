@@ -1,3 +1,50 @@
+bytes = 54
+buffer = CAP LS 302
+PASS 0000
+NICK n
+USER niber 0 * :niber
+
+===============================================================================================
+token : |CAP|
+token : |LS 302|
+token : |PASS|
+token : |0000|
+token : |NICK|
+token : |n|
+token : |USER|
+token : |niber 0 * :niber|
+USER
+cmd: niber 0 * :niber
+splited.size() = 4
+splited[0] = niber
+splited[1] = 0
+splited[2] = *
+splited[3] = :niber
+parseUser
+Username = niber
+NickInit
+cmd : n
+parseNick
+splited[0] = n
+it->second.getNickname() = 
+it->second.getNickname() = 
+it->second.getNickname() = 
+flags[3] = 1
+PASS value : 0000
+USER : 6
+NICK : 4
+PASS : 2
+BOOL : 1
+getNicknameTmp = ||
+RPL_CMD_NICK = :n!niber@ NICK n
+
+===============================================================================================
+init client
+Nickname : n
+Username : niber
+Pass : 0000
+fd : 4
+Ip Address : 127.0.0.1
 bytes = 63
 buffer = CAP LS 302
 PASS 0000
@@ -26,6 +73,8 @@ NickInit
 cmd : nanard
 parseNick
 splited[0] = nanard
+it->second.getNickname() = n
+it->second.getNickname() = 
 it->second.getNickname() = 
 flags[3] = 1
 PASS value : 0000
@@ -41,12 +90,135 @@ init client
 Nickname : nanard
 Username : nanard
 Pass : 0000
-fd : 4
+fd : 5
 Ip Address : 127.0.0.1
-bytes = 23
-buffer = PING LAG1717377133877
+bytes = 65
+buffer = CAP LS 302
+PASS 0000
+NICK niber
+USER niberniber 0 * :niiiber
 
-cmd: PING LAG1717377133877
+===============================================================================================
+token : |CAP|
+token : |LS 302|
+token : |PASS|
+token : |0000|
+token : |NICK|
+token : |niber|
+token : |USER|
+token : |niberniber 0 * :niiiber|
+USER
+cmd: niberniber 0 * :niiiber
+splited.size() = 4
+splited[0] = niberniber
+splited[1] = 0
+splited[2] = *
+splited[3] = :niiiber
+parseUser
+Username = niberniber
+NickInit
+cmd : niber
+parseNick
+splited[0] = niber
+it->second.getNickname() = n
+it->second.getNickname() = nanard
+it->second.getNickname() = 
+flags[3] = 1
+PASS value : 0000
+USER : 6
+NICK : 4
+PASS : 2
+BOOL : 1
+getNicknameTmp = ||
+RPL_CMD_NICK = :niber!niberniber@ NICK niber
+
+===============================================================================================
+init client
+Nickname : niber
+Username : niberniber
+Pass : 0000
+fd : 6
+Ip Address : 127.0.0.1
+bytes = 19
+buffer = JOIN #test2,#test
+
+cmd: JOIN #test2,#test
+
+JOIN
+channel = #test2
+channelsServer.size() = 0
+channel.getMode(-42) = t
+setMode Mode = 
+Channel client ADD : #test2
+RPL_CMD_JOIN = :nanard!nanard@127.0.0.1 JOIN :#test2
+
+RPL_CMD_NAME_LST_START = :server 353 nanard = #test2 :@nanard
+
+RPL_CMD_NAME_LST_END = :server 366 nanard #test2 :End of /NAMES list
+
+channel = #test
+channelsServer.size() = 1
+it->first = #test2
+channelToJoin = #test
+ChannelToJoin.getPassword =  
+channel.getMode(-42) = t
+setMode Mode = 
+Channel client ADD : #test
+RPL_CMD_JOIN = :nanard!nanard@127.0.0.1 JOIN :#test
+
+RPL_CMD_NAME_LST_START = :server 353 nanard = #test :@nanard
+
+RPL_CMD_NAME_LST_END = :server 366 nanard #test :End of /NAMES list
+
+bytes = 13
+buffer = MODE #test2
+
+cmd: MODE #test2
+
+Mode
+cmd = |MODE #test2
+|
+cmd erase = |#test2
+|
+tokens.size() = 1
+tokens: |#test2|
+target checkChannel = |#test2|
+bytes = 12
+buffer = WHO #test2
+
+cmd: WHO #test2
+
+ERROR : command not found
+
+bytes = 12
+buffer = MODE #test
+
+cmd: MODE #test
+
+Mode
+cmd = |MODE #test
+|
+cmd erase = |#test
+|
+tokens.size() = 1
+tokens: |#test|
+target checkChannel = |#test|
+bytes = 11
+buffer = WHO #test
+
+cmd: WHO #test
+
+ERROR : command not found
+
+bytes = 23
+buffer = PING LAG1717378704878
+
+cmd: PING LAG1717378704878
+
+bytes = 15
+buffer = QUIT :Leaving
+
+cmd: QUIT :Leaving
 
 bytes = 65
 buffer = CAP LS 302
@@ -76,6 +248,7 @@ NickInit
 cmd : niber
 parseNick
 splited[0] = niber
+it->second.getNickname() = n
 it->second.getNickname() = nanard
 it->second.getNickname() = 
 flags[3] = 1
@@ -92,13 +265,23 @@ init client
 Nickname : niber
 Username : niberniber
 Pass : 0000
-fd : 5
+fd : 7
 Ip Address : 127.0.0.1
-bytes = 54
+bytes = 15
+buffer = QUIT :Leaving
+
+cmd: QUIT :Leaving
+
+bytes = 23
+buffer = PING LAG1717378721878
+
+cmd: PING LAG1717378721878
+
+bytes = 65
 buffer = CAP LS 302
 PASS 0000
-NICK n
-USER niber 0 * :niber
+NICK niber
+USER niberniber 0 * :niiiber
 
 ===============================================================================================
 token : |CAP|
@@ -106,24 +289,24 @@ token : |LS 302|
 token : |PASS|
 token : |0000|
 token : |NICK|
-token : |n|
+token : |niber|
 token : |USER|
-token : |niber 0 * :niber|
+token : |niberniber 0 * :niiiber|
 USER
-cmd: niber 0 * :niber
+cmd: niberniber 0 * :niiiber
 splited.size() = 4
-splited[0] = niber
+splited[0] = niberniber
 splited[1] = 0
 splited[2] = *
-splited[3] = :niber
+splited[3] = :niiiber
 parseUser
-Username = niber
+Username = niberniber
 NickInit
-cmd : n
+cmd : niber
 parseNick
-splited[0] = n
+splited[0] = niber
+it->second.getNickname() = n
 it->second.getNickname() = nanard
-it->second.getNickname() = niber
 it->second.getNickname() = 
 flags[3] = 1
 PASS value : 0000
@@ -132,103 +315,180 @@ NICK : 4
 PASS : 2
 BOOL : 1
 getNicknameTmp = ||
-RPL_CMD_NICK = :n!niber@ NICK n
+RPL_CMD_NICK = :niber!niberniber@ NICK niber
 
 ===============================================================================================
 init client
-Nickname : n
-Username : niber
+Nickname : niber
+Username : niberniber
 Pass : 0000
-fd : 6
+fd : 8
 Ip Address : 127.0.0.1
-bytes = 12
-buffer = JOIN #test
-
-cmd: JOIN #test
-
-JOIN
-channel = #test
-channelsServer.size() = 0
-channel.getMode(-42) = t
-setMode Mode = 
-Channel client ADD : #test
-RPL_CMD_JOIN = :nanard!nanard@127.0.0.1 JOIN :#test
-
-RPL_CMD_NAME_LST_START = :server 353 nanard = #test :@nanard
-
-RPL_CMD_NAME_LST_END = :server 366 nanard #test :End of /NAMES list
-
 bytes = 23
-buffer = MODE #test
-WHO #test
+buffer = PING LAG1717378723878
 
-cmd: MODE #test
-WHO #test
-
-Mode
-cmd = |MODE #test
-WHO #test
-|
-cmd erase = |#test
-WHO #test
-|
-tokens.size() = 3
-tokens: |#test|
-target checkChannel = |#test|
-bytes = 12
-buffer = JOIN #test
-
-cmd: JOIN #test
-
-JOIN
-channel = #test
-channelsServer.size() = 1
-it->first = #test
-channel.getMode(-42) = t
-setMode Mode = 
-Channel client ADD : #test
-RPL_CMD_JOIN = :niber!niberniber@127.0.0.1 JOIN :#test
-
-RPL_CMD_NAME_LST_START = :server 353 niber = #test :@nanard niber
-
-RPL_CMD_NAME_LST_END = :server 366 niber #test :End of /NAMES list
-
-bytes = 23
-buffer = MODE #test
-WHO #test
-
-cmd: MODE #test
-WHO #test
-
-Mode
-cmd = |MODE #test
-WHO #test
-|
-cmd erase = |#test
-WHO #test
-|
-tokens.size() = 3
-tokens: |#test|
-ERR_CHANOPRIVSNEEDEDED = |:server 482 niber #test :You're not channel operator
-|
-bytes = 23
-buffer = PING LAG1717377144878
-
-cmd: PING LAG1717377144878
+cmd: PING LAG1717378723878
 
 bytes = 15
 buffer = QUIT :Leaving
 
 cmd: QUIT :Leaving
 
-caca
-RPL_CMD_NAME_LST_START = :server 353 nanard = #test :@nanard @niber
+bytes = 23
+buffer = CAP LS 302
+PASS 0000
 
-RPL_CMD_NAME_LST_END = :server 366 nanard #test :End of /NAMES list
+===============================================================================================
+token : |CAP|
+token : |LS 302|
+token : |PASS|
+token : |0000|
+flags[3] = 0
+bytes = 42
+buffer = NICK niber
+USER niberniber 0 * :niiiber
 
+===============================================================================================
+token : |NICK|
+token : |niber|
+token : |USER|
+token : |niberniber 0 * :niiiber|
+USER
+cmd: niberniber 0 * :niiiber
+splited.size() = 4
+splited[0] = niberniber
+splited[1] = 0
+splited[2] = *
+splited[3] = :niiiber
+parseUser
+Username = niberniber
+NickInit
+cmd : niber
+parseNick
+splited[0] = niber
+it->second.getNickname() = n
+it->second.getNickname() = nanard
+it->second.getNickname() = 
+flags[3] = 1
+PASS value : 0000
+USER : 2
+NICK : 0
+PASS : 2
+BOOL : 1
+getNicknameTmp = ||
+RPL_CMD_NICK = :niber!niberniber@ NICK niber
+
+===============================================================================================
+init client
+Nickname : niber
+Username : niberniber
+Pass : 0000
+fd : 9
+Ip Address : 127.0.0.1
 bytes = 15
 buffer = QUIT :Leaving
 
 cmd: QUIT :Leaving
 
-caca
+bytes = 23
+buffer = CAP LS 302
+PASS 0000
+
+===============================================================================================
+token : |CAP|
+token : |LS 302|
+token : |PASS|
+token : |0000|
+flags[3] = 0
+bytes = 42
+buffer = NICK niber
+USER niberniber 0 * :niiiber
+
+===============================================================================================
+token : |NICK|
+token : |niber|
+token : |USER|
+token : |niberniber 0 * :niiiber|
+USER
+cmd: niberniber 0 * :niiiber
+splited.size() = 4
+splited[0] = niberniber
+splited[1] = 0
+splited[2] = *
+splited[3] = :niiiber
+parseUser
+Username = niberniber
+NickInit
+cmd : niber
+parseNick
+splited[0] = niber
+it->second.getNickname() = n
+it->second.getNickname() = nanard
+it->second.getNickname() = 
+flags[3] = 1
+PASS value : 0000
+USER : 2
+NICK : 0
+PASS : 2
+BOOL : 1
+getNicknameTmp = ||
+RPL_CMD_NICK = :niber!niberniber@ NICK niber
+
+===============================================================================================
+init client
+Nickname : niber
+Username : niberniber
+Pass : 0000
+fd : 10
+Ip Address : 127.0.0.1
+bytes = 15
+buffer = QUIT :Leaving
+
+cmd: QUIT :Leaving
+
+bytes = 12
+buffer = CAP LS 302
+
+===============================================================================================
+token : |CAP|
+token : |LS 302|
+flags[3] = 0
+bytes = 11
+buffer = PASS 0000
+
+===============================================================================================
+token : |PASS|
+token : |0000|
+flags[3] = 0
+bytes = 0
+buffer = 
+bytes = 23
+buffer = PING LAG1717378751878
+
+===============================================================================================
+token : |PING|
+token : |LAG1717378751878|
+flags[3] = 0
+bytes = 65
+buffer = CAP LS 302
+PASS 0000
+NICK niber
+USER niberniber 0 * :niiiber
+
+===============================================================================================
+token : |CAP|
+token : |LS 302|
+token : |PASS|
+token : |0000|
+token : |NICK|
+token : |niber|
+token : |USER|
+token : |niberniber 0 * :niiiber|
+flags[3] = 0
+bytes = 23
+buffer = PING LAG1717378753878
+
+===============================================================================================
+token : |PING|
+token : |LAG1717378753878|
+flags[3] = 0
