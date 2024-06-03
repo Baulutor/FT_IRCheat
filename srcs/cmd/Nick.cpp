@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Nick.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nibernar <nibernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 17:15:55 by nibernar          #+#    #+#             */
-/*   Updated: 2024/06/03 12:48:57 by nibernar         ###   ########.fr       */
+/*   Updated: 2024/06/03 18:21:25 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ bool parseNick(std::string& nick, Clients& client)
 
 void 	Nick(std::string cmd, Clients& client, Server& server)
 {
-    std::cout << "Nick" << cmd << std::endl;
+    std::cout << "Nick : " << cmd << std::endl;
     static bool nickname_used = false;
     static std::string falseNickname = "";
     std::map<int, Clients>& mapClients = server.getClients();
@@ -84,6 +84,7 @@ void 	Nick(std::string cmd, Clients& client, Server& server)
         nickname_used = false;
         std::cout << "RPL_CMD_NICK = " << RPL_CMD_NICK(falseNickname, client.getUsername(), client.getAddrIp(), splited[1]) << std::endl;
         sendBrodcastServer(RPL_CMD_NICK(falseNickname, client.getUsername(), client.getAddrIp(), splited[1]), server);
+        falseNickname = "";
     }
     else
     {

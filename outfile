@@ -1,59 +1,7 @@
 bytes = 59
 buffer = CAP LS 302
 PASS toto
-NICK bfaure
-USER bf 0 * :realname
-
-===============================================================================================
-token : |CAP|
-token : |LS 302|
-token : |PASS|
-token : |toto|
-token : |NICK|
-token : |bfaure|
-token : |USER|
-token : |bf 0 * :realname|
-USER
-cmd: bf 0 * :realname
-splited.size() = 4
-splited[0] = bf
-splited[1] = 0
-splited[2] = *
-splited[3] = :realname
-parseUser
-Username = bf
-NickInit
-cmd : bfaure
-parseNick
-splited[0] = bfaure
-it->second.getNickname() = 
-flags[3] = 1
-PASS value : toto
-USER : 6
-NICK : 4
-PASS : 2
-BOOL : 1
-getNicknameTmp = ||
-RPL_CMD_NICK = :bfaure!bf@ NICK bfaure
-
-===============================================================================================
-init client
-Nickname : bfaure
-Username : bf
-Pass : toto
-fd : 4
-Ip Address : 127.0.0.1
-cmd: CAP LS 302
-PASS toto
-NICK bfaure
-USER bf 0 * :realname
-
-ERROR : command not found
-
-bytes = 66
-buffer = CAP LS 302
-PASS toto
-NICK bfaure_____
+NICK caca
 USER ben 0 * :bfaure___
 
 ===============================================================================================
@@ -62,7 +10,7 @@ token : |LS 302|
 token : |PASS|
 token : |toto|
 token : |NICK|
-token : |bfaure_____|
+token : |caca|
 token : |USER|
 token : |ben 0 * :bfaure___|
 USER
@@ -75,10 +23,9 @@ splited[3] = :bfaure___
 parseUser
 Username = ben
 NickInit
-cmd : bfaure_____
+cmd : caca
 parseNick
-splited[0] = bfaure_____
-it->second.getNickname() = bfaure
+splited[0] = caca
 it->second.getNickname() = 
 flags[3] = 1
 PASS value : toto
@@ -87,26 +34,138 @@ NICK : 4
 PASS : 2
 BOOL : 1
 getNicknameTmp = ||
-RPL_CMD_NICK = :bfaure_____!ben@ NICK bfaure_____
+RPL_CMD_NICK = :caca!ben@ NICK caca
 
 ===============================================================================================
 init client
-Nickname : bfaure_____
+Nickname : caca
 Username : ben
 Pass : toto
-fd : 5
-Ip Address : 127.0.0.1
+fd : 4
+Ip Address : 10.14.4.3
 cmd: CAP LS 302
 PASS toto
-NICK bfaure_____
+NICK caca
 USER ben 0 * :bfaure___
 
 ERROR : command not found
 
-bytes = 23
-buffer = PING LAG1717380621879
+bytes = 54
+buffer = CAP LS 302
+PASS toto
+NICK n
+USER niber 0 * :niber
 
-cmd: PING LAG1717380621879
+===============================================================================================
+token : |CAP|
+token : |LS 302|
+token : |PASS|
+token : |toto|
+token : |NICK|
+token : |n|
+token : |USER|
+token : |niber 0 * :niber|
+USER
+cmd: niber 0 * :niber
+splited.size() = 4
+splited[0] = niber
+splited[1] = 0
+splited[2] = *
+splited[3] = :niber
+parseUser
+Username = niber
+NickInit
+cmd : n
+parseNick
+splited[0] = n
+it->second.getNickname() = caca
+it->second.getNickname() = 
+flags[3] = 1
+PASS value : toto
+USER : 6
+NICK : 4
+PASS : 2
+BOOL : 1
+getNicknameTmp = ||
+RPL_CMD_NICK = :n!niber@ NICK n
+
+===============================================================================================
+init client
+Nickname : n
+Username : niber
+Pass : toto
+fd : 5
+Ip Address : 10.14.4.3
+cmd: CAP LS 302
+PASS toto
+NICK n
+USER niber 0 * :niber
+
+ERROR : command not found
+
+bytes = 23
+buffer = PING LAG1717382057878
+
+cmd: PING LAG1717382057878
+
+bytes = 56
+buffer = CAP LS 302
+PASS toto
+NICK ben
+USER bf 0 * :realname
+
+===============================================================================================
+token : |CAP|
+token : |LS 302|
+token : |PASS|
+token : |toto|
+token : |NICK|
+token : |ben|
+token : |USER|
+token : |bf 0 * :realname|
+USER
+cmd: bf 0 * :realname
+splited.size() = 4
+splited[0] = bf
+splited[1] = 0
+splited[2] = *
+splited[3] = :realname
+parseUser
+Username = bf
+NickInit
+cmd : ben
+parseNick
+splited[0] = ben
+it->second.getNickname() = caca
+it->second.getNickname() = n
+it->second.getNickname() = 
+flags[3] = 1
+PASS value : toto
+USER : 6
+NICK : 4
+PASS : 2
+BOOL : 1
+getNicknameTmp = ||
+RPL_CMD_NICK = :ben!bf@ NICK ben
+
+===============================================================================================
+init client
+Nickname : ben
+Username : bf
+Pass : toto
+fd : 6
+Ip Address : 10.14.4.3
+cmd: CAP LS 302
+PASS toto
+NICK ben
+USER bf 0 * :realname
+
+ERROR : command not found
+
+bytes = 23
+buffer = PING LAG1717382064879
+
+cmd: PING LAG1717382064879
 
 bytes = 12
 buffer = JOIN #test
@@ -123,15 +182,15 @@ getMode Mode = t
 getMode Mode = t
 setMode Mode = 
 Channel client ADD : #test
-RPL_CMD_JOIN = :bfaure!bf@127.0.0.1 JOIN :#test
+RPL_CMD_JOIN = :n!niber@10.14.4.3 JOIN :#test
 
-RPL_CMD_NAME_LST_START = :server 353 bfaure = #test :@bfaure
+RPL_CMD_NAME_LST_START = :server 353 n = #test :@n
 
-RPL_CMD_NAME_LST_END = :server 366 bfaure #test :End of /NAMES list
+RPL_CMD_NAME_LST_END = :server 366 n #test :End of /NAMES list
 
-Join Name = bfaure
-Join Adress referance client in channel: 0x4df8598
-Join Adress referance client: 0x4de4cf8
+Join Name = n
+Join Adress referance client in channel: 0x4dfada8
+Join Adress referance client: 0x4dea288
 bytes = 23
 buffer = MODE #test
 WHO #test
@@ -150,136 +209,49 @@ tokens.size() = 3
 tokens: |#test|
 target checkChannel = |#test|
 getMode Mode = t
-bytes = 23
-buffer = PING LAG1717380631879
+bytes = 12
+buffer = NICK bennn
 
-cmd: PING LAG1717380631879
+cmd: NICK bennn
 
-bytes = 15
-buffer = QUIT :Leaving
+Nick : NICK bennn
 
-cmd: QUIT :Leaving
-
-bytes = 23
-buffer = PING LAG1717380651878
-
-cmd: PING LAG1717380651878
-
-bytes = 66
-buffer = CAP LS 302
-PASS toto
-NICK bfaure_____
-USER ben 0 * :bfaure___
-
-===============================================================================================
-token : |CAP|
-token : |LS 302|
-token : |PASS|
-token : |toto|
-token : |NICK|
-token : |bfaure_____|
-token : |USER|
-token : |ben 0 * :bfaure___|
-USER
-cmd: ben 0 * :bfaure___
-splited.size() = 4
-splited[0] = ben
-splited[1] = 0
-splited[2] = *
-splited[3] = :bfaure___
-parseUser
-Username = ben
-NickInit
-cmd : bfaure_____
+splited.size() = 2
+splited[0] = NICK
+splited[1] = bennn
 parseNick
-splited[0] = bfaure_____
-it->second.getNickname() = bfaure
-it->second.getNickname() = 
-flags[3] = 1
-PASS value : toto
-USER : 6
-NICK : 4
-PASS : 2
-BOOL : 1
-getNicknameTmp = ||
-RPL_CMD_NICK = :bfaure_____!ben@ NICK bfaure_____
-
-===============================================================================================
-init client
-Nickname : bfaure_____
-Username : ben
-Pass : toto
-fd : 6
-Ip Address : 127.0.0.1
-cmd: CAP LS 302
-PASS toto
-NICK bfaure_____
-USER ben 0 * :bfaure___
-
-ERROR : command not found
-
-bytes = 15
-buffer = QUIT :Leaving
-
-cmd: QUIT :Leaving
-
-bytes = 66
-buffer = CAP LS 302
-PASS toto
-NICK bfaure_____
-USER ben 0 * :bfaure___
-
-===============================================================================================
-token : |CAP|
-token : |LS 302|
-token : |PASS|
-token : |toto|
-token : |NICK|
-token : |bfaure_____|
-token : |USER|
-token : |ben 0 * :bfaure___|
-USER
-cmd: ben 0 * :bfaure___
-splited.size() = 4
-splited[0] = ben
-splited[1] = 0
-splited[2] = *
-splited[3] = :bfaure___
-parseUser
-Username = ben
-NickInit
-cmd : bfaure_____
-parseNick
-splited[0] = bfaure_____
-it->second.getNickname() = bfaure
-it->second.getNickname() = 
-flags[3] = 1
-PASS value : toto
-USER : 6
-NICK : 4
-PASS : 2
-BOOL : 1
-getNicknameTmp = ||
-RPL_CMD_NICK = :bfaure_____!ben@ NICK bfaure_____
-
-===============================================================================================
-init client
-Nickname : bfaure_____
-Username : ben
-Pass : toto
-fd : 7
-Ip Address : 127.0.0.1
-cmd: CAP LS 302
-PASS toto
-NICK bfaure_____
-USER ben 0 * :bfaure___
-
-ERROR : command not found
+RPL_CMD_NICK = :bennn!bf@10.14.4.3 NICK bennn
 
 bytes = 23
-buffer = PING LAG1717380681879
+buffer = PING LAG1717382069879
 
-cmd: PING LAG1717380681879
+cmd: PING LAG1717382069879
+
+bytes = 12
+buffer = NICK benji
+
+cmd: NICK benji
+
+Nick : NICK benji
+
+splited.size() = 2
+splited[0] = NICK
+splited[1] = benji
+parseNick
+RPL_CMD_NICK = :benji!ben@10.14.4.3 NICK benji
+
+bytes = 9
+buffer = NICK xd
+
+cmd: NICK xd
+
+Nick : NICK xd
+
+splited.size() = 2
+splited[0] = NICK
+splited[1] = xd
+parseNick
+RPL_CMD_NICK = :xd!niber@10.14.4.3 NICK xd
 
 bytes = 12
 buffer = JOIN #test
@@ -297,15 +269,15 @@ getMode Mode = t
 getMode Mode = t
 setMode Mode = 
 Channel client ADD : #test
-RPL_CMD_JOIN = :bfaure_____!ben@127.0.0.1 JOIN :#test
+RPL_CMD_JOIN = :benji!ben@10.14.4.3 JOIN :#test
 
-RPL_CMD_NAME_LST_START = :server 353 bfaure_____ = #test :@bfaure bfaure_____
+RPL_CMD_NAME_LST_START = :server 353 benji = #test :benji @n
 
-RPL_CMD_NAME_LST_END = :server 366 bfaure_____ #test :End of /NAMES list
+RPL_CMD_NAME_LST_END = :server 366 benji #test :End of /NAMES list
 
-Join Name = bfaure_____
-Join Adress referance client in channel: 0x4e19398
-Join Adress referance client: 0x4e013e8
+Join Name = benji
+Join Adress referance client in channel: 0x4e12228
+Join Adress referance client: 0x4de4cf8
 bytes = 23
 buffer = MODE #test
 WHO #test
@@ -322,82 +294,17 @@ WHO #test
 |
 tokens.size() = 3
 tokens: |#test|
-ERR_CHANOPRIVSNEEDEDED = |:server 482 bfaure_____ #test :You're not channel operator
+ERR_CHANOPRIVSNEEDEDED = |:server 482 benji #test :You're not channel operator
 |
 bytes = 23
-buffer = PING LAG1717380691879
+buffer = PING LAG1717382087878
 
-cmd: PING LAG1717380691879
+cmd: PING LAG1717382087878
 
-bytes = 15
-buffer = QUIT :Leaving
+bytes = 23
+buffer = PING LAG1717382094879
 
-cmd: QUIT :Leaving
-
-RPL_CMD_NAME_LST_START = :server 353 bfaure = #test :@bfaure @bfaure_____
-
-RPL_CMD_NAME_LST_END = :server 366 bfaure #test :End of /NAMES list
-
-bytes = 28
-buffer = PRIVMSG #test :coiakjhcgas
-
-cmd: PRIVMSG #test :coiakjhcgas
-
-PRIVMSG
-RPL_CMD_PRIVMSG:bfaure_____!ben@127.0.0.1 PRIVMSG #test :coiakjhcgas
-
-bytes = 59
-buffer = CAP LS 302
-PASS toto
-NICK bfaure
-USER bf 0 * :realname
-
-===============================================================================================
-token : |CAP|
-token : |LS 302|
-token : |PASS|
-token : |toto|
-token : |NICK|
-token : |bfaure|
-token : |USER|
-token : |bf 0 * :realname|
-USER
-cmd: bf 0 * :realname
-splited.size() = 4
-splited[0] = bf
-splited[1] = 0
-splited[2] = *
-splited[3] = :realname
-parseUser
-Username = bf
-NickInit
-cmd : bfaure
-parseNick
-splited[0] = bfaure
-it->second.getNickname() = bfaure_____
-it->second.getNickname() = 
-flags[3] = 1
-PASS value : toto
-USER : 6
-NICK : 4
-PASS : 2
-BOOL : 1
-getNicknameTmp = ||
-RPL_CMD_NICK = :bfaure!bf@ NICK bfaure
-
-===============================================================================================
-init client
-Nickname : bfaure
-Username : bf
-Pass : toto
-fd : 8
-Ip Address : 127.0.0.1
-cmd: CAP LS 302
-PASS toto
-NICK bfaure
-USER bf 0 * :realname
-
-ERROR : command not found
+cmd: PING LAG1717382094879
 
 bytes = 12
 buffer = JOIN #test
@@ -415,73 +322,152 @@ getMode Mode = t
 getMode Mode = t
 setMode Mode = 
 Channel client ADD : #test
-RPL_CMD_JOIN = :bfaure!bf@127.0.0.1 JOIN :#test
+RPL_CMD_JOIN = :bennn!bf@10.14.4.3 JOIN :#test
 
-RPL_CMD_NAME_LST_START = :server 353 bfaure = #test :@bfaure_____ bfaure
+RPL_CMD_NAME_LST_START = :server 353 bennn = #test :benji @n bennn
 
-RPL_CMD_NAME_LST_END = :server 366 bfaure #test :End of /NAMES list
+RPL_CMD_NAME_LST_END = :server 366 bennn #test :End of /NAMES list
 
-Join Name = bfaure
-Join Adress referance client in channel: 0x4e5c508
-Join Adress referance client: 0x4e25958
-bytes = 12
+Join Name = bennn
+Join Adress referance client in channel: 0x4e42648
+Join Adress referance client: 0x4dedc28
+bytes = 23
 buffer = MODE #test
+WHO #test
 
 cmd: MODE #test
+WHO #test
 
 Mode
 cmd = |MODE #test
+WHO #test
 |
 cmd erase = |#test
+WHO #test
+|
+tokens.size() = 3
+tokens: |#test|
+ERR_CHANOPRIVSNEEDEDED = |:server 482 bennn #test :You're not channel operator
+|
+bytes = 23
+buffer = PING LAG1717382099879
+
+cmd: PING LAG1717382099879
+
+bytes = 8
+buffer = NICK j
+
+cmd: NICK j
+
+Nick : NICK j
+
+splited.size() = 2
+splited[0] = NICK
+splited[1] = j
+parseNick
+RPL_CMD_NICK = :j!bf@10.14.4.3 NICK j
+
+bytes = 23
+buffer = PING LAG1717382117878
+
+cmd: PING LAG1717382117878
+
+bytes = 11
+buffer = NICK xddd
+
+cmd: NICK xddd
+
+Nick : NICK xddd
+
+splited.size() = 2
+splited[0] = NICK
+splited[1] = xddd
+parseNick
+RPL_CMD_NICK = :xddd!niber@10.14.4.3 NICK xddd
+
+bytes = 23
+buffer = PING LAG1717382124879
+
+cmd: PING LAG1717382124879
+
+bytes = 23
+buffer = PING LAG1717382129879
+
+cmd: PING LAG1717382129879
+
+bytes = 13
+buffer = JOIN #test2
+
+cmd: JOIN #test2
+
+JOIN
+channel = #test2
+channelsServer.size() = 1
+it->first = #test
+channelToJoin = #test2
+ChannelToJoin.getPassword =  
+getMode Mode = t
+channel.getMode(-42) = getMode Mode = t
+t
+getMode Mode = t
+getMode Mode = t
+setMode Mode = 
+Channel client ADD : #test2
+RPL_CMD_JOIN = :benji!ben@10.14.4.3 JOIN :#test2
+
+RPL_CMD_NAME_LST_START = :server 353 benji = #test2 :@benji
+
+RPL_CMD_NAME_LST_END = :server 366 benji #test2 :End of /NAMES list
+
+Join Name = benji
+Join Adress referance client in channel: 0x4ea3718
+Join Adress referance client: 0x4de4cf8
+bytes = 13
+buffer = MODE #test2
+
+cmd: MODE #test2
+
+Mode
+cmd = |MODE #test2
+|
+cmd erase = |#test2
 |
 tokens.size() = 1
-tokens: |#test|
-ERR_CHANOPRIVSNEEDEDED = |:server 482 bfaure #test :You're not channel operator
-|
-bytes = 11
-buffer = WHO #test
+tokens: |#test2|
+target checkChannel = |#test2|
+getMode Mode = t
+bytes = 12
+buffer = WHO #test2
 
-cmd: WHO #test
+cmd: WHO #test2
 
 ERROR : command not found
 
 bytes = 23
-buffer = PING LAG1717380721879
+buffer = PING LAG1717382147878
 
-cmd: PING LAG1717380721879
+cmd: PING LAG1717382147878
 
-bytes = 23
-buffer = PRIVMSG #test :klajdh
+bytes = 8
+buffer = NICK k
 
-cmd: PRIVMSG #test :klajdh
+cmd: NICK k
 
-PRIVMSG
-RPL_CMD_PRIVMSG:bfaure!bf@127.0.0.1 PRIVMSG #test :klajdh
+Nick : NICK k
 
-bytes = 15
-buffer = QUIT :Leaving
-
-cmd: QUIT :Leaving
-
-RPL_CMD_NAME_LST_START = :server 353 bfaure_____ = #test :@bfaure_____ @bfaure
-
-RPL_CMD_NAME_LST_END = :server 366 bfaure_____ #test :End of /NAMES list
+splited.size() = 2
+splited[0] = NICK
+splited[1] = k
+parseNick
+RPL_CMD_NICK = :k!ben@10.14.4.3 NICK k
 
 bytes = 23
-buffer = PING LAG1717380744879
+buffer = PING LAG1717382154878
 
-cmd: PING LAG1717380744879
+cmd: PING LAG1717382154878
 
 bytes = 23
-buffer = PRIVMSG #test :couocu
+buffer = PING LAG1717382159879
 
-cmd: PRIVMSG #test :couocu
-
-PRIVMSG
-RPL_CMD_PRIVMSG:bfaure!bf@127.0.0.1 PRIVMSG #test :couocu
-
-bytes = 15
-buffer = QUIT :Leaving
-
-cmd: QUIT :Leaving
+cmd: PING LAG1717382159879
 

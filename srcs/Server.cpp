@@ -72,7 +72,7 @@ void Server::launch(std::string av, std::string av2)
 
 	// Création de la socket serveur
 
-	setAddrIp("127.0.0.1");
+	setAddrIp("10.14.4.3");
 	setPassword(av2);
 	_fd = -1;
 
@@ -195,15 +195,16 @@ bool Server::ClientHandler(bool init)
 					{
 						std::cerr << "client not registered" << std::endl;
 						sendCmd("ERROR :Deconnexion", client);
-						close(client.getFd());
-						close(_lstPollFd[i].fd);
+						// close(client.getFd());
+						// close(_lstPollFd[i].fd);
 
-						std::map<int, Clients>::iterator itNext = itClients;
-						++itNext;
-						_clients.erase(itClients->first);
-						itClients = itNext;
-						_lstPollFd.erase(_lstPollFd.begin() + i);
+						// std::map<int, Clients>::iterator itNext = itClients;
+						// ++itNext;
+						// _clients.erase(itClients->first);
+						// itClients = itNext;
+						// _lstPollFd.erase(_lstPollFd.begin() + i);
 						i--;
+						Quit(itClients->second.getBuffer(), itClients->second, *this);
 						if (itClients == _clients.end())
 							break;
 					}
@@ -213,8 +214,6 @@ bool Server::ClientHandler(bool init)
 			{
 				cmdHandler(itClients->second.getBuffer(), itClients->second);
 			}
-			else
-				Quit(itClients->second.getBuffer(), itClients->second, *this);
 		}
 		i++;
 	}
