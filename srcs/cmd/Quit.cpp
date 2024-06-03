@@ -56,26 +56,22 @@ void Quit(std::string cmd, Clients& client, Server& server)
 					iterServChannel->second.removeOperator(client);
 			}
 		}
-//		NameLstUpadte(client, iterServChannel->second);
-		sendBrodcastChannel(RPL_QUIT_CHANNEL(client.getNickname(), client.getUsername(), client.getAddrIp(), it->first, reason), it->second);
+		sendBroadcastChannel(RPL_QUIT_CHANNEL(client.getNickname(), client.getUsername(), client.getAddrIp(), it->first, reason), it->second);
 		if (serverMapClients.size() == 1)
 		{
-			std::cout << "serverMapClients get clear  " << std::endl;
-			sendBrodcastChannel("quit avec la raison suivant : " + reason, iterServChannel->second);
 			server.getChannels().find(it->first)->second.getClientMap().clear();
 			server.getChannels().erase(server.getChannels().find(it->first));
 			continue ;
 		}
 		else
 		{
-			std::cout << "chelou ce channel la: " << server.getChannels().find(it->first)->first << ", et le frero: " << serverMapClients.find(client.getFd())->first << std::endl;
+			server.getChannels().find(it->first)->second.getClientMap().find(client.getFd())->second.setFd(-1);
 			server.getChannels().find(it->first)->second.getClientMap().erase(serverMapClients.find(client.getFd()));
 		}
 	}
-	std::cerr << "le fd du client A TEJ CE CHIEN: " << client.getFd() << ", et son nom de pute ! " << client.getNickname() << std::endl;
 //	clearForAllUser(server, client.getFd());
 	client.getChannelsClient().clear();
-	sendBrodcastServer("ERROR: " + client.getNickname() + " Disconnected from server\r\n", server);
+	sendBroadcastServer("ERROR: " + client.getNickname() + " Disconnected from server\r\n", server);
 
 	std::vector<pollfd> lstPollFdVec = server.getLstPollFd();
 	for (size_t i = 0; i < lstPollFdVec.size(); i++)
@@ -90,7 +86,14 @@ void Quit(std::string cmd, Clients& client, Server& server)
 		}
 	}
 	server.setQuitFd(client.getFd());
-//	client.setFd(-1);
+	client.setFd(-1);
+	server.getClients().find(client.getFd())->second.setFd(-1);
+//	client.setAddrIp(NULL);
+//	client.setBuffer(NULL);
+//	client.setBufferTmp(NULL);
+//	client.setUsername(NULL);
+	client.setIsRegistered(false);
+	client.setPass("");
 //	server.getClients().erase(server.getClients().find(client.getFd()));
 
 

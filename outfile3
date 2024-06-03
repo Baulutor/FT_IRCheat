@@ -1,8 +1,8 @@
-bytes = 63
+bytes = 65
 buffer = CAP LS 302
 PASS 0000
-NICK dbaule
-USER dbaule 0 * :realname
+NICK IRCheat
+USER IRCheat 0 * :realname
 
 ===============================================================================================
 token : |CAP|
@@ -10,23 +10,22 @@ token : |LS 302|
 token : |PASS|
 token : |0000|
 token : |NICK|
-token : |dbaule|
+token : |IRCheat|
 token : |USER|
-token : |dbaule 0 * :realname|
+token : |IRCheat 0 * :realname|
 USER
-cmd: dbaule 0 * :realname
+cmd: IRCheat 0 * :realname
 splited.size() = 4
-splited[0] = dbaule
+splited[0] = IRCheat
 splited[1] = 0
 splited[2] = *
 splited[3] = :realname
 parseUser
-Username = dbaule
+Username = IRCheat
 NickInit
-cmd : dbaule
+cmd : IRCheat
 parseNick
-splited[0] = dbaule
-it->second.getNickname() = 
+splited[0] = IRCheat
 it->second.getNickname() = 
 it->second.getNickname() = 
 flags[3] = 1
@@ -36,12 +35,12 @@ NICK : 4
 PASS : 2
 BOOL : 1
 getNicknameTmp = ||
-RPL_CMD_NICK = :dbaule!dbaule@ NICK dbaule
+RPL_CMD_NICK = :IRCheat!IRCheat@ NICK IRCheat
 
 ===============================================================================================
 init client
-Nickname : dbaule
-Username : dbaule
+Nickname : IRCheat
+Username : IRCheat
 Pass : 0000
 fd : 4
 Ip Address : 127.0.0.1
@@ -73,8 +72,7 @@ NickInit
 cmd : salut
 parseNick
 splited[0] = salut
-it->second.getNickname() = dbaule
-it->second.getNickname() = 
+it->second.getNickname() = IRCheat
 it->second.getNickname() = 
 flags[3] = 1
 PASS value : 0000
@@ -92,57 +90,10 @@ Username : ddlegoat
 Pass : 0000
 fd : 5
 Ip Address : 127.0.0.1
-bytes = 65
-buffer = CAP LS 302
-PASS 0000
-NICK IRCheat
-USER IRCheat 0 * :realname
+bytes = 13
+buffer = JOIN #salut
 
-===============================================================================================
-token : |CAP|
-token : |LS 302|
-token : |PASS|
-token : |0000|
-token : |NICK|
-token : |IRCheat|
-token : |USER|
-token : |IRCheat 0 * :realname|
-USER
-cmd: IRCheat 0 * :realname
-splited.size() = 4
-splited[0] = IRCheat
-splited[1] = 0
-splited[2] = *
-splited[3] = :realname
-parseUser
-Username = IRCheat
-NickInit
-cmd : IRCheat
-parseNick
-splited[0] = IRCheat
-it->second.getNickname() = dbaule
-it->second.getNickname() = salut
-it->second.getNickname() = 
-flags[3] = 1
-PASS value : 0000
-USER : 6
-NICK : 4
-PASS : 2
-BOOL : 1
-getNicknameTmp = ||
-RPL_CMD_NICK = :IRCheat!IRCheat@ NICK IRCheat
-
-===============================================================================================
-init client
-Nickname : IRCheat
-Username : IRCheat
-Pass : 0000
-fd : 6
-Ip Address : 127.0.0.1
-bytes = 17
-buffer = JOIN #salut,#ok
-
-cmd: JOIN #salut,#ok
+cmd: JOIN #salut
 
 JOIN
 channel = #salut
@@ -150,12 +101,20 @@ channelsServer.size() = 0
 channel.getMode(-42) = t
 setMode Mode = 
 Channel client ADD : #salut
-RPL_CMD_JOIN = :dbaule!dbaule@127.0.0.1 JOIN :#salut
+RPL_CMD_JOIN = :IRCheat!IRCheat@127.0.0.1 JOIN :#salut
 
-RPL_CMD_NAME_LST_START = :server 353 dbaule = #salut :@dbaule
+RPL_CMD_NAME_LST_START = :server 353 IRCheat = #salut :@IRCheat
 
-RPL_CMD_NAME_LST_END = :server 366 dbaule #salut :End of /NAMES list
+RPL_CMD_NAME_LST_END = :server 366 IRCheat #salut :End of /NAMES list
 
+APRES: 3, nombre de client: 1
+blaze du gars: IRCheat, dans le chANNEL: #salut, size: 1
+bytes = 17
+buffer = JOIN #ok,#salut
+
+cmd: JOIN #ok,#salut
+
+JOIN
 channel = #ok
 channelsServer.size() = 1
 it->first = #salut
@@ -164,31 +123,9 @@ ChannelToJoin.getPassword =
 channel.getMode(-42) = t
 setMode Mode = 
 Channel client ADD : #ok
-RPL_CMD_JOIN = :dbaule!dbaule@127.0.0.1 JOIN :#ok
-
-RPL_CMD_NAME_LST_START = :server 353 dbaule = #ok :@dbaule
-
-RPL_CMD_NAME_LST_END = :server 366 dbaule #ok :End of /NAMES list
-
-APRES: 4, nombre de client: 1
-blaze du gars: dbaule, dans le chANNEL: #ok, size: 1
-APRES: 4, nombre de client: 1
-blaze du gars: dbaule, dans le chANNEL: #salut, size: 1
-bytes = 17
-buffer = JOIN #ok,#salut
-
-cmd: JOIN #ok,#salut
-
-JOIN
-channel = #ok
-channelsServer.size() = 2
-it->first = #ok
-channel.getMode(-42) = t
-setMode Mode = 
-Channel client ADD : #ok
 RPL_CMD_JOIN = :salut!ddlegoat@127.0.0.1 JOIN :#ok
 
-RPL_CMD_NAME_LST_START = :server 353 salut = #ok :@dbaule salut
+RPL_CMD_NAME_LST_START = :server 353 salut = #ok :@salut
 
 RPL_CMD_NAME_LST_END = :server 366 salut #ok :End of /NAMES list
 
@@ -202,15 +139,14 @@ setMode Mode =
 Channel client ADD : #salut
 RPL_CMD_JOIN = :salut!ddlegoat@127.0.0.1 JOIN :#salut
 
-RPL_CMD_NAME_LST_START = :server 353 salut = #salut :@dbaule salut
+RPL_CMD_NAME_LST_START = :server 353 salut = #salut :@IRCheat salut
 
 RPL_CMD_NAME_LST_END = :server 366 salut #salut :End of /NAMES list
 
-APRES: 4, nombre de client: 2
-blaze du gars: dbaule, dans le chANNEL: #ok, size: 2
-blaze du gars: salut, dans le chANNEL: #ok, size: 2
-APRES: 4, nombre de client: 2
-blaze du gars: dbaule, dans le chANNEL: #salut, size: 2
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #ok, size: 1
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #salut, size: 2
 blaze du gars: salut, dans le chANNEL: #salut, size: 2
 bytes = 13
 buffer = MODE #salut
@@ -225,11 +161,10 @@ cmd erase = |#salut
 tokens.size() = 1
 tokens: |#salut|
 target checkChannel = |#salut|
-APRES: 4, nombre de client: 2
-blaze du gars: dbaule, dans le chANNEL: #ok, size: 2
-blaze du gars: salut, dans le chANNEL: #ok, size: 2
-APRES: 4, nombre de client: 2
-blaze du gars: dbaule, dans le chANNEL: #salut, size: 2
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #ok, size: 1
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #salut, size: 2
 blaze du gars: salut, dans le chANNEL: #salut, size: 2
 bytes = 10
 buffer = MODE #ok
@@ -243,110 +178,84 @@ cmd erase = |#ok
 |
 tokens.size() = 1
 tokens: |#ok|
-ERR_CHANOPRIVSNEEDEDED = |:server 482 salut #ok :You're not channel operator
-|
-APRES: 4, nombre de client: 2
-blaze du gars: dbaule, dans le chANNEL: #ok, size: 2
-blaze du gars: salut, dans le chANNEL: #ok, size: 2
-APRES: 4, nombre de client: 2
-blaze du gars: dbaule, dans le chANNEL: #salut, size: 2
+target checkChannel = |#ok|
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #ok, size: 1
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #salut, size: 2
 blaze du gars: salut, dans le chANNEL: #salut, size: 2
-bytes = 13
-buffer = JOIN #salut
+bytes = 12
+buffer = WHO #salut
 
-cmd: JOIN #salut
+cmd: WHO #salut
 
-JOIN
-channel = #salut
-channelsServer.size() = 2
-it->first = #ok
-channelToJoin = #salut
-ChannelToJoin.getPassword =  
-channel.getMode(-42) = t
-setMode Mode = 
-Channel client ADD : #salut
-RPL_CMD_JOIN = :IRCheat!IRCheat@127.0.0.1 JOIN :#salut
-
-RPL_CMD_NAME_LST_START = :server 353 IRCheat = #salut :@dbaule salut IRCheat
-
-RPL_CMD_NAME_LST_END = :server 366 IRCheat #salut :End of /NAMES list
-
-APRES: 4, nombre de client: 2
-blaze du gars: dbaule, dans le chANNEL: #ok, size: 2
-blaze du gars: salut, dans le chANNEL: #ok, size: 2
-APRES: 4, nombre de client: 3
-blaze du gars: dbaule, dans le chANNEL: #salut, size: 3
-blaze du gars: salut, dans le chANNEL: #salut, size: 3
-blaze du gars: IRCheat, dans le chANNEL: #salut, size: 3
-bytes = 13
-buffer = MODE #salut
-
-cmd: MODE #salut
-
-Mode
-cmd = |MODE #salut
-|
-cmd erase = |#salut
-|
-tokens.size() = 1
-tokens: |#salut|
-ERR_CHANOPRIVSNEEDEDED = |:server 482 IRCheat #salut :You're not channel operator
-|
-APRES: 4, nombre de client: 2
-blaze du gars: dbaule, dans le chANNEL: #ok, size: 2
-blaze du gars: salut, dans le chANNEL: #ok, size: 2
-APRES: 4, nombre de client: 3
-blaze du gars: dbaule, dans le chANNEL: #salut, size: 3
-blaze du gars: salut, dans le chANNEL: #salut, size: 3
-blaze du gars: IRCheat, dans le chANNEL: #salut, size: 3
-bytes = 23
-buffer = PING LAG1717365019882
-
-cmd: PING LAG1717365019882
-
-APRES: 4, nombre de client: 2
-blaze du gars: dbaule, dans le chANNEL: #ok, size: 2
-blaze du gars: salut, dans le chANNEL: #ok, size: 2
-APRES: 4, nombre de client: 3
-blaze du gars: dbaule, dans le chANNEL: #salut, size: 3
-blaze du gars: salut, dans le chANNEL: #salut, size: 3
-blaze du gars: IRCheat, dans le chANNEL: #salut, size: 3
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #ok, size: 1
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #salut, size: 2
+blaze du gars: salut, dans le chANNEL: #salut, size: 2
 bytes = 9
 buffer = WHO #ok
 
 cmd: WHO #ok
 
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #ok, size: 1
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #salut, size: 2
+blaze du gars: salut, dans le chANNEL: #salut, size: 2
+bytes = 63
+buffer = CAP LS 302
+PASS 0000
+NICK dbaule
+USER dbaule 0 * :realname
+
+===============================================================================================
+token : |CAP|
+token : |LS 302|
+token : |PASS|
+token : |0000|
+token : |NICK|
+token : |dbaule|
+token : |USER|
+token : |dbaule 0 * :realname|
+USER
+cmd: dbaule 0 * :realname
+splited.size() = 4
+splited[0] = dbaule
+splited[1] = 0
+splited[2] = *
+splited[3] = :realname
+parseUser
+Username = dbaule
+NickInit
+cmd : dbaule
+parseNick
+splited[0] = dbaule
+it->second.getNickname() = IRCheat
+it->second.getNickname() = salut
+it->second.getNickname() = 
+flags[3] = 1
+PASS value : 0000
+USER : 6
+NICK : 4
+PASS : 2
+BOOL : 1
+getNicknameTmp = ||
+RPL_CMD_NICK = :dbaule!dbaule@ NICK dbaule
+
+===============================================================================================
+init client
+Nickname : dbaule
+Username : dbaule
+Pass : 0000
+fd : 6
+Ip Address : 127.0.0.1
+APRES: 4, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #ok, size: 1
 APRES: 4, nombre de client: 2
-blaze du gars: dbaule, dans le chANNEL: #ok, size: 2
-blaze du gars: salut, dans le chANNEL: #ok, size: 2
-APRES: 4, nombre de client: 3
-blaze du gars: dbaule, dans le chANNEL: #salut, size: 3
-blaze du gars: salut, dans le chANNEL: #salut, size: 3
-blaze du gars: IRCheat, dans le chANNEL: #salut, size: 3
-bytes = 12
-buffer = WHO #salut
-
-cmd: WHO #salut
-
-APRES: 4, nombre de client: 2
-blaze du gars: dbaule, dans le chANNEL: #ok, size: 2
-blaze du gars: salut, dans le chANNEL: #ok, size: 2
-APRES: 4, nombre de client: 3
-blaze du gars: dbaule, dans le chANNEL: #salut, size: 3
-blaze du gars: salut, dans le chANNEL: #salut, size: 3
-blaze du gars: IRCheat, dans le chANNEL: #salut, size: 3
-bytes = 12
-buffer = WHO #salut
-
-cmd: WHO #salut
-
-APRES: 4, nombre de client: 2
-blaze du gars: dbaule, dans le chANNEL: #ok, size: 2
-blaze du gars: salut, dans le chANNEL: #ok, size: 2
-APRES: 4, nombre de client: 3
-blaze du gars: dbaule, dans le chANNEL: #salut, size: 3
-blaze du gars: salut, dans le chANNEL: #salut, size: 3
-blaze du gars: IRCheat, dans le chANNEL: #salut, size: 3
+blaze du gars: IRCheat, dans le chANNEL: #salut, size: 2
+blaze du gars: salut, dans le chANNEL: #salut, size: 2
 bytes = 13
 buffer = MODE #salut
 
@@ -361,214 +270,157 @@ tokens.size() = 1
 tokens: |#salut|
 ERR_CHANOPRIVSNEEDEDED = |:server 482 salut #salut :You're not channel operator
 |
+APRES: 4, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #ok, size: 1
 APRES: 4, nombre de client: 2
-blaze du gars: dbaule, dans le chANNEL: #ok, size: 2
-blaze du gars: salut, dans le chANNEL: #ok, size: 2
-APRES: 4, nombre de client: 3
-blaze du gars: dbaule, dans le chANNEL: #salut, size: 3
-blaze du gars: salut, dans le chANNEL: #salut, size: 3
-blaze du gars: IRCheat, dans le chANNEL: #salut, size: 3
-bytes = 23
-buffer = PING LAG1717365022881
+blaze du gars: IRCheat, dans le chANNEL: #salut, size: 2
+blaze du gars: salut, dans le chANNEL: #salut, size: 2
+bytes = 12
+buffer = WHO #salut
 
-cmd: PING LAG1717365022881
+cmd: WHO #salut
+
+APRES: 4, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #ok, size: 1
+APRES: 4, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #salut, size: 2
+blaze du gars: salut, dans le chANNEL: #salut, size: 2
+bytes = 17
+buffer = JOIN #ok,#salut
+
+cmd: JOIN #ok,#salut
+
+JOIN
+channel = #ok
+channelsServer.size() = 2
+it->first = #ok
+channel.getMode(-42) = t
+setMode Mode = 
+Channel client ADD : #ok
+RPL_CMD_JOIN = :dbaule!dbaule@127.0.0.1 JOIN :#ok
+
+RPL_CMD_NAME_LST_START = :server 353 dbaule = #ok :@salut dbaule
+
+RPL_CMD_NAME_LST_END = :server 366 dbaule #ok :End of /NAMES list
+
+channel = #salut
+channelsServer.size() = 2
+it->first = #ok
+channelToJoin = #salut
+ChannelToJoin.getPassword =  
+channel.getMode(-42) = t
+setMode Mode = 
+Channel client ADD : #salut
+RPL_CMD_JOIN = :dbaule!dbaule@127.0.0.1 JOIN :#salut
+
+RPL_CMD_NAME_LST_START = :server 353 dbaule = #salut :@IRCheat salut dbaule
+
+RPL_CMD_NAME_LST_END = :server 366 dbaule #salut :End of /NAMES list
 
 APRES: 4, nombre de client: 2
-blaze du gars: dbaule, dans le chANNEL: #ok, size: 2
 blaze du gars: salut, dans le chANNEL: #ok, size: 2
+blaze du gars: dbaule, dans le chANNEL: #ok, size: 2
 APRES: 4, nombre de client: 3
-blaze du gars: dbaule, dans le chANNEL: #salut, size: 3
-blaze du gars: salut, dans le chANNEL: #salut, size: 3
 blaze du gars: IRCheat, dans le chANNEL: #salut, size: 3
-bytes = 10
+blaze du gars: salut, dans le chANNEL: #salut, size: 3
+blaze du gars: dbaule, dans le chANNEL: #salut, size: 3
+bytes = 19
 buffer = MODE #ok
+WHO #ok
 
 cmd: MODE #ok
+WHO #ok
 
 Mode
 cmd = |MODE #ok
+WHO #ok
 |
 cmd erase = |#ok
+WHO #ok
+|
+tokens.size() = 3
+tokens: |#ok|
+ERR_CHANOPRIVSNEEDEDED = |:server 482 dbaule #ok :You're not channel operator
+|
+APRES: 4, nombre de client: 2
+blaze du gars: salut, dans le chANNEL: #ok, size: 2
+blaze du gars: dbaule, dans le chANNEL: #ok, size: 2
+APRES: 4, nombre de client: 3
+blaze du gars: IRCheat, dans le chANNEL: #salut, size: 3
+blaze du gars: salut, dans le chANNEL: #salut, size: 3
+blaze du gars: dbaule, dans le chANNEL: #salut, size: 3
+bytes = 13
+buffer = MODE #salut
+
+cmd: MODE #salut
+
+Mode
+cmd = |MODE #salut
+|
+cmd erase = |#salut
 |
 tokens.size() = 1
-tokens: |#ok|
-target checkChannel = |#ok|
+tokens: |#salut|
+ERR_CHANOPRIVSNEEDEDED = |:server 482 dbaule #salut :You're not channel operator
+|
 APRES: 4, nombre de client: 2
-blaze du gars: dbaule, dans le chANNEL: #ok, size: 2
 blaze du gars: salut, dans le chANNEL: #ok, size: 2
+blaze du gars: dbaule, dans le chANNEL: #ok, size: 2
 APRES: 4, nombre de client: 3
-blaze du gars: dbaule, dans le chANNEL: #salut, size: 3
-blaze du gars: salut, dans le chANNEL: #salut, size: 3
 blaze du gars: IRCheat, dans le chANNEL: #salut, size: 3
+blaze du gars: salut, dans le chANNEL: #salut, size: 3
+blaze du gars: dbaule, dans le chANNEL: #salut, size: 3
 bytes = 12
 buffer = WHO #salut
 
 cmd: WHO #salut
 
 APRES: 4, nombre de client: 2
-blaze du gars: dbaule, dans le chANNEL: #ok, size: 2
 blaze du gars: salut, dans le chANNEL: #ok, size: 2
-APRES: 4, nombre de client: 3
-blaze du gars: dbaule, dans le chANNEL: #salut, size: 3
-blaze du gars: salut, dans le chANNEL: #salut, size: 3
-blaze du gars: IRCheat, dans le chANNEL: #salut, size: 3
-bytes = 9
-buffer = WHO #ok
-
-cmd: WHO #ok
-
-APRES: 4, nombre de client: 2
 blaze du gars: dbaule, dans le chANNEL: #ok, size: 2
-blaze du gars: salut, dans le chANNEL: #ok, size: 2
 APRES: 4, nombre de client: 3
-blaze du gars: dbaule, dans le chANNEL: #salut, size: 3
-blaze du gars: salut, dans le chANNEL: #salut, size: 3
 blaze du gars: IRCheat, dans le chANNEL: #salut, size: 3
+blaze du gars: salut, dans le chANNEL: #salut, size: 3
+blaze du gars: dbaule, dans le chANNEL: #salut, size: 3
+bytes = 15
+buffer = QUIT :Leaving
+
+cmd: QUIT :Leaving
+
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #ok, size: 1
+blaze du gars: dbaule, dans le chANNEL: #ok, size: 1
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #salut, size: 2
+blaze du gars: salut, dans le chANNEL: #salut, size: 2
+blaze du gars: dbaule, dans le chANNEL: #salut, size: 2
 bytes = 23
-buffer = PING LAG1717365029881
+buffer = PRIVMSG #salut :salut
 
-cmd: PING LAG1717365029881
+cmd: PRIVMSG #salut :salut
 
-APRES: 4, nombre de client: 2
-blaze du gars: dbaule, dans le chANNEL: #ok, size: 2
-blaze du gars: salut, dans le chANNEL: #ok, size: 2
-APRES: 4, nombre de client: 3
-blaze du gars: dbaule, dans le chANNEL: #salut, size: 3
-blaze du gars: salut, dans le chANNEL: #salut, size: 3
-blaze du gars: IRCheat, dans le chANNEL: #salut, size: 3
-bytes = 16
-buffer = MODE #salut +i
+PRIVMSG
+RPL_CMD_PRIVMSG:salut!ddlegoat@127.0.0.1 PRIVMSG #salut :salut
 
-cmd: MODE #salut +i
+client.fd: 4
+client.fd: 5
+client.fd: 6
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #ok, size: 1
+blaze du gars: dbaule, dans le chANNEL: #ok, size: 1
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #salut, size: 2
+blaze du gars: salut, dans le chANNEL: #salut, size: 2
+blaze du gars: dbaule, dans le chANNEL: #salut, size: 2
+bytes = 23
+buffer = PING LAG1717370332881
 
-Mode
-cmd = |MODE #salut +i
-|
-cmd erase = |#salut +i
-|
-tokens.size() = 2
-tokens: |#salut|
-tokens: |+i|
-target checkChannel = |#salut|
-target isMode = |+i|
-checkArgs modes = |+i|
-modes[i] = |+|
-plusSign = false
-target addInviteMode = |-1|
-channelIt->second.getMode(target) = |ti|
-channelIt->second.getMode(target).find('i') = |1|
-APRES: 4, nombre de client: 2
-blaze du gars: dbaule, dans le chANNEL: #ok, size: 2
-blaze du gars: salut, dans le chANNEL: #ok, size: 2
-APRES: 4, nombre de client: 3
-blaze du gars: dbaule, dans le chANNEL: #salut, size: 3
-blaze du gars: salut, dans le chANNEL: #salut, size: 3
-blaze du gars: IRCheat, dans le chANNEL: #salut, size: 3
-bytes = 14
-buffer = MODE #salut 
+cmd: PING LAG1717370332881
 
-cmd: MODE #salut 
-
-Mode
-cmd = |MODE #salut 
-|
-cmd erase = |#salut 
-|
-tokens.size() = 1
-tokens: |#salut|
-target checkChannel = |#salut|
-APRES: 4, nombre de client: 2
-blaze du gars: dbaule, dans le chANNEL: #ok, size: 2
-blaze du gars: salut, dans le chANNEL: #ok, size: 2
-APRES: 4, nombre de client: 3
-blaze du gars: dbaule, dans le chANNEL: #salut, size: 3
-blaze du gars: salut, dans le chANNEL: #salut, size: 3
-blaze du gars: IRCheat, dans le chANNEL: #salut, size: 3
-bytes = 14
-buffer = MODE #salut 
-
-cmd: MODE #salut 
-
-Mode
-cmd = |MODE #salut 
-|
-cmd erase = |#salut 
-|
-tokens.size() = 1
-tokens: |#salut|
-target checkChannel = |#salut|
-APRES: 4, nombre de client: 2
-blaze du gars: dbaule, dans le chANNEL: #ok, size: 2
-blaze du gars: salut, dans le chANNEL: #ok, size: 2
-APRES: 4, nombre de client: 3
-blaze du gars: dbaule, dans le chANNEL: #salut, size: 3
-blaze du gars: salut, dans le chANNEL: #salut, size: 3
-blaze du gars: IRCheat, dans le chANNEL: #salut, size: 3
-bytes = 14
-buffer = MODE #salut 
-
-cmd: MODE #salut 
-
-Mode
-cmd = |MODE #salut 
-|
-cmd erase = |#salut 
-|
-tokens.size() = 1
-tokens: |#salut|
-target checkChannel = |#salut|
-APRES: 4, nombre de client: 2
-blaze du gars: dbaule, dans le chANNEL: #ok, size: 2
-blaze du gars: salut, dans le chANNEL: #ok, size: 2
-APRES: 4, nombre de client: 3
-blaze du gars: dbaule, dans le chANNEL: #salut, size: 3
-blaze du gars: salut, dans le chANNEL: #salut, size: 3
-blaze du gars: IRCheat, dans le chANNEL: #salut, size: 3
-bytes = 16
-buffer = MODE #salut +i
-
-cmd: MODE #salut +i
-
-Mode
-cmd = |MODE #salut +i
-|
-cmd erase = |#salut +i
-|
-tokens.size() = 2
-tokens: |#salut|
-tokens: |+i|
-target checkChannel = |#salut|
-target isMode = |+i|
-checkArgs modes = |+i|
-modes[i] = |+|
-plusSign = false
-target addInviteMode = |-1|
-channelIt->second.getMode(target) = |ti|
-channelIt->second.getMode(target).find('i') = |1|
-APRES: 4, nombre de client: 2
-blaze du gars: dbaule, dans le chANNEL: #ok, size: 2
-blaze du gars: salut, dans le chANNEL: #ok, size: 2
-APRES: 4, nombre de client: 3
-blaze du gars: dbaule, dans le chANNEL: #salut, size: 3
-blaze du gars: salut, dans le chANNEL: #salut, size: 3
-blaze du gars: IRCheat, dans le chANNEL: #salut, size: 3
-bytes = 14
-buffer = MODE #salut 
-
-cmd: MODE #salut 
-
-Mode
-cmd = |MODE #salut 
-|
-cmd erase = |#salut 
-|
-tokens.size() = 1
-tokens: |#salut|
-target checkChannel = |#salut|
-APRES: 4, nombre de client: 2
-blaze du gars: dbaule, dans le chANNEL: #ok, size: 2
-blaze du gars: salut, dans le chANNEL: #ok, size: 2
-APRES: 4, nombre de client: 3
-blaze du gars: dbaule, dans le chANNEL: #salut, size: 3
-blaze du gars: salut, dans le chANNEL: #salut, size: 3
-blaze du gars: IRCheat, dans le chANNEL: #salut, size: 3
+APRES: 3, nombre de client: 1
+blaze du gars: salut, dans le chANNEL: #ok, size: 1
+blaze du gars: dbaule, dans le chANNEL: #ok, size: 1
+APRES: 3, nombre de client: 2
+blaze du gars: IRCheat, dans le chANNEL: #salut, size: 2
+blaze du gars: salut, dans le chANNEL: #salut, size: 2
+blaze du gars: dbaule, dans le chANNEL: #salut, size: 2

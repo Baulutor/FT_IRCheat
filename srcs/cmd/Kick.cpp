@@ -62,19 +62,19 @@ void Kick(std::string cmd, Clients& client, Server& server) {
             for(; it2 != clientsMap.end(); it2++) {
                 if ((it2->second.getNickname()) == target) {
                     if (client.getNickname() == target)
-                        return (sendBrodcastChannel(RPL_KICK_NOTICE(client.getNickname(), it->first), it->second));
-                    sendBrodcastChannel(RPL_CMD_KICK(client.getNickname(), client.getUsername(), client.getAddrIp(), it->first, it2->second.getNickname(), com), it->second);
+                        return (sendBroadcastChannel(RPL_KICK_NOTICE(client.getNickname(), it->first), it->second));
+                    sendBroadcastChannel(RPL_CMD_KICK(client.getNickname(), client.getUsername(), client.getAddrIp(), it->first, it2->second.getNickname(), com), it->second);
                     clientsMap.erase(it2);
                     client.getChannelsClient().erase(it2->second.getNickname());
                     return ;
                 }
             }
             if (it2 == clientsMap.end())
-                return (sendBrodcastChannel(ERR_USERNOTFOUND(client.getNickname(), target, it->first), it->second));
+                return (sendBroadcastChannel(ERR_USERNOTFOUND(client.getNickname(), target, it->first), it->second));
         }
     }
     if (it == channel.end()) {
         it--;
-        return (sendBrodcastChannel(ERR_NOSUCHCHANNEL(client.getNickname(), chanTarget), it->second));
+        return (sendBroadcastChannel(ERR_NOSUCHCHANNEL(client.getNickname(), chanTarget), it->second));
     }
 }

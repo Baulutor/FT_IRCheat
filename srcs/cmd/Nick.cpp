@@ -83,12 +83,12 @@ void 	Nick(std::string cmd, Clients& client, Server& server)
     {
         nickname_used = false;
         std::cout << "RPL_CMD_NICK = " << RPL_CMD_NICK(falseNickname, client.getUsername(), client.getAddrIp(), splited[1]) << std::endl;
-        sendBrodcastServer(RPL_CMD_NICK(falseNickname, client.getUsername(), client.getAddrIp(), splited[1]), server);
+        sendBroadcastServer(RPL_CMD_NICK(falseNickname, client.getUsername(), client.getAddrIp(), splited[1]), server);
     }
     else
     {
         std::cout << "RPL_CMD_NICK = " << RPL_CMD_NICK(splited[1], client.getUsername(), client.getAddrIp(), splited[1]) << std::endl;
-        sendBrodcastServer(RPL_CMD_NICK(client.getNickname(), client.getUsername(), client.getAddrIp(), splited[1]), server);
+        sendBroadcastServer(RPL_CMD_NICK(client.getNickname(), client.getUsername(), client.getAddrIp(), splited[1]), server);
     }
     mapClients.find(client.getFd())->second.setNickname(splited[1]);
     client.setNickname(splited[1]);

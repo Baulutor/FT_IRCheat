@@ -46,7 +46,7 @@ void Privmsg(std::string cmd, Clients& client, Server& server)
     if (it != channelsServer.end())
     {
         std::cout << "RPL_CMD_PRIVMSG" << RPL_CMD_PRIVMSG(client.getNickname(), client.getUsername(), client.getAddrIp(), cmd_split[1], cmd_split[2]) << std::endl;
-        sendBrodcastMSG(RPL_CMD_PRIVMSG(client.getNickname(), client.getUsername(), client.getAddrIp(), cmd_split[1], cmd_split[2]), it->second, client);
+        sendBroadcastMSG(RPL_CMD_PRIVMSG(client.getNickname(), client.getUsername(), client.getAddrIp(), cmd_split[1], cmd_split[2]), it->second, client);
     }
     else if (findFdClientByName(cmd_split[1], clientsServer) != -1)
     {

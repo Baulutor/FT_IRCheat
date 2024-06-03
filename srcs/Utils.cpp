@@ -126,19 +126,21 @@ void sendCmd(const std::string& cmd, Clients &client)
         std::cerr << "Error: send() failed" << std::endl;
 }
 
-void sendBrodcastChannel(const std::string& cmd, Channels& channel)
+void sendBroadcastChannel(const std::string& cmd, Channels& channel)
 {
 	for (std::map<int, Clients>::iterator it = channel.getClientMap().begin(); it != channel.getClientMap().end(); ++it)
 	{
+		std::cerr << "client.fd: " << it->first << std::endl;
 		if (send(it->first, cmd.c_str(), cmd.size(), MSG_NOSIGNAL | MSG_DONTWAIT) < 0)
             std::cerr << "Error: send() failed" << std::endl;
 	}
 }
 
-void sendBrodcastMSG(const std::string& cmd, Channels& channel, Clients& client)
+void sendBroadcastMSG(const std::string& cmd, Channels& channel, Clients& client)
 {
     for (std::map<int, Clients>::iterator it = channel.getClientMap().begin(); it != channel.getClientMap().end(); ++it)
     {
+		std::cout << "client.fd: " << it->first << std::endl;
         if (it->first != client.getFd())
         {
             if (send(it->second.getFd(), cmd.c_str(), cmd.size(), MSG_NOSIGNAL | MSG_DONTWAIT) < 0)
@@ -150,7 +152,7 @@ void sendBrodcastMSG(const std::string& cmd, Channels& channel, Clients& client)
     }
 }
 
-void sendBrodcastServer(const std::string& cmd, Server& server)
+void sendBroadcastServer(const std::string& cmd, Server& server)
 {
 	for (std::map<int, Clients>::iterator it = server.getClients().begin(); it != server.getClients().end(); ++it)
 	{
@@ -159,7 +161,7 @@ void sendBrodcastServer(const std::string& cmd, Server& server)
 	}
 }
 
-void NameLstUpadte(Clients& client, Channels& channel)
+void NameLstUpdate(Clients& client, Channels& channel)
 {
 	std::string user;
 	for (std::map<int, Clients>::iterator it = channel.getClientMap().begin(); it != channel.getClientMap().end(); it++)
@@ -174,10 +176,10 @@ void NameLstUpadte(Clients& client, Channels& channel)
 			user += " ";
 	}
 	std::cout << "RPL_CMD_NAME_LST_START = " << RPL_CMD_NAME_LST_START(client.getNickname(), channel.getName(), user) << std::endl;
-    sendBrodcastChannel(RPL_CMD_NAME_LST_START(client.getNickname(), channel.getName(), user), channel);
+    sendBroadcastChannel(RPL_CMD_NAME_LST_START(client.getNickname(), channel.getName(), user), channel);
 	
     std::cout << "RPL_CMD_NAME_LST_END = " << RPL_CMD_NAME_LST_END(client.getNickname(), channel.getName()) << std::endl;
-    sendBrodcastChannel(RPL_CMD_NAME_LST_END(client.getNickname(), channel.getName()), channel);
+    sendBroadcastChannel(RPL_CMD_NAME_LST_END(client.getNickname(), channel.getName()), channel);
 }
 
 int findFdClientByName(std::string nickname, std::map<int, Clients>& clientsServer)
