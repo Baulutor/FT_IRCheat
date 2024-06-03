@@ -75,6 +75,7 @@ class Clients
         std::map<std::string, Channels> _channelsInvite;
 
         std::map<std::string, Channels> _channels;
+
 };
 
 #endif

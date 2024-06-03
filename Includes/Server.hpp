@@ -38,21 +38,23 @@ class Server
         void setChannels(std::map<std::string, Channels> channels);
         void setClient(std::map<int, Clients> clients);
         void setPassword(std::string password);
+		void setQuitFd(int quitFd);
 
         std::string getAddrIp() const;
         int getFd() const;
         std::map<std::string, Channels>& getChannels();
         std::map<int, Clients>& getClients();
-		    std::vector<pollfd> getLstPollFd();
+		std::vector<pollfd> &getLstPollFd();
         std::string getPassword() const;
         std::string getNameClientByFd(int fd);
         int getFdClientByName(std::string name);
+		int getQuitFd();
 
         void cmdHandler(std::string cmd, Clients& client);
         bool ClientConnexion();
         bool ClientHandler(bool init);
         void launch(std::string av, std::string av2);
-	    	void serverHandler();
+		void serverHandler();
 
 		// void	broadcast_message(const std::string &message, int sender_fd, std::vector<pollfd> &clients);
 
@@ -64,6 +66,7 @@ class Server
         std::string _password;
         std::map<int, Clients>  _clients;
         std::map<std::string, Channels> _channels;
+		int _fdQuit;
 
         // std::vector<pollfd>             _vecClient;
 };
