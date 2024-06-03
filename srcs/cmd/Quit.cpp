@@ -95,35 +95,64 @@ void Quit(std::string cmd, Clients& client, Server& server)
 {
 	std::string reason = &cmd[6];
 	reason = reason.substr(0, reason.size() - 2);
-	std::string cible = client.getNickname();
-	//int fdCible = client.getFd();
+	int fdCible = client.getFd();
 
-	// server.getChannels();
 	std::map<std::string, Channels>& servChannel = server.getChannels();
 	std::cout << "caca" << std::endl;
 	for (std::map<std::string, Channels>::iterator itChan = servChannel.begin(); itChan != servChannel.end(); ++itChan) 
 	{
 		std::map<int, Clients>& clientInChan = itChan->second.getClientMap();
-		std::cerr << "premier client: " << itChan->second.getClientMap().begin()->first << ", dans le channel: " << itChan->first << std::endl;
-		for (std::map<int, Clients>::iterator itClient = clientInChan.begin(); itClient != clientInChan.end(); itClient++) 
+		for (std::map<int, Clients>::iterator itClient = clientInChan.begin(); itClient != clientInChan.end();) 
 		{
-			if (cible == itClient->second.getNickname()) {
+			if (fdCible == itClient->first)
+			{
+				Clients operatorChan = itChan->second.getOperator(itClient->first);
+				if (operatorChan.getFd() == fdCible && itChan->second.getClientMap().size() > 1)
+				{
+					if (itChan->second.getOperatorVector().size() == 1)
+					{
+						std::map<int, Clients>::iterator itTmp = clientInChan.begin();
+						if (itTmp->first != fdCible)
+						{
+							itChan->second.setOperator(itTmp->second);
+						}
+						else 
+						{
+							++itTmp;
+							itChan->second.setOperator(itTmp->second);
+						}
+						NameLstUpadte(client, itChan->second);
+					}
+					itChan->second.removeOperator(client);
+				}
 				sendBrodcastChannel(RPL_QUIT_CHANNEL(client.getNickname(), client.getUsername(), client.getAddrIp(), itChan->first, reason), itChan->second);
+				if (itChan->second.getClientMap().size() == 1)
+				{
+					itChan->second.removeOperator(client);
+					server.getChannels().erase(itChan);
+					//if (itChan->second.getClientMap().size() == 0)
+					++itChan;
+					break ;
+					//continue ;
+				}
 				clientInChan.erase(itClient++);
 			}
+			else
+				++itClient;
 		}
 	}
-	// int i = 0;
-	// for (std::vector<pollfd>::iterator itPollFd = server.getLstPollFd().begin(); itPollFd != server.getLstPollFd().end(); ++itPollFd) 
-	// {
-	// 	if (itPollFd->fd == fdCible)
-	// 	{
-	// 		server.getLstPollFd().at(i).events = 0;
-	// 		server.getLstPollFd().at(i).revents = 0;
-	// 		server.getLstPollFd().erase(itPollFd);
-	// 	}
-	// 	i++;
-	// }
+	int i = 0;
+	for (std::vector<pollfd>::iterator itPollFd = server.getLstPollFd().begin(); itPollFd != server.getLstPollFd().end(); ++itPollFd) 
+	{
+		if (itPollFd->fd == fdCible)
+		{
+			server.getLstPollFd().at(i).events = 0;
+			server.getLstPollFd().at(i).revents = 0;
+			server.getLstPollFd().erase(itPollFd);
+			return ;
+		}
+		i++;
+	}
 }
 
 

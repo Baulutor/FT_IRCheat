@@ -43,48 +43,16 @@ Username : nanard
 Pass : 0000
 fd : 4
 Ip Address : 127.0.0.1
-bytes = 13
-buffer = JOIN #chan1
+bytes = 23
+buffer = PING LAG1717377133877
 
-cmd: JOIN #chan1
+cmd: PING LAG1717377133877
 
-JOIN
-channel = #chan1
-channelsServer.size() = 0
-channel.getMode(-42) = t
-setMode Mode = 
-Channel client ADD : #chan1
-RPL_CMD_JOIN = :nanard!nanard@127.0.0.1 JOIN :#chan1
-
-RPL_CMD_NAME_LST_START = :server 353 nanard = #chan1 :@nanard
-
-RPL_CMD_NAME_LST_END = :server 366 nanard #chan1 :End of /NAMES list
-
-bytes = 13
-buffer = MODE #chan1
-
-cmd: MODE #chan1
-
-Mode
-cmd = |MODE #chan1
-|
-cmd erase = |#chan1
-|
-tokens.size() = 1
-tokens: |#chan1|
-target checkChannel = |#chan1|
-bytes = 12
-buffer = WHO #chan1
-
-cmd: WHO #chan1
-
-ERROR : command not found
-
-bytes = 58
+bytes = 65
 buffer = CAP LS 302
 PASS 0000
 NICK niber
-USER niber 0 * :niber
+USER niberniber 0 * :niiiber
 
 ===============================================================================================
 token : |CAP|
@@ -94,16 +62,16 @@ token : |0000|
 token : |NICK|
 token : |niber|
 token : |USER|
-token : |niber 0 * :niber|
+token : |niberniber 0 * :niiiber|
 USER
-cmd: niber 0 * :niber
+cmd: niberniber 0 * :niiiber
 splited.size() = 4
-splited[0] = niber
+splited[0] = niberniber
 splited[1] = 0
 splited[2] = *
-splited[3] = :niber
+splited[3] = :niiiber
 parseUser
-Username = niber
+Username = niberniber
 NickInit
 cmd : niber
 parseNick
@@ -117,56 +85,147 @@ NICK : 4
 PASS : 2
 BOOL : 1
 getNicknameTmp = ||
-RPL_CMD_NICK = :niber!niber@ NICK niber
+RPL_CMD_NICK = :niber!niberniber@ NICK niber
 
 ===============================================================================================
 init client
 Nickname : niber
-Username : niber
+Username : niberniber
 Pass : 0000
 fd : 5
 Ip Address : 127.0.0.1
-bytes = 23
-buffer = PING LAG1717369372878
+bytes = 54
+buffer = CAP LS 302
+PASS 0000
+NICK n
+USER niber 0 * :niber
 
-cmd: PING LAG1717369372878
+===============================================================================================
+token : |CAP|
+token : |LS 302|
+token : |PASS|
+token : |0000|
+token : |NICK|
+token : |n|
+token : |USER|
+token : |niber 0 * :niber|
+USER
+cmd: niber 0 * :niber
+splited.size() = 4
+splited[0] = niber
+splited[1] = 0
+splited[2] = *
+splited[3] = :niber
+parseUser
+Username = niber
+NickInit
+cmd : n
+parseNick
+splited[0] = n
+it->second.getNickname() = nanard
+it->second.getNickname() = niber
+it->second.getNickname() = 
+flags[3] = 1
+PASS value : 0000
+USER : 6
+NICK : 4
+PASS : 2
+BOOL : 1
+getNicknameTmp = ||
+RPL_CMD_NICK = :n!niber@ NICK n
 
-bytes = 13
-buffer = JOIN #chan1
+===============================================================================================
+init client
+Nickname : n
+Username : niber
+Pass : 0000
+fd : 6
+Ip Address : 127.0.0.1
+bytes = 12
+buffer = JOIN #test
 
-cmd: JOIN #chan1
+cmd: JOIN #test
 
 JOIN
-channel = #chan1
-channelsServer.size() = 1
-it->first = #chan1
+channel = #test
+channelsServer.size() = 0
 channel.getMode(-42) = t
 setMode Mode = 
-Channel client ADD : #chan1
-RPL_CMD_JOIN = :niber!niber@127.0.0.1 JOIN :#chan1
+Channel client ADD : #test
+RPL_CMD_JOIN = :nanard!nanard@127.0.0.1 JOIN :#test
 
-RPL_CMD_NAME_LST_START = :server 353 niber = #chan1 :@nanard niber
+RPL_CMD_NAME_LST_START = :server 353 nanard = #test :@nanard
 
-RPL_CMD_NAME_LST_END = :server 366 niber #chan1 :End of /NAMES list
+RPL_CMD_NAME_LST_END = :server 366 nanard #test :End of /NAMES list
 
-bytes = 25
-buffer = MODE #chan1
-WHO #chan1
+bytes = 23
+buffer = MODE #test
+WHO #test
 
-cmd: MODE #chan1
-WHO #chan1
+cmd: MODE #test
+WHO #test
 
 Mode
-cmd = |MODE #chan1
-WHO #chan1
+cmd = |MODE #test
+WHO #test
 |
-cmd erase = |#chan1
-WHO #chan1
+cmd erase = |#test
+WHO #test
 |
 tokens.size() = 3
-tokens: |#chan1|
-ERR_CHANOPRIVSNEEDEDED = |:server 482 niber #chan1 :You're not channel operator
+tokens: |#test|
+target checkChannel = |#test|
+bytes = 12
+buffer = JOIN #test
+
+cmd: JOIN #test
+
+JOIN
+channel = #test
+channelsServer.size() = 1
+it->first = #test
+channel.getMode(-42) = t
+setMode Mode = 
+Channel client ADD : #test
+RPL_CMD_JOIN = :niber!niberniber@127.0.0.1 JOIN :#test
+
+RPL_CMD_NAME_LST_START = :server 353 niber = #test :@nanard niber
+
+RPL_CMD_NAME_LST_END = :server 366 niber #test :End of /NAMES list
+
+bytes = 23
+buffer = MODE #test
+WHO #test
+
+cmd: MODE #test
+WHO #test
+
+Mode
+cmd = |MODE #test
+WHO #test
 |
+cmd erase = |#test
+WHO #test
+|
+tokens.size() = 3
+tokens: |#test|
+ERR_CHANOPRIVSNEEDEDED = |:server 482 niber #test :You're not channel operator
+|
+bytes = 23
+buffer = PING LAG1717377144878
+
+cmd: PING LAG1717377144878
+
+bytes = 15
+buffer = QUIT :Leaving
+
+cmd: QUIT :Leaving
+
+caca
+RPL_CMD_NAME_LST_START = :server 353 nanard = #test :@nanard @niber
+
+RPL_CMD_NAME_LST_END = :server 366 nanard #test :End of /NAMES list
+
 bytes = 15
 buffer = QUIT :Leaving
 
