@@ -5,91 +5,19 @@
 #include "Cmd.hpp"
 #include "Server.hpp"
 
-//void Quit(std::string cmd, Clients& client, Server& server)
-//{
-//
-//	std::cout << "["<< cmd << "]" <<  std::endl;
-//
-//	// CLIENT
-//	std::map<std::string, Channels> channelsClient = client.getChannelsClient();
-//	std::map<std::string, Channels>::iterator itClientChan = channelsClient.begin();
-//
-//	//SERVER
-//	std::map<std::string, Channels> channelsServ = server.getChannels();
-//
-//	// POLLFD SERVER
-//	std::vector<pollfd> pollFdServ = server.getLstPollFd();
-//
-//	for (; itClientChan != channelsClient.end(); itClientChan++)
-//	{
-//
-//		//Client iterator or Map
-//		std::map<int, Clients> clientMap = itClientChan->second.getClientMap();
-////		std::map<int, Clients> clientInvitedMap = itClientChan->second.getClientInvited();
-////		std::map<int, Clients>::iterator erasingClientChannel = clientMap.find(client.getFd());
-//
-//		std::vector <Clients> opeVec = itClientChan->second.getOperatorVector();
-//
-//		std::cout << "chan->first: " << itClientChan->first << " , valeur de opeVec.size(): " << opeVec.size() << std::endl;
-//		if (opeVec.size() == 1)
-//		{
-//			if (opeVec.begin()->getFd() == client.getFd())
-//			{
-//				if (channelsServ.find(itClientChan->first)->second.getClientMap().size() == 1) {
-//					close(client.getFd());
-//					client.getAddrIp().clear();
-//					for (size_t i = 0; i < pollFdServ.size(); i++)
-//					{
-//						if (client.getFd() == pollFdServ[i].fd)
-//						{
-//							close(pollFdServ[i].fd);
-//							server.getChannels().find(itClientChan->first)->second.getClientMap().clear(); // pas sur
-//							clientMap.clear();
-//							server.getChannels().erase(server.getChannels().find(itClientChan->first));
-//							server.getLstPollFd().at(i).revents = 0;
-//							server.getLstPollFd().at(i).events = 0;
-//							server.getLstPollFd().erase(server.getLstPollFd().begin() + 1);
-//							return;
-//						}
-//					}
-//				}
-//				else
-//				{
-//					if (opeVec.begin()->getFd() == itClientChan->second.getClientMap().find(client.getFd())->second.getFd())
-//					{
-//						for (std::map<int, Clients>::iterator it = channelsServ.find(itClientChan->first)->second.getClientMap().begin(); it != channelsServ.find(itClientChan->first)->second.getClientMap().end(); it++)
-//						{
-//							std::cout << "est ce que je suis la ??" << std::endl;
-//							if (it->first != client.getFd())
-//							{
-//								server.getChannels().find(itClientChan->first)->second.setOperator(server.getChannels().find(itClientChan->first)->second.getClientMap().find(it->first)->second);
-//								std::cout << "nombre d'ope apres avoir rajoute !: " << opeVec.size() << std::endl;
-//								break;
-//							}
-//						}
-//						server.getChannels().find(itClientChan->first)->second.removeOperator(client);
-//					}
-//				}
-//			}
-//		}
-//		// supprimer le client de chaque channel dont il fait partie, virer de la map des invite s'il y es dans la client map
-//		NameLstUpadte(client, itClientChan->second);
-//	}
-//}
+void clearForAllUser(Server &server, int clientFd);
 
 void Quit(std::string cmd, Clients& client, Server& server)
 {
 
 	std::string reason = &cmd[6];
 	reason = reason.substr(0, reason.size() - 2);
-	std::cout << "cmd: [" << reason << "]" << std::endl;
-
 
 	// server.getChannels();
-	std::map<std::string, Channels> servChannel = server.getChannels();
+	std::map<std::string, Channels>& servChannel = server.getChannels();
 
 	// le seul truc que je veux utiliser du vecteur de client le reste ca va etre server
-	std::map<std::string, Channels> clientChannel = client.getChannelsClient();
+	std::map<std::string, Channels>& clientChannel = client.getChannelsClient();
 
 
 	// BOUCLE de for du nombre de channel dont le client est inclus !
@@ -134,20 +62,19 @@ void Quit(std::string cmd, Clients& client, Server& server)
 		{
 			std::cout << "serverMapClients get clear  " << std::endl;
 			sendBrodcastChannel("quit avec la raison suivant : " + reason, iterServChannel->second);
-			client.getChannelsClient().find(it->first)->second.getClientMap().clear();
 			server.getChannels().find(it->first)->second.getClientMap().clear();
 			server.getChannels().erase(server.getChannels().find(it->first));
 			continue ;
 		}
 		else
 		{
-			std::cout << "JE vais supprimer le frero du channel donc la taille avant: " << server.getChannels().find(it->first)->second.getClientMap().size() << std::endl;
+			std::cout << "chelou ce channel la: " << server.getChannels().find(it->first)->first << ", et le frero: " << serverMapClients.find(client.getFd())->first << std::endl;
 			server.getChannels().find(it->first)->second.getClientMap().erase(serverMapClients.find(client.getFd()));
-			std::cout << "APRERERERRSRRERRSRRERRSRRERSRERRSRERRSRERSRRERSRERRSRFUJHFKLSIHDGFVJHDBKNCSIFUHHBJK" << std::endl;
-			client.getChannelsClient().find(it->first)->second.getClientMap().erase(client.getChannelsClient().find(it->first)->second.getClientMap().find(client.getFd()));
-			std::cout << "taille apres: " << server.getChannels().find(it->first)->second.getClientMap().size() << std::endl;
 		}
 	}
+	std::cerr << "le fd du client A TEJ CE CHIEN: " << client.getFd() << ", et son nom de pute ! " << client.getNickname() << std::endl;
+//	clearForAllUser(server, client.getFd());
+	client.getChannelsClient().clear();
 	sendBrodcastServer("ERROR: " + client.getNickname() + " Disconnected from server\r\n", server);
 
 	std::vector<pollfd> lstPollFdVec = server.getLstPollFd();
@@ -157,13 +84,48 @@ void Quit(std::string cmd, Clients& client, Server& server)
 		{
 			server.getLstPollFd().at(i).revents = 0;
 			server.getLstPollFd().at(i).events = 0;
-			std::cerr << "close pollfd= " << close(server.getLstPollFd().at(i).fd) << std::endl;
+			close(server.getLstPollFd().at(i).fd);
 			server.getLstPollFd().erase(server.getLstPollFd().begin() + i);
 			break ;
 		}
 	}
+	server.setQuitFd(client.getFd());
+//	client.setFd(-1);
+//	server.getClients().erase(server.getClients().find(client.getFd()));
 
-	int buf = client.getFd();
-	client.setFd(-1);
-	server.getClients().erase(server.getClients().find(buf));
+
+
+//	std::map<int, Clients> servClient = server.getClients();
+//	for (std::map<int, Clients>::iterator it = servClient.begin(); servClient.end() != it; it++)
+//	{
+//		std::cerr << std::endl << "fd du client: " << it->first << ", mon nom est " << it->second.getNickname() << std::endl << std::endl;
+//		std::map<std::string, Channels> channelsClient = it->second.getChannelsClient();
+//		for (std::map<std::string, Channels>::iterator ite = channelsClient.begin(); ite != channelsClient.end(); ite++)
+//		{
+//			std::map<int, Clients> dansleclientChannel = ite->second.getClientMap();
+//			for (std::map<int, Clients>::iterator iter = dansleclientChannel.begin(); dansleclientChannel.end() != iter; iter++)
+//			{
+//				std::cerr << "je suis: " << iter->second.getNickname() << " avec le fd " << iter->first << ", dans le channel:" << ite->first << std::endl;
+//			}
+//		}
+//	}
+
 }
+
+//void clearForAllUser(Server &server, int clientFd)
+//{
+//	std::map<int, Clients> servClient = server.getClients();
+//	for (std::map<int, Clients>::iterator it = servClient.begin(); servClient.end() != it; it++)
+//	{
+//		if (it->first != clientFd)
+//		{
+//			std::map<std::string, Channels> channelsClient = it->second.getChannelsClient();
+//			for (std::map<std::string, Channels>::iterator ite = channelsClient.begin(); ite != channelsClient.end(); ite++)
+//			{
+//				std::map<int, Clients>::iterator test = ite->second.getClientMap().find(clientFd);
+//				if (test != ite->second.getClientMap().end())
+//					server.getClients().find(it->first)->second.getChannelsClient().find(ite->first)->second.getClientMap().erase(test);
+//			}
+//		}
+//	}
+//}

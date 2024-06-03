@@ -1,19 +1,43 @@
 #include "Server.hpp"
 #include "Cmd.hpp"
 
-Server::Server(){}
+Server::Server(){ _fdQuit = -5;}
 
 int Server::getFd() const {return this->_fd;}
 
 std::string Server::getAddrIp() const {return this->_addrIp;}
 
-void Server::setFd(int fd) {this->_fd = fd;}
-
-void Server::setAddrIp(std::string addrIp) {this->_addrIp = addrIp;}
+std::string Server::getPassword() const {return (this->_password);}
 
 std::map<std::string, Channels>& Server::getChannels() {return (_channels);}
 
 std::map<int, Clients>& Server::getClients() {return (_clients);}
+
+std::vector<pollfd> &Server::getLstPollFd() {return (this->_lstPollFd);}
+
+std::string Server::getNameClientByFd(int fd)
+{
+	std::map<int, Clients>::iterator it = _clients.find(fd);
+	return (it->second.getNickname());
+}
+
+int Server::getFdClientByName(std::string name)
+{
+	for (std::map<int, Clients>::iterator it = _clients.begin(); it != _clients.end(); it++)
+	{
+		if (it->second.getNickname() == name)
+			return (it->first);
+	}
+	return (-1);
+}
+
+int Server::getQuitFd() { return _fdQuit; }
+
+void Server::setQuitFd(int quitFd) { _fdQuit = quitFd; }
+
+void Server::setFd(int fd) {this->_fd = fd;}
+
+void Server::setAddrIp(std::string addrIp) {this->_addrIp = addrIp;}
 
 void Server::setChannels(std::map<std::string, Channels> channels) {this->_channels = channels;}
 
@@ -21,27 +45,7 @@ void Server::setClient(std::map<int, Clients> clients) {this->_clients = clients
 
 void Server::setPassword(std::string password) {this->_password = password;}
 
-std::string Server::getPassword() const {return (this->_password);}
-
-std::vector<pollfd> &Server::getLstPollFd() {return (this->_lstPollFd);}
-
 bool startWith(const std::string &line, const char *cmd) {return (line.find(cmd) == 0);}
-
-std::string Server::getNameClientByFd(int fd)
-{
-    std::map<int, Clients>::iterator it = _clients.find(fd);
-    return (it->second.getNickname());
-}
-
-int Server::getFdClientByName(std::string name)
-{
-    for (std::map<int, Clients>::iterator it = _clients.begin(); it != _clients.end(); it++)
-    {
-        if (it->second.getNickname() == name)
-            return (it->first);
-    }
-    return (-1);
-}
 
 void Server::cmdHandler(std::string cmd, Clients& client)
 {
@@ -192,19 +196,25 @@ bool Server::ClientHandler(bool init)
 			}
 			else if (itClients->second.getIsRegistered() == true)
 			{
-				for (std::map<std::string, Channels>::iterator it = _channels.begin(); it != _channels.end() ; it++)
-				{
-					std::cout << "PENDANT:" << _lstPollFd.size() << ", nombre de client PENDANT: " << it->second.getClientMap().size() <<  std::endl;
-					for (std::map<int, Clients>::iterator ite = it->second.getClientMap().begin(); ite != it->second.getClientMap().end(); ite++)
-						std::cout << "blaze du gars: " << ite->second.getNickname() << ", dans le chANNEL PENDANT: " << it->first << std::endl;
-				}
+//				for (std::map<std::string, Channels>::iterator it = _channels.begin(); it != _channels.end() ; ++it)
+//				{
+//					std::cout << "PENDANT:" << _lstPollFd.size() << ", nombre de client PENDANT: " << it->second.getClientMap().size() <<  std::endl;
+//					for (std::map<int, Clients>::iterator ite = it->second.getClientMap().begin(); ite != it->second.getClientMap().end(); ite++)
+//						std::cout << "blaze du gars: " << ite->second.getNickname() << ", dans le chANNEL PENDANT: " << it->first << std::endl;
+//				}
 				cmdHandler(itClients->second.getBuffer(), itClients->second);
 			}
-			for (std::map<std::string, Channels>::iterator it = _channels.begin(); it != _channels.end() ; it++)
+			if (_fdQuit != -5)
+			{
+				getClients().erase(getClients().find(_fdQuit));
+				_fdQuit = -5;
+			}
+
+			for (std::map<std::string, Channels>::iterator it = _channels.begin(); it != _channels.end() ; ++it)
 			{
 				std::cout << "APRES: " << _lstPollFd.size() << ", nombre de client: " << it->second.getClientMap().size() <<  std::endl;
-				for (std::map<int, Clients>::iterator ite = it->second.getClientMap().begin(); ite != it->second.getClientMap().end(); ite++)
-					std::cout << "blaze du gars: " << ite->second.getNickname() << ", dans le chANNEL: " << it->first << std::endl;
+				for (std::map<int, Clients>::iterator ite = it->second.getClientMap().begin(); ite != it->second.getClientMap().end(); ++ite)
+					std::cout << "blaze du gars: " << ite->second.getNickname() << ", dans le chANNEL: " << it->first  << ", size: " << it->second.getClientMap().size() << std::endl;
 			}
 		}
 		i++;
