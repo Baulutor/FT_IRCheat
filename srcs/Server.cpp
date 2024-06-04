@@ -72,7 +72,7 @@ void Server::launch(std::string av, std::string av2)
 
 	// Création de la socket serveur
 
-	setAddrIp("10.14.4.3");
+	setAddrIp("127.0.0.1");
 	setPassword(av2);
 	_fd = -1;
 
