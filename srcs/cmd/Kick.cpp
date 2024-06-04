@@ -73,11 +73,13 @@ void Kick(std::string cmd, Clients& client, Server& server) {
 					std::vector<Clients> &opeVec = it->second.getOperatorVector();
 					for (std::vector<Clients>::iterator iter = opeVec.begin(); iter != opeVec.end(); ++iter)
 					{
-						if (iter->getFd() == it2->first)
-						{
-							it->second.removeOperator(it2->second);
-							break;
-						}
+                        if (iter->getFd() == it2->first)
+                        {
+                            it->second.removeOperator(it2->second);
+                            it->second.removeMode(it2->first, "o");
+                            NameLstUpdate(client, it->second);
+                            break;
+                        }
 					}
 					if (it->second.getClientInvited().find(it2->first) != it->second.getClientInvited().end())
 						it->second.getClientInvited().erase(it->second.getClientInvited().find(it2->first));
@@ -94,3 +96,4 @@ void Kick(std::string cmd, Clients& client, Server& server) {
         return (sendBroadcastChannel(ERR_NOSUCHCHANNEL(client.getNickname(), chanTarget), it->second));
     }
 }
+
