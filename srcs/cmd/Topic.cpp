@@ -24,7 +24,6 @@ void 	Topic(std::string cmd, Clients& client, Server& server)
 		return ;
 	}
 	std::string topicMessage;
-	std::cerr << "cmd pour topicmessage: " <<  cmd[6 + channelName.size() + 1] << std::endl;
 	if (cmd[6 + channelName.size() + 2] == '\0')
 	{
 		if (channel->second.getTopic() == "")
