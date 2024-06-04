@@ -28,7 +28,6 @@ parseNick
 splited[0] = bfaure
 it->second.getNickname() = 
 it->second.getNickname() = 
-it->second.getNickname() = 
 flags[3] = 1
 PASS value : toto
 USER : 6
@@ -69,85 +68,9 @@ RPL_CMD_NAME_LST_START = :server 353 bfaure = #test :@bfaure
 RPL_CMD_NAME_LST_END = :server 366 bfaure #test :End of /NAMES list
 
 Join Name = bfaure
-Join Adress referance client in channel: 0x4df3ea8
+Join Adress referance client in channel: 0x4df3938
 Join Adress referance client: 0x4de4cf8
-lstPollFd size = 4
-bytes = 59
-buffer = CAP LS 302
-PASS toto
-NICK bfaure
-USER bf 0 * :realname
-
-===============================================================================================
-token : |CAP|
-token : |LS 302|
-token : |PASS|
-token : |toto|
-token : |NICK|
-token : |bfaure|
-token : |USER|
-token : |bf 0 * :realname|
-USER
-cmd: bf 0 * :realname
-splited.size() = 4
-splited[0] = bf
-splited[1] = 0
-splited[2] = *
-splited[3] = :realname
-parseUser
-Username = bf
-NickInit
-cmd : bfaure
-parseNick
-splited[0] = bfaure
-it->second.getNickname() = bfaure
-RPL_ERROR_NICKNAME_IN_USE = :server 433  bfaure :Nickname is already in use
-
-flags[3] = 1
-PASS value : toto
-USER : 6
-NICK : -1
-PASS : 2
-BOOL : 1
-bytes = 12
-buffer = MODE #test
-
-===============================================================================================
-token : |MODE|
-token : |#test|
-flags[3] = 0
-lstPollFd size = 4
-bytes = 14
-buffer = NICK bfaure_
-
-===============================================================================================
-token : |NICK|
-token : |bfaure_|
-NickInit
-cmd : bfaure_
-parseNick
-splited[0] = bfaure_
-it->second.getNickname() = bfaure
-it->second.getNickname() = 
-it->second.getNickname() = 
-flags[3] = 1
-PASS value : toto
-USER : 6
-NICK : 0
-PASS : 2
-BOOL : 1
-getNicknameTmp = |bfaure|
-RPL_CMD_NICK = :bfaure!bf@ NICK bfaure_
-
-===============================================================================================
-init client
-Nickname : bfaure_
-Username : bf
-Pass : toto
-fd : 5
-Ip Address : 127.0.0.1
-lstPollFd size = 4
-lstPollFd size = 4
+lstPollFd size = 3
 bytes = 55
 buffer = CAP LS 302
 PASS toto
@@ -177,7 +100,6 @@ cmd : ben
 parseNick
 splited[0] = ben
 it->second.getNickname() = bfaure
-it->second.getNickname() = bfaure_
 it->second.getNickname() = 
 flags[3] = 1
 PASS value : toto
@@ -193,10 +115,24 @@ init client
 Nickname : ben
 Username : b
 Pass : toto
-fd : 6
+fd : 5
 Ip Address : 127.0.0.1
-lstPollFd size = 4
-lstPollFd size = 4
+bytes = 12
+buffer = MODE #test
+
+buffer = MODE #test
+
+cmd: MODE #test
+
+Mode
+cmd = |MODE #test
+|
+cmd erase = |#test
+|
+tokens.size() = 1
+tokens: |#test|
+getMode Mode = t
+lstPollFd size = 3
 bytes = 12
 buffer = JOIN #test
 
@@ -222,11 +158,10 @@ RPL_CMD_NAME_LST_START = :server 353 ben = #test :@bfaure ben
 RPL_CMD_NAME_LST_END = :server 366 ben #test :End of /NAMES list
 
 Join Name = ben
-Join Adress referance client in channel: 0x4e11638
-Join Adress referance client: 0x4de5888
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
+Join Adress referance client in channel: 0x4e0cb38
+Join Adress referance client: 0x4de52b8
+lstPollFd size = 3
+lstPollFd size = 3
 bytes = 12
 buffer = MODE #test
 
@@ -243,39 +178,7 @@ tokens.size() = 1
 tokens: |#test|
 ERR_CHANOPRIVSNEEDEDED = |:server 482 ben #test :You're not channel operator
 |
-lstPollFd size = 4
-lstPollFd size = 4
-bytes = 12
-buffer = JOIN #test
-
-buffer = JOIN #test
-
-cmd: JOIN #test
-
-JOIN
-channel = #test
-channelsServer.size() = 1
-it->first = #test
-getMode Mode = t
-channel.getMode(-42) = getMode Mode = t
-t
-getMode Mode = t
-getMode Mode = t
-setMode Mode = 
-Channel client ADD : #test
-RPL_CMD_JOIN = :bfaure_!bf@127.0.0.1 JOIN :#test
-
-RPL_CMD_NAME_LST_START = :server 353 bfaure_ = #test :@bfaure bfaure_ ben
-
-RPL_CMD_NAME_LST_END = :server 366 bfaure_ #test :End of /NAMES list
-
-Join Name = bfaure_
-Join Adress referance client in channel: 0x4e404b8
-Join Adress referance client: 0x4de52b8
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
+lstPollFd size = 3
 bytes = 11
 buffer = WHO #test
 
@@ -283,26 +186,9 @@ buffer = WHO #test
 
 cmd: WHO #test
 
-lstPollFd size = 4
-lstPollFd size = 4
-bytes = 12
-buffer = MODE #test
-
-buffer = MODE #test
-
-cmd: MODE #test
-
-Mode
-cmd = |MODE #test
-|
-cmd erase = |#test
-|
-tokens.size() = 1
-tokens: |#test|
-ERR_CHANOPRIVSNEEDEDED = |:server 482 bfaure_ #test :You're not channel operator
-|
-lstPollFd size = 4
-lstPollFd size = 4
+lstPollFd size = 3
+lstPollFd size = 3
+lstPollFd size = 3
 bytes = 11
 buffer = WHO #test
 
@@ -310,345 +196,36 @@ buffer = WHO #test
 
 cmd: WHO #test
 
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
-bytes = 11
-buffer = WHO #test
+lstPollFd size = 3
+bytes = 29
+buffer = MODE #test +ooooooooooo ben
 
-buffer = WHO #test
+buffer = MODE #test +ooooooooooo ben
 
-cmd: WHO #test
-
-lstPollFd size = 4
-lstPollFd size = 4
-bytes = 13
-buffer = MODE #test 
-
-buffer = MODE #test 
-
-cmd: MODE #test 
+cmd: MODE #test +ooooooooooo ben
 
 Mode
-cmd = |MODE #test 
+cmd = |MODE #test +ooooooooooo ben
 |
-cmd erase = |#test 
+cmd erase = |#test +ooooooooooo ben
 |
-tokens.size() = 1
+tokens.size() = 3
 tokens: |#test|
-getMode Mode = t
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
-bytes = 23
-buffer = PING LAG1717448965878
-
-buffer = PING LAG1717448965878
-
-cmd: PING LAG1717448965878
-
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
-bytes = 23
-buffer = PING LAG1717448975878
-
-buffer = PING LAG1717448975878
-
-cmd: PING LAG1717448975878
-
-lstPollFd size = 4
-bytes = 23
-buffer = PING LAG1717448976879
-
-buffer = PING LAG1717448976879
-
-cmd: PING LAG1717448976879
-
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
-bytes = 13
-buffer = MODE #test 
-
-buffer = MODE #test 
-
-cmd: MODE #test 
-
-Mode
-cmd = |MODE #test 
-|
-cmd erase = |#test 
-|
-tokens.size() = 1
-tokens: |#test|
-getMode Mode = t
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
-bytes = 23
-buffer = PING LAG1717448995878
-
-buffer = PING LAG1717448995878
-
-cmd: PING LAG1717448995878
-
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
-bytes = 23
-buffer = PING LAG1717449005878
-
-buffer = PING LAG1717449005878
-
-cmd: PING LAG1717449005878
-
-lstPollFd size = 4
-bytes = 23
-buffer = PING LAG1717449006878
-
-buffer = PING LAG1717449006878
-
-cmd: PING LAG1717449006878
-
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
-bytes = 16
-buffer = MODE #test +ii
-
-buffer = MODE #test +ii
-
-cmd: MODE #test +ii
-
-Mode
-cmd = |MODE #test +ii
-|
-cmd erase = |#test +ii
-|
-tokens.size() = 2
-tokens: |#test|
-tokens: |+ii|
-target isMode = |+ii|
-checkArgs modes = |+ii|
+tokens: |+ooooooooooo|
+tokens: |ben|
+target isMode = |+ooooooooooo|
+checkArgs modes = |+ooooooooooo|
 modes[i] = |+|
 plusSign = false
 channelIt->first = |#test|
-target addInviteMode = |-42|
-channelIt->second.getMode(target) = |getMode Mode = t
-t|
-channelIt->second.getMode(target).find('i') = |getMode Mode = t
-18446744073709551615|
-getMode Mode = t
-setMode Mode = i
-modes[i] = |i|
+channelIt->second.getMode(args[i]) = |getMode Mode = 
+|
+getMode Mode = 
+setMode Mode = o
+RPL_CMD_NAME_LST_START = :server 353 ben = #test :@bfaure @ben
+
+RPL_CMD_NAME_LST_END = :server 366 ben #test :End of /NAMES list
+
+modes[i] = |o|
 plusSign = true
 channelIt->first = |#test|
-target addInviteMode = |-42|
-channelIt->second.getMode(target) = |getMode Mode = ti
-ti|
-channelIt->second.getMode(target).find('i') = |getMode Mode = ti
-1|
-getMode Mode = ti
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
-bytes = 23
-buffer = PING LAG1717449025878
-
-buffer = PING LAG1717449025878
-
-cmd: PING LAG1717449025878
-
-lstPollFd size = 4
-lstPollFd size = 4
-bytes = 13
-buffer = MODE #test 
-
-buffer = MODE #test 
-
-cmd: MODE #test 
-
-Mode
-cmd = |MODE #test 
-|
-cmd erase = |#test 
-|
-tokens.size() = 1
-tokens: |#test|
-getMode Mode = ti
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
-bytes = 15
-buffer = MODE #test +k
-
-buffer = MODE #test +k
-
-cmd: MODE #test +k
-
-Mode
-cmd = |MODE #test +k
-|
-cmd erase = |#test +k
-|
-tokens.size() = 2
-tokens: |#test|
-tokens: |+k|
-target isMode = |+k|
-target isArgsMode = |+k|
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
-bytes = 23
-buffer = PING LAG1717449035878
-
-buffer = PING LAG1717449035878
-
-cmd: PING LAG1717449035878
-
-lstPollFd size = 4
-bytes = 23
-buffer = PING LAG1717449036878
-
-buffer = PING LAG1717449036878
-
-cmd: PING LAG1717449036878
-
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
-bytes = 15
-buffer = MODE #test +k
-
-buffer = MODE #test +k
-
-cmd: MODE #test +k
-
-Mode
-cmd = |MODE #test +k
-|
-cmd erase = |#test +k
-|
-tokens.size() = 2
-tokens: |#test|
-tokens: |+k|
-target isMode = |+k|
-target isArgsMode = |+k|
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
-bytes = 23
-buffer = PING LAG1717449055877
-
-buffer = PING LAG1717449055877
-
-cmd: PING LAG1717449055877
-
-lstPollFd size = 4
-lstPollFd size = 4
-bytes = 16
-buffer = MODE #test +kk
-
-buffer = MODE #test +kk
-
-cmd: MODE #test +kk
-
-Mode
-cmd = |MODE #test +kk
-|
-cmd erase = |#test +kk
-|
-tokens.size() = 2
-tokens: |#test|
-tokens: |+kk|
-target isMode = |+kk|
-target isArgsMode = |+kk|
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
-bytes = 13
-buffer = MODE #test 
-
-buffer = MODE #test 
-
-cmd: MODE #test 
-
-Mode
-cmd = |MODE #test 
-|
-cmd erase = |#test 
-|
-tokens.size() = 1
-tokens: |#test|
-getMode Mode = ti
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
-bytes = 23
-buffer = PING LAG1717449065878
-
-buffer = PING LAG1717449065878
-
-cmd: PING LAG1717449065878
-
-lstPollFd size = 4
-bytes = 23
-buffer = PING LAG1717449066878
-
-buffer = PING LAG1717449066878
-
-cmd: PING LAG1717449066878
-
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
-bytes = 17
-buffer = MODE #test +kkk
-
-buffer = MODE #test +kkk
-
-cmd: MODE #test +kkk
-
-Mode
-cmd = |MODE #test +kkk
-|
-cmd erase = |#test +kkk
-|
-tokens.size() = 2
-tokens: |#test|
-tokens: |+kkk|
-target isMode = |+kkk|
-target isArgsMode = |+kkk|
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
-bytes = 13
-buffer = MODE #test 
-
-buffer = MODE #test 
-
-cmd: MODE #test 
-
-Mode
-cmd = |MODE #test 
-|
-cmd erase = |#test 
-|
-tokens.size() = 1
-tokens: |#test|
-getMode Mode = ti
-lstPollFd size = 4
-lstPollFd size = 4
-lstPollFd size = 4
