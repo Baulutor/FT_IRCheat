@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 17:15:55 by nibernar          #+#    #+#             */
-/*   Updated: 2024/06/03 18:36:33 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/06/04 11:44:06 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,16 @@ void 	Nick(std::string cmd, Clients& client, Server& server)
     {
         std::cout << "RPL_CMD_NICK = " << RPL_CMD_NICK(splited[1], client.getUsername(), client.getAddrIp(), splited[1]) << std::endl;
         sendBroadcastServer(RPL_CMD_NICK(client.getNickname(), client.getUsername(), client.getAddrIp(), splited[1]), server);
+    }
+    for (std::map<std::string, Channels>::iterator it = server.getClients().find(client.getFd())->second.getChannelsClient().begin(); it != server.getClients().find(client.getFd())->second.getChannelsClient().end(); it++)
+    {
+        std::cout << "it->first = " << it->first << std::endl;
+        server.getChannels().find(it->first)->second.getClientMap().find(client.getFd())->second.setNickname(splited[1]);
+    }
+    for (std::map<std::string, Channels>::iterator it = server.getClients().find(client.getFd())->second.getChannelsInvite().begin(); it != server.getClients().find(client.getFd())->second.getChannelsInvite().end(); it++)
+    {
+        std::cout << "it->second.getClientInvited().find(client.getFd())->second.getNickname() = " << it->second.getClientInvited().find(client.getFd())->second.getNickname() << std::endl;
+        server.getChannels().find(it->first)->second.getClientInvited().find(client.getFd())->second.setNickname(splited[1]);
     }
     mapClients.find(client.getFd())->second.setNickname(splited[1]);
     client.setNickname(splited[1]);
