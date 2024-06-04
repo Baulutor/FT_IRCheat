@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:42:28 by bfaure            #+#    #+#             */
-/*   Updated: 2024/06/03 14:07:10 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/06/04 14:49:36 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ char getMode(std::string target, size_t i)
 int addOpMode(std::vector<std::string> args, size_t i, std::map<std::string, Channels>::iterator channelIt, Server& server)
 {
     // int fdClient = findFdClientByName(args[i], server.getClients());
+    while (i >= args.size())
+        i--;
     int fdClient = server.getFdClientByName(args[i]);
     std::map<int, Clients>::iterator clientIt = channelIt->second.getClientMap().find(fdClient);
     if (clientIt != channelIt->second.getClientMap().end())
@@ -80,6 +82,8 @@ int addOpMode(std::vector<std::string> args, size_t i, std::map<std::string, Cha
 int removeOpMode(std::vector<std::string> args, size_t i, std::map<std::string, Channels>::iterator channelIt, Server& server)
 {
     // int fdClient = findFdClientByName(args[i], server.getClients());
+    while (i >= args.size())
+        i--;
     int fdClient = server.getFdClientByName(args[i]);
     std::map<int, Clients>::iterator clientIt = channelIt->second.getClientMap().find(fdClient);
     if (clientIt != channelIt->second.getClientMap().end())
@@ -145,7 +149,8 @@ int removeTopicMode(int target, std::map<std::string, Channels>::iterator channe
 int addKeyMode(int target, std::vector<std::string> args, size_t i, std::map<std::string, Channels>::iterator channelIt)
 {
     std::cout << "target = |" << target << "|" << std::endl;
-    std::cout << "args[i] = |" << args[i] << "|" << std::endl;
+    while (i >= args.size())
+        i--;
     std::cout << "channelIt->second.getMode(target) = |" << channelIt->second.getMode(target) << "|" << std::endl;
     if (channelIt->second.getMode(target).find('k') == std::string::npos)
     {
@@ -171,11 +176,15 @@ int removeKeyMode(int target, std::map<std::string, Channels>::iterator channelI
 int addLimitMode(int target, std::vector<std::string> args, size_t i, std::map<std::string, Channels>::iterator channelIt)
 {
     std::cout << "target = |" << target << "|" << std::endl;
+    while (i >= args.size())
+        i--;
     std::cout << "channelIt->second.getMode(target) = |" << channelIt->second.getMode(target) << "|" << std::endl;
     if (channelIt->second.getMode(target).find('l') == std::string::npos)
     {
+		if (args.size() == 0)
+			return 2;
         channelIt->second.setMode(target, "l");
-        channelIt->second.setLimit(atoi(args[i].c_str()));
+		channelIt->second.setLimit(atoi(args[i].c_str()));
         return (1);
     }
     return (1);
@@ -209,12 +218,17 @@ void checkArgs(std::vector<std::string> args, std::string modes, Clients& client
             minusSign = false;
             plusSign = true;
             std::cout << "channelIt->first = |" << channelIt->first << "|" << std::endl;
-            if (getMode(modes, i) == 'o')
-                i += addOpMode(args, i, channelIt, server);
             if (getMode(modes, i) == 'i')
                 i += addInviteMode(server.getFdClientByName(channelIt->first), channelIt);
             if (getMode(modes, i) == 't')
                 i += addTopicMode(server.getFdClientByName(channelIt->first), channelIt);
+			if (args.size() == 0 && isArgsMode(modes))
+			{
+				sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), "MODE"), client);
+				return ;
+			}
+            if (getMode(modes, i) == 'o')
+                i += addOpMode(args, i, channelIt, server);
             if (getMode(modes, i) == 'k')
                 i += addKeyMode(server.getFdClientByName(channelIt->first), args, i, channelIt);
             if (getMode(modes, i) == 'l')
@@ -304,10 +318,10 @@ void Mode(std::string cmd, Clients& client, Server& server)
     {
         if (!checkChannel(tokens[0], server, client, channelIt))
             return ;
-        if (isMode(tokens[1]))
+        if ((isMode(tokens[1]) && !isArgsMode(tokens[1])) && (tokens[1][0] != '-' || tokens[1][0] != '+'))
             return (sendCmd(ERR_INVALIDMODEPARAM(client.getNickname(), tokens[1], tokens[2]), client));
-        if (!isArgsMode(tokens[1]) && (tokens[1][0] != '-' || tokens[1][0] != '+'))
-            return (sendCmd(ERR_UMODEUNKNOWNFLAG(client.getNickname(), tokens[1]), client)); 
+        // if (!isArgsMode(tokens[1]) && (tokens[1][0] != '-' || tokens[1][0] != '+'))
+        //     return (sendCmd(ERR_UMODEUNKNOWNFLAG(client.getNickname(), tokens[1]), client)); 
         std::vector<std::string> args(tokens.begin() + 2, tokens.end());
         checkArgs(args, tokens[1], client, channelIt, server);
     }
