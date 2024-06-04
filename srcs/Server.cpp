@@ -61,8 +61,8 @@ void Server::cmdHandler(std::string cmd, Clients& client)
             return;
         }
     }
-	if (cmd == "WHO")
-		return;
+	if (startWith(cmd, "WHO"))
+		return ;
 	std::cout << "ERROR : command not found\r\n" << std::endl;
 	sendCmd("ERROR : command not found\r\n", client);
 }
