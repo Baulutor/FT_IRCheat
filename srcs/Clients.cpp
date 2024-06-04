@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Clients.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nibernar <nibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:36:58 by bfaure            #+#    #+#             */
-/*   Updated: 2024/06/01 17:32:02 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/06/04 13:43:57 by nibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,9 @@ Clients::Clients()
     _isRegistered = false;
     bzero(_buffer, 512);
     bzero(_bufferTmp, 512);
-    // std::cout << "Clients constructor created" << std::endl;
 }
 
-Clients::~Clients()
-{
-    // std::cout << "Clients destructor created" << std::endl;
-    // std::cout << "fd : " << _fd << std::endl;
-    // std::cout << "name : " << _nickname << std::endl;
-    // delete[] _buffer;
-    // delete[] _bufferTmp;
-}
+Clients::~Clients() {}
 
 // Getters
 
@@ -130,7 +122,6 @@ std::vector<std::string> parseLine(std::string line)
         }
         else
             tokens.push_back(part);
-        // }
     }
     return (tokens);
 }
@@ -202,7 +193,6 @@ std::vector<int> nickMode(std::vector<std::string> tokens, Clients &client, Serv
 {
     for (size_t i = 0; i < tokens.size(); ++i)
     {
-        // std::cout << "caca ici" << std::endl;
         if (tokens[i].find("NICK") != std::string::npos && flags[2] < 0)
         {
             if (client.getPass() == "")
@@ -245,29 +235,14 @@ std::vector<int> initializeFlags()
 
 bool Clients::initClients(std::string line, Server &server)
 {
-    // static int PASS = -1;
-    // static int NICK = -1;
-    // static int USER = -1;
-
     static std::vector<int> flags = initializeFlags();
-
     std::vector<std::string> tokens = parseLine(line);
-    for (size_t i = 0; i < tokens.size(); ++i)
-    {
-        std::cout << "token : |" << tokens[i] << "|" << std::endl;
-    }
 
     flags = passMode(tokens, *this, server, flags);
     flags = userMode(tokens, *this, server, flags);
     flags = nickMode(tokens, *this, server, flags);
-    std::cout << "flags[3] = " << flags[3] << std::endl;
     if (flags[3] == 0)
         return (false);
-    std::cout << "PASS value : " << _pass << std::endl;
-    std::cout << "USER : " << flags[1] << std::endl;
-    std::cout << "NICK : " << flags[2] << std::endl;
-    std::cout << "PASS : " << flags[0] << std::endl;
-    std::cout << "BOOL : " << flags[3] << std::endl;
     if (((flags[1] > -1 || flags[2] > -1) || (flags[1] > -1 && flags[2] > -1)) && flags[0] == -1)
     {
         sendCmd(ERR_PASSWDMISMATCH(getNickname()), *this);
@@ -280,18 +255,13 @@ bool Clients::initClients(std::string line, Server &server)
     }
     if (flags[0] > -1 && flags[1] > -1 && flags[2] > -1)
     {
-        std::cout << "getNicknameTmp = |" << getNicknameTmp() << "|" << std::endl;
         if (getNicknameTmp() != "")
         {
-            std::cout << "RPL_CMD_NICK = " << RPL_CMD_NICK(getNicknameTmp(), getUsername(), getAddrIp(), getNickname()) << std::endl;
             sendCmd(RPL_CMD_NICK(getNicknameTmp(), getUsername(), getAddrIp(), getNickname()), *this);
             setNicknameTmp("");
         }
         else
-        {
-            std::cout << "RPL_CMD_NICK = " << RPL_CMD_NICK(getNickname(), getUsername(), getAddrIp(), getNickname()) << std::endl;
             sendCmd(RPL_CMD_NICK(getNickname(), getUsername(), getAddrIp(), getNickname()), *this);
-        }
         sendCmd(RPL_MOTD_START(getNickname()), *this);
         sendCmd(RPL_MOTD_MSG(getNickname(), "Welcome to the FT_IRCheat"), *this);
         sendCmd(RPL_MOTD_MSG(getNickname(), "This is the server of the FT_IRCheat"), *this);
@@ -308,7 +278,6 @@ bool Clients::initClients(std::string line, Server &server)
         flags[0] = -1;
         flags[1] = -1;
         flags[2] = -1;
-		std::cout << "===============================================================================================" << std::endl;
         return (true);
     }
     return (false);

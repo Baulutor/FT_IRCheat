@@ -18,7 +18,6 @@ bool LFTarget(std::string &chanTarget, std::string &target, std::string &com, st
     
     if (splited.size() < 3)
         return false;
-    
     size_t targetIdx = 2;
     size_t commentIdx = 3;
     chanTarget = splited[1];
@@ -35,7 +34,6 @@ bool LFTarget(std::string &chanTarget, std::string &target, std::string &com, st
     for (size_t i = commentIdx; i < splited.size(); i++) {
         com += " " + splited[i];
     }
-    std::cout << "chantarget = " << chanTarget << "   target = " << target << std::endl;
     return true;
 }
 

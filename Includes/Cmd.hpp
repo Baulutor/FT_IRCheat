@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   Cmd.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nibernar <nibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 10:14:18 by bfaure            #+#    #+#             */
-/*   Updated: 2024/05/31 23:09:58 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/06/04 13:20:05 by nibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CMD_HPP
 # define CMD_HPP
 
-// # include "FT_IRCheat.hpp"
 # include "Clients.hpp"
 # include "Channels.hpp"
 # include "Server.hpp"

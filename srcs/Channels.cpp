@@ -32,8 +32,6 @@ Channels::Channels(std::string name, Clients& op)
 
 Channels::~Channels() {}
 
-// Getter
-
 std::string Channels::getName() const {return (_name);}
 
 std::string Channels::getTopic() const {return (_topic);}
@@ -52,10 +50,7 @@ std::string Channels::getMode(int target) const
 {
     std::map<int, std::string>::const_iterator it = _mode.find(target);
     if (it != _mode.end())
-    {
-        std::cout << "getMode Mode = " << it->second << std::endl;
         return (it->second);
-    }
     return ("");
 }
 
@@ -65,7 +60,6 @@ int Channels::getNbClients() const {return (_nbClients);}
 
 Clients Channels::getOperator(int target) const
 {
-    // std::cout << "Channels operator : " << _operator.size() << std::endl;
     for (size_t i = 0; i < _operator.size(); i++)
     {
         if (_operator[i].getFd() == target)
@@ -73,8 +67,6 @@ Clients Channels::getOperator(int target) const
     }
     return (Clients());
 }
-
-// Setter
 
 void Channels::setName(std::string name) {_name = name;}
 
@@ -88,7 +80,6 @@ void Channels::setPassword(std::string password) {_password = password;}
 
 void Channels::setMode(int target, std::string mode)
 {
-    std::cout << "setMode Mode = " << mode << std::endl;
     std::map<int, std::string>::iterator it = _mode.find(target);
     if (it != _mode.end())
         it->second += mode;
@@ -102,18 +93,15 @@ void Channels::setClients(std::map<int, Clients> clients) {_clients = clients;}
 
 void Channels::incrementNbClients() {_nbClients++;}
 
-// Remover
-
 void Channels::removeMode(int target, std::string mode)
 {
-    std::cout << "removeMode Mode = " << mode << std::endl;
     std::map<int, std::string>::iterator it = _mode.find(target);
     if (it != _mode.end())
     {
-        if (it->second.length() <= 1)  // Si la chaîne est vide ou contient une seule valeur
-            it->second = "";           // Remplacer par une chaîne vide
+        if (it->second.length() <= 1)
+            it->second = "";
         else
-            it->second.erase(std::remove(it->second.begin(), it->second.end(), mode[0]), it->second.end());  // Effacer le caractère spécifié
+            it->second.erase(std::remove(it->second.begin(), it->second.end(), mode[0]), it->second.end());
     }
 }
 

@@ -23,7 +23,6 @@ class Clients;
 class Channels
 {
     public :
-        // Constructors / Destructor
         Channels();
         Channels(std::string name, Clients& op);
         ~Channels();
@@ -34,14 +33,12 @@ class Channels
 		std::string getTimeTopic()const;
         std::map<int, Clients>& getClientMap();
 		std::map<int, Clients>& getClientInvited();
-
         std::string getPassword() const;
         std::vector<Clients>& getOperatorVector();
         std::string getMode(int target) const;
         int getLimit() const;
         int getNbClients() const;
         Clients getOperator(int target) const;
-        int getId() const;
 
         // Setter
         void setName(std::string name);
@@ -52,7 +49,6 @@ class Channels
         void setMode(int target, std::string mode);
         void setClients(std::map<int, Clients> clients);
         void setLimit(int limit);
-        void setId(int id);
         
         void incrementNbClients();
 
@@ -78,7 +74,6 @@ class Channels
         std::map<int, Clients> _clients;
         std::vector<Clients> _operator;
 		std::map<int, Clients>	_inviteClient;
-
 };
 
 #endif

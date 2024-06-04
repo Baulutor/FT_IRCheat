@@ -41,17 +41,13 @@ int Server::getFdClientByName(std::string name)
             return (it->first);
     }
 	if (name[0] == '#')
-	{
 		return (-42);
-	}
     return (-1);
 }
 
 void Server::cmdHandler(std::string cmd, Clients& client)
 {
-	std::cout << "cmd: " << cmd << std::endl;
     const char *lstCmd[] = {"JOIN ", "KICK ", "PRIVMSG ", "PING ", "INVITE ", "MODE ", "TOPIC ", "NICK ", "QUIT "};
-    // , "NAMES", "NICK", "INVITE", "TOPIC", "PRIVMSG", "QUIT", "PART", "KICK", "MODE"
     void (*lstFunc[])(std::string, Clients&, Server&) = {Join, Kick, Privmsg, Pong, Invite, Mode, Topic, Nick, Quit};
     for (int i = 0; i < 9; i++)
     {
@@ -70,8 +66,6 @@ void Server::cmdHandler(std::string cmd, Clients& client)
 void Server::launch(std::string av, std::string av2)
 {
 	int opt = 1;
-
-	// Création de la socket serveur
 
 	setAddrIp("127.0.0.1");
 	setPassword(av2);
@@ -115,7 +109,7 @@ void Server::launch(std::string av, std::string av2)
 bool Server::ClientConnexion()
 {
 	int newClientFd = 0;
-	std::cerr << "New connexion detected" << std::endl;
+	std::cout << "New connexion detected" << std::endl;
 	Clients newClient;
 	socklen_t sock_info_len = sizeof(_address);
 	struct pollfd pollClienTmp;
@@ -149,13 +143,11 @@ bool Server::ClientHandler(bool init)
 				Clients& client = itClients->second;
 				bzero(client.getBuffer(), 512);
 				ssize_t bytes = recv(_lstPollFd[i].fd, client.getBuffer(), 511, MSG_DONTWAIT);
-				std::cout << "bytes = " << bytes << std::endl;
-				std::cout << "buffer = " << client.getBuffer() << std::endl;
 				if (bytes < 0)
 					std::cerr << "ERROR rcve !" << std::endl;
 				else if (bytes == 0)
 				{
-					std::cerr << "connexion closed " << std::endl;
+					std::cout << "connexion closed " << std::endl;
 					close(client.getFd());
 					close(_lstPollFd[i].fd);
 					_clients.erase(client.getFd());
@@ -168,7 +160,6 @@ bool Server::ClientHandler(bool init)
 					{
 						client.setBufferTmp(client.getBuffer());
 						itClients->second.setBuffer(NULL);
-						std::cout << "buffer = " << client.getBuffer() << std::endl;
 						continue ;
 					}
 					if (client.getBufferTmp()[0] != '\0')
@@ -180,13 +171,9 @@ bool Server::ClientHandler(bool init)
 				}
 				if (startWith(client.getBuffer(), "CAP LS 302") || !init)
 				{
-					std::cout << "===============================================================================================" << std::endl;
 					init = client.initClients(client.getBuffer(), *this);
 					if (init && client.getIsRegistered() == true)
-					{
 						std::cout << "init client" << std::endl;
-						itClients->second.printInfo();
-					}
 					else if (init && client.getIsRegistered() == false)
 					{
 						std::cerr << "client not registered" << std::endl;
@@ -201,20 +188,16 @@ bool Server::ClientHandler(bool init)
 			}
 			if (itClients->second.getIsRegistered() == true)
 			{
-				std::cout << "buffer = " << itClients->second.getBuffer() << std::endl;
 				char tmp[512];
 				bzero(tmp, 512);
 				if (startWith(itClients->second.getBuffer(), "QUIT "))
 					strcpy(tmp, itClients->second.getBuffer());
 				cmdHandler(itClients->second.getBuffer(), itClients->second);
 				if (tmp[0] != '\0')
-				{
 					return (true);
-				}
 			}
 		}
 		i++;
-		std::cout << "lstPollFd size = " << _lstPollFd.size() << std::endl;
 	}
 	return (init);
 }
@@ -237,8 +220,7 @@ void	Server::serverHandler()
 				init = ClientHandler(init);
 		}
 		else
-			throw std::invalid_argument("lol");
-		// sleep(1);
+			throw std::invalid_argument("ERR poll\r\n");
 	}
 }
 

@@ -26,42 +26,39 @@ class Clients;
 
 class Server
 {
-    public:
+  public:
 		Server();
-    //    Server( std::string av, std::string av2 );
-        ~Server();
+    ~Server();
 
+    void setFd(int fd);
+    void setAddrIp(std::string addrIp);
+    void setChannels(std::map<std::string, Channels> channels);
+    void setClient(std::map<int, Clients> clients);
+    void setPassword(std::string password);
 
-        void setFd(int fd);
-        void setAddrIp(std::string addrIp);
-        void setDataServer();
-        void setChannels(std::map<std::string, Channels> channels);
-        void setClient(std::map<int, Clients> clients);
-        void setPassword(std::string password);
-
-        std::string getAddrIp() const;
-        int getFd() const;
-        std::map<std::string, Channels>& getChannels();
-        std::map<int, Clients>& getClients();
+    std::string getAddrIp() const;
+    int getFd() const;
+    std::map<std::string, Channels>& getChannels();
+    std::map<int, Clients>& getClients();
 		std::vector<pollfd> &getLstPollFd();
-        std::string getPassword() const;
-        std::string getNameClientByFd(int fd);
-        int getFdClientByName(std::string name);
+    std::string getPassword() const;
+    std::string getNameClientByFd(int fd);
+    int getFdClientByName(std::string name);
 
-        void cmdHandler(std::string cmd, Clients& client);
-        bool ClientConnexion();
-        bool ClientHandler(bool init);
-        void launch(std::string av, std::string av2);
+    void cmdHandler(std::string cmd, Clients& client);
+    bool ClientConnexion();
+    bool ClientHandler(bool init);
+    void launch(std::string av, std::string av2);
 		void serverHandler();
 
     private:
 	    std::vector<pollfd> _lstPollFd;
-        struct sockaddr_in _address;
-        int _fd;
-        std::string _addrIp;
-        std::string _password;
-        std::map<int, Clients>  _clients;
-        std::map<std::string, Channels> _channels;
+      struct sockaddr_in _address;
+      int _fd;
+      std::string _addrIp;
+      std::string _password;
+      std::map<int, Clients>  _clients;
+      std::map<std::string, Channels> _channels;
 };
 
 #endif

@@ -44,7 +44,7 @@ void 	Topic(std::string cmd, Clients& client, Server& server)
 
 	if (channel->second.getOperator(client.getFd()).getNickname() == "" && channel->second.getMode(-42).find("t") != channelName.npos)
 	{
-		sendCmd(ERR_CHANOPRIVSNEEDED(client.getNickname(), channelName), client); // ptre mieux d'envoyer au mec uniauement mais sur le channel !
+		sendCmd(ERR_CHANOPRIVSNEEDED(client.getNickname(), channelName), client);
 		return ;
 	}
 	server.getChannels().find(channelName)->second.setTopic(topicMessage);

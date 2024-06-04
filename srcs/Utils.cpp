@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   Utils.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nibernar <nibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:59:26 by bfaure            #+#    #+#             */
-/*   Updated: 2024/06/01 19:13:57 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/06/04 13:40:48 by nibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FT_IRCheat.hpp"
 #include "RPL.hpp"
-// #include "Clients.hpp"
 
 std::vector<std::string> splitEOF(const std::string &s, char delim)
 {
@@ -29,25 +28,6 @@ std::vector<std::string> splitEOF(const std::string &s, char delim)
     }
     return (elems);
 }
-
-// std::vector<std::string> split(const std::string &s, const std::string &delim)
-// {
-//     std::vector<std::string> elems;
-//     std::string::size_type pos = 0;
-//     std::string::size_type prev = 0;
-
-//     while ((pos = s.find_first_of(delim, prev)) != std::string::npos)
-//     {
-//         if (pos > prev)
-//             elems.push_back(s.substr(prev, pos - prev));
-//         prev = pos + 1;
-//     }
-
-//     if (prev < s.length())
-//         elems.push_back(s.substr(prev));
-
-//     return elems;
-// }
 
 std::vector<std::string> splitInit(const std::string &line, char delim)
 {
@@ -116,8 +96,8 @@ std::string intToString(int value) {
 
 void signalHandler(int signum)
 {
-	(void)signum; // a differencier ctrl C et ctrl D
-	throw std::invalid_argument("CHELOU j'ai bien envoyer lol");
+	(void)signum;
+	throw std::invalid_argument("Goodbye");
 }
 
 void sendCmd(const std::string& cmd, Clients &client)
@@ -173,10 +153,7 @@ void NameLstUpdate(Clients& client, Channels& channel)
 		if (it != ite)
 			user += " ";
 	}
-	std::cout << "RPL_CMD_NAME_LST_START = " << RPL_CMD_NAME_LST_START(client.getNickname(), channel.getName(), user) << std::endl;
     sendBroadcastChannel(RPL_CMD_NAME_LST_START(client.getNickname(), channel.getName(), user), channel);
-	
-    std::cout << "RPL_CMD_NAME_LST_END = " << RPL_CMD_NAME_LST_END(client.getNickname(), channel.getName()) << std::endl;
     sendBroadcastChannel(RPL_CMD_NAME_LST_END(client.getNickname(), channel.getName()), channel);
 }
 
@@ -199,19 +176,6 @@ std::map<int, Clients>::iterator findClientByName(std::string nickname, std::map
     }
     return (clientsServer.end());
 }
-
-// bool isClientInChannel(std::string nickname, Channels& channel)
-// {
-// 	if (channel.getClientMap().find(nickname) != channel.getClientMap().end())
-// 		return (true);
-// 	return (false);
-//     // for (std::map<std::string, Clients>::iterator it = channel.getClientMap().begin(); it != channel.getClientMap().end(); ++it)
-//     // {
-//     //     if (it->second.getNickname() == nickname)
-//     //         return (true);
-//     // }
-//     // return (false);
-// }
 
 std::map<std::string, Channels>::iterator findChannelByName(std::string channelName, std::map<std::string, Channels>& channelsServer)
 {
