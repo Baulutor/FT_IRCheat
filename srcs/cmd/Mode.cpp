@@ -6,7 +6,7 @@
 /*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:42:28 by bfaure            #+#    #+#             */
-/*   Updated: 2024/06/03 14:07:10 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/06/04 14:18:26 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ int removeTopicMode(int target, std::map<std::string, Channels>::iterator channe
 int addKeyMode(int target, std::vector<std::string> args, size_t i, std::map<std::string, Channels>::iterator channelIt)
 {
     std::cout << "target = |" << target << "|" << std::endl;
-    std::cout << "args[i] = |" << args[i] << "|" << std::endl;
+    // std::cout << "args[i] = |" << args[i] << "|" << std::endl;
     std::cout << "channelIt->second.getMode(target) = |" << channelIt->second.getMode(target) << "|" << std::endl;
     if (channelIt->second.getMode(target).find('k') == std::string::npos)
     {
