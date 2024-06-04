@@ -8,10 +8,13 @@
 void Quit(std::string cmd, Clients& client, Server& server)
 {
 	std::cout << "PASS in Quit before" << std::endl;
-	std::string reason = &cmd[6];
+	std::string reason;
+	if (cmd[5] == ':')
+		reason = &cmd[6];
+	else
+		reason = &cmd[5];
 	reason = reason.substr(0, reason.size() - 2);
 	int fdCible = client.getFd();
-
 	std::map<std::string, Channels>& servChannel = server.getChannels();
 	for (std::map<std::string, Channels>::iterator itChan = servChannel.begin(); itChan != servChannel.end(); ++itChan) 
 	{
