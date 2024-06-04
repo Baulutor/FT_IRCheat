@@ -6,7 +6,7 @@
 /*   By: nibernar <nibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:59:26 by bfaure            #+#    #+#             */
-/*   Updated: 2024/06/04 13:40:48 by nibernar         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:29:57 by nibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ std::string intToString(int value) {
 void signalHandler(int signum)
 {
 	(void)signum;
-	throw std::invalid_argument("Goodbye");
+	throw std::invalid_argument(" Goodbye");
 }
 
 void sendCmd(const std::string& cmd, Clients &client)
@@ -122,10 +122,7 @@ void sendBroadcastMSG(const std::string& cmd, Channels& channel, Clients& client
         if (it->first != client.getFd())
         {
             if (send(it->second.getFd(), cmd.c_str(), cmd.size(), MSG_NOSIGNAL | MSG_DONTWAIT) < 0)
-			{
                 std::cerr << "Error: send() failed: " << it->second.getNickname() << std::endl;
-
-			}
         }
     }
 }
