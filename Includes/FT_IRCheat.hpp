@@ -34,19 +34,17 @@ class Channels;
 class Server;
 
 std::string intToString(int value);
-void signalHandler(int signum);
 std::vector<std::string> split(const std::string &s, char delim);
 std::vector<std::string> splitEOF(const std::string &s, char delim);
+std::map<int, Clients>::iterator findClientByName(std::string nickname, std::map<int, Clients>& clientsServer);
+std::map<std::string, Channels>::iterator findChannelByName(std::string channelName, std::map<std::string, Channels>& channelsServer); // VERIF
+std::vector<std::string> splitInit(const std::string &line, char delim);
+void signalHandler(int signum);
 void sendCmd(const std::string& cmd, Clients &client);
 void sendBroadcastChannel(const std::string& cmd, Channels& channel);
 void sendBroadcastMSG(const std::string& cmd, Channels& channel, Clients& client);
 void sendBroadcastServer(const std::string& cmd, Server& server);
 void NameLstUpdate(Clients& client, Channels& channel);
-int findFdClientByName(std::string nickname, std::map<int, Clients>& clientsServer);
-std::map<int, Clients>::iterator findClientByName(std::string nickname, std::map<int, Clients>& clientsServer);
-std::map<std::string, Channels>::iterator findChannelByName(std::string channelName, std::map<std::string, Channels>& channelsServer); // VERIF
-bool isClientInChannel(std::string nickname, Channels& channel);
-std::vector<std::string> splitInit(const std::string &line, char delim);
-// std::vector<std::string> split(const std::string &s, const std::string &delim);
 void signalHandler(int signum);
+int findFdClientByName(std::string nickname, std::map<int, Clients>& clientsServer);
 #endif

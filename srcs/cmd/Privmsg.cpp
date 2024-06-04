@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Privmsg.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaure < bfaure@student.42lyon.fr>         +#+  +:+       +#+        */
+/*   By: nibernar <nibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:12:48 by bfaure            #+#    #+#             */
-/*   Updated: 2024/06/02 18:52:57 by bfaure           ###   ########lyon.fr   */
+/*   Updated: 2024/06/04 13:45:16 by nibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void Privmsg(std::string cmd, Clients& client, Server& server)
 {
-    std::cout << "PRIVMSG" << std::endl;
     std::vector<std::string> cmd_split = split(cmd, ' ');
     if (cmd_split.size() < 3)
         return (sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), "PRIVMSG"), client));
@@ -46,13 +45,7 @@ void Privmsg(std::string cmd, Clients& client, Server& server)
         cmd_split.resize(3);
     }
     if (it != channelsServer.end())
-    {
-        std::cout << "RPL_CMD_PRIVMSG" << RPL_CMD_PRIVMSG(client.getNickname(), client.getUsername(), client.getAddrIp(), cmd_split[1], cmd_split[2]) << std::endl;
         sendBroadcastMSG(RPL_CMD_PRIVMSG(client.getNickname(), client.getUsername(), client.getAddrIp(), cmd_split[1], cmd_split[2]), server.getChannels().find(cmd_split[1])->second, client);
-    }
     else if (server.getFdClientByName(cmd_split[1]) != -1)
-    {
-        std::cout << "RPL_CMD_PRIVMSG" << RPL_CMD_PRIVMSG(client.getNickname(), client.getUsername(), client.getAddrIp(), cmd_split[1], cmd_split[2]) << std::endl;
         sendCmd(RPL_CMD_PRIVMSG(client.getNickname(), client.getUsername(), client.getAddrIp(), cmd_split[1], cmd_split[2]), findClientByName(cmd_split[1], clientsServer)->second);
-    }
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Clients.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nibernar <nibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:27:47 by bfaure            #+#    #+#             */
-/*   Updated: 2024/06/01 15:45:59 by bfaure           ###   ########.fr       */
+/*   Updated: 2024/06/04 13:19:50 by nibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,6 @@ class Clients
         std::map<std::string, Channels>& getChannelsClient();
         std::map<std::string, Channels>& getChannelsInvite();
 
-        void addChannel(std::string channel);
-        void addChannelInvite(std::string channel);
-
-
-        // Some shit to delete before production
         void printInfo();
         void printChannels();
 
