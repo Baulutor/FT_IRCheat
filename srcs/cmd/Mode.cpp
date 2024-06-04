@@ -174,8 +174,10 @@ int addLimitMode(int target, std::vector<std::string> args, size_t i, std::map<s
     std::cout << "channelIt->second.getMode(target) = |" << channelIt->second.getMode(target) << "|" << std::endl;
     if (channelIt->second.getMode(target).find('l') == std::string::npos)
     {
+		if (args.size() == 0)
+			return 2;
         channelIt->second.setMode(target, "l");
-        channelIt->second.setLimit(atoi(args[i].c_str()));
+		channelIt->second.setLimit(atoi(args[i].c_str()));
         return (1);
     }
     return (1);
@@ -209,12 +211,17 @@ void checkArgs(std::vector<std::string> args, std::string modes, Clients& client
             minusSign = false;
             plusSign = true;
             std::cout << "channelIt->first = |" << channelIt->first << "|" << std::endl;
-            if (getMode(modes, i) == 'o')
-                i += addOpMode(args, i, channelIt, server);
             if (getMode(modes, i) == 'i')
                 i += addInviteMode(server.getFdClientByName(channelIt->first), channelIt);
             if (getMode(modes, i) == 't')
                 i += addTopicMode(server.getFdClientByName(channelIt->first), channelIt);
+			if (args.size() == 0 && isArgsMode(modes))
+			{
+				sendCmd(ERR_NEEDMOREPARAMS(client.getNickname(), "MODE"), client);
+				return ;
+			}
+            if (getMode(modes, i) == 'o')
+                i += addOpMode(args, i, channelIt, server);
             if (getMode(modes, i) == 'k')
                 i += addKeyMode(server.getFdClientByName(channelIt->first), args, i, channelIt);
             if (getMode(modes, i) == 'l')
