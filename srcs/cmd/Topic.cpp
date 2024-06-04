@@ -23,6 +23,8 @@ void 	Topic(std::string cmd, Clients& client, Server& server)
 		sendCmd(ERR_NOSUCHCHANNEL(client.getNickname(), channelName), client);
 		return ;
 	}
+	std::string topicMessage;
+	std::cerr << "cmd pour topicmessage: " <<  cmd[6 + channelName.size() + 1] << std::endl;
 	if (cmd[6 + channelName.size() + 2] == '\0')
 	{
 		if (channel->second.getTopic() == "")
@@ -31,7 +33,10 @@ void 	Topic(std::string cmd, Clients& client, Server& server)
 			sendCmd(RPL_CMD_TOPIC(client.getNickname(), channelName, channel->second.getTopic()), client);
 		return ;
 	}
-	std::string topicMessage = &cmd[6 + channelName.size() + 2];
+	if (cmd[6 + channelName.size() + 1] == ':')
+		topicMessage = &cmd[6 + channelName.size() + 2];
+	else
+		topicMessage = &cmd[6 + channelName.size() + 1];
 	topicMessage = topicMessage.substr(0, topicMessage.size() - 2);
 	if (topicMessage == "\"\"")
 		topicMessage = "\0";

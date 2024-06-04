@@ -151,9 +151,7 @@ bool Server::ClientHandler(bool init)
 				ssize_t bytes = recv(_lstPollFd[i].fd, client.getBuffer(), 511, MSG_DONTWAIT);
 				std::cout << "bytes = " << bytes << std::endl;
 				std::cout << "buffer = " << client.getBuffer() << std::endl;
-				if (bytes < 0)
-					std::cerr << "ERROR rcve !" << std::endl;
-				else if (bytes == 0)
+				if (bytes == 0)
 				{
 					std::cerr << "connexion closed " << std::endl;
 					close(client.getFd());
