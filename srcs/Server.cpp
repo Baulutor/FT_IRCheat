@@ -59,7 +59,6 @@ void Server::cmdHandler(std::string cmd, Clients& client)
     }
 	if (startWith(cmd, "WHO"))
 		return ;
-	std::cout << "ERROR : command not found\r\n" << std::endl;
 	sendCmd("ERROR : command not found\r\n", client);
 }
 
@@ -143,9 +142,7 @@ bool Server::ClientHandler(bool init)
 				Clients& client = itClients->second;
 				bzero(client.getBuffer(), 512);
 				ssize_t bytes = recv(_lstPollFd[i].fd, client.getBuffer(), 511, MSG_DONTWAIT);
-				if (bytes < 0)
-					std::cerr << "ERROR rcve !" << std::endl;
-				else if (bytes == 0)
+				if (bytes == 0)
 				{
 					std::cout << "connexion closed " << std::endl;
 					close(client.getFd());

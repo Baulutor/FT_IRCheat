@@ -6,7 +6,7 @@
 /*   By: nibernar <nibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:42:28 by bfaure            #+#    #+#             */
-/*   Updated: 2024/06/04 15:33:45 by nibernar         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:42:47 by nibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,6 @@ void checkArgs(std::vector<std::string> args, std::string modes, Clients& client
         {
             minusSign = false;
             plusSign = true;
-            std::cout << "channelIt->first = |" << channelIt->first << "|" << std::endl;
             if (getMode(modes, i) == 'i')
                 i += addInviteMode(server.getFdClientByName(channelIt->first), channelIt);
             if (getMode(modes, i) == 't')
@@ -292,8 +291,6 @@ void Mode(std::string cmd, Clients& client, Server& server)
             return ;
         if ((isMode(tokens[1]) && !isArgsMode(tokens[1])) && (tokens[1][0] != '-' || tokens[1][0] != '+'))
             return (sendCmd(ERR_INVALIDMODEPARAM(client.getNickname(), tokens[1], tokens[2]), client));
-        // if (!isArgsMode(tokens[1]) && (tokens[1][0] != '-' || tokens[1][0] != '+'))
-        //     return (sendCmd(ERR_UMODEUNKNOWNFLAG(client.getNickname(), tokens[1]), client)); 
         std::vector<std::string> args(tokens.begin() + 2, tokens.end());
         checkArgs(args, tokens[1], client, channelIt, server);
     }
