@@ -61,7 +61,8 @@ void Server::cmdHandler(std::string cmd, Clients& client)
             return;
         }
     }
-	//if "WHO" ==> skip
+	if (startWith(cmd, "WHO"))
+		return ;
 	std::cout << "ERROR : command not found\r\n" << std::endl;
 	sendCmd("ERROR : command not found\r\n", client);
 }
@@ -135,19 +136,13 @@ bool Server::ClientHandler(bool init)
 	{
 		if (i < _lstPollFd.size() && _lstPollFd[i].revents & POLLIN)
 		{
-			// std::map<int, Clients>::iterator itClients = getClients().find(_lstPollFd[i].fd);
-			// if (itClients == getClients().end())
-			// {
-			// 	i++;
-			// 	continue;
-			// }
-			std::map<int, Clients>& clientsMap = getClients(); // Obtenez une référence à la map des clients
+			std::map<int, Clients>& clientsMap = getClients();
 			std::map<int, Clients>::iterator itClients = clientsMap.find(_lstPollFd[i].fd);
 
 			if (itClients == clientsMap.end())
 			{
 				i++;
-				continue;
+				break;
 			}
 			else
 			{
@@ -173,6 +168,7 @@ bool Server::ClientHandler(bool init)
 					{
 						client.setBufferTmp(client.getBuffer());
 						itClients->second.setBuffer(NULL);
+						std::cout << "buffer = " << client.getBuffer() << std::endl;
 						continue ;
 					}
 					if (client.getBufferTmp()[0] != '\0')
@@ -195,27 +191,30 @@ bool Server::ClientHandler(bool init)
 					{
 						std::cerr << "client not registered" << std::endl;
 						sendCmd("ERROR :Deconnexion", client);
-						// close(client.getFd());
-						// close(_lstPollFd[i].fd);
-
-						// std::map<int, Clients>::iterator itNext = itClients;
-						// ++itNext;
-						// _clients.erase(itClients->first);
-						// itClients = itNext;
-						// _lstPollFd.erase(_lstPollFd.begin() + i);
 						i--;
 						Quit(itClients->second.getBuffer(), itClients->second, *this);
 						if (itClients == _clients.end())
 							break;
 					}
+					break;
 				}
 			}
 			if (itClients->second.getIsRegistered() == true)
 			{
+				std::cout << "buffer = " << itClients->second.getBuffer() << std::endl;
+				char tmp[512];
+				bzero(tmp, 512);
+				if (startWith(itClients->second.getBuffer(), "QUIT "))
+					strcpy(tmp, itClients->second.getBuffer());
 				cmdHandler(itClients->second.getBuffer(), itClients->second);
+				if (tmp[0] != '\0')
+				{
+					return (true);
+				}
 			}
 		}
 		i++;
+		std::cout << "lstPollFd size = " << _lstPollFd.size() << std::endl;
 	}
 	return (init);
 }
