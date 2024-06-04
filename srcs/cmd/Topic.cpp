@@ -47,8 +47,6 @@ void 	Topic(std::string cmd, Clients& client, Server& server)
 		sendCmd(ERR_CHANOPRIVSNEEDED(client.getNickname(), channelName), client); // ptre mieux d'envoyer au mec uniauement mais sur le channel !
 		return ;
 	}
-	server.getChannels().find(channel->first)->second.convertTimestampToDateString();
-	std::cout << channel->second.getTimeTopic() << "= CHELOU SA MERE C'est channel second la loll" << std::endl;
 	server.getChannels().find(channelName)->second.setTopic(topicMessage);
 	sendBroadcastChannel(RPL_CMD_TOPIC(client.getNickname(), channelName, topicMessage), channel->second);
 }
