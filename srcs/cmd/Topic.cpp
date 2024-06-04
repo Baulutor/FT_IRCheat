@@ -41,7 +41,6 @@ void 	Topic(std::string cmd, Clients& client, Server& server)
 		sendCmd(ERR_NOTONCHANNEL(client.getNickname(), channelName), client);
 		return ;
 	}
-
 	if (channel->second.getOperator(client.getFd()).getNickname() == "" && channel->second.getMode(-42).find("t") != channelName.npos)
 	{
 		sendCmd(ERR_CHANOPRIVSNEEDED(client.getNickname(), channelName), client);

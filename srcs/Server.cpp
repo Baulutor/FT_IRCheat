@@ -35,7 +35,7 @@ std::string Server::getNameClientByFd(int fd)
 
 int Server::getFdClientByName(std::string name)
 {
-    for (std::map<int, Clients>::iterator it = _clients.begin(); it != _clients.end(); it++)
+    for (std::map<int, Clients>::iterator it = _clients.begin(); it != _clients.end(); ++it)
     {
         if (it->second.getNickname() == name)
             return (it->first);
