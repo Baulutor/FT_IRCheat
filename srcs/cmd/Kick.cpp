@@ -78,6 +78,8 @@ void Kick(std::string cmd, Clients& client, Server& server) {
 						if (iter->getFd() == it2->first)
 						{
 							it->second.removeOperator(it2->second);
+                            it->second.removeMode(it2->first, "o");
+                            NameLstUpdate(client, it->second);
 							break;
 						}
 					}

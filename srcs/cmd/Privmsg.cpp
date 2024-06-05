@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Privmsg.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaure < bfaure@student.42lyon.fr>         +#+  +:+       +#+        */
+/*   By: bfaure <bfaure@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:12:48 by bfaure            #+#    #+#             */
-/*   Updated: 2024/06/02 18:52:57 by bfaure           ###   ########lyon.fr   */
+/*   Updated: 2024/06/04 18:36:43 by bfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ void Privmsg(std::string cmd, Clients& client, Server& server)
     std::map<int, Clients>& clientsServer = server.getClients();
     if (it == channelsServer.end())
     {
-        if (server.getFdClientByName(cmd_split[1]) != -1)
+        if (server.getFdClientByName(cmd_split[1]) == -1)
             return (sendCmd(ERR_NOSUCHNICK(client.getNickname(), cmd_split[1]), client));
-        return (sendCmd(ERR_NOSUCHCHANNEL(client.getNickname(), cmd_split[1]), client));
+        else if (server.getFdClientByName(cmd_split[1]) == -42)
+            return (sendCmd(ERR_NOSUCHCHANNEL(client.getNickname(), cmd_split[1]), client));
     }
     if (it != channelsServer.end() && it->second.getClientMap().find(client.getFd()) == it->second.getClientMap().end())
         return (sendCmd(ERR_CANNOTSENDTOCHAN(client.getNickname(), cmd_split[1]), client));
