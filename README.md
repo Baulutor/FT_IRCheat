@@ -49,8 +49,9 @@ make
 ```
 
 ## Example:
+```
 ./ircserv 6667 mypass123
-
+```
 
 ### 🧪 Testing with Netcat
 ```
